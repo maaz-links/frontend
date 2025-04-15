@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaSearch, FaComments, FaPaperPlane, FaBars, FaArchive } from "react-icons/fa";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
+import axiosClient from "../../axios-client";
 
 const Chat = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -20,6 +21,24 @@ const Chat = () => {
       setNewMessage("");
     }
   };
+
+  const handleUser = async () => {
+  //   ev.preventDefault()
+    try {
+      const response = await axiosClient.get('/api/user');
+      console.log(response);
+      // setUser(data.user);
+      // setToken(data.token);
+    } catch (err) {
+      const response = err.response;
+      console.log(response);
+      if (response && response.status === 422) {
+        // setMessage(response.data.message);
+      }
+    }
+    
+  }
+  handleUser();
 
   return (
     <>

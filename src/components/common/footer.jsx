@@ -5,7 +5,7 @@ import Logo from '/src/assets/images/logo.png';
 function Footer() {
   return (
     <>
-      <Outlet />
+      {/* <Outlet /> */}
       <div className="footer bg-[#000000] pt-[50px] pb-[50px] md:pt-[84px] md:pb-[184px] ">
         <div className="md:flex max-w-[1300px] m-auto justify-between px-[15px]">
           

@@ -1,17 +1,33 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // import component 👇
 import Drawer from 'react-modern-drawer'
 
 //import styles 👇
 import 'react-modern-drawer/dist/index.css'
+import axiosClient from '../../axios-client'
+import { useStateContext } from '../context/ContextProvider'
 
 const SideMenu = () => {
     const [isOpen, setIsOpen] = React.useState(false)
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState)
     }
+    const { setUser, setToken } = useStateContext()
+    const navigate = useNavigate();
+
+    const triggerLogout = ev => {
+        ev.preventDefault()
+    
+        axiosClient.post('/api/logout')
+          .then(() => {
+            console.log('we re out')
+            setUser({})
+            setToken(null)
+            //navigate('/chat');
+          })
+      }
 
     return (
         <>
@@ -64,7 +80,7 @@ const SideMenu = () => {
 <path d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 18 24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 30Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 </Link>
-<Link to="/" className='bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>LOG OUT</Link>
+<a onClick={triggerLogout} className='bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>LOG OUT</a>
                 </div>
                 </div>
             </Drawer>

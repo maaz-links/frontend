@@ -9,9 +9,8 @@ import { FaTrash } from "react-icons/fa";
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
   const location = useLocation();
-  const { user } = useStateContext();
+  //const { setUser } = useStateContext();
   const [rerender, setRerender] = useState(0);
-  const [name, setName] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -21,12 +20,6 @@ const Profile = () => {
     }
   }, [location]);
 
-  useEffect(() => {
-      if(Object.keys(user).length !== 0){
-       setName(user.name)
-      }
-    
-  }, [user]);
   
   // useEffect(() => {
   //   async function getUserdata() {
@@ -61,7 +54,7 @@ const Profile = () => {
           <div className="w-full md:w-[90%]">
             <div className="flex items-center">
               <div className="ml-4">
-                <h2 className="text-[24px]">{name || 'USER'}</h2>
+                <h2 className="text-[24px]">USER</h2>
                 <p className="text-[#000] italic">Profile Status: <span className="font-semibold">ACTIVE</span></p>
               </div>
             </div>
@@ -141,7 +134,7 @@ export const ProfilePhotoTab = () => {
 
 export const ProfileInfoTab = ({ rerender, setRerender }) => {
 
-  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions } = useStateContext();
+  const { setUser,user, optionsInterest,optionsAvailableFor,languageOptions } = useStateContext();
 
   const [description, setDescription] = useState('');
   //const [optionsInterest, setOptionsInterest] = useState([]);
@@ -175,29 +168,27 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
   });
 
   useEffect(() => {
-    //async 
-    function getUserdata() {
-      // const response = await axiosClient.get('/api/user');
-      // console.log(response);
-      if(Object.keys(user).length !== 0){
-        console.log('initializing profile data');
-        setDescription(user.profile.description || '');
-        setSelectedIds(user.profile.personal_interests);
-        setSelectedAvailableForIds(user.profile.available_services);
-        setSelectedLanguageIds(user.profile.my_languages);
+    async function getUserdata() {
+      const response = await axiosClient.get('/api/user');
+      console.log(response);
+      // if(Object.keys(user).length !== 0){
+        setDescription(response.data.profile.description || '');
+        setSelectedIds(response.data.profile.personal_interests);
+        setSelectedAvailableForIds(response.data.profile.available_services);
+        setSelectedLanguageIds(response.data.profile.my_languages);
         setFormData({
-          height: user.profile.height,
-          shoeSize: user.profile.shoe_size,
-          eyeColor: user.profile.eye_color,
-          dressSize: user.profile.dress_size,
-          weight: user.profile.weight,
-          telegram: user.profile.telegram,
+          height: response.data.profile.height,
+          shoeSize: response.data.profile.shoe_size,
+          eyeColor: response.data.profile.eye_color,
+          dressSize: response.data.profile.dress_size,
+          weight: response.data.profile.weight,
+          telegram: response.data.profile.telegram,
         });
-      }
+      // }
     }
     
     getUserdata();
-  }, [user]);
+  }, [rerender]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -241,7 +232,6 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
       const response = await axiosClient.post('/api/update-profile', payload);
       alert('Profile Updated');
       setRerender(rerender + 1);
-      refreshUser();
     } catch (err) {
       console.error(err.response);
     }
@@ -518,14 +508,13 @@ export const PersonalDataTab = () => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [DOB, setDOB] = useState('');
-  const {user} = useStateContext();
   useEffect(() => {
     async function getUserdata() {
-      // const response = await axiosClient.get('/api/user');
-      // console.log(response);
-      setPhone(user.phone)
-      setEmail(user.email)
-      setDOB(user.dob)
+      const response = await axiosClient.get('/api/user');
+      console.log(response);
+      setPhone(response.data.phone)
+      setEmail(response.data.email)
+      setDOB(response.data.dob)
        
     }
     
