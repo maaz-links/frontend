@@ -10,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const emailRef = createRef()
   const passwordRef = createRef()
-  const { setUser, setToken } = useStateContext()
+  const { setUser, setToken, refreshUser } = useStateContext()
   const [errors, setErrors] = useState({});
   const ErrorText = ({ field }) => {
     return (
@@ -41,10 +41,16 @@ function Login() {
       const response = await axiosClient.post('/api/login', payload);
       console.log(response);
       setErrors({});
-      setUser(response.data.user);
+      //setUser(response.data.user);
+      
       setToken(response.data.access_token);
-      console.log('here');
-      //navigate('/chat');
+      //navigate('/verify-phone')
+      // <Navigate to="/verify-phone" replace />
+      // console.log('here');
+      // window.location.href('/verify-phone');
+      // refreshUser();
+      // console.log('here');
+      // window.location.href('/profile');
     } catch (err) {
       const response = err.response;
       console.log(response);
@@ -117,12 +123,15 @@ function Login() {
         </button>
         </div>
         </form>
-        <button onClick={handleUser}>check</button>
+        {/* <button onClick={handleUser}>check</button> */}
         {/* Forgot Password & Signup Links */}
         <div className="mt-[30px] text-center">
-          <Link to='/forgot-password' className="px-[25px] py-[5px] bg-[#CFA0A0] hover:underline text-[16px]">Forgot password?</Link>
+          <Link 
+          //to='/forgot-password' 
+          
+          className="px-[25px] py-[5px] bg-[#CFA0A0] hover:underline text-[16px]">Forgot password?</Link>
           <p className="text-sm mt-2">
-            Don't have an account? <a href="#" className="text-blue-600 hover:underline">Sign up</a>
+            Don't have an account? <a href="/sign-up" className="text-blue-600 hover:underline">Sign up</a>
           </p>
         </div>
       </div>

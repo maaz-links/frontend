@@ -12,30 +12,30 @@ return (
 <div className='howto-boxs md:max-w-[924px] m-auto mt-[33px]'>
 <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] md:gap-x-[50px]">
 <div className='howto-box text-center bg-[#8B8B8B] py-[70px] px-[15px] flex items-center justify-center '>
-<a href='#' className="block">
+<a href='/how-to' className="block">
 <h3 className='uppercase font-[400]'>SIGN UP FOR FREE</h3>
 </a>
 </div>
 <div className='howto-box text-center bg-[#8B8B8B] py-[70px] px-[15px] flex items-center justify-center'>
-<a href='#' className="block">
+<a href='/how-to' className="block">
 <h3 className='uppercase font-[400]'>SEARCH NEAR YOU</h3>
 </a>
 </div>
 <div className='howto-box text-center bg-[#8B8B8B] py-[70px] px-[15px] flex items-center justify-center'>
-<a href='#' className="block">
+<a href='/how-to' className="block">
 <h3 className='uppercase font-[400]'>UNCLOCK THE CHAT 
 W/ CREDITS</h3>
 </a>
 </div>
 <div className='howto-box text-center bg-[#8B8B8B] py-[70px] px-[15px] flex items-center justify-center'>
-<a href='#' className="block">
+<a href='/how-to' className="block">
 <h3 className='uppercase font-[400]'>Enjoy</h3>
 </a>
 </div>
 </div>
 </div>
 <div className='text-center mt-[110px]'>
-<a href='#' className='bg-[#000] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#8B8B8B] '>SIGN UP FOR FREE</a>
+<a href='/how-to' className='bg-[#000] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#8B8B8B] '>SIGN UP FOR FREE</a>
 </div>
 </div>
 

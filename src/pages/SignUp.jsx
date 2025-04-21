@@ -8,10 +8,11 @@ function SignUp() {
   const handleSelect = (option) => {
     setSelectedOption(option);
   };
-
+  //constnavigate =
   const handleNext = () => {
     if (selectedOption) {
-      alert(`You selected: ${selectedOption}`);
+      //alert(`You selected: ${selectedOption}`);
+      window.location.href = '/create-signup'
     } else {
       alert("Please select an option before proceeding.");
     }

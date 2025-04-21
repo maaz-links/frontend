@@ -1,0 +1,84 @@
+import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
+import axiosClient from "../../../axios-client.js";
+import {useEffect} from "react";
+import { useStateContext } from "../../context/ContextProvider.jsx";
+
+export default function DefaultLayout() {
+  const {user, token, setUser, setToken} = useStateContext();
+
+  if (!token) {
+    return <Navigate to="/login"/>
+  }
+  else{
+    // if(Object.keys(user).length === 0){
+    //   // axiosClient.get('/api/user')
+    //   // .then(({data}) => {
+    //   //   console.log('myuser: ',data)
+    //   //    setUser(data)
+    //   // })
+    //   console.log('helo');
+    // }
+    
+  }
+  const navigate = useNavigate();
+  //const location = useLocation();
+  //console.log('checker',user);
+  
+  
+  useEffect(() => {
+    console.log(location);
+    if(Object.keys(user).length !== 0){
+      if(!user.profile_picture_id){
+        //return <Navigate to="/addphoto-signup" />;
+        navigate("/addphoto-signup");
+      }
+    }
+  }, [user])
+  
+  // const onLogout = ev => {
+  //   ev.preventDefault()
+
+  //   axiosClient.post('/logout')
+  //     .then(() => {
+  //       setUser({})
+  //       setToken(null)
+  //     })
+  // }
+
+  // useEffect(() => {
+  //   axiosClient.get('/user')
+  //     .then(({data}) => {
+  //       console.log('myuser: ',data)
+  //        setUser(data)
+  //     })
+  // }, [])
+
+  return (
+    // <div id="defaultLayout">
+    //   <aside>
+    //     <Link to="/dashboard">Dashboard</Link>
+    //     <Link to="/users">Users</Link>
+    //   </aside>
+    //   <div className="content">
+    //     <header>
+    //       <div>
+    //         Header
+    //       </div>
+
+    //       <div>
+    //         {user.name} &nbsp; &nbsp;
+    //         <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
+    //       </div>
+    //     </header>
+    //     <main>
+          <Outlet/>
+    //     </main>
+    //     {notification &&
+    //       <div className="notification">
+    //         {notification}
+    //       </div>
+    //     }
+    //   </div>
+    // </div>
+  )
+}

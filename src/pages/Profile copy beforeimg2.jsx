@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../../axios-client";
 import { FaTrash } from "react-icons/fa";
@@ -9,7 +9,6 @@ import { FaTrash } from "react-icons/fa";
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
   const location = useLocation();
-  const navigate = useNavigate();
   const { user } = useStateContext();
   const [rerender, setRerender] = useState(0);
   const [name, setName] = useState('');
@@ -39,9 +38,7 @@ const Profile = () => {
 
   return (
     <>
-    
       <Header />
-      {user ? ( // Only render content if user exists
       <div className="max-w-[1300px] mx-auto mt-[64px] mb-[50px] md:mb-[150px] px-[15px]">
         <div className="flex flex-col md:flex-row gap-[25px] mb-6">
           <div className="w-full md:w-[10%]">
@@ -55,9 +52,7 @@ const Profile = () => {
                   className={`pb-1 font-[700] block transition duration-200 ${
                     activeTab === tab ? "text-black" : "border-transparent text-black-500 font-medium"
                   }`}
-                  onClick={() => navigate(`/profile?tab=${tab}`)//setActiveTab(tab)
-
-                  }
+                  onClick={() => setActiveTab(tab)}
                 >
                   {tab}
                 </button>
@@ -81,11 +76,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      ) : (
-        <div className="flex justify-center items-center h-64">
-          <p>Loading user data...</p>
-        </div>
-      )}
       <Footer />
     </>
   );
@@ -97,35 +87,32 @@ export const ProfilePhotoTab = () => {
   const [images, setImages] = useState([]);
   const [profilePic, setProfilePic] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { user,refreshUser } = useStateContext();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { user } = useStateContext();
   // Fetch existing images on component mount
-  const fetchImages = async () => {
-    try {
-      setIsLoading(true);
-      const response = await axiosClient.get('/api/attachments');
-      console.log(response);
-      const fetchedImages = response.data.map(img => ({
-        id: img.id,
-        url: `${import.meta.env.VITE_API_BASE_URL}/api/attachments/${img.id}`,
-        //isProfilePic: img.is_profile_picture
-      }));
-      
-      setImages(fetchedImages);
-      
-      // const profilePicObj = fetchedImages.find(img => img.isProfilePic);
-      // if (profilePicObj) {
-      //   setProfilePic(profilePicObj.id);
-      // }
-    } catch (error) {
-      console.error('Error fetching images:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
-    
+    const fetchImages = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axiosClient.get('/api/attachments');
+        console.log(response);
+        const fetchedImages = response.data.map(img => ({
+          id: img.id,
+          url: `${import.meta.env.VITE_API_BASE_URL}/api/attachments/${img.id}`,
+          isProfilePic: img.is_profile_picture
+        }));
+        
+        setImages(fetchedImages);
+        
+        const profilePicObj = fetchedImages.find(img => img.isProfilePic);
+        if (profilePicObj) {
+          setProfilePic(profilePicObj.id);
+        }
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     
     fetchImages();
   }, []);
@@ -139,25 +126,24 @@ export const ProfilePhotoTab = () => {
       formData.append('images[]', file);
     });
     
-    // if (profilePic) {
-    //   formData.append('profile_pic_id', profilePic);
-    // }
+    if (profilePic) {
+      formData.append('profile_pic_id', profilePic);
+    }
 
     try {
       setIsLoading(true);
       const response = await axiosClient.post('/api/attachments', formData);
-     
-      fetchImages();
-      // const newImages = response.data.map(img => ({
-      //   id: img.id,
-      //   url: img.url,
-      //   isProfilePic: img.is_profile_picture
-      // }));
 
-      // setImages(prev => [...prev, ...newImages]);
+      const newImages = response.data.map(img => ({
+        id: img.id,
+        url: img.url,
+        isProfilePic: img.is_profile_picture
+      }));
+
+      setImages(prev => [...prev, ...newImages]);
       
-      // const newProfilePic = newImages.find(img => img.isProfilePic)?.id || profilePic;
-      // setProfilePic(newProfilePic);
+      const newProfilePic = newImages.find(img => img.isProfilePic)?.id || profilePic;
+      setProfilePic(newProfilePic);
     } catch (error) {
       console.error('Error uploading images:', error);
     } finally {
@@ -168,19 +154,13 @@ export const ProfilePhotoTab = () => {
   const handleProfileSelect = async (imageId) => {
     try {
       await axiosClient.post(`/api/attachments/${imageId}/set-profile-picture`, {});
-      alert("Profile Picture Updated");
-      if(location.pathname == '/addphoto-signup'){
-        console.log('what nigga?')
-        navigate('/profile');
-      };
-      refreshUser();
-      // setProfilePic(imageId);
+      setProfilePic(imageId);
       
       // Update local state to reflect the change
-      // setImages(images.map(img => ({
-      //   ...img,
-      //   isProfilePic: img.id === imageId
-      // })));
+      setImages(images.map(img => ({
+        ...img,
+        isProfilePic: img.id === imageId
+      })));
     } catch (error) {
       console.error('Error setting profile picture:', error);
     }
@@ -193,11 +173,11 @@ export const ProfilePhotoTab = () => {
     }
     try {
       await axiosClient.delete(`/api/attachments/${imageId}`);
-      fetchImages();
-      // setImages(images.filter(img => img.id !== imageId));
-      // if (profilePic === imageId) {
-      //   setProfilePic(null);
-      // }
+      
+      setImages(images.filter(img => img.id !== imageId));
+      if (profilePic === imageId) {
+        setProfilePic(null);
+      }
     } catch (error) {
       console.error('Error deleting image:', error);
     }
@@ -208,7 +188,7 @@ export const ProfilePhotoTab = () => {
   }
 
   return (
-    <div >
+    <div>
       <p className="text-[20px] mb-[25px] md:mb-[39px] border-b">Photo</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-[865px] w-full px-[15px] mb-[50px] md:mb-[144px] mx-auto justify-center">
         {images.map((img) => (
@@ -223,7 +203,7 @@ export const ProfilePhotoTab = () => {
                 <input
                   type="radio"
                   name="profilePic"
-                  checked={user.profile_picture_id === img.id}
+                  checked={profilePic === img.id}
                   onChange={() => handleProfileSelect(img.id)}
                   className="mr-2"
                 />
@@ -271,56 +251,6 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
   const [country, setCountry] = useState("Italy");
   const [province, setProvince] = useState("Rome");
   const [nationality, setNationality] = useState("Italian");
-
-  const [countries, setCountries] = useState([]);
-  const [provinces, setProvinces] = useState([]);
-  
-  // State for selections
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedProvince, setSelectedProvince] = useState('');
-  
-
-  // Fetch countries on component mount
-  useEffect(() => {
-    axiosClient.get('/api/countries')
-      .then(response => {
-        setCountries(response.data);
-        console.log('wat',response.data);
-        // if (selectedCountry) {
-          axiosClient.get(`/api/countries/${response.data[0].id}/provinces`)
-            .then(response => {
-              setProvinces(response.data);
-              setSelectedProvince(''); // Reset province selection
-            })
-            .catch(error => {
-              console.error('Error fetching provinces:', error);
-            });
-        // } else {
-        //   setProvinces([]);
-        // }
-        
-      })
-      .catch(error => {
-        console.error('Error fetching countries:', error);
-      });
-  }, []);
-
-  // Fetch provinces when country changes
-  useEffect(() => {
-    if (selectedCountry) {
-      axiosClient.get(`/api/countries/${selectedCountry}/provinces`)
-        .then(response => {
-          setProvinces(response.data);
-          setSelectedProvince(response.data[0].id); // Reset province selection
-        })
-        .catch(error => {
-          console.error('Error fetching provinces:', error);
-        });
-    } else {
-      setProvinces([]);
-    }
-  }, [selectedCountry,countries]);
-
   
   // const [formData, setFormData] = useState({
   //   height: "",
@@ -364,9 +294,6 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
         setCountry(user.profile.country)
         setProvince(user.profile.province)
         setNationality(user.profile.nationality)
-
-        setSelectedCountry(user.profile.country_id)
-        setSelectedProvince(user.profile.province_id)
       }
     }
     
@@ -409,8 +336,6 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
       nationality: nationality,
       province: province,
       country: country,
-      selectedCountry: selectedCountry,
-      selectedProvince: selectedProvince,
     };
     
     try {
@@ -470,7 +395,7 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
         })}
       </div>
 
-      {/* <div className="mt-6 grid grid-cols-2 gap-4 md:gap-[65px] max-w-[865px]">
+      <div className="mt-6 grid grid-cols-2 gap-4 md:gap-[65px] max-w-[865px]">
         <div>
           <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Country</label>
           <select 
@@ -493,39 +418,6 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
             <option value="Rome">Rome</option>
             <option value="Milan">Milan</option>
             <option value="Naples">Naples</option>
-          </select>
-        </div>
-      </div> */}
-      <div className="mt-6 grid grid-cols-2 gap-4 md:gap-[65px] max-w-[865px]">
-        <div>
-          <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Country</label>
-          <select 
-            id="country"
-            className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
-          >
-            {countries.map(country => (
-              <option key={country.id} value={country.id}>
-                {country.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Province</label>
-          <select 
-            id="province"
-            className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
-            
-            value={selectedProvince}
-            onChange={(e) => setSelectedProvince(e.target.value)}
-          >
-            {provinces.map(province => (
-              <option key={province.id} value={province.id}>
-                {province.name}
-              </option>
-            ))}
           </select>
         </div>
       </div>

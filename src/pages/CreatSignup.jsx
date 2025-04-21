@@ -7,7 +7,79 @@ import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 
-const CreatSignup = () => {
+const SignUp = () => {
+  //const [selectedOption, setSelectedOption] = useState(null);
+  const [myRole, setMyRole] = useState(null);
+  const [next, setNext] = useState(null);
+  const handleSelect = (option) => {
+    //setSelectedOption(option);
+    setMyRole(option);
+  };
+  //constnavigate =
+  const handleNext = () => {
+    if (myRole) {
+      //alert(`You selected: ${myRole}`);
+      setNext(1);
+      //window.location.href = '/create-signup'
+    } else {
+      alert("Please select an option before proceeding.");
+    }
+  };
+
+  if(next){
+    return <CreatSignup myRole={myRole} />
+  }
+
+  return (
+    <>
+      <Header />
+      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">CHOOSE A PROFILE</h1>
+      <div className="max-w-[971px] mx-auto mt-[50px] md:mt-[100px] px-[15px] mb-[50px] md:mb-[121px]">
+        {/* Selection Options */}
+        <div className="flex flex-col md:flex-row  gap-[30px] md:gap-[150px] mb-6">
+          {/* Option 1 */}
+          <div
+            className={`relative w-full md:w-[50%] h-[171px]  flex items-center justify-center bg-[#AEAEAE]  cursor-pointer 
+          ${myRole === "HOSTESS" ? "border-4 border-black" : ""}`}
+            onClick={() => handleSelect("HOSTESS")}
+          >
+            <p className="text-black text-center text-[22px]">I am an hostess or model</p>
+            <span
+              className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-black 
+            ${myRole === "HOSTESS" ? "bg-black" : "bg-white"}`}
+            ></span>
+          </div>
+
+          {/* Option 2 */}
+          <div
+            className={`relative w-full md:w-[50%] h-[171px] flex items-center justify-center bg-[#AEAEAE]  cursor-pointer 
+          ${myRole === "CUSTOMER" ? "border-4 border-black" : ""}`}
+            onClick={() => handleSelect("CUSTOMER")}
+          >
+            <p className="text-black text-center text-[22px]">I am looking for an hostess or model</p>
+            <span
+              className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-black 
+            ${myRole === "CUSTOMER" ? "bg-black" : "bg-white"}`}
+            ></span>
+          </div>
+        </div>
+
+        {/* Next Button */}
+        <div className="ext-center max-w-[200px] mx-auto mt-[30px] md:mt-[70px]">
+          <button
+            className="cursor-pointer w-full bg-[#000] uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]"
+            onClick={handleNext}
+          >
+            NEXT
+          </button>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+const CreatSignup = ({myRole}) => {
 
   const usernameRef = createRef();
   const emailRef = createRef();
@@ -18,15 +90,10 @@ const CreatSignup = () => {
   const dobRef = useRef();
   const phoneRef = createRef();
   const CCodeRef = createRef();
-  const roleRef = createRef();
+  const modelRef = createRef();
   const newsletterRef = createRef();
 
   const [errors, setErrors] = useState({});
-  // const errorText = () => {
-  //   return <>
-  //     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-  //   </>
-  // }
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -44,7 +111,7 @@ const CreatSignup = () => {
     ev.preventDefault()
     //const date_of_birth = dobRef.current.getDate();
     //const date_of_birth = `${yearRef.current.value || '2000'}-${monthRef.current.value.padStart(2, '0') || '01'}-${dayRef.current.value.padStart(2, '0') || '01'}`;
-    const selectedRole = roleRef.current.querySelector('input[name="role"]:checked')?.value || 'CUSTOMER';
+    const isModel = modelRef.current.querySelector('input[name="isModel"]:checked')?.value === '1' ? true : false;
     const payload = {
       name: usernameRef.current.value,
       email: emailRef.current.value,
@@ -52,7 +119,8 @@ const CreatSignup = () => {
       password_confirmation: passwordRef.current.value, // Assuming password_confirmation is the same as password
       dob: dobRef.current.getDate().formatted,
       phone: (CCodeRef.current.value + phoneRef.current.value),
-      role: selectedRole,
+      role: myRole,
+      isModel: isModel,
       newsletter: newsletterRef.current.checked,
     };
     console.log(payload)
@@ -61,9 +129,13 @@ const CreatSignup = () => {
       const response = await axiosClient.post('/api/register', payload);
       setErrors({})
       console.log(response);
-      alert('A link is sent to your email address. Click on it to verify account and complete registration')
-      //setUser(response.data.user);
-      //setToken(response.data.access_token);
+      //alert('A link is sent to your email address. Click on it to verify account and complete registration')
+
+      //WITHOUT EMAIL VERIF
+      alert("Account Successfully created")
+      // setUser(response.data.user);
+      setToken(response.data.access_token);
+
       console.log('registered');
       //navigate('/chat');
     } catch (err) {
@@ -126,17 +198,19 @@ const CreatSignup = () => {
             </div>
           </div>
 
-          <div className="mt-[20px] md:mt-[58px] mb-[0px]" ref={roleRef}>
+          {myRole == "HOSTESS" &&
+          <div className="mt-[20px] md:mt-[58px] mb-[0px]" ref={modelRef}>
             <label className="block mb-[13px]">I am:</label>
             <label className="block space-x-2">
-              <input type="radio" name="role" value="HOSTESS" />
+              <input type="radio" name="isModel" value="0" />
               <span>Hostess</span>
             </label>
             <label className="block  space-x-2">
-              <input type="radio" name="role" value="HOSTESS" />
+              <input type="radio" name="isModel" value="1" />
               <span>Model</span>
             </label>
           </div>
+          }
           <p className="py-[18px] mb-[0px] md:px-[20px]">Hostessforyou.com won't share your private information like phone number or email adress with anyone</p>
 
           <div className="mb-[0px]">
@@ -160,7 +234,7 @@ const CreatSignup = () => {
   );
 };
 
-export default CreatSignup;
+export default SignUp;
 
 const DateOfBirthInput = forwardRef((props, ref) => {
   const [day, setDay] = useState('');

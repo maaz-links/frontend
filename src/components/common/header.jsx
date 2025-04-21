@@ -2,8 +2,10 @@ import React from "react";
 import SideMenu from "/src/components/side-menu";
 import { Outlet, Link } from "react-router-dom";
 import Logo from '/src/assets/images/logo.png'
+import { useStateContext } from "../../context/ContextProvider";
 function Header() {
     
+  const {token} = useStateContext();
     return (
       <>
        <div>
@@ -15,7 +17,7 @@ function Header() {
 </Link>
 </div>
 <div className="menu flex  items-center mt-[10px] md:mt-[0px] gap-x-8 md:gap-x-[60px] text-white justify-between">
-
+<a href="/search">
 <div className="search text-center">
 <div className="icon">
 <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,8 +26,15 @@ function Header() {
 
 
 </div>
+
 <div>Search</div>
 </div>
+</a>
+
+
+{token ?  
+<>
+<a href="/chat">
 <div className="chat text-center">
 <div className="icon">
 <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,9 +43,11 @@ function Header() {
 
 
 
+
 </div>
 <div>Chat</div>
 </div>
+</a>
 <div className="user-icon text-center">
 <div className="icon">
 <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +68,10 @@ function Header() {
 </div>
 <div>85</div>
 </div>
+</>: <>
+
+</>}
+
   <div>
 <SideMenu/> </div>
 </div>

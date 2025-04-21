@@ -22,12 +22,12 @@ import Hostess from './pages/Hostess'
 import HomeFemale from './pages/HomeFemale'
 import HomeMale from './pages/HomeMale'
 import VerifyPhone from './pages/VerifyPhone'
-import SignUp from './pages/SignUp'
+//import SignUp from './pages/SignUp'
 import Reviews from './pages/Reviews'
 import Profile from './pages/Profile'
 import AboutYou from './pages/AboutYou'
-import CreatSignup from './pages/CreatSignup'
-import MaleSignup from './pages/MaleSignup'
+import SignUp from './pages/CreatSignup'
+// import MaleSignup from './pages/MaleSignup'
 import AddPhoto from './pages/AddPhotoSignUp'
 import AddPhotoPart4 from './pages/AddPhotoPart4'
 import Chat from './pages/Chat'
@@ -39,11 +39,12 @@ import UserProfile from './pages/UserProfile'
 import UserProfileMale from './pages/UserProfileMale'
 import Shop from './pages/Shop'
 import PaymenMethod from './pages/PaymentMethod'
-import DefaultLayout from './components/auth/DefaultLayout'
+import DefaultLayout, { ProfileCompleteGuard } from './components/auth/DefaultLayout'
 import GuestLayout from './components/auth/GuestLayout'
 import VerifyEmail from './components/auth/VerifyEmail'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ResetPassword from './components/auth/ResetPassword'
+import AuthLayout from './components/auth/DefaultLayout'
 function App() {
 
   return (
@@ -66,44 +67,59 @@ const router = createBrowserRouter([
     { path: "/payments", element: <Payments /> },
     { path: "/how-to", element: <HowTo /> },
     { path: "/search", element: <Search /> },
-    {
-      path: '/',
-      element: <GuestLayout />,
-      children: [
-        { path: "/login", element: <Login /> },
-    { path: "/creat-signup", element: <CreatSignup /> },
-    { path:"/verify-email", element:<VerifyEmail />},
-    { path: "forgot-password", element:<ForgotPassword/>},
-    { path: "reset-password", element:<ResetPassword/>}
-      ]
-    },
     // { path: "/login", element: <Login /> },
     { path: "/hostess", element: <Hostess /> },
     { path: "/female-home", element: <HomeFemale /> },
     { path: "/male-home", element: <HomeMale /> },
     { path: "/verify-phone", element: <VerifyPhone /> },
-    { path: "/sign-up", element: <SignUp /> },
-    { path: "/reviews", element: <Reviews /> },
    
-    { path: "/about-you", element: <AboutYou /> },
-    { path: "/male-signup", element: <MaleSignup /> },
-    { path: "/addphoto-signup", element: <AddPhoto /> },
-    { path: "/addphoto-signup-part4", element: <AddPhotoPart4 /> },
+    
+   
+    // { path: "/about-you", element: <AboutYou /> }, IMPORTANT IN FUTURE
+    // { path: "/male-signup", element: <MaleSignup /> },
+    // { path: "/addphoto-signup", element: <AddPhoto /> },
+    // { path: "/addphoto-signup-part4", element: <AddPhotoPart4 /> },
+
+    // { path: "/male-chat", element: <MaleChat /> },
+    
+    // { path: "/search-female", element: <SearchFemale /> },
+    { path: "/user-profile", element: <UserProfile /> },
+    // { path: "/user-profile-male", element: <UserProfileMale /> },
+   
+
     {
       path: '/',
-      element: <DefaultLayout />,
+      element: <GuestLayout />,
       children: [
-        { path: "/chat", element: <Chat /> },
-        { path: "/profile", element: <Profile /> },
+        { path: "/login", element: <Login /> },
+        { path: "/sign-up", element: <SignUp /> },
+        //{ path: "/create-signup", element: <CreatSignup /> },
+        { path: "/verify-email", element: <VerifyEmail /> },
+        { path: "forgot-password", element: <ForgotPassword /> },
+        { path: "reset-password", element: <ResetPassword /> }
       ]
     },
-    { path: "/male-chat", element: <MaleChat /> },
-    { path: "/last-views", element: <LastViews /> },
-    { path: "/search-female", element: <SearchFemale /> },
-    { path: "/user-profile", element: <UserProfile /> },
-    { path: "/user-profile-male", element: <UserProfileMale /> },
-    { path: "/shop", element: <Shop /> },
-    { path: "/payment-method", element: <PaymenMethod /> },
+    {
+      path: '/',
+      element: <AuthLayout />,
+      children: [
+        { path: "/addphoto-signup", element: <AddPhotoPart4 /> },
+        {
+          path: '/',
+          element: <ProfileCompleteGuard />,
+          children: [
+            { path: "/chat", element: <Chat /> },
+            { path: "/profile", element: <Profile /> },
+            { path: "/shop", element: <Shop /> },
+            { path: "/payment-method", element: <PaymenMethod /> },
+            { path: "/last-views", element: <LastViews /> },
+            { path: "/reviews", element: <Reviews /> },
+            
+          ]
+        },
+      ]
+    },
+    
    
 ]);
 

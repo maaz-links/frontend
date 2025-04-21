@@ -1,59 +1,58 @@
-import {Link, Navigate, Outlet} from "react-router-dom";
-import axiosClient from "../../../axios-client.js";
-import {useEffect} from "react";
-import { useStateContext } from "../../context/ContextProvider.jsx";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { useStateContext } from "../../context/ContextProvider";
+//import LoadingSpinner from "./LoadingSpinner"; // Create or import a loading component
 
-export default function DefaultLayout() {
-  const {user, token, setUser, setToken} = useStateContext();
+// export default function DefaultLayout() {
+//   const { user, token, loading } = useStateContext();
+//   const navigate = useNavigate();
+//   // Redirect to login if no token
+//   if (!token) {
+//     return <Navigate to="/login" replace />;
+//   }
 
-  if (!token) {
-    return <Navigate to="/login"/>
+//   // Show loading spinner while data is being fetched
+//   if (loading || !user) {
+//     return <div>Loading...</div>;
+//   }
+
+//   // Redirect if user doesn't have a profile picture
+//   if (!user.profile_picture_id) {
+//     return <Navigate to="/addphoto-signup" replace />;
+//   }
+
+//   // All checks passed - render the protected content
+//   return <Outlet />;
+// }
+
+// AuthLayout.jsx - Checks authentication only
+export default function AuthLayout() {
+  const { token,loading } = useStateContext();
+  
+  if (loading) {
+    return <div>Loading</div>;
   }
 
-  // const onLogout = ev => {
-  //   ev.preventDefault()
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <Outlet />;
+}
 
-  //   axiosClient.post('/logout')
-  //     .then(() => {
-  //       setUser({})
-  //       setToken(null)
-  //     })
-  // }
+// ProfileCompleteGuard.jsx - Checks profile completion
+export function ProfileCompleteGuard() {
+  const { user, loading } = useStateContext();
 
-  // useEffect(() => {
-  //   axiosClient.get('/user')
-  //     .then(({data}) => {
-  //       console.log('myuser: ',data)
-  //        setUser(data)
-  //     })
-  // }, [])
+  // Show loading spinner while user data is being fetched
+  if (loading || user === null) {
+    return <div>Loading</div>;
+  }
 
-  return (
-    // <div id="defaultLayout">
-    //   <aside>
-    //     <Link to="/dashboard">Dashboard</Link>
-    //     <Link to="/users">Users</Link>
-    //   </aside>
-    //   <div className="content">
-    //     <header>
-    //       <div>
-    //         Header
-    //       </div>
+  // Redirect if user doesn't have a profile picture
+  if (!user?.profile_picture_id) {
+    return <Navigate to="/addphoto-signup" replace />;
+  }
 
-    //       <div>
-    //         {user.name} &nbsp; &nbsp;
-    //         <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
-    //       </div>
-    //     </header>
-    //     <main>
-          <Outlet/>
-    //     </main>
-    //     {notification &&
-    //       <div className="notification">
-    //         {notification}
-    //       </div>
-    //     }
-    //   </div>
-    // </div>
-  )
+  // All checks passed - render the child routes
+  return <Outlet />;
 }

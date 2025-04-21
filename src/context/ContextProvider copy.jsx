@@ -4,41 +4,24 @@ import axiosClient from "../../axios-client";
 const StateContext = createContext({
   user: null,
   token: null,
-  loading: true, // Add loading state
-  setUser: () => {},
-  setToken: () => {},
-  refreshUser: () => {},
-  // ... other values
-});
+  //notification: null,
+  setUser: () => { },
+  setToken: () => { },
+  //setNotification: () => {}
+})
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Initialize as null instead of {}
+  const [user, setUser] = useState({});
   const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
-  const [loading, setLoading] = useState(true); // Track loading state
-  // ... other state declarations
+  //const [notification, _setNotification] = useState('');
 
   const setToken = (token) => {
-    _setToken(token);
+    _setToken(token)
     if (token) {
+      console.log('ok');
       localStorage.setItem('ACCESS_TOKEN', token);
     } else {
       localStorage.removeItem('ACCESS_TOKEN');
-      setUser(null); // Clear user when token is removed
-    }
-  };
-
-  async function getUserData() {
-    try {
-      setLoading(true);
-      if (token) {
-        const response = await axiosClient.get('/api/user');
-        setUser(response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      setToken(null); // Clear token on error
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -49,6 +32,17 @@ export const ContextProvider = ({ children }) => {
   // const [provinceOptions, setProvinceOptions] = useState([]);
   //const [refreshUser, setRefreshUser] = useState([]);
 
+  async function getUserData() {
+    if (token) {
+      const response = await axiosClient.get('/api/user');
+      setUser(response.data)
+      console.log('user in context',response.data)
+    }
+    // const response2 = await axiosClient.get('/api/miscdata');
+    // setOptionsInterest(response2.data.interests);
+    // setOptionsAvailableFor(response2.data.available_for);
+    // setLanguageOptions(response2.data.spoken_languages);
+  }
 
   async function getMiscData() {
     const response2 = await axiosClient.get('/api/miscdata');
@@ -58,16 +52,33 @@ export const ContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    getMiscData();
-  }, []);
+    getMiscData()
+    //getUserData()
+  }, [])
 
   useEffect(() => {
-    getUserData();
-  }, [token]);
+    //getMiscData()
+    getUserData()
+  }, [token])
 
   const refreshUser = () => {
+    console.log('refreshing user')
     getUserData();
   };
+
+  // useEffect(() => {
+  //   getUserData()
+  // }, [refreshUser])
+
+
+
+  // const setNotification = message => {
+  //   _setNotification(message);
+
+  //   setTimeout(() => {
+  //     _setNotification('')
+  //   }, 5000)
+  // }
 
   return (
     <StateContext.Provider value={{
@@ -75,17 +86,16 @@ export const ContextProvider = ({ children }) => {
       setUser,
       token,
       setToken,
-      loading, // Expose loading state
-      refreshUser,
       optionsInterest, setOptionsInterest,
       optionsAvailableFor, setOptionsAvailableFor,
       languageOptions, setLanguageOptions,
       refreshUser,// setRefreshUser,
-      // ... other values
+      // notification,
+      // setNotification
     }}>
       {children}
     </StateContext.Provider>
   );
-};
+}
 
 export const useStateContext = () => useContext(StateContext);

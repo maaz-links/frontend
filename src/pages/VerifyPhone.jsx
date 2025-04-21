@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
+import { useNavigate } from "react-router-dom";
 
 function VerifyPhone() {
   const [phone, setPhone] = useState("");
@@ -8,6 +9,7 @@ function VerifyPhone() {
   const [otpSent, setOtpSent] = useState(false);
   const [verified, setVerified] = useState(false);
 
+  const navigate = useNavigate();
   // Simulate sending OTP
   const sendOtp = () => {
     if (phone.length === 10) {
@@ -52,7 +54,8 @@ function VerifyPhone() {
             {!otpSent ? (
                 <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[45px]">
               <button
-                onClick={sendOtp}
+                //onClick={sendOtp}
+                onClick={() => {navigate('/profile')}}
                 className="cursor-pointer w-full bg-[#000] uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]"
               >
                 VERIFY

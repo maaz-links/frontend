@@ -44,7 +44,7 @@ function LastViews() {
             </div>
             <p className="text-[16px] text-center">{view.date}</p>
             <div className="text-[18px] text-[#000] text-center">{view.hour}</div>
-         <div className="text-center">   <Link to="/male-chat" className="text-[16px] font-[600] bg-black text-white p-[10px] px-[20px]  hover:bg-[#8B8B8B]">Chat</Link> </div>
+         <div className="text-center">   <Link to="/chat" className="text-[16px] font-[600] bg-black text-white p-[10px] px-[20px]  hover:bg-[#8B8B8B]">Chat</Link> </div>
           </div>
         ))}
       </div>

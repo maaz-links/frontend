@@ -27,7 +27,7 @@ function ResetPassword() {
   const params = new URLSearchParams(location.search);
   //console.log(location.search);
   const token = params.get('token');
-  const email = params.get('amp;email');
+  const email = params.get('email');
 
   if (!token || !email) {
     throw new Error('Missing required reset parameters');

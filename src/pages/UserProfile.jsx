@@ -67,7 +67,7 @@ function UserProfile() {
 <p className='italic'><span>City</span>|<span>Years</span></p>
 <div className='flex flex-col md:flex-row gap-[40px] md:gap-x-[100px]  mt-[50px]'>
 <div className='profile-slider md:w-[40%] w-full'>
-<Slider {...settings}>
+{/* <Slider {...settings}> */}
         <div className="item">
         <a href='#'>
         <div className="item-inner-box">
@@ -76,7 +76,7 @@ function UserProfile() {
         </div>
         </a>
         </div>
-        <div className="item">
+        {/* <div className="item">
         <a href='#'>
         <div className="item-inner-box">
         <img src='https://placehold.co/400x500'/>
@@ -131,8 +131,8 @@ function UserProfile() {
        
         </div>
         </a>
-        </div>
-      </Slider>
+        </div> */}
+      {/* </Slider> */}
 
 </div>
 <div className='profile-details md:w-[60%] w-full'>

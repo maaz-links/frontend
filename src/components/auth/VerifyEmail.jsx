@@ -15,10 +15,10 @@ function VerifyEmail() {
       try {
         const params = new URLSearchParams(location.search);
         console.log(location.search);
-          const id = params.get('amp;id');
+          const id = params.get('id');
           const expires = params.get('expires');
-          const hash = params.get('amp;hash');
-          const signature = params.get('amp;signature');
+          const hash = params.get('hash');
+          const signature = params.get('signature');
 
           if (!id || !expires || !hash || !signature) {
             throw new Error('Missing required verification parameters');
@@ -37,7 +37,7 @@ function VerifyEmail() {
         // }
     );
     console.log(response);
-        setUser(response.data.user);
+        //setUser(response.data.user);
         console.log(response.data);
         setToken(response.data.access_token);
         // Store the token and user data
