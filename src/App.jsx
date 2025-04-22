@@ -83,7 +83,7 @@ const router = createBrowserRouter([
     // { path: "/male-chat", element: <MaleChat /> },
     
     // { path: "/search-female", element: <SearchFemale /> },
-    { path: "/user-profile", element: <UserProfile /> },
+    { path: "/user-profile/:username", element: <UserProfile /> },
     // { path: "/user-profile-male", element: <UserProfileMale /> },
    
 

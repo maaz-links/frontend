@@ -46,7 +46,7 @@ const Profile = () => {
         <div className="flex flex-col md:flex-row gap-[25px] mb-6">
           <div className="w-full md:w-[10%]">
             <div className="w-[130px] h-[130px] bg-[#AEAEAE]">
-              {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={`${import.meta.env.VITE_API_BASE_URL}/api/attachments/${user.profile_picture_id}`}></img>}
+              {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
             </div>
             <div className="mt-4 text-c space-x-6 border-b">
               {["Photo", "Profile", "Personal Data"].map((tab) => (
@@ -108,7 +108,7 @@ export const ProfilePhotoTab = () => {
       console.log(response);
       const fetchedImages = response.data.map(img => ({
         id: img.id,
-        url: `${import.meta.env.VITE_API_BASE_URL}/api/attachments/${img.id}`,
+        url: getAttachmentURL(img.id),
         //isProfilePic: img.is_profile_picture
       }));
       
@@ -723,7 +723,7 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
   );
 };
 
-import { ErrorText } from "../functions/Common";
+import { ErrorText, getAttachmentURL } from "../functions/Common";
 export const PersonalDataTab = () => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');

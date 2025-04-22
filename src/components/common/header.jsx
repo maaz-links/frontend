@@ -5,7 +5,7 @@ import Logo from '/src/assets/images/logo.png'
 import { useStateContext } from "../../context/ContextProvider";
 function Header() {
     
-  const {token} = useStateContext();
+  const {token,user} = useStateContext();
     return (
       <>
        <div>
@@ -48,6 +48,7 @@ function Header() {
 <div>Chat</div>
 </div>
 </a>
+{(user?.role === "CUSTOMER") &&
 <div className="user-icon text-center">
 <div className="icon">
 <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,13 +62,11 @@ function Header() {
 </clipPath>
 </defs>
 </svg>
-
-
-
-
 </div>
 <div>85</div>
 </div>
+
+}
 </>: <>
 
 </>}
