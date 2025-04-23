@@ -42,9 +42,12 @@ function Login() {
       console.log(response);
       setErrors({});
       //setUser(response.data.user);
-      
-      setToken(response.data.access_token);
-      //navigate('/verify-phone')
+      alert('Verify OTP for Successful Login');
+      sessionStorage.setItem('hostess_otp_email', payload.email);
+      sessionStorage.setItem('hostess_otp_phone', response.data.phone);
+      sessionStorage.setItem('hostess_otp_message', response.data.message);
+      //setToken(response.data.access_token);
+      navigate('/verify-phone');
       // <Navigate to="/verify-phone" replace />
       // console.log('here');
       // window.location.href('/verify-phone');

@@ -75,7 +75,7 @@ const Profile = () => {
             
             <div className="mt-6">
               {activeTab === "Photo" && <ProfilePhotoTab />}
-              {activeTab === "Profile" && <ProfileInfoTab rerender={rerender} setRerender={setRerender} />}
+              {activeTab === "Profile" && <ProfileInfoTab />}
               {activeTab === "Personal Data" && <PersonalDataTab />}
             </div>
           </div>
@@ -170,7 +170,7 @@ export const ProfilePhotoTab = () => {
       await axiosClient.post(`/api/attachments/${imageId}/set-profile-picture`, {});
       alert("Profile Picture Updated");
       if(location.pathname == '/addphoto-signup'){
-        console.log('what nigga?')
+        //console.log('what nigga?')
         navigate('/profile');
       };
       refreshUser();
@@ -254,7 +254,7 @@ export const ProfilePhotoTab = () => {
   );
 };
 
-export const ProfileInfoTab = ({ rerender, setRerender }) => {
+export const ProfileInfoTab = () => {
 
   const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions } = useStateContext();
 
@@ -356,7 +356,7 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
           eyeColor: user.profile.eye_color,
           dressSize: user.profile.dress_size,
           weight: user.profile.weight,
-          telegram: user.profile.telegram,
+          telegram: user.profile.telegram || '',
         });
         setTravel(user.profile.travel_available)
         setVisibility(user.profile.visibility_status)
@@ -416,9 +416,10 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
     try {
       const response = await axiosClient.post('/api/update-profile', payload);
       alert('Profile Updated');
-      setRerender(rerender + 1);
+      //setRerender(rerender + 1);
       refreshUser();
     } catch (err) {
+      alert(`Error Updating Profile: Make sure all entered data is valid`)
       console.error(err.response);
     }
   }
@@ -433,7 +434,8 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      
+      {user.role === "HOSTESS" &&
+      <>
       <h3 className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Available for:</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[6px] max-w-[600px]">
         {optionsAvailableFor.map(({ id, name }) => {
@@ -469,6 +471,8 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
           );
         })}
       </div>
+      </>
+      }
 
       {/* <div className="mt-6 grid grid-cols-2 gap-4 md:gap-[65px] max-w-[865px]">
         <div>
@@ -601,6 +605,9 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
           </select>
         </div>
 
+        {user.role === "HOSTESS" &&
+        <>
+
         <div className="flex flex-col">
           <label className="font-[400] text-[16px] mb-1">Dress Size*</label>
           <select
@@ -627,7 +634,7 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
         </div>
 
         <div className="flex flex-col">
-          <label className="font-[400] text-[16px] mb-1">Telegram *</label>
+          <label className="font-[400] text-[16px] mb-1">Telegram</label>
           <input
             name="telegram"
             value={formData.telegram}
@@ -656,7 +663,12 @@ export const ProfileInfoTab = ({ rerender, setRerender }) => {
             ))}
           </div>
         </div>
+
+      </>}
+      
       </div>
+
+      
 
       <div className="mt-[50px] md:mt-[98px]]">
         <h3 className="text-[16px] font-[700] border-b">Visibility</h3>

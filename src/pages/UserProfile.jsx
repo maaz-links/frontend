@@ -184,11 +184,18 @@ function UserProfile() {
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Height:</strong><span>{givenUser.profile.height}cm</span></p>
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Dress size:</strong> <span>{dressSizeName(givenUser.profile.dress_size)}</span></p>
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Shoes size:</strong><span>{givenUser.profile.shoe_size}</span></p>
+{(givenUser.role === "HOSTESS") && 
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Available for Tours:</strong><span>{givenUser.profile.travel_available ? 'Yes':'No'}</span></p>
+}
 <div className='about'>
 <h3 className="text-[24px] pt-[26px] border-b">About </h3>
 <p className='pt-[10px]'>{givenUser.profile.description}</p>
 </div>
+
+
+{(givenUser.role === "HOSTESS") &&
+<>
+
 <h3 className="mt-[24px] font-[400] text-[26px] border-b">Available for:</h3>
               {/* <div className="grid grid-cols-2 md:grid-cols-5 gap-[11px] mt-[24px]  max-w-[600px]">
           {["photo model", "fashion pics", "travel & weekend", "dinners", "host hostess", "parties", "fake girlfriend", "talk"].map((item) => (
@@ -235,6 +242,7 @@ function UserProfile() {
                   ))
                 }
         </div>
+</>}
         {/* Languages */}
         <h3 className="mt-[24px] md:mt-[56px] font-[400] text-[26px] border-b">Spoken Languages</h3>
         {/* <div className="grid grid-cols-2 md:grid-cols-5 gap-[11px] mt-[24px]  max-w-[600px]">

@@ -6,6 +6,7 @@ import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -93,6 +94,8 @@ const CreatSignup = ({myRole}) => {
   const modelRef = createRef();
   const newsletterRef = createRef();
 
+  const navigate = useNavigate();
+
   const [errors, setErrors] = useState({});
   const ErrorText = ({ field }) => {
     return (
@@ -111,7 +114,7 @@ const CreatSignup = ({myRole}) => {
     ev.preventDefault()
     //const date_of_birth = dobRef.current.getDate();
     //const date_of_birth = `${yearRef.current.value || '2000'}-${monthRef.current.value.padStart(2, '0') || '01'}-${dayRef.current.value.padStart(2, '0') || '01'}`;
-    const isModel = modelRef.current.querySelector('input[name="isModel"]:checked')?.value === '1' ? true : false;
+    const isModel = modelRef?.current?.querySelector('input[name="isModel"]:checked')?.value === '1' ? true : false;
     const payload = {
       name: usernameRef.current.value,
       email: emailRef.current.value,
@@ -134,9 +137,14 @@ const CreatSignup = ({myRole}) => {
       //WITHOUT EMAIL VERIF
       alert("Account Successfully created")
       // setUser(response.data.user);
-      setToken(response.data.access_token);
+      //setToken(response.data.access_token);
 
       console.log('registered');
+      sessionStorage.setItem('hostess_otp_email', payload.email);
+      sessionStorage.setItem('hostess_otp_phone', response.data.phone);
+      sessionStorage.setItem('hostess_otp_message', response.data.message);
+      //setToken(response.data.access_token);
+      navigate('/verify-phone');
       //navigate('/chat');
     } catch (err) {
       console.log(err)

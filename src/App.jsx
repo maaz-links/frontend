@@ -59,22 +59,23 @@ const router = createBrowserRouter([
 
   
 
+   
+    // { path: "/login", element: <Login /> },
+    { path: "/how-to", element: <HowTo /> },
+    { path: "/hostess", element: <Hostess /> },
+    { path: "/female-home", element: <HomeFemale /> },
+    { path: "/male-home", element: <HomeMale /> },
+    { path: "/about-you", element: <AboutYou /> },
+   
+    
     { path: "/", element: <Home /> },
     { path: "/contact", element: <Contact /> },
     { path: "/terms", element: <Terms /> },
     { path: "/privacy", element: <Privacy /> },
     { path: "/cookies", element: <Cookies /> },
     { path: "/payments", element: <Payments /> },
-    { path: "/how-to", element: <HowTo /> },
     { path: "/search", element: <Search /> },
-    // { path: "/login", element: <Login /> },
-    { path: "/hostess", element: <Hostess /> },
-    { path: "/female-home", element: <HomeFemale /> },
-    { path: "/male-home", element: <HomeMale /> },
-    { path: "/verify-phone", element: <VerifyPhone /> },
-   
-    
-   
+    { path: "/user-profile/:username", element: <UserProfile /> },
     // { path: "/about-you", element: <AboutYou /> }, IMPORTANT IN FUTURE
     // { path: "/male-signup", element: <MaleSignup /> },
     // { path: "/addphoto-signup", element: <AddPhoto /> },
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
     // { path: "/male-chat", element: <MaleChat /> },
     
     // { path: "/search-female", element: <SearchFemale /> },
-    { path: "/user-profile/:username", element: <UserProfile /> },
+    
     // { path: "/user-profile-male", element: <UserProfileMale /> },
    
 
@@ -95,6 +96,7 @@ const router = createBrowserRouter([
         { path: "/sign-up", element: <SignUp /> },
         //{ path: "/create-signup", element: <CreatSignup /> },
         { path: "/verify-email", element: <VerifyEmail /> },
+        { path: "/verify-phone", element: <VerifyPhone /> },
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> }
       ]

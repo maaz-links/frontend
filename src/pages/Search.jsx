@@ -132,7 +132,9 @@ function Search() {
     {/* <div className="w-[130px] h-[130px] bg-[#AEAEAE]">
               
             </div> */}
-      <div className='result-box-img' style={{height: '40vh'}}>
+      <div className='result-box-img aspect-2/3'
+      //  style={{height: '40vh'}}
+       >
         <img className={`w-full h-full object-cover`} src={getAttachmentURL(entity.profile_picture_id)} />
         
       </div>

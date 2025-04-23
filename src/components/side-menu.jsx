@@ -79,7 +79,9 @@ const SideMenu = () => {
                         </> :
                         <>
                             <div className='after-login  flex flex-col text-center justify-center mt-[40px] gap-[15px]'>
+                            {user?.role === "CUSTOMER" &&
                                 <Link onClick={handleLinkClick} to="/shop" className='bg-[#9C9A9A] text-black p-[10px]'>Shop</Link>
+                            }
                                 <Link onClick={handleLinkClick} to="/profile?tab=Personal Data" className='bg-[#9C9A9A] text-black p-[10px]'>Account</Link>
                                 <Link onClick={handleLinkClick} to="/profile?tab=Profile" className='bg-[#9C9A9A] text-black p-[10px]'>Profile</Link>
                                 <Link onClick={handleLinkClick} to='/profile?tab=Photo' className='bg-[#9C9A9A] text-black p-[10px]'>Photos</Link>
