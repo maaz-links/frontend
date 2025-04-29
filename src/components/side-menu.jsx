@@ -9,9 +9,10 @@ import 'react-modern-drawer/dist/index.css'
 import axiosClient from '../../axios-client'
 import { useStateContext } from '../context/ContextProvider'
 import { getAttachmentURL } from '../functions/Common'
+import { ROLES } from '../../constants'
 
 const SideMenu = () => {
-    const {token, user} = useStateContext();
+    const { token, user } = useStateContext();
     const [isOpen, setIsOpen] = React.useState(false)
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState)
@@ -21,27 +22,27 @@ const SideMenu = () => {
 
     const triggerLogout = ev => {
         ev.preventDefault()
-    
-        axiosClient.post('/api/logout')
-          .then(() => {
-            console.log('we re out')
-            setUser(null)
-            setToken(null)
-            navigate('/login');
-          })
-      }
 
-      const handleLinkClick = () => {
+        axiosClient.post('/api/logout')
+            .then(() => {
+                console.log('we re out')
+                setUser(null)
+                setToken(null)
+                navigate('/login');
+            })
+    }
+
+    const handleLinkClick = () => {
         toggleDrawer();
     }
 
     return (
         <>
-       
+
 
             <button className='cursor-pointer text-[18px] ' onClick={toggleDrawer}> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-12">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-</svg></button>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg></button>
             <Drawer
                 open={isOpen}
                 onClose={toggleDrawer}
@@ -51,37 +52,40 @@ const SideMenu = () => {
                 className='bg-[#B5B5B5B5]'
             >
                 <div className='p-[30px]'>
-                <div className=''>
-                   <div className='user-av flex items-center gap-x-[15px]'>
-<div className='av bg-[#D9D9D9] h-[103px] w-[103px] rounded-full'>
-{user?.profile_picture_id && <img className={`w-full h-full object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
-</div>
-<div className='user-data'>
-<h4 className='text-[#000] text-[24px] font-[700]'>{user?.name || 'User'}</h4>
-<p className='text-[#000] text-[20px]'>City</p>
-<p className='text-[#6B6B6BBB]'><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></p>
-</div>
-
-                   </div> 
-                </div>
+                    
 
                     {!token ?
                         <>
+                        
                             <div className='before-login flex flex-col text-center justify-center mt-[40px] gap-[15px]'>
                                 <Link onClick={handleLinkClick} to="/how-to" className='bg-[#9C9A9A] text-black p-[10px]'>How to?</Link>
                                 <Link onClick={handleLinkClick} to="/hostess" className='bg-[#9C9A9A] text-black p-[10px]'>Are you a Hostess?</Link>
                                 <Link onClick={handleLinkClick} to="/contact" className='bg-[#9C9A9A] text-black p-[10px]'>Help & Contact</Link>
                             </div>
-                            <div className='login-signup flex flex-col flex-end text-center  mt-[40px] gap-[15px]'>
+                            <div className='login-signup flex flex-col flex-end text-center align-bottom  mt-[40px] gap-[15px]'>
                                 <Link onClick={handleLinkClick} to="/login" className='bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>Login</Link>
                                 <Link onClick={handleLinkClick} to="/sign-up" className='bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>Sign up</Link>
                             </div>
                         </> :
                         <>
+                        <div className=''>
+                            <div className='user-av flex items-center gap-x-[15px]'>
+                                <div className='av bg-[#D9D9D9] h-[103px] w-[103px] rounded-full'>
+                                    {user?.profile_picture_id && <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(user.profile_picture_id)}></img>}
+                                </div>
+                                <div className='user-data'>
+                                    <h4 className='text-[#000] text-[24px] font-[700]'>{user?.name || 'User'}</h4>
+                                    <p className='text-[#000] text-[20px]'>{user?.profile?.province_name || 'City'}</p>
+                                    {/* <p className='text-[#6B6B6BBB]'><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></p> */}
+                                    <StarRating rating={user?.rating || 0} />
+                                </div>
+
+                            </div>
+                        </div>
                             <div className='after-login  flex flex-col text-center justify-center mt-[40px] gap-[15px]'>
-                            {user?.role === "CUSTOMER" &&
-                                <Link onClick={handleLinkClick} to="/shop" className='bg-[#9C9A9A] text-black p-[10px]'>Shop</Link>
-                            }
+                                {user?.role === ROLES.KING &&
+                                    <Link onClick={handleLinkClick} to="/shop" className='bg-[#9C9A9A] text-black p-[10px]'>Shop</Link>
+                                }
                                 <Link onClick={handleLinkClick} to="/profile?tab=Personal Data" className='bg-[#9C9A9A] text-black p-[10px]'>Account</Link>
                                 <Link onClick={handleLinkClick} to="/profile?tab=Profile" className='bg-[#9C9A9A] text-black p-[10px]'>Profile</Link>
                                 <Link onClick={handleLinkClick} to='/profile?tab=Photo' className='bg-[#9C9A9A] text-black p-[10px]'>Photos</Link>
@@ -98,7 +102,7 @@ const SideMenu = () => {
                             </div>
                         </>}
 
-               
+
                 </div>
             </Drawer>
         </>
@@ -106,3 +110,36 @@ const SideMenu = () => {
 }
 
 export default SideMenu
+
+const StarRating = ({ rating, size = 'text-[24px]' }) => {
+    // Ensure rating is between 0 and 5
+    const clampedRating = Math.min(Math.max(parseFloat(rating) || 0), 5);
+    const fullStars = Math.floor(clampedRating);
+    const hasHalfStar = clampedRating % 1 >= 0.5 && clampedRating % 1 <= 0.99;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    return (
+        <p className={`${size} text-[#6B6B6BBB] flex items-center`}>
+            {/* Full stars */}
+            {[...Array(fullStars)].map((_, i) => (
+                <span key={`full-${i}`} className="text-yellow-500">★</span>
+            ))}
+
+            {/* Half star */}
+            {hasHalfStar && (
+                <span className="relative" style={{ width: '1em' }}>
+                    <span className="absolute overflow-hidden text-yellow-500" style={{ width: '45%' }}>★</span>
+                    <span className="text-[#6B6B6BBB]">★</span>
+                </span>
+            )}
+
+            {/* Empty stars */}
+            {[...Array(emptyStars)].map((_, i) => (
+                <span key={`empty-${i}`} className="text-[#6B6B6BBB]">★</span>
+            ))}
+
+            {/* Optional numeric value */}
+            <span className="ml-1 text-sm text-gray-500">({clampedRating.toFixed(1)})</span>
+        </p>
+    );
+};

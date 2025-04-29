@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/common/footer';
 import Header from '../components/common/header';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ModelImage from '/src/assets/images/model-img.jpg'
 import Slider from "react-slick";
 import { useStateContext } from '../context/ContextProvider';
 import axiosClient from '../../axios-client';
 import { dressSizeName, getAttachmentURL } from '../functions/Common';
+import { ROLES } from '../../constants';
 
 
 
 
 function UserProfile() {
 
-  const {token, optionsInterest,optionsAvailableFor,languageOptions} = useStateContext();
+  const {token, user, optionsInterest,optionsAvailableFor,languageOptions, refreshUser} = useStateContext();
   const [givenUser, setGivenUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [unlockChat,setUnlockChat] = useState(false);
   const {username} = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const url = token ? `/api/user-profile/${username}` : `/api/user-profile-guest/${username}`;
@@ -23,18 +28,51 @@ function UserProfile() {
     .then(response => {
       // Handle successful response
       //setEntities(response.data);
-      setGivenUser(response.data)
-      console.log(url, response.data);
+      setGivenUser(response.data.user)
+      setUnlockChat(response.data.unlockChat)
+      console.log(url, response);
       
     })
     .catch(error => {
         console.error('Error response:', error);
     })
     .finally(() => {
+      setLoading(false);
       console.log('Request completed');
     });
     
     }, [])
+
+    const createChat = async (other_user_id) => {
+    try{
+      const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
+      console.log('buychat',response);
+      alert(response.data.message);
+      refreshUser();
+      navigate('/chat');
+    } catch (error) {
+      alert(error.response.data.message);
+      if(error.response.data.shop_redirect){
+        navigate('/shop');
+      }
+      console.error('Error', error);
+    }
+
+    
+    }
+
+    const createChatFem = async (hostess_id) => {
+      try {
+        const response = await axiosClient.post('/api/chats/freemsg', { king_id: king_id });
+        console.log('freemsg', response);
+        alert(response.data.message);
+        navigate('/chat');
+      } catch (error) {
+        console.error('Error', error);
+      }
+
+
+    }
 
     var settings = {
         dots: true,
@@ -76,10 +114,10 @@ function UserProfile() {
           }
         ]
       };
-    if(!givenUser){
+    if(loading){
       return <div>Loading...</div>
     }
-    if(!givenUser.id){
+    if(!givenUser){
       return (
         <>
         <Header />
@@ -184,7 +222,7 @@ function UserProfile() {
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Height:</strong><span>{givenUser.profile.height}cm</span></p>
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Dress size:</strong> <span>{dressSizeName(givenUser.profile.dress_size)}</span></p>
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Shoes size:</strong><span>{givenUser.profile.shoe_size}</span></p>
-{(givenUser.role === "HOSTESS") && 
+{(givenUser.role === ROLES.HOSTESS) && 
 <p  className='flex items-center gap-[10px] text-[16px]'><strong>Available for Tours:</strong><span>{givenUser.profile.travel_available ? 'Yes':'No'}</span></p>
 }
 <div className='about'>
@@ -193,7 +231,7 @@ function UserProfile() {
 </div>
 
 
-{(givenUser.role === "HOSTESS") &&
+{(givenUser.role === ROLES.HOSTESS) &&
 <>
 
 <h3 className="mt-[24px] font-[400] text-[26px] border-b">Available for:</h3>
@@ -267,9 +305,18 @@ function UserProfile() {
 
 </div>
   <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[200px]">
-        <Link to="/chat" className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
+            {unlockChat ?
+              <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] p-[12px]  hover:bg-[#8B8B8B] text-yellow-200">
+                {user?.role == ROLES.KING ? 'UNLOCK CHAT' : 'SEND FREE MESSAGE'}
+              </button>
+              :
+              <a href='/chat' className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
+                GO TO THE CHAT
+              </a>
+            }
+        {/* <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
         GO TO THE CHAT
-        </Link>
+        </button> */}
         </div>
 </div>
 

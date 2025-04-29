@@ -3,6 +3,7 @@ import SideMenu from "/src/components/side-menu";
 import { Outlet, Link } from "react-router-dom";
 import Logo from '/src/assets/images/logo.png'
 import { useStateContext } from "../../context/ContextProvider";
+import { ROLES } from "../../../constants";
 function Header() {
     
   const {token,user} = useStateContext();
@@ -48,7 +49,7 @@ function Header() {
 <div>Chat</div>
 </div>
 </a>
-{(user?.role === "CUSTOMER") &&
+{(user?.role === ROLES.KING) &&
 <div className="user-icon text-center">
 <div className="icon">
 <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +64,7 @@ function Header() {
 </defs>
 </svg>
 </div>
-<div>85</div>
+<div>{user.profile.credits}</div>
 </div>
 
 }

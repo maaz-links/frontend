@@ -7,6 +7,7 @@ import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
+import { ROLES } from "../../constants";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -41,26 +42,26 @@ const SignUp = () => {
           {/* Option 1 */}
           <div
             className={`relative w-full md:w-[50%] h-[171px]  flex items-center justify-center bg-[#AEAEAE]  cursor-pointer 
-          ${myRole === "HOSTESS" ? "border-4 border-black" : ""}`}
-            onClick={() => handleSelect("HOSTESS")}
+          ${myRole === ROLES.HOSTESS ? "border-4 border-black" : ""}`}
+            onClick={() => handleSelect(ROLES.HOSTESS)}
           >
             <p className="text-black text-center text-[22px]">I am an hostess or model</p>
             <span
               className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-black 
-            ${myRole === "HOSTESS" ? "bg-black" : "bg-white"}`}
+            ${myRole === ROLES.HOSTESS ? "bg-black" : "bg-white"}`}
             ></span>
           </div>
 
           {/* Option 2 */}
           <div
             className={`relative w-full md:w-[50%] h-[171px] flex items-center justify-center bg-[#AEAEAE]  cursor-pointer 
-          ${myRole === "CUSTOMER" ? "border-4 border-black" : ""}`}
-            onClick={() => handleSelect("CUSTOMER")}
+          ${myRole === ROLES.KING ? "border-4 border-black" : ""}`}
+            onClick={() => handleSelect(ROLES.KING)}
           >
             <p className="text-black text-center text-[22px]">I am looking for an hostess or model</p>
             <span
               className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-black 
-            ${myRole === "CUSTOMER" ? "bg-black" : "bg-white"}`}
+            ${myRole === ROLES.KING ? "bg-black" : "bg-white"}`}
             ></span>
           </div>
         </div>
@@ -206,7 +207,7 @@ const CreatSignup = ({myRole}) => {
             </div>
           </div>
 
-          {myRole == "HOSTESS" &&
+          {myRole == ROLES.HOSTESS &&
           <div className="mt-[20px] md:mt-[58px] mb-[0px]" ref={modelRef}>
             <label className="block mb-[13px]">I am:</label>
             <label className="block space-x-2">
