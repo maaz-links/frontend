@@ -184,13 +184,13 @@ const Chat = () => {
           <div className="flex justify-center gap-x-[20px] items-center p-2 pt-[17px] pb-[13px] border-b">
             <button 
               className={`px-4 py-2 ${activeTab === "all" ? "bg-[#605C5C] text-white px-[20px] min-w-[133px] text-[16px] font-bold" : "bg-[#AEAEAE] min-w-[133px] text-[16px] font-bold"}`} 
-              // onClick={() => setActiveTab("all")}
+              onClick={() => setActiveTab("all")}
             >
               ALL
             </button>
             <button 
               className={`px-4 py-2 ${activeTab === "archived" ? "bg-[#605C5C] text-white px-[20px] min-w-[133px] text-[16px] font-bold" : "bg-[#AEAEAE] min-w-[133px] text-[16px] font-bold"}`} 
-              // onClick={() => setActiveTab("archived")}
+              onClick={() => setActiveTab("archived")}
             >
               ARCHIVED
             </button>
@@ -252,7 +252,7 @@ const Chat = () => {
                   <Link to={`/user-profile/${selectedChat.other_user.name}`} className="px-4 py-1 h-[32px] bg-[#AEAEAE]">Profile</Link>
                   <button 
                     className="px-4 py-1 h-[32px] bg-[#AEAEAE] flex items-center"
-                    // onClick={() => toggleArchive(selectedChat.id, !selectedChat.is_archived)}
+                    onClick={() => toggleArchive(selectedChat.id, !selectedChat.is_archived)}
                   >
                     <FaArchive className="mr-2" />
                     {selectedChat.is_archived ? 'Unarchive' : 'Archive'}
