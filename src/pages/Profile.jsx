@@ -255,7 +255,7 @@ export const ProfilePhotoTab = () => {
 
 export const ProfileInfoTab = () => {
 
-  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions } = useStateContext();
+  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions, countries } = useStateContext();
 
   const [description, setDescription] = useState('');
   //const [optionsInterest, setOptionsInterest] = useState([]);
@@ -271,7 +271,7 @@ export const ProfileInfoTab = () => {
   const [province, setProvince] = useState("Rome");
   const [nationality, setNationality] = useState("Italian");
 
-  const [countries, setCountries] = useState([]);
+  //const [countries, setCountries] = useState([]);
   const [provinces, setProvinces] = useState([]);
   
   // State for selections
@@ -279,46 +279,48 @@ export const ProfileInfoTab = () => {
   const [selectedProvince, setSelectedProvince] = useState('');
   
 
-  // Fetch countries on component mount
+  
+  
+  // Set user's current country and province when both user data and countries are loaded
   useEffect(() => {
-    axiosClient.get('/api/countries')
-      .then(response => {
-        setCountries(response.data);
-        console.log('wat',response.data);
-        // if (selectedCountry) {
-          axiosClient.get(`/api/countries/${response.data[0].id}/provinces`)
-            .then(response => {
-              setProvinces(response.data);
-              setSelectedProvince(''); // Reset province selection
-            })
-            .catch(error => {
-              console.error('Error fetching provinces:', error);
-            });
-        // } else {
-        //   setProvinces([]);
-        // }
+    if (Object.keys(user).length !== 0 && countries.length > 0) {
+      console.log('initializing profile data');
+      // ... your existing user data setting code ...
+      
+      // Set country and province from user profile
+      if (user.profile.country_id) {
+        setSelectedCountry(user.profile.country_id);
         
-      })
-      .catch(error => {
-        console.error('Error fetching countries:', error);
-      });
-  }, []);
-
-  // Fetch provinces when country changes
-  useEffect(() => {
-    if (selectedCountry) {
-      axiosClient.get(`/api/countries/${selectedCountry}/provinces`)
-        .then(response => {
-          setProvinces(response.data);
-          setSelectedProvince(response.data[0].id); // Reset province selection
-        })
-        .catch(error => {
-          console.error('Error fetching provinces:', error);
-        });
+        // Find the country in our loaded data to get its provinces
+        const userCountry = countries.find(c => c.id === user.profile.country_id);
+        if (userCountry) {
+          setProvinces(userCountry.provinces);
+          
+          // Only set province if it exists in the country's provinces
+          if (user.profile.province_id && userCountry.provinces.some(p => p.id === user.profile.province_id)) {
+            setSelectedProvince(user.profile.province_id);
+          }
+        }
+      }
+    }
+  }, [user, countries]);
+  
+  // Handle country change
+  const handleCountryChange = (e) => {
+    const countryId = e.target.value;
+    setSelectedCountry(countryId);
+    // console.log(countryId,countries);
+    // Find the selected country and update provinces
+    const selectedCountryData = countries.find(c => c.id == countryId);
+    // console.log(selectedCountryData);
+    if (selectedCountryData) {
+      setProvinces(selectedCountryData.provinces);
+      setSelectedProvince(selectedCountryData.provinces.length > 0 ? selectedCountryData.provinces[0].id : null);
     } else {
       setProvinces([]);
+      setSelectedProvince(null);
     }
-  }, [selectedCountry,countries]);
+  };
 
   
   // const [formData, setFormData] = useState({
@@ -366,6 +368,7 @@ export const ProfileInfoTab = () => {
 
         setSelectedCountry(user.profile.country_id)
         setSelectedProvince(user.profile.province_id)
+        console.log('selectedUser')
       }
     }
     
@@ -505,9 +508,10 @@ export const ProfileInfoTab = () => {
           <select 
             id="country"
             className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
+            value={selectedCountry || ''}
+            onChange={handleCountryChange}
           >
+            {/* <option value="">Select Country</option> */}
             {countries.map(country => (
               <option key={country.id} value={country.id}>
                 {country.name}
@@ -520,10 +524,11 @@ export const ProfileInfoTab = () => {
           <select 
             id="province"
             className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
-            
-            value={selectedProvince}
+            value={selectedProvince || ''}
             onChange={(e) => setSelectedProvince(e.target.value)}
+            disabled={!selectedCountry}
           >
+            {/* <option value="">Select Province</option> */}
             {provinces.map(province => (
               <option key={province.id} value={province.id}>
                 {province.name}

@@ -14,7 +14,7 @@ import { ROLES } from '../../constants';
 
 function UserProfile() {
 
-  const {token, user, optionsInterest,optionsAvailableFor,languageOptions, refreshUser} = useStateContext();
+  const {token, user, optionsInterest,optionsAvailableFor,languageOptions, getProvinceName ,refreshUser} = useStateContext();
   const [givenUser, setGivenUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [unlockChat,setUnlockChat] = useState(false);
@@ -61,18 +61,6 @@ function UserProfile() {
     
     }
 
-    const createChatFem = async (hostess_id) => {
-      try {
-        const response = await axiosClient.post('/api/chats/freemsg', { king_id: king_id });
-        console.log('freemsg', response);
-        alert(response.data.message);
-        navigate('/chat');
-      } catch (error) {
-        console.error('Error', error);
-      }
-
-
-    }
 
     var settings = {
         dots: true,
@@ -143,7 +131,7 @@ function UserProfile() {
 </defs>
 </svg>
 </h1>
-<p className='italic'><span>{givenUser.profile.province_name}</span> | <span>{new Date(givenUser.created_at).getFullYear()}</span></p>
+<p className='italic'><span>{getProvinceName(givenUser.profile.province_id)}</span> | <span>{new Date(givenUser.created_at).getFullYear()}</span></p>
 <div className='flex flex-col md:flex-row gap-[40px] md:gap-x-[100px]  mt-[50px]'>
 <div className='profile-slider md:w-[40%] w-full'>
 {/* <Slider {...settings}> */}

@@ -19,9 +19,10 @@ const Chat = () => {
   const [loading, setLoading] = useState(true); //loading for chat sidebar
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
-  const {user,refreshUser} = useStateContext();
+  const {user,refreshUser,getProvinceName} = useStateContext();
 
   const messagesRef = useRef(messages);
+  const messagesContainerRef = useRef(null);
 
   // const [selectedId, setSelectedId] = useState('');
   // const location = useLocation();
@@ -105,7 +106,8 @@ const Chat = () => {
   };
 
   // Send new message
-  const sendMessage = async () => {
+  const sendMessage = async (e) => {
+    e.preventDefault();
     if (!newMessage.trim() || !selectedChat) return;
     
     try {
@@ -128,7 +130,16 @@ const Chat = () => {
 
   // Scroll to bottom of messages
   const scrollToBottom = () => {
-    // messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    //messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesContainerRef.current && messagesEndRef.current) {
+      const container = messagesContainerRef.current;
+      const scrollHeight = messagesEndRef.current.offsetTop;
+      
+      container.scrollTo({
+        top: scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   };
 
   // Handle chat selection
@@ -243,7 +254,7 @@ const Chat = () => {
                     <p className="text-[20px] font-bold">{selectedChat.other_user.name}</p>
                     <p className="text-[14px]">
                       {selectedChat.other_user.dob ? `${getAge(selectedChat.other_user.dob)} years old` : ''} | 
-                      {selectedChat.other_user.province_name ? ` ${selectedChat.other_user.province_name}` : '<cityname>'}
+                      {selectedChat.other_user.province_id ? ` ${getProvinceName(selectedChat.other_user.province_id)}` : '<cityname>'}
                     </p>
                   </div>
                 </div>
@@ -261,7 +272,7 @@ const Chat = () => {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 p-[40px] space-y-4 overflow-auto">
+              <div ref={messagesContainerRef} className="flex-1 p-[40px] space-y-4 overflow-auto">
                 {messages.length === 0 ? (
                   <div className="text-center py-8">No messages yet. Start the conversation!</div>
                 ) : (
@@ -286,6 +297,7 @@ const Chat = () => {
               {/* Input Box */}
               <div className="p-4 mb-[20px] flex items-center">
               {selectedChat.unlocked ? <>
+                <form className="flex items-center w-full" onSubmit={sendMessage}>
                 <input 
                   type="text" 
                   placeholder="Type here..." 
@@ -295,12 +307,13 @@ const Chat = () => {
                   className="flex-1 p-2 px-[25px] bg-[#AEAEAEAE] focus:outline-0" 
                 />
                 <button 
-                  onClick={sendMessage} 
+                  // onClick={sendMessage} 
                   className="ml-[20px] bg-[#777777] text-black p-2 px-[10px]"
                   disabled={!newMessage.trim()}
                 >
                   <FaPaperPlane />
                 </button>
+                </form>
                 </>
               :<>
               {user.role == ROLES.KING ?

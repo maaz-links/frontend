@@ -57,6 +57,7 @@ const Reviews = () => {
         return newRatings;
       });
     } catch (error) {
+      alert(error.response.data.formError.rating);
       console.error("Error submitting review:", error);
     } finally {
       setIsSubmitting(false);

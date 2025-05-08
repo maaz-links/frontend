@@ -45,6 +45,7 @@ export const ContextProvider = ({ children }) => {
   const [optionsInterest, setOptionsInterest] = useState([]);
   const [optionsAvailableFor, setOptionsAvailableFor] = useState([]);
   const [languageOptions, setLanguageOptions] = useState([]);
+  const [countries, setCountries] = useState([]);
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
   //const [refreshUser, setRefreshUser] = useState([]);
@@ -55,7 +56,20 @@ export const ContextProvider = ({ children }) => {
     setOptionsInterest(response2.data.interests);
     setOptionsAvailableFor(response2.data.available_for);
     setLanguageOptions(response2.data.spoken_languages);
+    
   }
+
+  // Fetch countries on component mount
+  useEffect(() => {
+    axiosClient.get('/api/countries') // This endpoint should return countries with nested provinces
+      .then(response => {
+        setCountries(response.data);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching countries:', error);
+      });
+  }, []);
 
   useEffect(() => {
     getMiscData();
@@ -69,6 +83,17 @@ export const ContextProvider = ({ children }) => {
     getUserData();
   };
 
+  const getProvinceName = (province_id,country_id = null) => {
+  for (const country of countries) {
+    const province = country.provinces.find(p => p.id == province_id);
+    if (province) {
+      return province.name;
+    }
+  }
+  return 'Not found';
+
+  }
+
   return (
     <StateContext.Provider value={{
       user,
@@ -81,6 +106,8 @@ export const ContextProvider = ({ children }) => {
       optionsAvailableFor, setOptionsAvailableFor,
       languageOptions, setLanguageOptions,
       refreshUser,// setRefreshUser,
+      countries,
+      getProvinceName,
       // ... other values
     }}>
       {children}

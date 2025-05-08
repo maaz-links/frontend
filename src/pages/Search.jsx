@@ -8,7 +8,7 @@ import axiosClient from '../../axios-client'
 import { getAttachmentURL } from '../functions/Common'
 function Search() {
 
-  const {user, token} = useStateContext();
+  const {user, token,getProvinceName} = useStateContext();
   const [entities, setEntities] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -140,7 +140,7 @@ function Search() {
       </div>
       <div className='result-content'>
         <h4>{entity.name}</h4>
-        <p>{entity.profile?.province_name}</p>
+        <p>{getProvinceName(entity?.profile?.province_id)}</p>
       </div>
     </div>
   </a>

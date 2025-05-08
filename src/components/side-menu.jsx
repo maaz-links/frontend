@@ -12,7 +12,7 @@ import { getAttachmentURL } from '../functions/Common'
 import { ROLES } from '../../constants'
 
 const SideMenu = () => {
-    const { token, user } = useStateContext();
+    const { token, user, getProvinceName } = useStateContext();
     const [isOpen, setIsOpen] = React.useState(false)
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState)
@@ -75,7 +75,7 @@ const SideMenu = () => {
                                 </div>
                                 <div className='user-data'>
                                     <h4 className='text-[#000] text-[24px] font-[700]'>{user?.name || 'User'}</h4>
-                                    <p className='text-[#000] text-[20px]'>{user?.profile?.province_name || 'City'}</p>
+                                    <p className='text-[#000] text-[20px]'>{getProvinceName(user?.profile?.province_id) || 'City'} </p>
                                     {/* <p className='text-[#6B6B6BBB]'><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></p> */}
                                     <StarRating rating={user?.rating || 0} />
                                 </div>
