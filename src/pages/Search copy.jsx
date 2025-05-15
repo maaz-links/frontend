@@ -52,14 +52,14 @@ function Search() {
       <div className='max-w-[1200px] m-auto mt-[43px] mb-[50px] px-[15px]'>
         <div className='flex gap-x-[15px] md:gap-x-[40px]'>
           <div className='selection w-[100%] md:w-[90%]'>
-            <select className="w-full bg-[#AEAEAE] h-[46px] p-[10px] focus:outline-0">
+            <select className="w-full bg-[#F5F5F5] h-[46px] p-[10px] focus:outline-0">
               <option>City/Province</option>
             </select>
           </div>
           <div className='filter md:w-[10%] '>
             <button
 
-              className="flex cursor-pointer items-center gap-2 w-full bg-[#AEAEAE] h-[46px] p-[10px] focus:outline-0"
+              className="flex cursor-pointer items-center gap-2 w-full bg-[#F5F5F5] h-[46px] p-[10px] focus:outline-0"
             >
               <svg width="22" height="13" viewBox="0 0 22 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="0.158691" y1="1.5" x2="21.2978" y2="1.5" stroke="black" />
@@ -80,7 +80,7 @@ function Search() {
           {entities.map((entity) => (
   <a href={`/user-profile/${entity.name}`} key={entity.id}>
     <div className='result-box'>
-    {/* <div className="w-[130px] h-[130px] bg-[#AEAEAE]">
+    {/* <div className="w-[130px] h-[130px] bg-[#F5F5F5]">
               {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={`${import.meta.env.VITE_API_BASE_URL}/api/attachments/${user.profile_picture_id}`}></img>}
             </div> */}
       <div className='result-box-img' style={{height: '40vh'}}>

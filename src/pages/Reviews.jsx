@@ -73,7 +73,7 @@ const Reviews = () => {
             className={`text-[24px] cursor-pointer hover:text-yellow-400 ${
               star <= (currentRating || 0)
                 ? 'text-yellow-500'
-                : 'text-gray-400'
+                : 'text-[#BDBDBD]'
             }`}
             onClick={() => handleRatingChange(userId, star)}
           >
@@ -90,7 +90,7 @@ const Reviews = () => {
       <div className="max-w-[1300px] m-auto mt-[60px] mb-[60px]">
         {/* User Profile Section */}
         <div className=" p-4 flex pb-[0px]">
-          <div className="w-[130px] h-[130px] bg-[#B5B5B5BB]">
+          <div className="w-[130px] h-[130px] bg-[#F5F5F5]">
 
             {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
           </div>
@@ -117,18 +117,18 @@ const Reviews = () => {
           {reviewableUsers.map((user) => (
             <div key={user.id} className="grid grid-cols-4 items-center py-3">
               <div className="flex items-center">
-                <div className="w-15 h-15 bg-[#B5B5B5BB] rounded-full">
+                <div className="w-15 h-15 bg-[#F5F5F5] rounded-full">
                 <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(user.profile_picture_id)}></img>
                 </div>
                 <p className="ml-3 text-[16px] font-[600]">{user.name}</p>
               </div>
               <p className="text-[18px]">{formatDateToDMY(user.unlocked_at)}</p>
-              <div className="text-[18px] text-gray-300">
+              <div className="text-[18px] text-[#BDBDBD]">
                 {renderStars(user.id, ratings[user.id])}
               </div>
               <button 
                 className={`text-[18px] font-[600] italic hover:underline justify-self-end ${
-                  !ratings[user.id] ? 'text-gray-400 cursor-not-allowed' : ''
+                  !ratings[user.id] ? 'text-[#BDBDBD] cursor-not-allowed' : ''
                 }`}
                 onClick={() => handleSubmitReview(user.id)}
                 disabled={!ratings[user.id] || isSubmitting}

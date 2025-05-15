@@ -86,7 +86,7 @@ function VerifyPhone() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder=""
-              className="w-full bg-[#AEAEAE] h-[45px] p-[10px] focus:outline-0"
+              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
             />
             <ErrorText field='otp' />
           </div>
@@ -96,7 +96,7 @@ function VerifyPhone() {
             <button
               //onClick={sendOtp}
               // onClick={() => { verifyOtp() }}
-              className="cursor-pointer w-full bg-[#000] uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]"
+              className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]"
             >
               VERIFY
             </button> </div>

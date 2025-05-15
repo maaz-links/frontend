@@ -7,11 +7,11 @@ function Blogs () {
    
 return (
 <>
-<div className="pt-[62px] pb-[45px] px-[15px] border-y-1">
+<div className="pt-[62px] pb-[45px] px-[15px] border-y-2 border-[#BDBDBD]">
 <h1 className="text-center text-[32px] uppercase font-[400]">BLOG</h1>
 <div className='howto-boxs md:max-w-[950px] m-auto mt-[7px]'>
 <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] md:gap-x-[40px]">
-<div className='blog-box text-center bg-[#fff] hover:bg-[#8B8B8B]'>
+<div className='blog-box text-center bg-[#fff] hover:bg-[#F8BBD0]'>
 <div className='blog-inner'>
 <a href='#'>
 <div className='blog-img'>
@@ -23,7 +23,7 @@ return (
 </div>
 
 </div>
-<div className='blog-box text-center bg-[#fff] hover:bg-[#8B8B8B]'>
+<div className='blog-box text-center bg-[#fff] hover:bg-[#F8BBD0]'>
 <div className='blog-inner'>
 <a href='#'>
 <div className='blog-img'>
@@ -34,7 +34,7 @@ return (
 
 </div>
 </div>
-<div className='blog-box text-center bg-[#fff] hover:bg-[#8B8B8B]'>
+<div className='blog-box text-center bg-[#fff] hover:bg-[#F8BBD0]'>
 <div className='blog-inner'>
 <a href='#'>
 <div className='blog-img'>
@@ -45,7 +45,7 @@ return (
 
 </div>
 </div>
-<div className='blog-box text-center bg-[#fff] hover:bg-[#8B8B8B]'>
+<div className='blog-box text-center bg-[#fff] hover:bg-[#F8BBD0]'>
 <div className='blog-inner'>
 <a href='#'>
 <div className='blog-img'>

@@ -15,7 +15,7 @@ const AccordionItem = ({ header, ...rest }) => (
     className="mb-[30px]"
     buttonProps={{
       className: ({ isEnter }) =>
-        `flex w-full text-[18px] p-4 bg-[#8B8B8B] shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-left cursor-pointer ${
+        `flex w-full text-[18px] p-4 bg-[#F8BBD0] shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-left cursor-pointer ${
           isEnter && "bg-white-200"
         }`
     }}

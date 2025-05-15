@@ -225,19 +225,19 @@ function UserProfile() {
 <h3 className="mt-[24px] font-[400] text-[26px] border-b">Available for:</h3>
               {/* <div className="grid grid-cols-2 md:grid-cols-5 gap-[11px] mt-[24px]  max-w-[600px]">
           {["photo model", "fashion pics", "travel & weekend", "dinners", "host hostess", "parties", "fake girlfriend", "talk"].map((item) => (
-            <span key={item} className="bg-[#AEAEAE] px-3 py-1  text-[11px] text-center min-w-[78px]">{item}</span>
+            <span key={item} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[78px]">{item}</span>
           ))}
         </div> */}
               {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
           {optionsAvailableFor.map((item) => (
-            <span key={item.name} className="bg-[#AEAEAE] px-3 py-1  text-[11px] text-center min-w-[78px]">{item.name}</span>
+            <span key={item.name} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[78px]">{item.name}</span>
             
             // <div>{item.name}</div>
           ))}
         </div> */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
                 {/* {optionsAvailableFor.map((item) => (
-            <span key={item.name} className="bg-[#AEAEAE] px-3 py-1  text-[11px] text-center min-w-[78px]">{item.name}</span>
+            <span key={item.name} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[78px]">{item.name}</span>
             
             // <div>{item.name}</div>
           ))} */}
@@ -246,7 +246,7 @@ function UserProfile() {
                   .map((item) => (
                     <span
                       key={item.id}
-                      className={`px-3 py-1 text-[11px] text-center min-w-[139px] transition-colors bg-[#AEAEAE]`}
+                      className={`px-3 py-1 text-[11px] text-center min-w-[139px] transition-colors bg-[#F5F5F5]`}
                     >
                       {item.name}
                     </span>
@@ -261,7 +261,7 @@ function UserProfile() {
                   .map((item) => (
                     <span
                       key={item.id}
-                      className={`px-3 py-1 text-[11px] text-center min-w-[139px] transition-colors bg-[#AEAEAE]`}
+                      className={`px-3 py-1 text-[11px] text-center min-w-[139px] transition-colors bg-[#F5F5F5]`}
                     >
                       {item.name}
                     </span>
@@ -273,7 +273,7 @@ function UserProfile() {
         <h3 className="mt-[24px] md:mt-[56px] font-[400] text-[26px] border-b">Spoken Languages</h3>
         {/* <div className="grid grid-cols-2 md:grid-cols-5 gap-[11px] mt-[24px]  max-w-[600px]">
           {["Deutsch", "English", "Italian", "Espanol", "Français"].map((lang) => (
-            <span key={lang} className="bg-[#AEAEAE] px-3 py-1  text-[11px] w-full md:w-[78px] text-center">{lang}</span>
+            <span key={lang} className="bg-[#F5F5F5] px-3 py-1  text-[11px] w-full md:w-[78px] text-center">{lang}</span>
           ))}
         </div> */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
@@ -282,7 +282,7 @@ function UserProfile() {
                   .map((item) => (
                     <span
                       key={item.id}
-                      className={`px-3 py-1 text-[11px] text-center min-w-[139px] transition-colors bg-[#AEAEAE]`}
+                      className={`px-3 py-1 text-[11px] text-center min-w-[139px] transition-colors bg-[#F5F5F5]`}
                     >
                       {item.name}
                     </span>
@@ -294,15 +294,15 @@ function UserProfile() {
 </div>
   <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[200px]">
             {unlockChat ?
-              <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] p-[12px]  hover:bg-[#8B8B8B] text-yellow-200">
+              <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
                 {user?.role == ROLES.KING ? 'UNLOCK CHAT' : 'SEND FREE MESSAGE'}
               </button>
               :
-              <a href='/chat' className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
+              <a href='/chat' className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
                 GO TO THE CHAT
               </a>
             }
-        {/* <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#000] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
+        {/* <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
         GO TO THE CHAT
         </button> */}
         </div>

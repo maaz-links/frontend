@@ -20,7 +20,7 @@ const AddPhoto = () => {
       <p className="text-[20px] mb-[25px]">Upload at least one pic to activate your profile</p>
 
       <label 
-        className="w-full max-w-[814px] h-40 bg-[#AEAEAE] flex items-center justify-center cursor-pointer"
+        className="w-full max-w-[814px] h-40 bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
       >
         {image ? (
           <img src={image} alt="Preview" className="w-full h-full object-cover" />
@@ -30,7 +30,7 @@ const AddPhoto = () => {
         <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
       </label>
 
-      <button className="mt-6 md:mt-[82px] px-6 md:px-[60px] py-2 bg-black text-white text-[20px] font-[400] cursor-pointer  hover:bg-[#8B8B8B]">
+      <button className="mt-6 md:mt-[82px] px-6 md:px-[60px] py-2 bg-[#E91E63] text-white text-[20px] font-[400] cursor-pointer  hover:bg-[#F8BBD0]">
         GO TO YOUR PROFILE 
       </button>
     </div>

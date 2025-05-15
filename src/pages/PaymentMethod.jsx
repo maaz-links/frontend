@@ -38,31 +38,31 @@ const PaymenMethod = () => {
         {paymentMethod === "creditCard" && (
           <>
             <div className="flex space-x-4">
-              <input type="text" placeholder="Name" className="w-1/2 p-2 bg-[#AEAEAE]" />
-              <input type="text" placeholder="Last Name" className="w-1/2 p-2 bg-[#AEAEAE]" />
+              <input type="text" placeholder="Name" className="w-1/2 p-2 bg-[#F5F5F5]" />
+              <input type="text" placeholder="Last Name" className="w-1/2 p-2 bg-[#F5F5F5]" />
             </div>
            
             <div className="flex space-x-4  mt-6 md:mt-[35px">
-            <input type="text" placeholder="Card Number" className="w-full p-2 bg-[#AEAEAE]" />
-              <input type="text" placeholder="EXC" className="w-1/5 p-2 bg-[#AEAEAE]" />
-              <input type="text" placeholder="MM/YY" className="w-1/3 p-2 bg-[#AEAEAE]" />
+            <input type="text" placeholder="Card Number" className="w-full p-2 bg-[#F5F5F5]" />
+              <input type="text" placeholder="EXC" className="w-1/5 p-2 bg-[#F5F5F5]" />
+              <input type="text" placeholder="MM/YY" className="w-1/3 p-2 bg-[#F5F5F5]" />
             </div>
             <div className=" max-w-[540px] mt-6 md:mt-[35px]">
 
-            <input type="text" placeholder="Email" className="w-full p-2 bg-[#AEAEAE]" /> 
+            <input type="text" placeholder="Email" className="w-full p-2 bg-[#F5F5F5]" /> 
             </div>
           </>
         )}
 
         {paymentMethod === "paypal" && (
             <div className=" max-w-[540px] mt-6 md:mt-[35px]">
-          <input type="email" placeholder="Email" className="w-full p-2 bg-[#AEAEAE]" />
+          <input type="email" placeholder="Email" className="w-full p-2 bg-[#F5F5F5]" />
           </div>
         )}
       </div>
 </div>
       {/* Submit Button */}
-      <button className="mt-6 md:mt-[100px] w-full bg-black text-white py-2 max-w-[540px]">SUBMIT</button>
+      <button className="mt-6 md:mt-[100px] w-full bg-[#E91E63] text-white py-2 max-w-[540px]">SUBMIT</button>
     </div>
     <Footer />
     </>

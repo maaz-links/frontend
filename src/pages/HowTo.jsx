@@ -17,7 +17,7 @@ function HowTo() {
   <div className='max-w-[1035px] m-auto px-[15px]'>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-[15px] md:gap-x-[40px] mt-[40px] md:mt-[80px]">
   <div className='model-and-host'>
-  <div className='bg-[#AEAEAE] w-full text-center p-[12px] uppercase mb-[15px]'>ARE YOU AN HOSTESS OR A MODEL?</div>
+  <div className='bg-[#F5F5F5] w-full text-center p-[12px] uppercase mb-[15px]'>ARE YOU AN HOSTESS OR A MODEL?</div>
   <ul>
     <li>
     <Link className='flex items-center gap-2 mb-[10px]'><svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@ Enjoy!</Link>
   </ul>
   </div>
   <div className='looking-model'>
-  <div className='bg-[#AEAEAE] w-full text-center p-[12px] uppercase mb-[15px]'>ARE YOU LOOKING FOR AN HOSTESS OR A MODEL?</div>
+  <div className='bg-[#F5F5F5] w-full text-center p-[12px] uppercase mb-[15px]'>ARE YOU LOOKING FOR AN HOSTESS OR A MODEL?</div>
   <ul>
     <li>
     <Link className='flex items-center gap-2 mb-[10px]'><svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,31 +80,31 @@ Enjoy!</Link>
     <div className='max-w-[1070px] m-auto px-[15px] mb-[50px] md:mb-[99px]'>
 <h4 className='text-[20px] mb-[20px]'>What could you do togheter?</h4>
 <div className="grid grid-cols-2 md:grid-cols-5 gap-[15px] md:gap-x-[50px]">
-<div className='howto-box text-center bg-[#8B8B8B]  flex items-center justify-center '>
+<div className='howto-box text-center bg-[#F8BBD0]  flex items-center justify-center '>
 <a href='#' className="block">
 <img src={ModelImage} />
 <h3>Service 2 </h3>
 </a>
 </div>
-<div className='howto-box text-center bg-[#8B8B8B]  flex items-center justify-center'>
+<div className='howto-box text-center bg-[#F8BBD0]  flex items-center justify-center'>
 <a href='#' className="block">
 <img src={ModelImage} />
 <h3>Service 2 </h3>
 </a>
 </div>
-<div className='howto-box text-center bg-[#8B8B8B]  flex items-center justify-center'>
+<div className='howto-box text-center bg-[#F8BBD0]  flex items-center justify-center'>
 <a href='#' className="block">
 <img src={ModelImage} />
 <h3>Service 2 </h3>
 </a>
 </div>
-<div className='howto-box text-center bg-[#8B8B8B]  flex items-center justify-center'>
+<div className='howto-box text-center bg-[#F8BBD0]  flex items-center justify-center'>
 <a href='#' className="block">
 <img src={ModelImage} />
 <h3>Service 2 </h3>
 </a>
 </div>
-<div className='howto-box text-center bg-[#8B8B8B]  flex items-center justify-center'>
+<div className='howto-box text-center bg-[#F8BBD0]  flex items-center justify-center'>
 <a href='#' className="block">
 <img src={ModelImage} />
 <h3>Service 2 </h3>

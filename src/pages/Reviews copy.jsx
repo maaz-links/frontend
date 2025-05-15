@@ -17,7 +17,7 @@ function Reviews() {
     <div className="max-w-[1300px] m-auto mt-[60px] mb-[60px]">
       {/* User Profile Section */}
       <div className=" p-4 flex pb-[0px]">
-        <div className="w-[180px] h-[135px] bg-[#B5B5B5BB]"></div>
+        <div className="w-[180px] h-[135px] bg-[#F5F5F5]"></div>
         <div className="ml-4">
           <h2 className="text-[20px] font-bold">USER</h2>
           <p className="text-[16px] italic mt-[10px]">Profile Status: <span className=" font-semibold">ACTIVE</span></p>
@@ -37,11 +37,11 @@ function Reviews() {
         {reviews.map((review) => (
           <div key={review.id} className="grid grid-cols-4 items-center  py-3">
             <div className="flex items-center">
-              <div className="w-15 h-15 bg-[#B5B5B5BB] rounded-full"></div>
+              <div className="w-15 h-15 bg-[#F5F5F5] rounded-full"></div>
               <p className="ml-3 text-[16px] font-[600]">{review.user}</p>
             </div>
             <p className="text-[16px]">{review.date}</p>
-            <div className="text-[18px] text-[#6B6B6BBB]">{"★".repeat(review.rating)}</div>
+            <div className="text-[18px] text-[#BDBDBD]">{"★".repeat(review.rating)}</div>
             <button className="text-[16px] font-[600] italic hover:underline">LEAVE A REVIEW</button>
           </div>
         ))}

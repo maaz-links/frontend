@@ -32,7 +32,7 @@ function Shop() {
           <div className='blog-box text-center'>
             <div className='blog-inner'>
               {/* <Link to="/payment-method"> */}
-                <div onClick={buy100}  className='blog-img bg-gray-500'>
+                <div onClick={buy100}  className='blog-img bg-[#E91E63]'>
                 <img src={ModelImage} style={{visibility: 'hidden'}} />
                   
                
@@ -53,7 +53,7 @@ function Shop() {
                     </div>
                     <div>100</div>
                   </div> */}
-                <h3 onClick={buy100} className='uppercase font-[400] py-[12px] bg-black mt-[20px] text-white hover:bg-[#8B8B8B]'>GET 100 CREDITS</h3>
+                <h3 onClick={buy100} className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>GET 100 CREDITS</h3>
               {/* </Link> */}
 
             </div>
@@ -65,7 +65,7 @@ function Shop() {
                 <div className='blog-img'>
                   <img src={ModelImage} />
                 </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-black mt-[20px] text-white hover:bg-[#8B8B8B]'>Shop</h3>
+                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
               </Link>
 
             </div>
@@ -77,7 +77,7 @@ function Shop() {
                 <div className='blog-img'>
                   <img src={ModelImage} />
                 </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-black mt-[20px] text-white hover:bg-[#8B8B8B]'>Shop</h3>
+                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
               </Link>
 
             </div>
@@ -88,7 +88,7 @@ function Shop() {
                 <div className='blog-img'>
                   <img src={ModelImage} />
                 </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-black mt-[20px] text-white hover:bg-[#8B8B8B]'>Shop</h3>
+                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
               </Link>
 
             </div>
@@ -99,7 +99,7 @@ function Shop() {
                 <div className='blog-img'>
                   <img src={ModelImage} />
                 </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-black mt-[20px] text-white hover:bg-[#8B8B8B]'>Shop</h3>
+                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
               </Link>
 
             </div>

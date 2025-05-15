@@ -69,7 +69,7 @@ function Search() {
       <div className='flex gap-x-[15px] md:gap-x-[40px] mb-4'>
         <div className='selection w-[100%] md:w-[90%]'>
           <select 
-            className="w-full bg-[#AEAEAE] h-[46px] p-[10px] focus:outline-0"
+            className="w-full bg-[#F5F5F5] h-[46px] p-[10px] focus:outline-0"
             value={selectedProvince}
             onChange={(e) => setSelectedProvince(e.target.value)}
           >
@@ -84,7 +84,7 @@ function Search() {
         <div className='filter md:w-[10%]'>
           <button
             onClick={handleFilter}
-            className="flex cursor-pointer items-center gap-2 w-full bg-[#AEAEAE] h-[46px] p-[10px] focus:outline-0"
+            className="flex cursor-pointer items-center gap-2 w-full bg-[#F5F5F5] h-[46px] p-[10px] focus:outline-0"
           >
             <svg width="22" height="13" viewBox="0 0 22 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="0.158691" y1="1.5" x2="21.2978" y2="1.5" stroke="black" />
@@ -127,9 +127,9 @@ function Search() {
           {entities.map((entity) => (
   <a href={`/user-profile/${entity.name}`} key={entity.id}>
     <div className='result-box'>
-    {entity.profile.verified_profile ? <div className={`absolute top-0 end-0 text-blue-500 bg-white`}><strong>Verified</strong></div> : <></>}
-    {entity.profile.top_profile ? <div className={`absolute top-0 start-0 text-yellow-500 bg-white`}><strong>Top Profile</strong></div> : <></>}
-    {/* <div className="w-[130px] h-[130px] bg-[#AEAEAE]">
+    {entity.profile.verified_profile ? <div className={`absolute top-0 end-0 text-[#E91E63] bg-[#F5F5F5]`}><strong>Verified</strong></div> : <></>}
+    {entity.profile.top_profile ? <div className={`absolute top-0 start-0 text-yellow-500 bg-[#F5F5F5]`}><strong>Top Profile</strong></div> : <></>}
+    {/* <div className="w-[130px] h-[130px] bg-[#F5F5F5]">
               
             </div> */}
       <div className='result-box-img aspect-2/3'

@@ -88,7 +88,7 @@ const CreatSignup = () => {
                 type="text"
                 name="username"
                 ref={usernameRef}
-                className="w-full p-2 bg-[#AEAEAE] focus:outline-0"
+                className="w-full p-2 bg-[#F5F5F5] focus:outline-0"
               />
             </div>
             <div>
@@ -96,7 +96,7 @@ const CreatSignup = () => {
               <div className="flex space-x-2">
                 <select
                   ref={dayRef}
-                  className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+                  className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
                 >
                   <option value="">Day</option>
                   {days.map((day) => (
@@ -107,7 +107,7 @@ const CreatSignup = () => {
                 </select>
                 <select
                   ref={monthRef}
-                  className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+                  className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
                 >
                   <option value="">Month</option>
                   {months.map((month, index) => (
@@ -118,7 +118,7 @@ const CreatSignup = () => {
                 </select>
                 <select
                   ref={yearRef}
-                  className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+                  className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
                 >
                   <option value="">Year</option>
                   {years.map((year) => (
@@ -136,14 +136,14 @@ const CreatSignup = () => {
             <div className="flex gap-x-[28px] max-w-[750px] w-full">
               <input
                 ref={phoneCountryCodeRef}
-                className="bg-[#AEAEAE] w-full p-2 focus:outline-0 md:max-w-[15%] text-center"
+                className="bg-[#F5F5F5] w-full p-2 focus:outline-0 md:max-w-[15%] text-center"
                 placeholder="+39"
               />
               <input
                 type="text"
                 name="phone"
                 ref={phoneNumberRef}
-                className="w-full md:w-max-[80%] bg-[#AEAEAE] p-2 focus:outline-0"
+                className="w-full md:w-max-[80%] bg-[#F5F5F5] p-2 focus:outline-0"
               />
             </div>
           </div>
@@ -155,7 +155,7 @@ const CreatSignup = () => {
                 type="email"
                 name="email"
                 ref={emailRef}
-                className="w-full p-2 focus:outline-0 w-[15%] bg-[#AEAEAE]"
+                className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5]"
               />
             </div>
             <div className="w-full">
@@ -164,7 +164,7 @@ const CreatSignup = () => {
                 type="password"
                 name="password"
                 ref={passwordRef}
-                className="w-full p-2 focus:outline-0 w-[15%] bg-[#AEAEAE]"
+                className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5]"
               />
             </div>
           </div>
@@ -199,7 +199,7 @@ const CreatSignup = () => {
             </label>
           </div>
 
-          <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-black text-white">
+          <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white">
             CREATE ACCOUNT
           </button>
         </form>

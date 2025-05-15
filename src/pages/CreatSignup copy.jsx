@@ -88,15 +88,15 @@ const CreatSignup = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 mt-[58px]  gap-x-[55px] w-full max-w-[865px]">
         <div >
           <label className="block">Name (Username)</label>
-          <input type="text" name="username" ref={usernameRef} className="w-full p-2 bg-[#AEAEAE] focus:outline-0" />
+          <input type="text" name="username" ref={usernameRef} className="w-full p-2 bg-[#F5F5F5] focus:outline-0" />
         </div>
         <DateOfBirthInput/>
         {/* <div>
           <label className="block">Date of Birth</label>
           <div className="flex space-x-2">
-                <input type="text" ref={dayRef} placeholder="Day" className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0" />
-                <input type="text" ref={monthRef} placeholder="Month" className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0" />
-                <input type="text" ref={yearRef} placeholder="Year" className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0" />
+                <input type="text" ref={dayRef} placeholder="Day" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
+                <input type="text" ref={monthRef} placeholder="Month" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
+                <input type="text" ref={yearRef} placeholder="Year" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
               </div>
         </div> */}
         </div>
@@ -104,18 +104,18 @@ const CreatSignup = () => {
           <label className="block">Phone Number</label>
           <div className="flex gap-x-[28px]  max-w-[750px] w-full">
 
-            <input className="bg-[#AEAEAE] w-full p-2 focus:outline-0 md:max-w-[15%] text-center" placeholder="+39" />
-            <input type="text" name="phone" ref={phoneRef} className="w-full md:w-max-[80%] bg-[#AEAEAE] p-2 focus:outline-0 " />
+            <input className="bg-[#F5F5F5] w-full p-2 focus:outline-0 md:max-w-[15%] text-center" placeholder="+39" />
+            <input type="text" name="phone" ref={phoneRef} className="w-full md:w-max-[80%] bg-[#F5F5F5] p-2 focus:outline-0 " />
           </div>
         </div>
         <div className="flex flex-col md:flex-row max-w-[865px] mt-[20px] md:mt-[58px]  w-full gap-x-[54px]">
         <div className="w-full">
           <label className="block">Email</label>
-          <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#AEAEAE] " />
+          <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5] " />
         </div>
         <div className="w-full">
           <label className="block">Password</label>
-          <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#AEAEAE] " />
+          <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5] " />
         </div></div>
         
         <div className="mt-[20px] md:mt-[58px] mb-[0px]" ref={roleRef}>
@@ -143,7 +143,7 @@ const CreatSignup = () => {
             <span className="ml-2">I accept the Terms & Conditions and Privacy Policy</span>
           </label>
         </div>
-        <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-black text-white">CREATE ACCOUNT</button>
+        <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white">CREATE ACCOUNT</button>
       </form>
     </div>
     <Footer />
@@ -236,7 +236,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
         <select
           value={day}
           onChange={(e) => setDay(e.target.value)}
-          className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+          className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
         >
           <option value="">Day</option>
           {days.map((d) => (
@@ -247,7 +247,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
         <select
           value={month}
           onChange={(e) => setMonth(e.target.value)}
-          className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+          className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
         >
           <option value="">Month</option>
           {months.map((m) => (
@@ -258,7 +258,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
         <select
           value={year}
           onChange={(e) => setYear(e.target.value)}
-          className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+          className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
         >
           <option value="">Year</option>
           {years.map((y) => (

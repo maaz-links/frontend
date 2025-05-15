@@ -14,7 +14,7 @@ function Hostess() {
     <h1 className="text-center text-[32px] font-[400] uppercase">TITLE</h1>
     <p className="text-center max-w-[700px]  m-auto  text-[16px] font-[400]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut consectetur neque. Ut metus ex, pretium et massa id, molestie luctus dui.</p>
     <div className='text-center mt-[40px] mb-[50px] md:mb-[100px]'>
-<a href='/sign-up' className='bg-[#000] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#8B8B8B] '>SIGN UP</a>
+<a href='/sign-up' className='bg-[#E91E63] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#F8BBD0] '>SIGN UP</a>
 </div>
       <div className="flex flex-col md:flex-row gap-x-[50px] pb-[35px] md:pb-[70px] border-b-1 md:border-b-0">
         {/* Image Section */}
@@ -48,7 +48,7 @@ function Hostess() {
         {/* Text Section */}
         <div className="w-full md:w-1/2">
           <h2 className="text-[32px]">Reversed Title</h2>
-          <p className="text-gray-700">
+          <p className="">
             This section has the image on the right and text on the left. Easily adaptable for different content styles.
           </p>
           

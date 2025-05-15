@@ -1,8 +1,36 @@
 @import "tailwindcss";
 
-body {
+/* body {
     font-family: Calibri;
+    
+} */
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
 }
+
+input[type="radio"] {
+    accent-color: #E91E63; /* Primary pink */
+  }
+
+  input[type="checkbox"] {
+    accent-color: #E91E63; /* Primary pink */
+  }
+
+  
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    /* font-weight: 700; Bold by default (adjust if needed) */
+}
+
+.h4u-heading-font{
+    font-family: 'Playfair Display', serif;
+}
+
+.h4u-body-font{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
 .slick-list{
     margin:auto 5em;
     text-align: center;
@@ -27,11 +55,11 @@ width: 100%;
 bottom: 0;
 right: 0;
 top: 0;
-background: rgba(139, 139, 139, 0.8);
+/* background: rgba(139, 139, 139, 0.8); */
 
 }
 .item-inner:hover::after,.result-box:hover:after{
-    background: rgba(139, 139, 139, 0.1);   
+    /* background: rgba(139, 139, 139, 0.1);    */
 }
 .result-content {
     position: absolute;
@@ -76,11 +104,13 @@ width: 100%;
     transition: height 0.25s cubic-bezier(0, 0, 0, 1);
   }
 .item-inner:hover h3 {
-    background: rgba(139, 139, 139, 1);
+    /* background: rgba(139, 139, 139, 1); */
+    background: #F8BBD0;
 
 }
 .result-box:hover .result-content {
-    background: rgba(139, 139, 139, 1);
+    /* background: rgba(139, 139, 139, 1); */
+    background: #F8BBD0;
 }
 .chat-bubble-left, .chat-bubble-right{
     position: relative;
@@ -95,7 +125,7 @@ width: 100%;
     height: 0;
     border-style: solid;
     border-width: 50px 30px 30px 30px;
-    border-color: #000 transparent transparent transparent;
+    border-color: #E91E63 transparent transparent transparent;
     transform: rotate(31deg);
 }
 .chat-bubble-right:after {
@@ -107,7 +137,7 @@ width: 100%;
     height: 0;
     border-style: solid;
     border-width: 50px 30px 30px 30px;
-    border-color: #000 transparent transparent transparent;
+    border-color: #E91E63 transparent transparent transparent;
     transform: rotate(90deg);
 }
 .chat-bubble-right {
@@ -130,7 +160,7 @@ width: 100%;
     height: 0;
     border-style: solid;
     border-width: 50px 30px 30px 30px;
-    border-color: #D9D9D9 transparent transparent transparent;
+    border-color: #FFFFFF transparent transparent transparent;
     transform: rotate(90deg); 
     z-index: -1;
 }
@@ -147,7 +177,8 @@ font-size: 20px;
 }
 
 .EZDrawer .EZDrawer__container {
-    background: rgba(181, 181, 181,1) !important;
+    /* background: rgba(181, 181, 181,1) !important; */
+    background: #FFFFFF !important;
     overflow-y: auto;
     z-index:9999 !important;
 }

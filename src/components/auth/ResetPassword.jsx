@@ -84,7 +84,7 @@ function ResetPassword() {
               //onChange={(e) => setEmail(e.target.value)}
               ref={passwordRef}
               required
-              className="w-full bg-[#AEAEAE] h-[45px] p-[10px] focus:outline-0"
+              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
               placeholder="Enter your new password"
             />
             <ErrorText field="password"/>
@@ -93,7 +93,7 @@ function ResetPassword() {
 
           {/* Login Button */}
           <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-        <button type="submit" className="cursor-pointer w-full bg-[#000] uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
+        <button type="submit" className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
          Submit
         </button>
         </div>
@@ -101,7 +101,7 @@ function ResetPassword() {
         {/*Signup Links */}
         <div className="mt-[30px] text-center">
           <p className="text-sm mt-2">
-            Don't have an account? <a href="#" className="text-blue-600 hover:underline">Sign up</a>
+            Don't have an account? <a href="#" className="hover:underline">Sign up</a>
           </p>
         </div>
       </div>

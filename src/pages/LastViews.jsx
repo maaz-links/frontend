@@ -39,7 +39,7 @@ function LastViews() {
     <div className="max-w-[1300px] m-auto mt-[60px] mb-[60px]">
       {/* User Profile Section */}
       <div className=" p-4 flex pb-[0px]">
-        <div className="w-[130px] h-[130px] bg-[#B5B5B5BB]">
+        <div className="w-[130px] h-[130px] bg-[#F5F5F5]">
 
         {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
         </div>
@@ -67,15 +67,15 @@ function LastViews() {
           <div key={view.id} className="grid grid-cols-4 items-center  py-3">
             <div className="flex items-center">
               <a href={`/user-profile/${view?.viewer?.name}`}>
-              <div className="w-15 h-15 bg-[#B5B5B5BB] rounded-full">
+              <div className="w-15 h-15 bg-[#F5F5F5] rounded-full">
               <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(view?.viewer?.profile_picture_id)}></img>
               </div>
               </a>
               <p className="ml-3 text-[16px] font-[600]">{view?.viewer?.name}</p>
             </div>
             <p className="text-[18px] text-center">{formatDateToDMY(view.created_at)}</p>
-            <div className="text-[18px] text-[#000] text-center">{formatToHourMinute(view.created_at)}</div>
-         <div className="text-center">   <Link to="/chat" className="text-[16px] font-[600] bg-black text-white p-[10px] px-[20px]  hover:bg-[#8B8B8B]">Chat</Link> </div>
+            <div className="text-[18px] text-[#424242] text-center">{formatToHourMinute(view.created_at)}</div>
+         <div className="text-center">   <Link to="/chat" className="text-[16px] font-[600] bg-[#E91E63] text-white p-[10px] px-[20px]  hover:bg-[#F8BBD0]">Chat</Link> </div>
           </div>
         ))}
       </div>

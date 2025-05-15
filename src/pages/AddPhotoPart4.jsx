@@ -59,7 +59,7 @@ const AddPhotoPart4 = () => {
                 </div>
               <button 
                 onClick={() => handleDeleteImage(img.id)} 
-                className="right-2  text-[#AEAEAE] p-2"
+                className="right-2  text-[#F5F5F5] p-2"
               >
                 <FaTrash className="text-lg" />
               </button>
@@ -70,14 +70,14 @@ const AddPhotoPart4 = () => {
           ))}
         </div> */}
         {/* Image Upload Box */}
-        {/* <label className="w-full max-w-[814px] h-40 bg-[#AEAEAE] md:mx-[15px] flex items-center justify-center cursor-pointer mb-6">
+        {/* <label className="w-full max-w-[814px] h-40 bg-[#F5F5F5] md:mx-[15px] flex items-center justify-center cursor-pointer mb-6">
           <span className="text-[20px]">Click here and add your pics</span>
           <input type="file" multiple accept="image/*" className="hidden" onChange={handleImageChange} />
         </label> */}
 
        
 {/* 
-        <button className="mt-6 md:mt-[82px] px-6 md:px-[60px] py-2 bg-black text-white text-[20px] font-[400] cursor-pointer hover:bg-[#8B8B8B]">
+        <button className="mt-6 md:mt-[82px] px-6 md:px-[60px] py-2 bg-[#E91E63] text-white text-[20px] font-[400] cursor-pointer hover:bg-[#F8BBD0]">
           GO TO YOUR PROFILE 
         </button> */}
       </div>

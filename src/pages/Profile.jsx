@@ -44,7 +44,7 @@ const Profile = () => {
       <div className="max-w-[1300px] mx-auto mt-[64px] mb-[50px] md:mb-[150px] px-[15px]">
         <div className="flex flex-col md:flex-row gap-[25px] mb-6">
           <div className="w-full md:w-[10%]">
-            <div className="w-[130px] h-[130px] bg-[#AEAEAE]">
+            <div className="w-[130px] h-[130px] bg-[#F5F5F5]">
               {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
             </div>
             <div className="mt-4 text-c space-x-6 border-b">
@@ -52,7 +52,7 @@ const Profile = () => {
                 <button
                   key={tab}
                   className={`pb-1 font-[700] block transition duration-200 ${
-                    activeTab === tab ? "text-black" : "border-transparent text-black-500 font-medium"
+                    activeTab === tab ? "text-[#424242]" : "border-transparent text-black-500 font-medium"
                   }`}
                   onClick={() => navigate(`/profile?tab=${tab}`)//setActiveTab(tab)
 
@@ -68,7 +68,7 @@ const Profile = () => {
             <div className="flex items-center">
               <div className="ml-4">
                 <h2 className="text-[24px]">{user.name || 'USER'}</h2>
-                <p className="text-[#000] italic">Profile Status: <span className="font-semibold">ACTIVE</span></p>
+                <p className="text-[#424242] italic">Profile Status: <span className="font-semibold">ACTIVE</span></p>
               </div>
             </div>
             
@@ -230,7 +230,7 @@ export const ProfilePhotoTab = () => {
               </div>
               <button 
                 onClick={() => handleDeleteImage(img.id)} 
-                className="right-2 text-[#AEAEAE] p-2"
+                className="right-2 text-[#E91E63] p-2"
               >
                 <FaTrash className="text-lg" />
               </button>
@@ -238,7 +238,7 @@ export const ProfilePhotoTab = () => {
           </div>
         ))}
       </div>
-      <label className="w-full max-w-[814px] h-40 bg-[#AEAEAE] flex items-center justify-center cursor-pointer mb-6 mx-auto">
+      <label className="w-full max-w-[814px] h-40 bg-[#F5F5F5] flex items-center justify-center cursor-pointer mb-6 mx-auto">
         <span className="text-[20px]">Click here and add your pics</span>
         <input 
           type="file" 
@@ -453,7 +453,7 @@ export const ProfileInfoTab = () => {
       <h3 className="text-[16px] font-[700] border-b">Profile</h3>
       <h3 className="mt-6 font-[400]">Something about me *</h3>
       <textarea
-        className="w-full max-w-[888px] p-2 mt-2 bg-[#AEAEAEAE] h-[99px] px-[20px] text-[#000] focus:outline-0"
+        className="w-full max-w-[888px] p-2 mt-2 bg-[#F5F5F5] h-[99px] px-[20px] text-[#424242] focus:outline-0"
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras molestie sapien eu ex congue tincidunt...."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -469,7 +469,7 @@ export const ProfileInfoTab = () => {
               key={id}
               onClick={() => toggleOptionAvailableFor(id)}
               className={`cursor-pointer px-3 py-1 text-[11px] text-center min-w-[139px] rounded transition-colors
-                ${isSelected ? "bg-black text-white" : "bg-[#AEAEAE] text-black"}
+                ${isSelected ? "bg-[#E91E63] text-white" : "bg-[#F5F5F5] text-black"}
               `}
             >
               {name}
@@ -487,7 +487,7 @@ export const ProfileInfoTab = () => {
               key={id}
               onClick={() => toggleOption(id)}
               className={`cursor-pointer px-3 py-1 text-[11px] text-center min-w-[139px] rounded transition-colors
-                ${isSelected ? "bg-black text-white" : "bg-[#AEAEAE] text-black"}
+                ${isSelected ? "bg-[#E91E63] text-white" : "bg-[#F5F5F5] text-black"}
               `}
             >
               {name}
@@ -502,7 +502,7 @@ export const ProfileInfoTab = () => {
         <div>
           <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Country</label>
           <select 
-            className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] mt-2 bg-[#F5F5F5] focus:outline-0"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
           >
@@ -514,7 +514,7 @@ export const ProfileInfoTab = () => {
         <div>
           <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Province</label>
           <select 
-            className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] mt-2 bg-[#F5F5F5] focus:outline-0"
             value={province}
             onChange={(e) => setProvince(e.target.value)}
           >
@@ -529,7 +529,7 @@ export const ProfileInfoTab = () => {
           <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Country</label>
           <select 
             id="country"
-            className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] mt-2 bg-[#F5F5F5] focus:outline-0"
             value={selectedCountry || ''}
             onChange={handleCountryChange}
           >
@@ -545,7 +545,7 @@ export const ProfileInfoTab = () => {
           <label className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Province</label>
           <select 
             id="province"
-            className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] mt-2 bg-[#F5F5F5] focus:outline-0"
             value={selectedProvince || ''}
             onChange={(e) => setSelectedProvince(e.target.value)}
             disabled={!selectedCountry}
@@ -569,7 +569,7 @@ export const ProfileInfoTab = () => {
               key={id}
               onClick={() => toggleLanguage(id)}
               className={`cursor-pointer px-3 py-1 text-[11px] text-center min-w-[139px] rounded transition-colors
-                ${isSelected ? "bg-black text-white" : "bg-[#AEAEAE] text-black"}
+                ${isSelected ? "bg-[#E91E63] text-white" : "bg-[#F5F5F5] text-black"}
               `}
             >
               {name}
@@ -586,7 +586,7 @@ export const ProfileInfoTab = () => {
             name="height"
             value={formData.height}
             onChange={handleChange}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           />
         </div>
 
@@ -596,7 +596,7 @@ export const ProfileInfoTab = () => {
             name="nationality"
             value={nationality}
             onChange={(e)=>setNationality(e.target.value)}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           >
             <option value="Italian">Italian</option>
             <option value="French">French</option>
@@ -611,7 +611,7 @@ export const ProfileInfoTab = () => {
             name="shoeSize"
             value={formData.shoeSize}
             onChange={handleChange}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           />
         </div>
 
@@ -621,7 +621,7 @@ export const ProfileInfoTab = () => {
             name="eyeColor"
             value={formData.eyeColor}
             onChange={handleChange}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           >
             <option value="brown">Brown</option>
             <option value="blue">Blue</option>
@@ -640,7 +640,7 @@ export const ProfileInfoTab = () => {
             name="dressSize"
             value={formData.dressSize}
             onChange={handleChange}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           >
             <option value="M">Medium</option>
             <option value="L">Large</option>
@@ -655,7 +655,7 @@ export const ProfileInfoTab = () => {
             name="weight"
             value={formData.weight}
             onChange={handleChange}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           />
         </div>
 
@@ -665,7 +665,7 @@ export const ProfileInfoTab = () => {
             name="telegram"
             value={formData.telegram}
             onChange={handleChange}
-            className="w-full p-[15px] bg-[#AEAEAE] focus:outline-0"
+            className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           />
         </div>
         
@@ -748,13 +748,13 @@ export const ProfileInfoTab = () => {
       </div>
 
       <div className="flex flex-col items-center mt-[50px] md:mt-[128px]">
-        <button onClick={submitData} className="max-w-[500px] text-[20px] w-full m-auto bg-black text-white px-6 py-2 cursor-pointer hover:bg-[#8B8B8B]">SAVE</button>
+        <button onClick={submitData} className="max-w-[500px] text-[20px] w-full m-auto bg-[#E91E63] text-white px-6 py-2 cursor-pointer hover:bg-[#F8BBD0]">SAVE</button>
       </div>
       
       <div className="mt-[50px]">
         <h3 className="text-[20px] border-b">Delete Account</h3>
         <div className="flex flex-col items-center">
-          <button onClick={handleDelete} className="border max-w-[222px] text-[20px] w-full m-auto bg-black text-white border-black mt-[70px] px-6 py-2 cursor-pointer">DELETE ACCOUNT</button>
+          <button onClick={handleDelete} className="border max-w-[222px] text-[20px] w-full m-auto bg-[#E91E63] hover:bg-[#F8BBD0] text-white mt-[70px] px-6 py-2 cursor-pointer">DELETE ACCOUNT</button>
         </div>    
       </div>
     </>
@@ -838,15 +838,15 @@ export const PersonalDataTab = () => {
       <div className="grid grid-cols-1 gap-4 max-w-[775px]">
         <div>
           <label>Phone number</label>
-          <input value={phone} className="w-full bg-[#AEAEAE] p-[10px] focus:outline-0" placeholder="+39 333 333 3333" disabled/>
+          <input value={phone} className="w-full bg-[#F5F5F5] p-[10px] focus:outline-0" placeholder="+39 333 333 3333" disabled/>
         </div>
         <div>
           <label>Email</label>
-          <input value={email} className="w-full bg-[#AEAEAE] p-[10px] focus:outline-0" placeholder="Email" disabled/> 
+          <input value={email} className="w-full bg-[#F5F5F5] p-[10px] focus:outline-0" placeholder="Email" disabled/> 
         </div>
         <div>
           <label>Date of birth</label>
-          <input value={DOB} className="w-full bg-[#AEAEAE] p-[10px] focus:outline-0" placeholder="Date of birth" disabled/> 
+          <input value={DOB} className="w-full bg-[#F5F5F5] p-[10px] focus:outline-0" placeholder="Date of birth" disabled/> 
         </div>
       </div>
       
@@ -857,7 +857,7 @@ export const PersonalDataTab = () => {
         <label>Current Password</label>
         <input
           name="current_password"
-          className="w-full bg-[#AEAEAE] p-[10px] focus:outline-0"
+          className="w-full bg-[#F5F5F5] p-[10px] focus:outline-0"
           type="password"
           value={formData.current_password}
           onChange={handleChange}
@@ -868,7 +868,7 @@ export const PersonalDataTab = () => {
         <label>New Password</label>
         <input
           name="password"
-          className="w-full bg-[#AEAEAE] p-[10px] focus:outline-0"
+          className="w-full bg-[#F5F5F5] p-[10px] focus:outline-0"
           type="password"
           value={formData.password}
           onChange={handleChange}
@@ -879,7 +879,7 @@ export const PersonalDataTab = () => {
         <label>Confirm Password</label>
         <input
           name="password_confirmation"
-          className="w-full bg-[#AEAEAE] p-[10px] focus:outline-0"
+          className="w-full bg-[#F5F5F5] p-[10px] focus:outline-0"
           type="password"
           value={formData.password_confirmation}
           onChange={handleChange}
@@ -888,7 +888,7 @@ export const PersonalDataTab = () => {
       </div>
       
       <div className="flex mt-[50px] md:mt-[91px]">
-        <button className="max-w-[500px] text-[20px] w-full bg-black text-white px-6 py-2 cursor-pointer hover:bg-[#8B8B8B]">SAVE</button>
+        <button className="max-w-[500px] text-[20px] w-full bg-[#E91E63] text-white px-6 py-2 cursor-pointer hover:bg-[#F8BBD0]">SAVE</button>
       </div>
       </form>
     </>

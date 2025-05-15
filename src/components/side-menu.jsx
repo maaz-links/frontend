@@ -40,7 +40,7 @@ const SideMenu = () => {
         <>
 
 
-            <button className='cursor-pointer text-[18px] ' onClick={toggleDrawer}> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-12">
+            <button className='cursor-pointer text-[18px] ' onClick={toggleDrawer}> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#F8BBD0" className="size-12">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg></button>
             <Drawer
@@ -49,7 +49,7 @@ const SideMenu = () => {
                 direction='right'
                 duration={150}
                 size={350}
-                className='bg-[#B5B5B5B5]'
+                //className='bg-[#B5B5B5B5]'
             >
                 <div className='p-[30px]'>
                     
@@ -58,47 +58,47 @@ const SideMenu = () => {
                         <>
                         
                             <div className='before-login flex flex-col text-center justify-center mt-[40px] gap-[15px]'>
-                                <Link onClick={handleLinkClick} to="/how-to" className='bg-[#9C9A9A] text-black p-[10px]'>How to?</Link>
-                                <Link onClick={handleLinkClick} to="/hostess" className='bg-[#9C9A9A] text-black p-[10px]'>Are you a Hostess?</Link>
-                                <Link onClick={handleLinkClick} to="/contact" className='bg-[#9C9A9A] text-black p-[10px]'>Help & Contact</Link>
+                                <Link onClick={handleLinkClick} to="/how-to" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>How to?</Link>
+                                <Link onClick={handleLinkClick} to="/hostess" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Are you a Hostess?</Link>
+                                <Link onClick={handleLinkClick} to="/contact" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Help & Contact</Link>
                             </div>
                             <div className='login-signup flex flex-col flex-end text-center align-bottom  mt-[40px] gap-[15px]'>
-                                <Link onClick={handleLinkClick} to="/login" className='bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>Login</Link>
-                                <Link onClick={handleLinkClick} to="/sign-up" className='bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>Sign up</Link>
+                                <Link onClick={handleLinkClick} to="/login" className='bg-[#E91E63] text-white p-[10px] max-w-[190px] m-auto w-full'>Login</Link>
+                                <Link onClick={handleLinkClick} to="/sign-up" className='bg-[#E91E63] text-white p-[10px] max-w-[190px] m-auto w-full'>Sign up</Link>
                             </div>
                         </> :
                         <>
                         <div className=''>
                             <div className='user-av flex items-center gap-x-[15px]'>
-                                <div className='av bg-[#D9D9D9] h-[103px] w-[103px] rounded-full'>
+                                <div className='av bg-[#F5F5F5] h-[103px] w-[103px] rounded-full'>
                                     {user?.profile_picture_id && <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(user.profile_picture_id)}></img>}
                                 </div>
                                 <div className='user-data'>
-                                    <h4 className='text-[#000] text-[24px] font-[700]'>{user?.name || 'User'}</h4>
-                                    <p className='text-[#000] text-[20px]'>{getProvinceName(user?.profile?.province_id) || 'City'} </p>
-                                    {/* <p className='text-[#6B6B6BBB]'><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></p> */}
+                                    <h4 className='text-[#424242] text-[24px] font-[700]'>{user?.name || 'User'}</h4>
+                                    <p className='text-[#424242] text-[20px]'>{getProvinceName(user?.profile?.province_id) || 'City'} </p>
                                     <StarRating rating={user?.rating || 0} />
+                                    <StarRating rating={3.6} />
                                 </div>
 
                             </div>
                         </div>
                             <div className='after-login  flex flex-col text-center justify-center mt-[40px] gap-[15px]'>
                                 {user?.role === ROLES.KING &&
-                                    <Link onClick={handleLinkClick} to="/shop" className='bg-[#9C9A9A] text-black p-[10px]'>Shop</Link>
+                                    <Link onClick={handleLinkClick} to="/shop" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Shop</Link>
                                 }
-                                <Link onClick={handleLinkClick} to="/profile?tab=Personal Data" className='bg-[#9C9A9A] text-black p-[10px]'>Account</Link>
-                                <Link onClick={handleLinkClick} to="/profile?tab=Profile" className='bg-[#9C9A9A] text-black p-[10px]'>Profile</Link>
-                                <Link onClick={handleLinkClick} to='/profile?tab=Photo' className='bg-[#9C9A9A] text-black p-[10px]'>Photos</Link>
-                                <Link onClick={handleLinkClick} to="/reviews" className='bg-[#9C9A9A] text-black p-[10px]'>Reviews</Link>
-                                <Link onClick={handleLinkClick} to="/contact" className='bg-[#9C9A9A] text-black p-[10px]'>Help & Contact</Link>
+                                <Link onClick={handleLinkClick} to="/profile?tab=Personal Data" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Account</Link>
+                                <Link onClick={handleLinkClick} to="/profile?tab=Profile" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Profile</Link>
+                                <Link onClick={handleLinkClick} to='/profile?tab=Photo' className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Photos</Link>
+                                <Link onClick={handleLinkClick} to="/reviews" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Reviews</Link>
+                                <Link onClick={handleLinkClick} to="/contact" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Help & Contact</Link>
                             </div>
                             <div className='logout-box flex gap-[15px] text-center mt-[20px]'>
-                                <Link onClick={handleLinkClick} to="/last-views" className='text-center bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'><svg className='m-auto' width="23" height="23" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <Link onClick={handleLinkClick} to="/last-views" className='text-center bg-[#E91E63] text-white p-[10px] max-w-[190px] m-auto w-full'><svg className='m-auto' width="23" height="23" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2 24C2 24 10 8 24 8C38 8 46 24 46 24C46 24 38 40 24 40C10 40 2 24 2 24Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 18 24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 30Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </Link>
-                                <a onClick={triggerLogout} className='cursor-pointer bg-[#000] text-white p-[10px] max-w-[190px] m-auto w-full'>LOG OUT</a>
+                                <a onClick={triggerLogout} className='cursor-pointer bg-[#E91E63] text-white p-[10px] max-w-[190px] m-auto w-full'>LOG OUT</a>
                             </div>
                         </>}
 
@@ -119,7 +119,7 @@ const StarRating = ({ rating, size = 'text-[24px]' }) => {
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
     return (
-        <p className={`${size} text-[#6B6B6BBB] flex items-center`}>
+        <p className={`${size} text-[#BDBDBD] flex items-center`}>
             {/* Full stars */}
             {[...Array(fullStars)].map((_, i) => (
                 <span key={`full-${i}`} className="text-yellow-500">★</span>
@@ -129,17 +129,17 @@ const StarRating = ({ rating, size = 'text-[24px]' }) => {
             {hasHalfStar && (
                 <span className="relative" style={{ width: '1em' }}>
                     <span className="absolute overflow-hidden text-yellow-500" style={{ width: '45%' }}>★</span>
-                    <span className="text-[#6B6B6BBB]">★</span>
+                    <span className="text-[#BDBDBD]">★</span>
                 </span>
             )}
 
             {/* Empty stars */}
             {[...Array(emptyStars)].map((_, i) => (
-                <span key={`empty-${i}`} className="text-[#6B6B6BBB]">★</span>
+                <span key={`empty-${i}`} className="text-[#BDBDBD]">★</span>
             ))}
 
             {/* Optional numeric value */}
-            <span className="ml-1 text-sm text-gray-500">({clampedRating.toFixed(1)})</span>
+            <span className="ml-1 text-sm text-[#BDBDBD]">({clampedRating.toFixed(1)})</span>
         </p>
     );
 };

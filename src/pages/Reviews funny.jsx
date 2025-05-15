@@ -65,7 +65,7 @@ const Reviews = () => {
             className={`text-[24px] cursor-pointer ${interactive ? 'hover:text-yellow-400' : ''} ${
               star <= (interactive ? hoverRating || selectedRating : rating)
                 ? 'text-yellow-500'
-                : 'text-gray-300'
+                : 'text-[#BDBDBD]'
             }`}
             onClick={() => interactive && onStarClick && onStarClick(star)}
             onMouseEnter={() => interactive && onStarHover && onStarHover(star)}
@@ -85,7 +85,7 @@ const Reviews = () => {
         {/* User Profile Section */}
         {activeUser && (
           <div className="p-4 flex pb-[0px]">
-            <div className="w-[180px] h-[135px] bg-[#B5B5B5BB]"></div>
+            <div className="w-[180px] h-[135px] bg-[#F5F5F5]"></div>
             <div className="ml-4">
               <h2 className="text-[20px] font-bold">{activeUser.name}</h2>
               <p className="text-[16px] italic mt-[10px]">
@@ -136,7 +136,7 @@ const Reviews = () => {
           {reviews.length == 0 && reviews.map((review) => (
             <div key={review.id} className="grid grid-cols-4 items-center py-3 border-b">
               <div className="flex items-center">
-                <div className="w-15 h-15 bg-[#B5B5B5BB] rounded-full"></div>
+                <div className="w-15 h-15 bg-[#F5F5F5] rounded-full"></div>
                 <p className="ml-3 text-[16px] font-[600]">
                   {review.reviewer?.name || `USER ${review.reviewer_id}`}
                 </p>

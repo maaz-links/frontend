@@ -15,7 +15,7 @@ return (
                     <div>
                       <label className="mt-[20px] md:mt-[40px] font-[400] text-[16px]">Country</label>
                       <select 
-                        className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
+                        className="w-full p-[15px] mt-2 bg-[#F5F5F5] focus:outline-0"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
                       >
@@ -27,7 +27,7 @@ return (
                     <div>
                       <label className="mt-[20px] md:mt-[40px] font-[400] text-[16px]">Province</label>
                       <select 
-                        className="w-full p-[15px] mt-2 bg-[#AEAEAE] focus:outline-0"
+                        className="w-full p-[15px] mt-2 bg-[#F5F5F5] focus:outline-0"
                         value={province}
                         onChange={(e) => setProvince(e.target.value)}
                       >
@@ -40,7 +40,7 @@ return (
 <h3 className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Available for:</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[6px]  max-w-[600px]">
           {["photo model", "fashion pics", "travel & weekend", "dinners", "host hostess", "parties", "fake girlfriend", "talk", "shopping", "glamour pics", "company" , "nsfw pics","events","example 1","example 2","example 3"].map((item) => (
-            <span key={item} className="bg-[#AEAEAE] px-3 py-1  text-[11px] text-center min-w-[139px]">{item}</span>
+            <span key={item} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[139px]">{item}</span>
           ))}
         </div>
 
@@ -48,11 +48,11 @@ return (
         <h3 className="mt-[20px] md:mt-[55px] font-[400] text-[16px]">Personality and Hobbies</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[6px] max-w-[600px]">
           {Array.from({ length: 16 }, (_, i) => `Example ${i + 4}`).map((hobby) => (
-            <span key={hobby} className="bg-[#AEAEAE] px-3 py-1  text-[11px] text-center min-w-[139px]">{hobby}</span>
+            <span key={hobby} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[139px]">{hobby}</span>
           ))}
         </div>
         <div className="flex mt-[50px] md:mt-[91px] ">
-        <button className="max-w-[500px] text-[20px] w-full  bg-black text-white px-6 py-2 cursor-pointer uppercase hover:bg-[#8B8B8B] ">Next</button>
+        <button className="max-w-[500px] text-[20px] w-full  bg-[#E91E63] text-white px-6 py-2 cursor-pointer uppercase hover:bg-[#F8BBD0] ">Next</button>
        
        
       </div>

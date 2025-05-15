@@ -59,7 +59,7 @@ function Contact() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full bg-[#AEAEAE] h-[45px] p-[10px] focus:outline-0"
+            className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
             placeholder=""
           />
           {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
@@ -73,7 +73,7 @@ function Contact() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full bg-[#AEAEAE] h-[45px] p-[10px] focus:outline-0"
+            className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
             placeholder=""
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
@@ -86,7 +86,7 @@ function Contact() {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="w-full bg-[#AEAEAE] h-[266px] p-[10px] focus:outline-0"
+            className="w-full bg-[#F5F5F5] h-[266px] p-[10px] focus:outline-0"
             placeholder=""
           ></textarea>
           {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
@@ -99,7 +99,7 @@ function Contact() {
             name="termsAccepted"
             checked={formData.termsAccepted}
             onChange={handleChange}
-            className="mr-2 bg-[#AEAEAE]"
+            className="mr-2 bg-[#F5F5F5]"
           />
           <label className="text-[20px]">
           I accept the <Link to="/privacy">Privacy Policy</Link> and the <Link to="/terms">Terms & Condition </Link> of the website
@@ -109,7 +109,7 @@ function Contact() {
 
         {/* Submit Button */}
         <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-        <button type="submit" className="cursor-pointer w-full bg-[#000] uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]">
+        <button type="submit" className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
           Send Request
         </button>
         </div>

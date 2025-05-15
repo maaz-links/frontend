@@ -30,7 +30,7 @@ Nunc id lectus at tortor placerat pretium.
 </p>
   </div>
   <div className='text-center mt-[110px]'>
-<Link to='/contact' className='bg-[#000] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#8B8B8B] '>HELP & CONTACT</Link>
+<Link to='/contact' className='bg-[#E91E63] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#F8BBD0] '>HELP & CONTACT</Link>
 </div>
     </div>
     <Footer />

@@ -41,27 +41,27 @@ const SignUp = () => {
         <div className="flex flex-col md:flex-row  gap-[30px] md:gap-[150px] mb-6">
           {/* Option 1 */}
           <div
-            className={`relative w-full md:w-[50%] h-[171px]  flex items-center justify-center bg-[#AEAEAE]  cursor-pointer 
-          ${myRole === ROLES.HOSTESS ? "border-4 border-black" : ""}`}
+            className={`relative w-full md:w-[50%] h-[171px]  flex items-center justify-center bg-[#F5F5F5]  cursor-pointer  border-4
+          ${myRole === ROLES.HOSTESS ? "border-[#E91E63]" : "border-[#FFFFFF]"}`}
             onClick={() => handleSelect(ROLES.HOSTESS)}
           >
-            <p className="text-black text-center text-[22px]">I am an hostess or model</p>
+            <p className="text-[#424242] text-center text-[22px]">I am an hostess or model</p>
             <span
-              className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-black 
-            ${myRole === ROLES.HOSTESS ? "bg-black" : "bg-white"}`}
+              className={`absolute top-2 right-2 w-4 h-4 rounded-full
+            ${myRole === ROLES.HOSTESS ? "bg-[#E91E63]" : "bg-white"}`}
             ></span>
           </div>
 
           {/* Option 2 */}
           <div
-            className={`relative w-full md:w-[50%] h-[171px] flex items-center justify-center bg-[#AEAEAE]  cursor-pointer 
-          ${myRole === ROLES.KING ? "border-4 border-black" : ""}`}
+            className={`relative w-full md:w-[50%] h-[171px] flex items-center justify-center bg-[#F5F5F5]  cursor-pointer border-4
+          ${myRole === ROLES.KING ? "border-[#E91E63]" : "border-[#FFFFFF]"}`}
             onClick={() => handleSelect(ROLES.KING)}
           >
-            <p className="text-black text-center text-[22px]">I am looking for an hostess or model</p>
+            <p className="text-[#424242] text-center text-[22px]">I am looking for an hostess or model</p>
             <span
-              className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-black 
-            ${myRole === ROLES.KING ? "bg-black" : "bg-white"}`}
+              className={`absolute top-2 right-2 w-4 h-4 rounded-full 
+            ${myRole === ROLES.KING ? "bg-[#E91E63]" : "bg-white"}`}
             ></span>
           </div>
         </div>
@@ -69,7 +69,7 @@ const SignUp = () => {
         {/* Next Button */}
         <div className="ext-center max-w-[200px] mx-auto mt-[30px] md:mt-[70px]">
           <button
-            className="cursor-pointer w-full bg-[#000] uppercase text-[20px] text-white p-[12px]  hover:bg-[#8B8B8B]"
+            className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]"
             onClick={handleNext}
           >
             NEXT
@@ -168,7 +168,7 @@ const CreatSignup = ({myRole}) => {
           <div className="grid grid-cols-1 md:grid-cols-2 mt-[58px]  gap-x-[55px] w-full max-w-[865px]">
             <div >
               <label className="block">Name (Username)</label>
-              <input type="text" name="username" ref={usernameRef} className="w-full p-2 bg-[#AEAEAE] focus:outline-0" />
+              <input type="text" name="username" ref={usernameRef} className="w-full p-2 bg-[#F5F5F5] focus:outline-0" />
               <ErrorText field='name' />
             </div>
             <div>
@@ -180,29 +180,29 @@ const CreatSignup = ({myRole}) => {
             {/* <div>
           <label className="block">Date of Birth</label>
           <div className="flex space-x-2">
-                <input type="text" ref={dayRef} placeholder="Day" className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0" />
-                <input type="text" ref={monthRef} placeholder="Month" className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0" />
-                <input type="text" ref={yearRef} placeholder="Year" className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0" />
+                <input type="text" ref={dayRef} placeholder="Day" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
+                <input type="text" ref={monthRef} placeholder="Month" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
+                <input type="text" ref={yearRef} placeholder="Year" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
               </div>
         </div> */}
           </div>
           <div className="mt-[20px] md:mt-[58px]">
             <label className="block">Phone Number</label>
             <div className="flex gap-x-[28px]  max-w-[750px] w-full">
-              <input ref={CCodeRef} className="bg-[#AEAEAE] w-full p-2 focus:outline-0 md:max-w-[15%] text-center" placeholder="+39" />
-              <input type="text" name="phone" ref={phoneRef} className="w-full md:w-max-[80%] bg-[#AEAEAE] p-2 focus:outline-0 " />
+              <input ref={CCodeRef} className="bg-[#F5F5F5] w-full p-2 focus:outline-0 md:max-w-[15%] text-center" placeholder="+39" />
+              <input type="text" name="phone" ref={phoneRef} className="w-full md:w-max-[80%] bg-[#F5F5F5] p-2 focus:outline-0 " />
             </div>
             <ErrorText field='phone' />
           </div>
           <div className="flex flex-col md:flex-row max-w-[865px] mt-[20px] md:mt-[58px]  w-full gap-x-[54px]">
             <div className="w-full">
               <label className="block">Email</label>
-              <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#AEAEAE] " />
+              <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5] " />
               <ErrorText field='email' />
             </div>
             <div className="w-full">
               <label className="block">Password</label>
-              <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#AEAEAE] " />
+              <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5] " />
               <ErrorText field='password' />
             </div>
           </div>
@@ -234,7 +234,7 @@ const CreatSignup = ({myRole}) => {
               <span className="ml-2">I accept the Terms & Conditions and Privacy Policy</span>
             </label>
           </div>
-          <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-black text-white">CREATE ACCOUNT</button>
+          <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white">CREATE ACCOUNT</button>
         </form>
       </div>
       <Footer />
@@ -326,7 +326,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
       <select
         value={day}
         onChange={(e) => setDay(e.target.value)}
-        className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+        className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
       >
         <option value="">Day</option>
         {days.map((d) => (
@@ -337,7 +337,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
       <select
         value={month}
         onChange={(e) => setMonth(e.target.value)}
-        className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+        className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
       >
         <option className="" value="">Month</option>
         {months.map((m) => (
@@ -348,7 +348,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
       <select
         value={year}
         onChange={(e) => setYear(e.target.value)}
-        className="w-1/3 p-2 bg-[#AEAEAE] focus:outline-0"
+        className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
       >
         <option value="">Year</option>
         {years.map((y) => (
