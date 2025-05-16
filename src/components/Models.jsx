@@ -86,66 +86,82 @@ return (
 <div className="slider-container max-w-sm md:max-w-[1120px] m-auto mt-[36px]">
       <Slider {...settings}>
         <div className="item">
+      
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 1 </h3>
+        <div className="item-inner rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+        <img src={ModelImage} className=""/>
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 1 </h3>
         </div>
         </a>
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 2 </h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage}  />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 2 </h3>
         </div>
         </a>
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 3 </h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage} className="" />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 3 </h3>
         </div>
         </a>
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 4 </h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage} className="" />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 4 </h3>
         </div>
        </a> 
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 5 </h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage} className="" />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 5 </h3>
         </div>
         </a>
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 6 </h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage} className="" />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 6 </h3>
         </div>
         </a>
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 7</h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage} className="" />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 7</h3>
         </div>
         </a>
         </div>
         <div className="item">
         <a href='#'>
-        <div className="item-inner">
-        <img src={ModelImage} />
-          <h3>Service 8</h3>
+        <div className="item-inner  rounded-lg overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/90 via-30% via-transparent to-transparent z-10"></div>
+
+        <img src={ModelImage} className="" />
+          <h3 className='text-[#fff] text-[24px] z-12'>Service 8</h3>
         </div>
         </a>
         </div>

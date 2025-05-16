@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 .result-box {
     position: relative;
 }
-.item-inner::after,.result-box:after{
+.result-box:after{
 content: '';
 position: absolute;
 left: 0;
@@ -58,6 +58,8 @@ top: 0;
 /* background: rgba(139, 139, 139, 0.8); */
 
 }
+
+/* stylelint-disable-next-line block-no-empty */
 .item-inner:hover::after,.result-box:hover:after{
     /* background: rgba(139, 139, 139, 0.1);    */
 }
@@ -90,12 +92,13 @@ width: 100%;
     position: absolute;
     left:0;
     right: 0;
-    bottom:0;
-    z-index: 1;
-    font-size: 14px;
+    bottom:10px;
+    z-index: 12;
+    font-size: 20px;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
     padding:10px;
+
 }
 .item-inner h3 a {
     display: block;
