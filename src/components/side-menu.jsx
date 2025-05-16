@@ -77,7 +77,6 @@ const SideMenu = () => {
                                     <h4 className='text-[#424242] text-[24px] font-[700]'>{user?.name || 'User'}</h4>
                                     <p className='text-[#424242] text-[20px]'>{getProvinceName(user?.profile?.province_id) || 'City'} </p>
                                     <StarRating rating={user?.rating || 0} />
-                                    <StarRating rating={3.6} />
                                 </div>
 
                             </div>

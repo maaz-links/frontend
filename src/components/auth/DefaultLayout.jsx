@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/ContextProvider";
+import { ROLES } from "../../../constants";
 //import LoadingSpinner from "./LoadingSpinner"; // Create or import a loading component
 
 // export default function DefaultLayout() {
@@ -51,6 +52,18 @@ export function ProfileCompleteGuard() {
   // Redirect if user doesn't have a profile picture
   if (!user?.profile_picture_id) {
     return <Navigate to="/addphoto-signup" replace />;
+  }
+
+  // All checks passed - render the child routes
+  return <Outlet />;
+}
+
+export function ShopForMale() {
+  const { user} = useStateContext();
+
+  // Redirect if user is not king
+  if (user.role != ROLES.KING) {
+    return <Navigate to="/" replace />;
   }
 
   // All checks passed - render the child routes

@@ -39,7 +39,7 @@ import UserProfile from './pages/UserProfile'
 import UserProfileMale from './pages/UserProfileMale'
 import Shop from './pages/Shop'
 import PaymenMethod from './pages/PaymentMethod'
-import DefaultLayout, { ProfileCompleteGuard } from './components/auth/DefaultLayout'
+import DefaultLayout, { ProfileCompleteGuard, ShopForMale } from './components/auth/DefaultLayout'
 import GuestLayout from './components/auth/GuestLayout'
 import VerifyEmail from './components/auth/VerifyEmail'
 import ForgotPassword from './components/auth/ForgotPassword'
@@ -63,9 +63,9 @@ const router = createBrowserRouter([
     // { path: "/login", element: <Login /> },
     { path: "/how-to", element: <HowTo /> },
     { path: "/hostess", element: <Hostess /> },
-    { path: "/female-home", element: <HomeFemale /> },
-    { path: "/male-home", element: <HomeMale /> },
-    { path: "/about-you", element: <AboutYou /> },
+    // { path: "/female-home", element: <HomeFemale /> },
+    // { path: "/male-home", element: <HomeMale /> },
+    // { path: "/about-you", element: <AboutYou /> },
    
     
     { path: "/", element: <Home /> },
@@ -112,10 +112,16 @@ const router = createBrowserRouter([
           children: [
             { path: "/chat", element: <Chat /> },
             { path: "/profile", element: <Profile /> },
-            { path: "/shop", element: <Shop /> },
-            { path: "/payment-method", element: <PaymenMethod /> },
             { path: "/last-views", element: <LastViews /> },
             { path: "/reviews", element: <Reviews /> },
+            {
+              path: '/',
+              element: <ShopForMale />,
+              children: [
+                { path: "/shop", element: <Shop /> },
+                { path: "/payment-method", element: <PaymenMethod /> },
+              ]
+            },
             
           ]
         },
