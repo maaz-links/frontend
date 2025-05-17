@@ -45,6 +45,9 @@ import VerifyEmail from './components/auth/VerifyEmail'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ResetPassword from './components/auth/ResetPassword'
 import AuthLayout from './components/auth/DefaultLayout'
+import PurchaseHistory from './pages/Purchase-history'
+import PaypalSuccessPayment from './pages/PaypalSuccessPayment'
+import PaypalCancelPayment from './pages/PaypalCancelPayment'
 function App() {
 
   return (
@@ -112,6 +115,7 @@ const router = createBrowserRouter([
           children: [
             { path: "/chat", element: <Chat /> },
             { path: "/profile", element: <Profile /> },
+            { path: "/purchase-history", element: <PurchaseHistory /> },
             { path: "/last-views", element: <LastViews /> },
             { path: "/reviews", element: <Reviews /> },
             {
@@ -119,7 +123,9 @@ const router = createBrowserRouter([
               element: <ShopForMale />,
               children: [
                 { path: "/shop", element: <Shop /> },
-                { path: "/payment-method", element: <PaymenMethod /> },
+                { path:"/payment-method/:shopId", element: <PaymenMethod /> },
+                { path:"/paypal/success", element: <PaypalSuccessPayment /> },
+                { path:"/paypal/cancel", element: <PaypalCancelPayment /> },
               ]
             },
             

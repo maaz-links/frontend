@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import ModelImage from '/src/assets/images/model-img.jpg'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import Skeleton from 'react-loading-skeleton'; 
+import 'react-loading-skeleton/dist/skeleton.css'; 
 
 function Shop() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
 
-  const {refreshUser} = useStateContext();
+  useEffect(() => {
+    fetchShops();
+  }, []);
+
+  const { refreshUser } = useStateContext();
 
   const buy100 = async () => {
     try {
@@ -20,93 +29,71 @@ function Shop() {
       console.error('Error fetching data:', error);
     }
     return 1;
-  }
+  };
 
+  const fetchShops = async () => {
+    try {
+      const response = await axiosClient.get('api/shops');
+      setData(response.data); 
+    } catch (error) {
+      console.error("Error fetching shops:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePaymentClick = (shopId) => {
+    navigate(`/payment-method/${shopId}`);
+  };
 
   return (
     <>
-      <Header />
-      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Shop</h1>
-      <div className="max-w-[1180px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-[15px] md:gap-x-[40px]">
-          <div className='blog-box text-center'>
-            <div className='blog-inner'>
-              {/* <Link to="/payment-method"> */}
-                <div onClick={buy100}  className='blog-img bg-[#E91E63]'>
-                <img src={ModelImage} style={{visibility: 'hidden'}} />
-                  
-               
-                </div>
-                {/* <div className="absolute user-icon text-center">
-                    <div className="icon absolute">
-                      <svg width="500" height="500" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_724_133)">
-                          <path d="M23.5 47C36.4787 47 47 36.4787 47 23.5C47 10.5213 36.4787 0 23.5 0C10.5213 0 0 10.5213 0 23.5C0 36.4787 10.5213 47 23.5 47Z" fill="#FFC018" />
-                          <path fillRule="evenodd" clipRule="evenodd" d="M16.8906 21.2969H30.1094V14.6875H34.5156V38.1875H30.1094V25.7031H16.8906V32.3125H12.4844V8.8125H16.8906V21.2969Z" fill="white" />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_724_133">
-                            <rect width="47" height="47" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div>100</div>
-                  </div> */}
-                <h3 onClick={buy100} className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>GET 100 CREDITS</h3>
-              {/* </Link> */}
+    <Header />
+<h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">
+  Shop
+</h1>
 
-            </div>
-
-          </div>
-          <div className='blog-box text-center'>
-            <div className='blog-inner'>
-              <Link to="/payment-method">
-                <div className='blog-img'>
-                  <img src={ModelImage} />
-                </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
-              </Link>
-
-            </div>
-
-          </div>
-          <div className='blog-box text-center'>
-            <div className='blog-inner'>
-              <Link to="/payment-method">
-                <div className='blog-img'>
-                  <img src={ModelImage} />
-                </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
-              </Link>
-
-            </div>
-          </div>
-          <div className='blog-box text-center'>
-            <div className='blog-inner'>
-              <Link to="/payment-method">
-                <div className='blog-img'>
-                  <img src={ModelImage} />
-                </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
-              </Link>
-
-            </div>
-          </div>
-          <div className='blog-box text-center'>
-            <div className='blog-inner'>
-              <Link to="/payment-method">
-                <div className='blog-img'>
-                  <img src={ModelImage} />
-                </div>
-                <h3 className='uppercase font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]'>Shop</h3>
-              </Link>
-
-            </div>
+<div className="max-w-[1180px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
+  <div className="grid grid-cols-2 md:grid-cols-3 gap-[15px] md:gap-x-[40px]">
+    {loading ? (
+      Array(6).fill(0).map((_, index) => (
+        <div className="blog-box text-center" key={index}>
+          <div className="blog-inner">
+            <Skeleton height={150} width={"100%"} />
+            <Skeleton height={20} width={"60%"} style={{ margin: "20px auto" }} />
+            <Skeleton height={40} width={"80%"} style={{ margin: "10px auto" }} />
           </div>
         </div>
+      ))
+    ) : data && data.shops && data.shops.length > 0 ? (
+      data.shops.map((item) => (
+        <div className="blog-box text-center" key={item.id}>
+          <div className="blog-inner">
+            <div onClick={buy100} className="blog-img bg-[#E91E63]">
+              <img src={item.icon_url} alt="Shop Icon" />
+            </div>
+            <h1 style={{ fontSize: "35px", fontWeight: "bold" }}>
+              Price: {item.price}
+            </h1>
+            <h3
+              onClick={() => handlePaymentClick(item.id)}
+              className="uppercase cursor-pointer font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]"
+            >
+              GET {item.credits} CREDITS
+            </h3>
+          </div>
+        </div>
+      ))
+    ) : (
+      <div className="col-span-full text-center">
+        <h1 className="text-[24px] font-semibold">Data Not Found</h1>
       </div>
-      <Footer />
+    )}
+  </div>
+</div>
+
+<Footer />
+
     </>
   );
 }

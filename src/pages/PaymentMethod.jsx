@@ -1,72 +1,123 @@
-import { useState } from "react";
-import Footer from "../components/common/footer";
-import Header from "../components/common/header";
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Footer from '../components/common/footer';
+import Header from '../components/common/header';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from './CheckoutForm';
+import usePaymentMethods from '../hooks/usePaymentMethods';
 
-const PaymenMethod = () => {
-  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+// Load Stripe
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+const PaymentMethod = () => {
+  const { shopId } = useParams();
+  const [paymentMethod, setPaymentMethod] = useState('creditCard');
+  
+  const {
+    data,
+    loading,
+    isProcessing,
+    clientSecret,
+    paymentIntentId,
+    handleStripePaymentIntent,
+    handlePayPalPayment,
+  } = usePaymentMethods(shopId);
+
+  const handleSubmit = () => {
+    if (data.shop?.price) {
+      handleStripePaymentIntent(paymentMethod, data.shop.price);
+    }
+  };
 
   return (
     <>
-    <Header />
-    <div className="max-w-[1300px] mx-auto mt-[50px]  md:mt-[140px] mb-[50px] md:mb-[150px] px-[15px]">
-      <h2 className="text-[34px] font-[400] w-full border-b md:mb-[50px]">Payment Methods</h2>
-<div className="max-w-[865px]">
-      {/* Payment Method Selection */}
-      <div className="mt-4 w-full flex flex-col md:mb-[60px]">
-        <label className="flex items-center space-x-2">
-          <input
-            type="radio"
-            value="creditCard"
-            checked={paymentMethod === "creditCard"}
-            onChange={() => setPaymentMethod("creditCard")}
-          />
-          <span>Balance or Credit Card</span>
-        </label>
-        <label className="flex items-center space-x-2 mt-[10px]">
-          <input
-            type="radio"
-            value="paypal"
-            checked={paymentMethod === "paypal"}
-            onChange={() => setPaymentMethod("paypal")}
-          />
-          <span>PayPal</span>
-        </label>
-      </div>
+      <Header />
+      <div className="max-w-[1300px] mx-auto mt-[50px] md:mt-[140px] mb-[50px] md:mb-[150px] px-[15px]">
+        <h2 className="text-[34px] font-[400] w-full border-b md:mb-[50px]">Payment Methods</h2>
 
-      {/* Payment Fields */}
-      <div className="mt-6 w-full flex flex-col space-y-4">
-        {paymentMethod === "creditCard" && (
-          <>
-            <div className="flex space-x-4">
-              <input type="text" placeholder="Name" className="w-1/2 p-2 bg-[#F5F5F5]" />
-              <input type="text" placeholder="Last Name" className="w-1/2 p-2 bg-[#F5F5F5]" />
-            </div>
-           
-            <div className="flex space-x-4  mt-6 md:mt-[35px">
-            <input type="text" placeholder="Card Number" className="w-full p-2 bg-[#F5F5F5]" />
-              <input type="text" placeholder="EXC" className="w-1/5 p-2 bg-[#F5F5F5]" />
-              <input type="text" placeholder="MM/YY" className="w-1/3 p-2 bg-[#F5F5F5]" />
-            </div>
-            <div className=" max-w-[540px] mt-6 md:mt-[35px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            {/* Payment Method Selection */}
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="payPal"
+                checked={paymentMethod === 'payPal'}
+                onChange={() => setPaymentMethod('payPal')}
+              />
+              <span className="font-medium text-lg">Buy With Paypal</span>
+            </label>
 
-            <input type="text" placeholder="Email" className="w-full p-2 bg-[#F5F5F5]" /> 
-            </div>
-          </>
-        )}
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="creditCard"
+                checked={paymentMethod === 'creditCard'}
+                onChange={() => setPaymentMethod('creditCard')}
+              />
+              <span className="font-medium text-lg">Buy with Stripe</span>
+            </label>
 
-        {paymentMethod === "paypal" && (
-            <div className=" max-w-[540px] mt-6 md:mt-[35px]">
-          <input type="email" placeholder="Email" className="w-full p-2 bg-[#F5F5F5]" />
+            {/* Stripe Elements wrapper */}
+            {clientSecret && (
+              <Elements stripe={stripePromise} options={{ clientSecret }}>
+                <CheckoutForm clientSecret={clientSecret} shopId={data.shop?.id} paymentIntentId={paymentIntentId} />
+              </Elements>
+            )}
+
+            {paymentMethod === 'creditCard' && !clientSecret && (
+              <button
+                onClick={handleSubmit}
+                disabled={isProcessing}
+                className="mt-6 bg-[#E91E63] text-white py-3 px-6 rounded-md hover:bg-[#c2185b] focus:outline-none"
+              >
+                {isProcessing ? 'Processing...' : 'Proceed to Pay'}
+              </button>
+            )}
+
+            {paymentMethod === 'payPal' && (
+              <button
+                onClick={handlePayPalPayment}
+                disabled={isProcessing}
+                className="mt-6 bg-[#E91E63] text-white py-3 px-6 rounded-md hover:bg-[#c2185b] focus:outline-none"
+              >
+                {isProcessing ? 'Processing...' : `Pay $${data?.shop?.price}`}
+              </button>
+            )}
           </div>
-        )}
+
+          {/* Order Summary */}
+          <div className="max-w-[450px] bg-[#F5F5F5] p-6 rounded-md shadow-md">
+            <h1 className="text-[22px] font-bold mb-3">Item Details</h1>
+            {data && data.shop && (
+              <table className="w-full">
+                <tbody>
+                  <tr className="border-b">
+                    <td className="font-semibold py-1"><strong>Title</strong></td>
+                    <td className="text-right"><strong>{data.shop.title}</strong></td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="font-semibold py-1"><strong>Price</strong></td>
+                    <td className="text-right"><strong>${data.shop.price}</strong></td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="font-semibold py-1"><strong>Credits</strong></td>
+                    <td className="text-right"><strong>{data.shop.credits}</strong></td>
+                  </tr>
+                  <tr className="">
+                    <td className="font-semibold py-1"><p className="fw-bold text-[18px]"><strong>Total</strong></p></td>
+                    <td className="text-right"><strong className="text-[18px]">${data.shop.price}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
       </div>
-</div>
-      {/* Submit Button */}
-      <button className="mt-6 md:mt-[100px] w-full bg-[#E91E63] text-white py-2 max-w-[540px]">SUBMIT</button>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };
 
-export default PaymenMethod;
+export default PaymentMethod;

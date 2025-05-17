@@ -86,6 +86,7 @@ const SideMenu = () => {
                                     <Link onClick={handleLinkClick} to="/shop" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Shop</Link>
                                 }
                                 <Link onClick={handleLinkClick} to="/profile?tab=Personal Data" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Account</Link>
+                                <Link onClick={handleLinkClick} to="/purchase-history" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Purchase History</Link>
                                 <Link onClick={handleLinkClick} to="/profile?tab=Profile" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Profile</Link>
                                 <Link onClick={handleLinkClick} to='/profile?tab=Photo' className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Photos</Link>
                                 <Link onClick={handleLinkClick} to="/reviews" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Reviews</Link>

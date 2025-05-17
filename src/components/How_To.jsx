@@ -39,7 +39,7 @@ W/ CREDITS</h3>
 </div>
 </div>
 <div className='text-center mt-[110px]'>
-<a href='/how-to' className='bg-[#E91E63] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#F8BBD0] '>SIGN UP FOR FREE</a>
+<a href='/sign-up' className='bg-[#E91E63] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#F8BBD0] '>SIGN UP FOR FREE</a>
 </div>
 </div>
 
