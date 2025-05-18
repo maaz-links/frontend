@@ -48,6 +48,7 @@ import AuthLayout from './components/auth/DefaultLayout'
 import PurchaseHistory from './pages/Purchase-history'
 import PaypalSuccessPayment from './pages/PaypalSuccessPayment'
 import PaypalCancelPayment from './pages/PaypalCancelPayment'
+import BannedNotice from './pages/BannedNotice'
 function App() {
 
   return (
@@ -101,7 +102,8 @@ const router = createBrowserRouter([
         { path: "/verify-email", element: <VerifyEmail /> },
         { path: "/verify-phone", element: <VerifyPhone /> },
         { path: "forgot-password", element: <ForgotPassword /> },
-        { path: "reset-password", element: <ResetPassword /> }
+        { path: "reset-password", element: <ResetPassword /> },
+        { path: "am-i-banned/:username", element: <BannedNotice /> }
       ]
     },
     {
@@ -115,7 +117,7 @@ const router = createBrowserRouter([
           children: [
             { path: "/chat", element: <Chat /> },
             { path: "/profile", element: <Profile /> },
-            { path: "/purchase-history", element: <PurchaseHistory /> },
+            
             { path: "/last-views", element: <LastViews /> },
             { path: "/reviews", element: <Reviews /> },
             {
@@ -126,6 +128,7 @@ const router = createBrowserRouter([
                 { path:"/payment-method/:shopId", element: <PaymenMethod /> },
                 { path:"/paypal/success", element: <PaypalSuccessPayment /> },
                 { path:"/paypal/cancel", element: <PaypalCancelPayment /> },
+                { path: "/purchase-history", element: <PurchaseHistory /> },
               ]
             },
             

@@ -63,3 +63,17 @@ export function getAge(dob) {
   if (!hasHadBirthday) age--;
   return age;
 }
+
+export function getUserCost(top_profile,verified_profile, profileValues) {
+  //const { verified_profile, top_profile } = user.profile;
+
+  if (verified_profile === 1 && top_profile === 1) {
+    return profileValues.verified_top;
+  } else if (verified_profile === 1) {
+    return profileValues.verified;
+  } else if (top_profile === 1) {
+    return profileValues.top;
+  } else {
+    return profileValues.standard;
+  }
+}

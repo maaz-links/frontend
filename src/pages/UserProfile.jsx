@@ -6,19 +6,22 @@ import ModelImage from '/src/assets/images/model-img.jpg'
 import Slider from "react-slick";
 import { useStateContext } from '../context/ContextProvider';
 import axiosClient from '../../axios-client';
-import { dressSizeName, getAttachmentURL } from '../functions/Common';
+import { dressSizeName, getAttachmentURL, getUserCost } from '../functions/Common';
 import { ROLES } from '../../constants';
+import ReportUserButton from '../components/ReportUserButton';
 
 
 
 
 function UserProfile() {
 
-  const {token, user, optionsInterest,optionsAvailableFor,languageOptions, getProvinceName ,refreshUser} = useStateContext();
+  const {token, user, optionsInterest,optionsAvailableFor,languageOptions, getProvinceName ,refreshUser, profileCosts} = useStateContext();
   const [givenUser, setGivenUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [unlockChat,setUnlockChat] = useState(false);
   const {username} = useParams();
+
+  const {warnModal, setWarnModal} = useState(false);
 
   const navigate = useNavigate();
 
@@ -120,7 +123,8 @@ function UserProfile() {
 <>
 <Header />
 <div className=' pt-[50px] md:pt-[68px] pb-[95px] px-[30px] max-w-[1300px] m-auto mt-[28px]'>
-<h1 className='text-[40px] flex gap-x-[15px] items-center'>{givenUser.name}<svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<h1 className='text-[40px] flex gap-x-[15px] items-center'>{givenUser.name}
+  {/* <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clipPath="url(#clip0_698_1127)">
 <path d="M24.75 12.4651V13.5001C24.7486 15.9261 23.9631 18.2866 22.5105 20.2296C21.0579 22.1727 19.0162 23.5941 16.6898 24.282C14.3634 24.9698 11.8769 24.8872 9.60128 24.0465C7.32564 23.2058 5.38274 21.652 4.06233 19.6168C2.74192 17.5816 2.11477 15.1742 2.27439 12.7534C2.43401 10.3327 3.37186 8.02846 4.94806 6.1843C6.52427 4.34014 8.65438 3.0549 11.0207 2.52026C13.387 1.98562 15.8628 2.23022 18.0788 3.21759M24.75 4.50009L13.5 15.7613L10.125 12.3863" stroke="#1E1E1E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
 </g>
@@ -129,7 +133,7 @@ function UserProfile() {
 <rect width="27" height="27" fill="white"/>
 </clipPath>
 </defs>
-</svg>
+</svg> */}
 </h1>
 <p className='italic'><span>{getProvinceName(givenUser.profile.province_id)}</span> | <span>{new Date(givenUser.created_at).getFullYear()}</span></p>
 <div className='flex flex-col md:flex-row gap-[40px] md:gap-x-[100px]  mt-[50px]'>
@@ -295,7 +299,7 @@ function UserProfile() {
   <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[200px]">
             {unlockChat ?
               <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
-                {user?.role == ROLES.KING ? 'UNLOCK CHAT' : 'SEND FREE MESSAGE'}
+                {user?.role == ROLES.KING ? `UNLOCK CHAT FOR ${getUserCost(givenUser.profile.top_profile,givenUser.profile.verified_profile,profileCosts)} CREDITS` : 'SEND FREE MESSAGE'}
               </button>
               :
               <a href='/chat' className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
@@ -305,7 +309,15 @@ function UserProfile() {
         {/* <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
         GO TO THE CHAT
         </button> */}
+        <div className='mt-20'>
+        {token &&
+          <ReportUserButton userId={givenUser.id}/>
+        }
+          
+          
         </div>
+        </div>
+       
 </div>
 
 <Footer />

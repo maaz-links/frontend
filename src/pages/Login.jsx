@@ -41,6 +41,12 @@ function Login() {
       const response = await axiosClient.post('/api/login', payload);
       console.log(response);
       setErrors({});
+      //BAN LOGIC
+      if(response.data.banned){
+        navigate(`/am-i-banned/${response.data.username}`);
+        return;
+      }
+
       //setUser(response.data.user);
       alert('Verify OTP for Successful Login');
       sessionStorage.setItem('hostess_otp_email', payload.email);

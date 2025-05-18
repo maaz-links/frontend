@@ -68,7 +68,8 @@ const Profile = () => {
             <div className="flex items-center">
               <div className="ml-4">
                 <h2 className="text-[24px]">{user.name || 'USER'}</h2>
-                <p className="text-[#424242] italic">Profile Status: <span className="font-semibold">ACTIVE</span></p>
+                {/* <p className="text-[#424242] italic">Profile Status: <span className="font-semibold">ACTIVE</span></p> */}
+                <p></p>
               </div>
             </div>
             

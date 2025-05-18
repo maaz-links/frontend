@@ -46,6 +46,8 @@ export const ContextProvider = ({ children }) => {
   const [optionsAvailableFor, setOptionsAvailableFor] = useState([]);
   const [languageOptions, setLanguageOptions] = useState([]);
   const [countries, setCountries] = useState([]);
+  const [profileCosts, setProfileCosts] = useState([]);
+  
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
   //const [refreshUser, setRefreshUser] = useState([]);
@@ -56,7 +58,8 @@ export const ContextProvider = ({ children }) => {
     setOptionsInterest(response2.data.interests);
     setOptionsAvailableFor(response2.data.available_for);
     setLanguageOptions(response2.data.spoken_languages);
-    
+    setProfileCosts(response2.data.profile_costs);
+    console.log(response2.data.profile_costs);
   }
 
   // Fetch countries on component mount
@@ -108,6 +111,7 @@ export const ContextProvider = ({ children }) => {
       refreshUser,// setRefreshUser,
       countries,
       getProvinceName,
+      profileCosts
       // ... other values
     }}>
       {children}

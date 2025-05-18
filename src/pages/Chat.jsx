@@ -3,7 +3,7 @@ import { FaSearch, FaComments, FaPaperPlane, FaBars, FaArchive } from "react-ico
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
-import { getAge, getAttachmentURL } from "../functions/Common";
+import { getAge, getAttachmentURL, getUserCost } from "../functions/Common";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import { ROLES } from "../../constants";
@@ -19,7 +19,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(true); //loading for chat sidebar
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
-  const {user,refreshUser,getProvinceName} = useStateContext();
+  const {user,refreshUser,getProvinceName,profileCosts} = useStateContext();
 
   const messagesRef = useRef(messages);
   const messagesContainerRef = useRef(null);
@@ -145,6 +145,7 @@ const Chat = () => {
   // Handle chat selection
   const handleSelectChat = (chat) => { //Passing chat object
     setSelectedChat(chat);
+    console.log('chatter',chat);
     fetchMessages(chat.id);
     startPolling(chat.id);
   };
@@ -226,9 +227,9 @@ const Chat = () => {
                   <div className="flex-1 min-w-0">
                     <p className="text-[16px] font-bold truncate">{chat.other_user.name}</p>
                     <p className="text-[14px] flex items-center gap-x-[5px] truncate">
-                      <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <ellipse cx="8.66894" cy="7" rx="7.78808" ry="7" fill="#F9D132" fillOpacity="0.666667"/>
-                      </svg>
+                      </svg> */}
                       <span className="truncate">
                         {chat.last_message ? `${(chat.last_message.sender_id == chat.other_user.id) ? '':'You: '}${chat.last_message?.message}` : 'No messages yet'}
                       </span>
@@ -319,7 +320,8 @@ const Chat = () => {
               {user.role == ROLES.KING ?
                 <div className="flex-1">
                   <button onClick={()=>createChat(selectedChat.other_user.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
-                    UNLOCK CHAT
+                    {/* UNLOCK CHAT */}
+                    {`UNLOCK CHAT FOR ${getUserCost(selectedChat.other_user.top_profile,selectedChat.other_user.verified_profile,profileCosts)} CREDITS`}
                   </button>
                 </div>
               :
