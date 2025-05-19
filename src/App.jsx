@@ -49,6 +49,7 @@ import PurchaseHistory from './pages/Purchase-history'
 import PaypalSuccessPayment from './pages/PaypalSuccessPayment'
 import PaypalCancelPayment from './pages/PaypalCancelPayment'
 import BannedNotice from './pages/BannedNotice'
+import StaticPage from './pages/StaticPage'
 function App() {
 
   return (
@@ -74,10 +75,16 @@ const router = createBrowserRouter([
     
     { path: "/", element: <Home /> },
     { path: "/contact", element: <Contact /> },
-    { path: "/terms", element: <Terms /> },
-    { path: "/privacy", element: <Privacy /> },
-    { path: "/cookies", element: <Cookies /> },
-    { path: "/payments", element: <Payments /> },
+    // { path: "/terms", element: <Terms /> },
+    // { path: "/privacy", element: <Privacy /> },
+    // { path: "/cookies", element: <Cookies /> },
+    // { path: "/payments", element: <Payments /> },
+
+    { path: "/cookies", element: <StaticPage slug='cookies' /> },
+    { path: "/terms", element: <StaticPage slug='terms' /> },
+    { path: "/privacy", element: <StaticPage slug='privacy' /> },
+    { path: "/payments", element: <StaticPage slug='payments' /> },
+
     { path: "/search", element: <Search /> },
     { path: "/user-profile/:username", element: <UserProfile /> },
     // { path: "/about-you", element: <AboutYou /> }, IMPORTANT IN FUTURE

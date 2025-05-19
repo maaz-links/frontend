@@ -133,20 +133,21 @@ const CreatSignup = ({myRole}) => {
       const response = await axiosClient.post('/api/register', payload);
       setErrors({})
       console.log(response);
-      //alert('A link is sent to your email address. Click on it to verify account and complete registration')
+      alert('A link is sent to your email address. Click on it to verify account and complete registration')
+      navigate('/');
+      // //WITHOUT EMAIL VERIF
+      // alert("Account Successfully created")
+      
+      // // setUser(response.data.user);
+      // //setToken(response.data.access_token);
 
-      //WITHOUT EMAIL VERIF
-      alert("Account Successfully created")
-      // setUser(response.data.user);
-      //setToken(response.data.access_token);
-
-      console.log('registered');
-      sessionStorage.setItem('hostess_otp_email', payload.email);
-      sessionStorage.setItem('hostess_otp_phone', response.data.phone);
-      sessionStorage.setItem('hostess_otp_message', response.data.message);
-      //setToken(response.data.access_token);
-      navigate('/verify-phone');
-      //navigate('/chat');
+      // console.log('registered');
+      // sessionStorage.setItem('hostess_otp_email', payload.email);
+      // sessionStorage.setItem('hostess_otp_phone', response.data.phone);
+      // sessionStorage.setItem('hostess_otp_message', response.data.message);
+      // //setToken(response.data.access_token);
+      // navigate('/verify-phone');
+      // //navigate('/chat');
     } catch (err) {
       console.log(err)
       setErrors(err.response.data.formError)
@@ -197,12 +198,12 @@ const CreatSignup = ({myRole}) => {
           <div className="flex flex-col md:flex-row max-w-[865px] mt-[20px] md:mt-[58px]  w-full gap-x-[54px]">
             <div className="w-full">
               <label className="block">Email</label>
-              <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5] " />
+              <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 bg-[#F5F5F5] " />
               <ErrorText field='email' />
             </div>
             <div className="w-full">
               <label className="block">Password</label>
-              <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 w-[15%] bg-[#F5F5F5] " />
+              <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 bg-[#F5F5F5] " />
               <ErrorText field='password' />
             </div>
           </div>

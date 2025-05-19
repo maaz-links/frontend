@@ -38,13 +38,19 @@ function VerifyEmail() {
     );
     console.log(response);
         //setUser(response.data.user);
-        console.log(response.data);
-        setToken(response.data.access_token);
-        // Store the token and user data
-        //localStorage.setItem('ACCESS_TOKEN', response.data.token);
-        //localStorage.setItem('user', JSON.stringify(response.data.user));
+        // console.log(response.data);
+        // setToken(response.data.access_token);
+        // // Store the token and user data
+        // //localStorage.setItem('ACCESS_TOKEN', response.data.token);
+        // //localStorage.setItem('user', JSON.stringify(response.data.user));
         alert('Email verified successfully!')
+        sessionStorage.setItem('hostess_otp_email', response.data.email);
+        sessionStorage.setItem('hostess_otp_phone', response.data.phone);
+        sessionStorage.setItem('hostess_otp_message', response.data.message);
+        //setToken(response.data.access_token);
+        
         setMessage('Email verified successfully! Redirecting...');
+        navigate('/verify-phone');
         //navigate('/dashboard'); // Redirect to your desired page
       } catch (err) {
         console.log(err)

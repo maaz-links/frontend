@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import Header from '/src/components/common/header'
-import Footer from '/src/components/common/footer'
-import { Outlet, Link } from "react-router-dom"
+import Header from '/src/components/common/header';
+import Footer from '/src/components/common/footer';
+import { Link, useNavigate } from "react-router-dom";
+import axiosClient from "../../axios-client";
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -11,6 +13,8 @@ function Contact() {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -20,9 +24,14 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitSuccess(false);
+
+    // Client-side validation
     let newErrors = {};
     if (!formData.name) newErrors.name = "Name is required";
     if (!formData.email) {
@@ -35,87 +44,114 @@ function Contact() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setIsSubmitting(false);
       return;
     }
 
-    alert("Form submitted successfully!");
-    setFormData({ name: "", email: "", message: "", termsAccepted: false });
-    setErrors({});
+    try {
+      const response = await axiosClient.post('/api/contact-form', formData);
+      setSubmitSuccess(true);
+      setFormData({ name: "", email: "", message: "", termsAccepted: false });
+      setErrors({});
+      alert('Thank you! Your request has been submitted successfully.')
+      navigate('/');
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        // Laravel validation errors
+        setErrors(error.response.data.errors);
+      } else {
+        // Network or server errors
+        setErrors({ submit: 'Failed to submit form. Please try again.' });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
-    <Header />
-    <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">HELP & CONTACT</h1>
-    <div className="max-w-[1090px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
-     
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <Header />
+      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">HELP & CONTACT</h1>
+      <div className="max-w-[1090px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
+        {submitSuccess && (
+          <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
+            Thank you! Your request has been submitted successfully.
+          </div>
+        )}
         
-        {/* Name Field */}
-        <div>
-          <label className="block text-[20px] uppercase">NAME (USERNAME)</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
-            placeholder=""
-          />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-        </div>
+        {errors.submit && (
+          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+            {errors.submit}
+          </div>
+        )}
 
-        {/* Email Field */}
-        <div>
-          <label className="block text-[20px] uppercase">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
-            placeholder=""
-          />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name Field */}
+          <div>
+            <label className="block text-[20px] uppercase">NAME</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
+            />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+          </div>
 
-        {/* Message Field */}
-        <div>
-          <label className="block text-[20px] uppercase">REQUEST</label>
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            className="w-full bg-[#F5F5F5] h-[266px] p-[10px] focus:outline-0"
-            placeholder=""
-          ></textarea>
-          {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
-        </div>
+          {/* Email Field */}
+          <div>
+            <label className="block text-[20px] uppercase">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
+            />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          </div>
 
-        {/* Terms Checkbox */}
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            name="termsAccepted"
-            checked={formData.termsAccepted}
-            onChange={handleChange}
-            className="mr-2 bg-[#F5F5F5]"
-          />
-          <label className="text-[20px]">
-          I accept the <Link to="/privacy">Privacy Policy</Link> and the <Link to="/terms">Terms & Condition </Link> of the website
-          </label>
-        </div>
-        {errors.termsAccepted && <p className="text-red-500 text-sm">{errors.termsAccepted}</p>}
+          {/* Message Field */}
+          <div>
+            <label className="block text-[20px] uppercase">REQUEST</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full bg-[#F5F5F5] h-[266px] p-[10px] focus:outline-0"
+            ></textarea>
+            {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
+          </div>
 
-        {/* Submit Button */}
-        <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-        <button type="submit" className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
-          Send Request
-        </button>
-        </div>
-      </form>
-    </div>
-    <Footer />
+          {/* Terms Checkbox */}
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              name="termsAccepted"
+              checked={formData.termsAccepted}
+              onChange={handleChange}
+              className="mr-2 bg-[#F5F5F5]"
+            />
+            <label className="text-[20px]">
+              I accept the <Link to="/privacy">Privacy Policy</Link> and the <Link to="/terms">Terms & Condition</Link>
+            </label>
+          </div>
+          {errors.termsAccepted && <p className="text-red-500 text-sm">{errors.termsAccepted}</p>}
+
+          {/* Submit Button */}
+          <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${isSubmitting ? 'opacity-50' : ''}`}
+            >
+              {isSubmitting ? 'Submitting...' : 'Send Request'}
+            </button>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </>
   );
 }

@@ -42,6 +42,12 @@ function Login() {
       console.log(response);
       setErrors({});
       //BAN LOGIC
+      if(response.data.mustverify){
+        alert('A link is sent to your email address. Click on it to verify account and complete registration')
+        navigate(`/`);
+        return;
+      }
+
       if(response.data.banned){
         navigate(`/am-i-banned/${response.data.username}`);
         return;
@@ -136,7 +142,7 @@ function Login() {
         {/* Forgot Password & Signup Links */}
         <div className="mt-[30px] text-center">
           <Link 
-          //to='/forgot-password' 
+          to='/forgot-password' 
           
           className="px-[25px] py-[5px] bg-[#F5F5F5] hover:underline text-[16px]">Forgot password?</Link>
           <p className="text-sm mt-2">
