@@ -96,7 +96,7 @@ const CreatSignup = ({myRole}) => {
   const newsletterRef = createRef();
 
   const navigate = useNavigate();
-
+  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const ErrorText = ({ field }) => {
     return (
@@ -113,6 +113,7 @@ const CreatSignup = ({myRole}) => {
   const { setUser, setToken } = useStateContext()
   const handleSubmit = async (ev) => {
     ev.preventDefault()
+    setSubmitting(true);
     //const date_of_birth = dobRef.current.getDate();
     //const date_of_birth = `${yearRef.current.value || '2000'}-${monthRef.current.value.padStart(2, '0') || '01'}-${dayRef.current.value.padStart(2, '0') || '01'}`;
     const isModel = modelRef?.current?.querySelector('input[name="isModel"]:checked')?.value === '1' ? true : false;
@@ -157,6 +158,8 @@ const CreatSignup = ({myRole}) => {
       // if (response && response.status === 422) {
       //   // setMessage(response.data.message);
       // }
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -235,7 +238,7 @@ const CreatSignup = ({myRole}) => {
               <span className="ml-2">I accept the Terms & Conditions and Privacy Policy</span>
             </label>
           </div>
-          <button type="submit" className="inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white">CREATE ACCOUNT</button>
+          <button type="submit" disabled={submitting} className={`inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>{submitting ? 'REGISTERING...' : 'CREATE ACCOUNT'}</button>
         </form>
       </div>
       <Footer />

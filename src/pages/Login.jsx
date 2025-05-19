@@ -12,6 +12,7 @@ function Login() {
   const passwordRef = createRef()
   const { setUser, setToken, refreshUser } = useStateContext()
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -32,7 +33,7 @@ function Login() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-
+    setSubmitting(true);
     const payload = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
@@ -69,8 +70,9 @@ function Login() {
     } catch (err) {
       const response = err.response;
       console.log(response);
-      setErrors(response.data.formError)
+      
       if (response && response.status === 422) {
+        setErrors(response.data.formError)
         // setMessage(response.data.message);
       }
     }
@@ -89,6 +91,8 @@ function Login() {
       if (response && response.status === 422) {
         // setMessage(response.data.message);
       }
+    }finally {
+      setSubmitting(false);
     }
     
   }
@@ -133,8 +137,8 @@ function Login() {
 
           {/* Login Button */}
           <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-        <button type="submit" className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
-         Login
+          <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
+         {submitting ? 'Logging in...' : 'Login'}
         </button>
         </div>
         </form>
