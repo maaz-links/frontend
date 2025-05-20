@@ -105,7 +105,7 @@ export const ProfilePhotoTab = () => {
     try {
       setIsLoading(true);
       const response = await axiosClient.get('/api/attachments');
-      console.log(response);
+      // console.log(response);
       const fetchedImages = response.data.map(img => ({
         id: img.id,
         url: getAttachmentURL(img.id),
@@ -170,7 +170,7 @@ export const ProfilePhotoTab = () => {
       await axiosClient.post(`/api/attachments/${imageId}/set-profile-picture`, {});
       alert("Profile Picture Updated");
       if(location.pathname == '/addphoto-signup'){
-        //console.log('what nigga?')
+        //console.log('what?')
         navigate('/profile');
       };
       refreshUser();
@@ -204,7 +204,12 @@ export const ProfilePhotoTab = () => {
   };
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-64">Loading...</div>;
+    return <div className="flex justify-center items-center h-64">
+      
+      <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
+              <ClipLoader color="#E91E63" size={50} />
+            </div>
+    </div>;
   }
 
   return (
@@ -369,7 +374,7 @@ export const ProfileInfoTab = () => {
 
         setSelectedCountry(user.profile.country_id)
         setSelectedProvince(user.profile.province_id)
-        console.log('selectedUser')
+        // console.log('selectedUser')
       }
     }
     
@@ -436,7 +441,7 @@ export const ProfileInfoTab = () => {
       if (response.data.message) {
         alert(response.data.message);
         // Optionally redirect or update UI
-        console.log('we re out')
+        // console.log('we re out')
                 setUser(null)
                 setToken(null)
                 navigate('/login');
@@ -764,6 +769,7 @@ export const ProfileInfoTab = () => {
 
 import { ErrorText, getAttachmentURL } from "../functions/Common";
 import { ROLES } from "../../constants";
+import { ClipLoader } from "react-spinners";
 export const PersonalDataTab = () => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -825,7 +831,7 @@ export const PersonalDataTab = () => {
       }
     } catch (error) {
       setErrors(error.response.data.formError);
-      console.log(error.response.data.formError);
+      // console.log(error.response.data.formError);
       // if (error.response && error.response.data.errors) {
       //   setErrors(error.response.data.errors);
       // } else {

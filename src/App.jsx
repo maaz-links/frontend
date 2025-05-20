@@ -50,6 +50,7 @@ import PaypalSuccessPayment from './pages/PaypalSuccessPayment'
 import PaypalCancelPayment from './pages/PaypalCancelPayment'
 import BannedNotice from './pages/BannedNotice'
 import StaticPage from './pages/StaticPage'
+import RootLayout from './components/auth/RootLayout'
 function App() {
 
   return (
@@ -63,13 +64,16 @@ const router = createBrowserRouter([
  
 
   
-
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
    
     // { path: "/login", element: <Login /> },
     { path: "/how-to", element: <HowTo /> },
     { path: "/hostess", element: <Hostess /> },
-    // { path: "/female-home", element: <HomeFemale /> },
-    // { path: "/male-home", element: <HomeMale /> },
+    { path: "/female-home", element: <HomeFemale /> },
+    { path: "/male-home", element: <HomeMale /> },
     // { path: "/about-you", element: <AboutYou /> },
    
     
@@ -144,7 +148,8 @@ const router = createBrowserRouter([
       ]
     },
     
-   
+  ]}//Root layout
+
 ]);
 
 export default App

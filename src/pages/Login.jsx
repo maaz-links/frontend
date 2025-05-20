@@ -40,7 +40,7 @@ function Login() {
     }
     try {
       const response = await axiosClient.post('/api/login', payload);
-      console.log(response);
+      // console.log(response);
       setErrors({});
       //BAN LOGIC
       if(response.data.mustverify){
@@ -69,7 +69,7 @@ function Login() {
       // window.location.href('/profile');
     } catch (err) {
       const response = err.response;
-      console.log(response);
+      // console.log(response);
       
       if (response && response.status === 422) {
         setErrors(response.data.formError)
@@ -82,12 +82,12 @@ function Login() {
     ev.preventDefault()
     try {
       const response = await axiosClient.get('/api/user');
-      console.log(response);
+      // console.log(response);
       // setUser(data.user);
       // setToken(data.token);
     } catch (err) {
       const response = err.response;
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 422) {
         // setMessage(response.data.message);
       }
@@ -150,7 +150,7 @@ function Login() {
           
           className="px-[25px] py-[5px] bg-[#F5F5F5] hover:underline text-[16px]">Forgot password?</Link>
           <p className="text-sm mt-2">
-            Don't have an account? <a href="/sign-up" className="hover:underline">Sign up</a>
+            Don't have an account? <Link to="/sign-up" className="hover:underline">Sign up</Link>
           </p>
         </div>
       </div>

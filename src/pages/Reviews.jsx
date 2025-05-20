@@ -21,13 +21,13 @@ const Reviews = () => {
     .then(response => {
       //setGivenUser(response.data)
       setReviewableUsers(response.data);
-      console.log('rev:', response.data);
+      // console.log('rev:', response.data);
     })
     .catch(error => {
         console.error('Error response:', error);
     })
     .finally(() => {
-      console.log('Request completed');
+      // console.log('Request completed');
     });
   }, [])
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import Introimage from "/src/assets/images/intro.png"
+import { useStateContext } from '../context/ContextProvider';
+import { Link } from 'react-router-dom';
 
 function IntroBox() {
- 
+
+  const {token} = useStateContext();
 
   return (
     <>
@@ -22,8 +25,13 @@ function IntroBox() {
 <h1 className="text-[#424242] mb-[15px] font-['Playfair_Display'] font-[400] text-[20px]">INTRODUCTION</h1>
 <p className='text-[#424242] text-[14px] font-[400] md:max-w-[294px]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum ante et blandit efficitur. Aenean eget tempus felis. Donec imperdiet condimentum quam sit amet lacinia. In congue sapien id nisi efficitur eleifend. Proin quis dictum dui, nec condimentum lectus. Mauris vel arcu at dui finibus bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
 <div className='intro-buttons flex items-center justify-between pt-[3em] gap-x-[40px]'>
-<a href='/search' className='btn bg-[#F8BBD0]  p-[10px] w-full text-[20px] font-[400] leading-[130%]'>Search</a>
-<a href='/sign-up' className='btn bg-[#F8BBD0] block p-[10px] w-full text-[20px] font-[400] leading-[130%]'>Sign Up </a>
+
+{!token && 
+<>
+<Link to='/sign-up' className='btn bg-[#F8BBD0] block p-[10px] w-full text-[20px] font-[400] leading-[130%]'>Sign Up </Link>
+<Link to='/search' className='btn bg-[#F8BBD0]  p-[10px] w-full text-[20px] font-[400] leading-[130%]'>Search</Link>
+</>
+}
 </div>
 </div>
 

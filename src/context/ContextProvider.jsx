@@ -59,7 +59,7 @@ export const ContextProvider = ({ children }) => {
     setOptionsAvailableFor(response2.data.available_for);
     setLanguageOptions(response2.data.spoken_languages);
     setProfileCosts(response2.data.profile_costs);
-    console.log(response2.data.profile_costs);
+    
   }
 
   // Fetch countries on component mount

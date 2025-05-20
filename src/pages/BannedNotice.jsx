@@ -12,7 +12,7 @@ function BannedNotice() {
     const url = `api/ban-report/${username}`;
     axiosClient.get(url)
     .then(response => {
-      console.log(url, response);
+      // console.log(url, response);
       setMessage(response.data.message);
     })
     .catch(error => {
@@ -20,7 +20,7 @@ function BannedNotice() {
         navigate('/');
     })
     .finally(() => {
-      console.log('Request completed');
+      // console.log('Request completed');
     });
     
     }, [])

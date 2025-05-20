@@ -3,7 +3,7 @@ import Footer from "/src/components/common/footer";
 import Header from "/src/components/common/header";
 import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../context/ContextProvider";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
   const emailRef = createRef()
@@ -37,16 +37,16 @@ function ForgotPassword() {
     }
     try {
       const response = await axiosClient.post('/api/forgot-password', payload);
-      console.log(response);
+      // console.log(response);
       alert(response.data.message);
       setErrors({});
       // setUser(response.data.user);
       // setToken(response.data.access_token);
-      console.log('here');
+      // console.log('here');
       //navigate('/chat');
     } catch (err) {
       const response = err.response;
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 422) {
         setErrors(response.data.formError);
       }
@@ -89,7 +89,7 @@ function ForgotPassword() {
         {/*Signup Links */}
         <div className="mt-[30px] text-center">
           <p className="text-sm mt-2">
-            Don't have an account? <a href="#" className="hover:underline">Sign up</a>
+            Don't have an account? <Link to="/sign-up" className="hover:underline">Sign up</Link>
           </p>
         </div>
       </div>

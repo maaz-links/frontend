@@ -21,14 +21,14 @@ function LastViews() {
     .then(response => {
       //setGivenUser(response.data)
       setViews(response.data);
-      console.log('lastviews:', response.data);
+      // console.log('lastviews:', response.data);
       
     })
     .catch(error => {
         console.error('Error response:', error);
     })
     .finally(() => {
-      console.log('Request completed');
+      // console.log('Request completed');
     });
   }, [])
   
@@ -66,16 +66,16 @@ function LastViews() {
         {views.map((view) => (
           <div key={view.id} className="grid grid-cols-4 items-center  py-3">
             <div className="flex items-center">
-              <a href={`/user-profile/${view?.viewer?.name}`}>
+              {/* <a href={`/user-profile/${view?.viewer?.name}`}> */}
               <div className="w-15 h-15 bg-[#F5F5F5] rounded-full">
               <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(view?.viewer?.profile_picture_id)}></img>
               </div>
-              </a>
+              {/* </a> */}
               <p className="ml-3 text-[16px] font-[600]">{view?.viewer?.name}</p>
             </div>
             <p className="text-[18px] text-center">{formatDateToDMY(view.created_at)}</p>
             <div className="text-[18px] text-[#424242] text-center">{formatToHourMinute(view.created_at)}</div>
-         <div className="text-center">   <Link to="/chat" className="text-[16px] font-[600] bg-[#E91E63] text-white p-[10px] px-[20px]  hover:bg-[#F8BBD0]">Chat</Link> </div>
+         <div className="text-center">   <Link to={`/user-profile/${view?.viewer?.name}`} className="text-[16px] font-[600] bg-[#E91E63] text-white p-[10px] px-[20px]  hover:bg-[#F8BBD0]">View Profile</Link> </div>
           </div>
         ))}
       </div>

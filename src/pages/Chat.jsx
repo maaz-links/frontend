@@ -70,13 +70,13 @@ const Chat = () => {
     
     // Start new polling
     const interval = setInterval(async () => {
-      console.log('ref',messagesRef.current.length);
-      console.log(Math.max(...messagesRef.current.map(m => m.id)))
+      // console.log('ref',messagesRef.current.length);
+      // console.log(Math.max(...messagesRef.current.map(m => m.id)))
       const lastMessageId = messagesRef.current.length > 0 ? Math.max(...messagesRef.current.map(m => m.id)) : 0;
       //console.log(chatId,lastMessageId,messages);
       try {
         const response = await axiosClient.get(`/api/chats/${chatId}/messages/poll?last_message_id=${lastMessageId}`);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.length > 0) {
           setMessages(prev => [...prev, ...response.data]);
           scrollToBottom();
@@ -145,7 +145,7 @@ const Chat = () => {
   // Handle chat selection
   const handleSelectChat = (chat) => { //Passing chat object
     setSelectedChat(chat);
-    console.log('chatter',chat);
+    // console.log('chatter',chat);
     fetchMessages(chat.id);
     startPolling(chat.id);
   };
@@ -165,13 +165,13 @@ const Chat = () => {
   useEffect(() => {
     scrollToBottom();
     messagesRef.current = messages;
-    console.log(messagesRef.current)
+    // console.log(messagesRef.current)
   }, [messages]);
 
   const createChat = async (other_user_id) => {
     try{
       const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
-      console.log('buychat',response);
+      // console.log('buychat',response);
       alert(response.data.message);
       refreshUser();
       //window.location.reload('/chat');

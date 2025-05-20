@@ -3,7 +3,7 @@ import Footer from "/src/components/common/footer";
 import Header from "/src/components/common/header";
 import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../context/ContextProvider";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 function ResetPassword() {
   //const emailRef = createRef()
@@ -48,17 +48,17 @@ function ResetPassword() {
     }
     try {
       const response = await axiosClient.post('/api/reset-password', payload);
-      console.log(response);
+      // console.log(response);
       setErrors({});
       alert(response.data.message)
       // setUser(response.data.user);
       // setToken(response.data.access_token);
-      console.log('here');
+      // console.log('here');
       navigate('/login');
       //navigate('/chat');
     } catch (err) {
       const response = err.response;
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 422) {
        setErrors(response.data.formError);
       }
@@ -101,7 +101,7 @@ function ResetPassword() {
         {/*Signup Links */}
         <div className="mt-[30px] text-center">
           <p className="text-sm mt-2">
-            Don't have an account? <a href="#" className="hover:underline">Sign up</a>
+            Don't have an account? <Link to="/sign-up" className="hover:underline">Sign up</Link>
           </p>
         </div>
       </div>

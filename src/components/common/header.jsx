@@ -27,7 +27,7 @@ function Header() {
             </Link>
           </div>
           <div className="menu flex  items-center mt-[10px] md:mt-[0px] gap-x-8 md:gap-x-[60px] text-[#424242] justify-between">
-            <a href="/search">
+            <Link to="/search">
               <div className="search text-center">
                 <div className="icon">
                   <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,12 +39,12 @@ function Header() {
 
                 <div>Search</div>
               </div>
-            </a>
+            </Link>
 
 
             {token ?
               <>
-                <a href="/chat">
+                <Link to="/chat">
                   <div className="chat text-center">
                     <div className="icon">
                       <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@ function Header() {
                     </div>
                     <div>Chat</div>
                   </div>
-                </a>
+                </Link>
                 {(user?.role === ROLES.KING) &&
                   <div className="user-icon text-center">
                     <div className="icon">

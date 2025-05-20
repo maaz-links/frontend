@@ -42,7 +42,7 @@ function VerifyPhone() {
     }
     try {
       const response = await axiosClient.post('/api/verify-otp', payload);
-      console.log(response);
+      // console.log(response);
       setErrors({});
       //setUser(response.data.user);
       alert('OTP Successfully verified');

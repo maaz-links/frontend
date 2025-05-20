@@ -7,7 +7,7 @@ import { useStateContext } from '../context/ContextProvider'
 import axiosClient from '../../axios-client'
 import { getAttachmentURL } from '../functions/Common'
 import { ClipLoader } from 'react-spinners' // Import spinner
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 function Search() {
   const {user, token, getProvinceName} = useStateContext();
@@ -180,7 +180,7 @@ function Search() {
           ) : (
             <div className='grid grid-cols-2 md:grid-cols-5 gap-[15px] md:gap-x-[30px] mt-[40px] md:mt-[112px]'>
               {entities.map((entity) => (
-                <a href={`/user-profile/${entity.name}`} key={entity.id}>
+                <Link to={`/user-profile/${entity.name}`} key={entity.id}>
                   <div className='result-box'>
                     {entity.profile.verified_profile ? <div className={`absolute top-0 end-0 text-[#E91E63] bg-[#F5F5F5]`}><strong>Verified</strong></div> : <></>}
                     {entity.profile.top_profile ? <div className={`absolute top-0 start-0 text-yellow-500 bg-[#F5F5F5]`}><strong>Top Profile</strong></div> : <></>}
@@ -192,7 +192,7 @@ function Search() {
                       <p>{getProvinceName(entity?.profile?.province_id)}</p>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           )}

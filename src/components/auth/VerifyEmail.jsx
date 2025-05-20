@@ -14,7 +14,7 @@ function VerifyEmail() {
     const verifyEmail = async () => {
       try {
         const params = new URLSearchParams(location.search);
-        console.log(location.search);
+        // console.log(location.search);
           const id = params.get('id');
           const expires = params.get('expires');
           const hash = params.get('hash');
@@ -26,7 +26,7 @@ function VerifyEmail() {
 
           const backendLink = `${id}?expires=${expires}&hash=${hash}&signature=${signature}`;
 
-        console.log(params);
+        // console.log(params);
         const response = await axiosClient.get(`/api/email/verify/${backendLink}`
             
         //     , {
@@ -36,7 +36,7 @@ function VerifyEmail() {
         //   }
         // }
     );
-    console.log(response);
+    // console.log(response);
         //setUser(response.data.user);
         // console.log(response.data);
         // setToken(response.data.access_token);

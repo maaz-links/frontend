@@ -9,6 +9,7 @@ import axiosClient from '../../axios-client';
 import { dressSizeName, getAttachmentURL, getUserCost } from '../functions/Common';
 import { ROLES } from '../../constants';
 import ReportUserButton from '../components/ReportUserButton';
+import { ClipLoader } from 'react-spinners';
 
 
 
@@ -33,7 +34,7 @@ function UserProfile() {
       //setEntities(response.data);
       setGivenUser(response.data.user)
       setUnlockChat(response.data.unlockChat)
-      console.log(url, response);
+      // console.log(url, response);
       
     })
     .catch(error => {
@@ -41,7 +42,7 @@ function UserProfile() {
     })
     .finally(() => {
       setLoading(false);
-      console.log('Request completed');
+      // console.log('Request completed');
     });
     
     }, [])
@@ -49,7 +50,7 @@ function UserProfile() {
     const createChat = async (other_user_id) => {
     try{
       const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
-      console.log('buychat',response);
+      // console.log('buychat',response);
       alert(response.data.message);
       refreshUser();
       navigate('/chat');
@@ -106,7 +107,9 @@ function UserProfile() {
         ]
       };
     if(loading){
-      return <div>Loading...</div>
+      return <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
+      <ClipLoader color="#E91E63" size={50} />
+    </div>
     }
     if(!givenUser){
       return (
@@ -302,9 +305,9 @@ function UserProfile() {
                 {user?.role == ROLES.KING ? `UNLOCK CHAT FOR ${getUserCost(givenUser.profile.top_profile,givenUser.profile.verified_profile,profileCosts)} CREDITS` : 'SEND FREE MESSAGE'}
               </button>
               :
-              <a href='/chat' className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
+              <Link to='/chat' className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
                 GO TO THE CHAT
-              </a>
+              </Link>
             }
         {/* <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
         GO TO THE CHAT

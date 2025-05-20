@@ -128,12 +128,12 @@ const CreatSignup = ({myRole}) => {
       isModel: isModel,
       newsletter: newsletterRef.current.checked,
     };
-    console.log(payload)
+    // console.log(payload)
     //return;
     try {
       const response = await axiosClient.post('/api/register', payload);
       setErrors({})
-      console.log(response);
+      // console.log(response);
       alert('A link is sent to your email address. Click on it to verify account and complete registration')
       navigate('/');
       // //WITHOUT EMAIL VERIF

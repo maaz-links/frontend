@@ -1,4 +1,6 @@
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
+import { useEffect, useState } from "react";
+import axiosClient from "../../axios-client";
 
 /**
  * @type {React.ExoticComponent<import('@szhsin/react-accordion').AccordionItemProps>}
@@ -27,14 +29,54 @@ const AccordionItem = ({ header, ...rest }) => (
 );
 
 export default function Faqs() {
+
+  const [faqs, setFaqs] = useState(
+    [
+      {question: "What is Lorem Ipsum?",
+      answer: `
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      `
+      },
+      {question: "Where does it come from?",
+        answer: `
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        `
+        },
+        {question: "Why do we use it?",
+          answer: `
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          `
+          },
+
+    ]);
+  // useEffect(() => {
+  //   axiosClient.get('/api/my-faqs')
+  //     .then(response => setFaqs(response.data))
+  //     .catch(error => console.error(error));
+  // }, []);
+
   return (
     <>
+    {faqs.length != 0 && <div>
      <h1 className="mt-[66px] text-center text-[32px] font-[400] uppercase">Faqs</h1>
     <div className=" max-w-[1246px] m-auto mt-[26px] mb-[50px] md:mb-[148px] px-[15px]">
    
+      
       {/* `transitionTimeout` prop should be equal to the transition duration in CSS */}
       <Accordion transition transitionTimeout={200}>
-        <AccordionItem header="What is Lorem Ipsum?" className='mb-[30px]'>
+      {faqs.map(faq => (
+            <div key={faq.id}>
+              <AccordionItem header={`${faq.question}`} className='mb-[30px]'>
+              {faq.answer}
+        </AccordionItem>
+
+            </div>
+            
+      ))}
+        {/* <AccordionItem header="What is Lorem Ipsum?" className='mb-[30px]'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </AccordionItem>
@@ -47,9 +89,10 @@ export default function Faqs() {
         <AccordionItem header="Why do we use it?">
           Suspendisse massa risus, pretium id interdum in, dictum sit amet ante.
           Fusce vulputate purus sed tempus feugiat.
-        </AccordionItem>
+        </AccordionItem> */}
       </Accordion>
     </div>
+    </div>}
     </>
   );
 }

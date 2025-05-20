@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/ContextProvider";
 import { ROLES } from "../../../constants";
+import { ClipLoader } from "react-spinners";
 //import LoadingSpinner from "./LoadingSpinner"; // Create or import a loading component
 
 // export default function DefaultLayout() {
@@ -30,7 +31,12 @@ export default function AuthLayout() {
   const { token,loading } = useStateContext();
   
   if (loading) {
-    return <div>Loading</div>;
+    return <div>
+      
+      <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
+              <ClipLoader color="#E91E63" size={50} />
+            </div>
+    </div>;
   }
 
   if (!token) {
@@ -46,7 +52,12 @@ export function ProfileCompleteGuard() {
 
   // Show loading spinner while user data is being fetched
   if (loading || user === null) {
-    return <div>Loading</div>;
+    return <div>
+      
+      <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
+                    <ClipLoader color="#E91E63" size={50} />
+                  </div>
+    </div>;
   }
 
   // Redirect if user doesn't have a profile picture
