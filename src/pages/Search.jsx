@@ -182,8 +182,8 @@ function Search() {
               {entities.map((entity) => (
                 <Link to={`/user-profile/${entity.name}`} key={entity.id}>
                   <div className='result-box'>
-                    {entity.profile.verified_profile ? <div className={`absolute top-0 end-0 text-[#E91E63] bg-[#F5F5F5]`}><strong>Verified</strong></div> : <></>}
-                    {entity.profile.top_profile ? <div className={`absolute top-0 start-0 text-yellow-500 bg-[#F5F5F5]`}><strong>Top Profile</strong></div> : <></>}
+                    {/* {entity.profile.verified_profile ? <div className={`absolute top-0 end-0 text-[#E91E63] bg-[#F5F5F5]`}><strong>Verified</strong></div> : <></>} */}
+                    {/* {entity.profile.top_profile ? <div className={`absolute top-0 start-0 text-yellow-500 bg-[#F5F5F5]`}><strong>Top Profile</strong></div> : <></>} */}
                     <div className='result-box-img aspect-2/3'>
                       <img className={`w-full h-full object-cover`} src={getAttachmentURL(entity.profile_picture_id)} />
                     </div>

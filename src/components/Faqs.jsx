@@ -52,11 +52,11 @@ export default function Faqs() {
           },
 
     ]);
-  // useEffect(() => {
-  //   axiosClient.get('/api/my-faqs')
-  //     .then(response => setFaqs(response.data))
-  //     .catch(error => console.error(error));
-  // }, []);
+  useEffect(() => {
+    axiosClient.get('/api/my-faqs')
+      .then(response => setFaqs(response.data.faqs))
+      .catch(error => console.error(error));
+  }, []);
 
   return (
     <>

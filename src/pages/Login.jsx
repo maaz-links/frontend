@@ -76,6 +76,7 @@ function Login() {
         // setMessage(response.data.message);
       }
     }
+    setSubmitting(false);
   }
 
   const handleUser = async (ev) => {
@@ -91,8 +92,6 @@ function Login() {
       if (response && response.status === 422) {
         // setMessage(response.data.message);
       }
-    }finally {
-      setSubmitting(false);
     }
     
   }

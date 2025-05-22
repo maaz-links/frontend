@@ -158,9 +158,8 @@ const CreatSignup = ({myRole}) => {
       // if (response && response.status === 422) {
       //   // setMessage(response.data.message);
       // }
-    } finally {
-      setSubmitting(false);
     }
+    setSubmitting(false);
   }
 
   return (
