@@ -4,6 +4,7 @@ import Header from "/src/components/common/header";
 import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../context/ContextProvider";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ResetPassword() {
   //const emailRef = createRef()
@@ -50,7 +51,12 @@ function ResetPassword() {
       const response = await axiosClient.post('/api/reset-password', payload);
       // console.log(response);
       setErrors({});
-      alert(response.data.message)
+      // alert(response.data.message)
+      toast.success(response.data.message,{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       // setUser(response.data.user);
       // setToken(response.data.access_token);
       // console.log('here');

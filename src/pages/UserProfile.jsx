@@ -10,6 +10,7 @@ import { dressSizeName, getAttachmentURL, getUserCost } from '../functions/Commo
 import { ROLES } from '../../constants';
 import ReportUserButton from '../components/ReportUserButton';
 import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 
 
 
@@ -51,11 +52,21 @@ function UserProfile() {
     try{
       const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
       // console.log('buychat',response);
-      alert(response.data.message);
+      //alert(response.data.message);
+      toast.success(response.data.message,{
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                  })
       refreshUser();
       navigate('/chat');
     } catch (error) {
-      alert(error.response.data.message);
+      //alert(error.response.data.message);
+      toast.error(error.response.data.message,{
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                  })
       if(error.response.data.shop_redirect){
         navigate('/shop');
       }

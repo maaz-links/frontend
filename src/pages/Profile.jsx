@@ -168,7 +168,12 @@ export const ProfilePhotoTab = () => {
   const handleProfileSelect = async (imageId) => {
     try {
       await axiosClient.post(`/api/attachments/${imageId}/set-profile-picture`, {});
-      alert("Profile Picture Updated");
+      //alert("Profile Picture Updated");
+      toast.success("Profile Picture Updated",{
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                        })
       if(location.pathname == '/addphoto-signup'){
         //console.log('what?')
         navigate('/profile');
@@ -188,7 +193,12 @@ export const ProfilePhotoTab = () => {
 
   const handleDeleteImage = async (imageId) => {
     if(user.profile_picture_id == imageId){
-      alert('Cant delete pfp')
+      //alert('Cant delete pfp')
+      toast.error("Cannot Delete Profile Picture",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       return
     }
     try {
@@ -423,11 +433,21 @@ export const ProfileInfoTab = () => {
     
     try {
       const response = await axiosClient.post('/api/update-profile', payload);
-      alert('Profile Updated');
+      //alert('Profile Updated');
+      toast.success("Profile Updated",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       //setRerender(rerender + 1);
       refreshUser();
     } catch (err) {
-      alert(`Error Updating Profile: Make sure all entered data is valid`)
+      //alert(`Error Updating Profile: Make sure all entered data is valid`)
+      toast.error("Error Updating Profile: Make sure all entered data is valid",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       console.error(err.response);
     }
   }
@@ -437,7 +457,7 @@ export const ProfileInfoTab = () => {
     if (!confirmed) return;
 
     try {
-      const response = await axiosClient.delete('/api/delete-account')
+      const response = await axiosClient.delete('/api/deletelelelelele')
       if (response.data.message) {
         alert(response.data.message);
         // Optionally redirect or update UI
@@ -450,6 +470,11 @@ export const ProfileInfoTab = () => {
       }
     } catch (error) {
       console.error('Error deleting account:', error);
+      // toast.error("An error occurred. Please try again later.",{
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      // })
       alert('An error occurred. Please try again later.');
     }
   };
@@ -757,12 +782,12 @@ export const ProfileInfoTab = () => {
         <button onClick={submitData} className="max-w-[500px] text-[20px] w-full m-auto bg-[#E91E63] text-white px-6 py-2 cursor-pointer hover:bg-[#F8BBD0]">SAVE</button>
       </div>
       
-      <div className="mt-[50px]">
+      {/* <div className="mt-[50px]">
         <h3 className="text-[20px] border-b">Delete Account</h3>
         <div className="flex flex-col items-center">
           <button onClick={handleDelete} className="border max-w-[222px] text-[20px] w-full m-auto bg-[#E91E63] hover:bg-[#F8BBD0] text-white mt-[70px] px-6 py-2 cursor-pointer">DELETE ACCOUNT</button>
         </div>    
-      </div>
+      </div> */}
     </>
   );
 };
@@ -770,6 +795,7 @@ export const ProfileInfoTab = () => {
 import { ErrorText, getAttachmentURL } from "../functions/Common";
 import { ROLES } from "../../constants";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 export const PersonalDataTab = () => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -821,7 +847,12 @@ export const PersonalDataTab = () => {
     try {
       const response = await axiosClient.post('/api/change-password', formData);
       if (response.data.success) {
-        alert('Password Changed Successfully')
+        //alert('Password Changed Successfully')
+        toast.success("Password Changed Successfully",{
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
         setErrors({});
         setFormData({
           current_password: '',

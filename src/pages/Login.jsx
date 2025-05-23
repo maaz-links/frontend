@@ -4,6 +4,7 @@ import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -44,7 +45,12 @@ function Login() {
       setErrors({});
       //BAN LOGIC
       if(response.data.mustverify){
-        alert('A link is sent to your email address. Click on it to verify account and complete registration')
+         toast.info('A link is sent to your email address. Click on it to verify account and complete registration',{
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              })
+        // alert('A link is sent to your email address. Click on it to verify account and complete registration')
         navigate(`/`);
         return;
       }
@@ -55,7 +61,12 @@ function Login() {
       }
 
       //setUser(response.data.user);
-      alert('Verify OTP for Successful Login');
+      //  toast.info('Verify OTP for Successful Login',{
+      //         hideProgressBar: true,
+      //         closeOnClick: true,
+      //         pauseOnHover: true,
+      //       })
+      // alert('Verify OTP for Successful Login');
       sessionStorage.setItem('hostess_otp_email', payload.email);
       sessionStorage.setItem('hostess_otp_phone', response.data.phone);
       sessionStorage.setItem('hostess_otp_message', response.data.message);

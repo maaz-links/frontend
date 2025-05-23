@@ -19,18 +19,6 @@ function Shop() {
 
   const { refreshUser } = useStateContext();
 
-  const buy100 = async () => {
-    try {
-      const response = await axiosClient.post('/api/set-customer-credits');
-      alert('You have 100 credits now');
-      refreshUser();
-    } catch (error) {
-      alert('Error setting credits');
-      console.error('Error fetching data:', error);
-    }
-    return 1;
-  };
-
   const fetchShops = async () => {
     try {
       const response = await axiosClient.get('api/shops');
@@ -69,7 +57,7 @@ function Shop() {
       data.shops.map((item) => (
         <div className="blog-box text-center" key={item.id}>
           <div className="blog-inner">
-            <div onClick={buy100} className="blog-img bg-[#E91E63]">
+            <div className="blog-img bg-[#E91E63]">
               <img src={item.icon_url} alt="Shop Icon" />
             </div>
             <h1 style={{ fontSize: "35px", fontWeight: "bold" }}>

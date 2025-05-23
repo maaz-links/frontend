@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
+import { toast } from "react-toastify";
 
 function SignUp() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -14,7 +15,8 @@ function SignUp() {
       //alert(`You selected: ${selectedOption}`);
       window.location.href = '/create-signup'
     } else {
-      alert("Please select an option before proceeding.");
+      toast.info('Please select an option before proceeding.')
+      // alert("Please select an option before proceeding.");
     }
   };
 

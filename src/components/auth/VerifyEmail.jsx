@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axiosClient from '../../../axios-client';
 import { useStateContext } from '../../context/ContextProvider';
+import { toast } from 'react-toastify';
 
 function VerifyEmail() {
   const location = useLocation();
@@ -43,7 +44,12 @@ function VerifyEmail() {
         // // Store the token and user data
         // //localStorage.setItem('ACCESS_TOKEN', response.data.token);
         // //localStorage.setItem('user', JSON.stringify(response.data.user));
-        alert('Email verified successfully!')
+        // alert('Email verified successfully!')
+        toast.success('Email verified successfully!',{
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
         sessionStorage.setItem('hostess_otp_email', response.data.email);
         sessionStorage.setItem('hostess_otp_phone', response.data.phone);
         sessionStorage.setItem('hostess_otp_message', response.data.message);

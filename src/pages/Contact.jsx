@@ -3,6 +3,7 @@ import Header from '/src/components/common/header';
 import Footer from '/src/components/common/footer';
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
+import { toast } from "react-toastify";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -53,7 +54,12 @@ function Contact() {
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "", termsAccepted: false });
       setErrors({});
-      alert('Thank you! Your request has been submitted successfully.')
+      //alert('Thank you! Your request has been submitted successfully.')
+      toast.success('Thank you! Your request has been submitted successfully.',{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       navigate('/');
     } catch (error) {
       if (error.response && error.response.status === 422) {

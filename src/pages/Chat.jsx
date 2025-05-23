@@ -7,6 +7,7 @@ import { getAge, getAttachmentURL, getUserCost } from "../functions/Common";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import { ROLES } from "../../constants";
+import { toast } from "react-toastify";
 
 const Chat = () => {
 
@@ -172,12 +173,22 @@ const Chat = () => {
     try{
       const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
       // console.log('buychat',response);
-      alert(response.data.message);
+      toast.success(response.data.message,{
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              })
+      //alert(response.data.message);
       refreshUser();
       //window.location.reload('/chat');
       //navigate('/chat');
     } catch (error) {
-      alert(error.response.data.message);
+      //alert(error.response.data.message);
+      toast.error(error.response.data.message,{
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              })
       if(error.response.data.shop_redirect){
         navigate('/shop');
       }

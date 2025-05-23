@@ -5,6 +5,7 @@ import axios from "axios";
 import axiosClient from "../../axios-client";
 import { formatDateToDMY, getAttachmentURL } from "../functions/Common";
 import { useStateContext } from "../context/ContextProvider";
+import { toast } from "react-toastify";
 
 const Reviews = () => {
   // Sample data of users that can be reviewed
@@ -48,7 +49,12 @@ const Reviews = () => {
         reviewed_user_id: userId,
         rating: ratings[userId]
       });
-      alert(response.data.message)
+      //alert(response.data.message)
+      toast.success(response.data.message,{
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                        })
       // Remove the user from reviewable list after successful submission
       setReviewableUsers(prev => prev.filter(user => user.id !== userId));
       setRatings(prev => {
@@ -57,7 +63,12 @@ const Reviews = () => {
         return newRatings;
       });
     } catch (error) {
-      alert(error.response.data.formError.rating);
+      //alert(error.response.data.formError.rating);
+      toast.error(error.response.data.message,{
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                        })
       console.error("Error submitting review:", error);
     } finally {
       setIsSubmitting(false);

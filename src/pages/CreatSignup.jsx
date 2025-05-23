@@ -8,6 +8,7 @@ import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import { ROLES } from "../../constants";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -24,7 +25,12 @@ const SignUp = () => {
       setNext(1);
       //window.location.href = '/create-signup'
     } else {
-      alert("Please select an option before proceeding.");
+      toast.info('Please select an option before proceeding.',{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
+      // alert("Please select an option before proceeding.");
     }
   };
 
@@ -134,7 +140,12 @@ const CreatSignup = ({myRole}) => {
       const response = await axiosClient.post('/api/register', payload);
       setErrors({})
       // console.log(response);
-      alert('A link is sent to your email address. Click on it to verify account and complete registration')
+      // alert('A link is sent to your email address. Click on it to verify account and complete registration')
+      toast.info('A link is sent to your email address. Click on it to verify account and complete registration.',{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       navigate('/');
       // //WITHOUT EMAIL VERIF
       // alert("Account Successfully created")

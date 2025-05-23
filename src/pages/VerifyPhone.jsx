@@ -4,6 +4,7 @@ import Header from "../components/common/header";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import { toast } from "react-toastify";
 
 function VerifyPhone() {
   // const [phone, setPhone] = useState("");
@@ -45,7 +46,12 @@ function VerifyPhone() {
       // console.log(response);
       setErrors({});
       //setUser(response.data.user);
-      alert('OTP Successfully verified');
+      //alert('OTP Successfully verified');
+      toast.success('OTP Successfully verified',{
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            })
       setToken(response.data.access_token);
       sessionStorage.removeItem('hostess_otp_email');
       sessionStorage.removeItem('hostess_otp_phone');
