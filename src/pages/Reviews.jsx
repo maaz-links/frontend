@@ -64,11 +64,11 @@ const Reviews = () => {
       });
     } catch (error) {
       //alert(error.response.data.formError.rating);
-      toast.error(error.response.data.message,{
+      toast.error(error.response.data.formError.rating[0],{
                           hideProgressBar: true,
                           closeOnClick: true,
                           pauseOnHover: true,
-                        })
+                        });
       console.error("Error submitting review:", error);
     } finally {
       setIsSubmitting(false);

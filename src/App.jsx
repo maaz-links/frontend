@@ -51,6 +51,7 @@ import PaypalCancelPayment from './pages/PaypalCancelPayment'
 import BannedNotice from './pages/BannedNotice'
 import StaticPage from './pages/StaticPage'
 import RootLayout from './components/auth/RootLayout'
+import { TimeProvider } from './context/TimeContext'
 function App() {
 
   return (
@@ -126,7 +127,7 @@ const router = createBrowserRouter([
           path: '/',
           element: <ProfileCompleteGuard />,
           children: [
-            { path: "/chat", element: <Chat /> },
+            { path: "/chat", element: <TimeProvider><Chat /></TimeProvider> },
             { path: "/profile", element: <Profile /> },
             
             { path: "/last-views", element: <LastViews /> },

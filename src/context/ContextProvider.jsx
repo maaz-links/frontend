@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
+import { initializeEcho } from "../../echo";
 
 const StateContext = createContext({
   user: null,
@@ -21,6 +22,7 @@ export const ContextProvider = ({ children }) => {
     _setToken(token);
     if (token) {
       localStorage.setItem('ACCESS_TOKEN', token);
+      // initializeEcho();
     } else {
       localStorage.removeItem('ACCESS_TOKEN');
       setUser(null); // Clear user when token is removed
@@ -80,6 +82,7 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     getUserData();
+    initializeEcho();
   }, [token]);
 
   const refreshUser = () => {

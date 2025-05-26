@@ -8,9 +8,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import { ROLES } from "../../constants";
 import { toast } from "react-toastify";
-import { getEcho } from "../../echo";
-//import { useEcho } from "../../echo";
-import RelativeTime from "../functions/RelativeTime";
 
 const Chat = () => {
 
@@ -23,9 +20,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(true); //loading for chat sidebar
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
-  const {user,refreshUser,getProvinceName,profileCosts,useEcho} = useStateContext();
-
-  const [isRead, setReadStatus] = useState(2);
+  const {user,refreshUser,getProvinceName,profileCosts} = useStateContext();
 
   const messagesRef = useRef(messages);
   const messagesContainerRef = useRef(null);
@@ -59,23 +54,7 @@ const Chat = () => {
   const fetchMessages = async (chatId) => {
     try {
       const response = await axiosClient.get(`/api/chats/${chatId}/messages`);
-      const messages = response.data;
-      setMessages(messages);
-      if (messages.length > 0) {
-        const lastMessage = messages[messages.length - 1];
-        // console.log(lastMessage);
-        markLastMessageAsRead(chatId);
-        if (lastMessage.sent === true) {
-          // If message is not sent (assuming this means it's received)
-          
-          if (lastMessage.is_read === 1) {
-            setReadStatus(1);  // Message is read
-          } else {
-            setReadStatus(0); // Message is unread
-          }
-        }
-      }
-      
+      setMessages(response.data);
       scrollToBottom();
     } catch (err) {
       console.error("Error fetching messages:", err);
@@ -142,18 +121,10 @@ const Chat = () => {
         //sentter: true,
         //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
       }]);
-      fetchChats();
-      setReadStatus(0);
       //console.log('pooler',messages)
       setNewMessage("");
       scrollToBottom();
     } catch (err) {
-      toast.error('Error sending message, Your message must not be greater than 1000 characters.',{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
-      setNewMessage("");
       console.error("Error sending message:", err);
     }
   };
@@ -174,133 +145,11 @@ const Chat = () => {
 
   // Handle chat selection
   const handleSelectChat = (chat) => { //Passing chat object
-    setReadStatus(2);
     setSelectedChat(chat);
     // console.log('chatter',chat);
     fetchMessages(chat.id);
-    // startPolling(chat.id);
+    startPolling(chat.id);
   };
-
-  useEffect(() => {
-    if (!selectedChat) return;
-    const echo = getEcho();
-    // Subscribe to private channel
-    const channel = echo.private(`chatter.${selectedChat.id}`);
-  
-    // Listen for new messages (with Laravel's dot notation)
-    channel.listen('.NewMessage', (data) => {
-      const payload = data.message;
-      const sender_id = data.sender_id
-      // console.log('payload',data)
-      // console.log(payload['sent'] === user.id)
-      // payload['sent'] = payload['sent'] === user.id
-      // if(payload['sent'] == false){
-      if((sender_id === user.id) == false){
-        setMessages(prev => [...prev, payload]);
-        setReadStatus(2);
-        markLastMessageAsRead(selectedChat.id);
-      }
-      
-      // console.log(data.message);
-      // setMessages(prev => [...prev, {
-      //   ...response.data,
-      //   //sentter: true,
-      //   //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
-      // }]);
-    });
-
-    
-    // // Subscribe to private channel
-    // const channel2 = echo.private(`chatter.${selectedChat.id}`);
-  
-    // Listen for new messages (with Laravel's dot notation)
-    channel.listen('.MessageRead', (data) => {
-      
-      // console.log('resdbroadcast',data)
-      const currentMsgs = messagesRef.current
-      const lastMessage = currentMsgs[currentMsgs.length - 1];
-      // console.log('resdbroadcast',messages,messages[messages.length - 1]);
-      if(data.messageId == lastMessage.id){
-        if(data.readerId != user.id){
-          setReadStatus(1);
-        }
-      }
-      // setMessages(prev => [...prev, {
-      //   ...response.data,
-      //   //sentter: true,
-      //   //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
-      // }]);
-    });
-
-    // Listen for read receipts
-    // channel.listen('.MessageRead', (data) => {
-    //   setMessages(prev =>
-    //     prev.map(msg =>
-    //       msg.sender_id === data.userId && !msg.read_at
-    //         ? { ...msg, read_at: data.timestamp }
-    //         : msg
-    //     )
-    //   );
-    // });
-  
-    // Connection debugging
-    echo.connector.pusher.connection.bind('connected', () => {
-      console.log('✅ Connected to private chat channel');
-    });
-  
-    echo.connector.pusher.connection.bind('error', (error) => {
-      console.error('Pusher error:', error);
-    });
-  
-    // Cleanup
-    return () => {
-      channel.stopListening('.NewMessage');
-      channel.stopListening('.MessageRead');
-      echo.leave(`chat.${selectedChat.id}`);
-    };
-  }, [selectedChat]);
-
-  const markLastMessageAsRead = async (chatId) => {
-    try {
-        const response = await axiosClient.post(`/api/chats/${chatId}/messages/read`);
-        // console.log('readSent',response.data.message);
-    } catch (error) {
-        console.error('Error marking last message as read:', error);
-    }
-};
-  useEffect(() => {
-    const echo = getEcho();
-    echo.connector.pusher.connection.bind('connected', () => {
-        // console.log('✅ WebSocket CONNECTED');
-    });
-    echo.connector.pusher.connection.bind('failed', () => {
-        // console.log('❌ WebSocket FAILED');
-    });
-    echo.connector.pusher.connection.bind('error', (err) => {
-        console.error('WebSocket ERROR:', err);
-    });
-    //const channel = echo.channel('chat');
-    const channel = echo.private(`App.Models.User.${user.id}`);
-    // Proper event listening with dot prefix
-    channel.listen('.NewMessage', (data) => {
-        // console.log('first try');
-        if((data.sender_id === user.id) == false){
-          fetchChats();
-        }
-
-        //(prev => [...prev, data.message]);
-    });
-
-    // Connection debugging
-    echo.connector.pusher.connection.bind('connected', () => {
-        // console.log('Connected to WebSocket!');
-    });
-
-    return () => {
-        channel.stopListening('.NewMessage');
-        echo.leave(`App.Models.User.${user.id}`);
-    };
-}, []);
 
   // Initialize
   useEffect(() => {
@@ -393,15 +242,7 @@ const Chat = () => {
                         <ellipse cx="8.66894" cy="7" rx="7.78808" ry="7" fill="#F9D132" fillOpacity="0.666667"/>
                       </svg> */}
                       <span className="truncate">
-                        {/* {chat.last_message ? `${(chat.last_message.sender_id == chat.other_user.id) ? '':'You: '}${chat.last_message?.message}` : 'No messages yet'} */}
-                        {chat.last_message ? (
-                          <>
-                            {chat.last_message.sender_id !== chat.other_user.id && (
-                              <strong>You: </strong>
-                            )}
-                            {chat.last_message?.message}
-                          </>
-                        ) : 'No messages yet'}
+                        {chat.last_message ? `${(chat.last_message.sender_id == chat.other_user.id) ? '':'You: '}${chat.last_message?.message}` : 'No messages yet'}
                       </span>
                     </p>
                   </div>
@@ -456,18 +297,13 @@ const Chat = () => {
                           </div>
                         </div>
                         <span className={`${msg.sent ? "mr-auto text-custom" : "ml-[60px]"}`}>
-                          {/* {msg.time} */}
-                          <RelativeTime timestamp={msg.time}/>
+                          {msg.time}
                         </span>
                       </div>
                     </div>
                   ))
                 )}
                 <div ref={messagesEndRef} />
-                <div className={`flex justify-end`}>
-                {(isRead == 2) ? "": (isRead ? "✓ Read":"")}
-                </div>
-                
               </div>
 
               {/* Input Box */}
