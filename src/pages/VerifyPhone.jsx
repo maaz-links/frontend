@@ -68,12 +68,59 @@ function VerifyPhone() {
     catch (err) {
       const response = err.response;
       console.log(response);
-      setErrors(response.data.formError)
+      
       if (response && response.status === 422) {
+        setErrors(response.data.formError)
         // setMessage(response.data.message);
       }
     }
   };
+
+  const [disabledResend, setDisabledResend] = useState(false);
+  const [timer, setTimer] = useState(0);
+
+  async function handleResend (e){
+    e.preventDefault();
+    
+    if (disabledResend) return;
+
+    // Trigger your resend logic here
+    console.log("Resending OTP...");
+    const payload = {
+      email: otpEmail,
+      phone: otpPhone,
+    }
+    try {
+      const response = await axiosClient.post('/api/resend-otp', payload);
+      // console.log(response.data.message);
+      toast.info(response.data.message,{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
+    }
+    catch (err) {
+      //const response = err.response;
+      toast.error("Error resending OTP",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
+    }
+    setDisabledResend(true);
+    setTimer(20);
+
+    const countdown = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(countdown);
+          setDisabledResend(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
 
   return (
     <>
@@ -109,7 +156,20 @@ function VerifyPhone() {
           <label className="block text-center text-[20px] mb-[20px]">{otpMessage}</label>
 
         </form>
-
+        {/* <div className="mt-[30px] text-center">
+          <a onClick={handleResend} className="px-[25px] py-[5px] bg-[#F5F5F5] hover:underline text-[16px]">Resend OTP</a>
+        </div> */}
+        <div className="mt-[30px] text-center">
+          <button
+            onClick={handleResend}
+            disabled={disabledResend}
+            className={`px-[25px] py-[5px] text-[16px] bg-[#F5F5F5] ${
+              disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
+            }`}
+          >
+            {disabledResend ? `Resend OTP in ${timer}s` : 'Resend OTP'}
+          </button>
+        </div>
       </div>
       <Footer />
     </>

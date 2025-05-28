@@ -221,7 +221,7 @@ const CreatSignup = ({myRole}) => {
             </div>
           </div>
 
-          {myRole == ROLES.HOSTESS &&
+          {false &&
           <div className="mt-[20px] md:mt-[58px] mb-[0px]" ref={modelRef}>
             <label className="block mb-[13px]">I am:</label>
             <label className="block space-x-2">

@@ -6,7 +6,9 @@ import { useStateContext } from "../../context/ContextProvider";
 import { ROLES } from "../../../constants";
 function Header() {
 
-  const { token, user } = useStateContext();
+  const { token, user,unreadCount } = useStateContext();
+
+  //const [unreadCount, setUnreadCount] = useState(4)
   return (
     <>
       <div>
@@ -45,15 +47,28 @@ function Header() {
             {token ?
               <>
                 <Link to="/chat">
-                  <div className="chat text-center">
+                  {/* <div className="chat text-center">
                     <div className="icon">
                       <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M41.125 22.5209C41.1317 25.1056 40.5278 27.6554 39.3625 29.9626C37.9808 32.7272 35.8566 35.0526 33.2279 36.6782C30.5992 38.3039 27.5699 39.1655 24.4792 39.1667C21.8944 39.1735 19.3446 38.5696 17.0375 37.4042L5.875 41.1251L9.59583 29.9626C8.43049 27.6554 7.82659 25.1056 7.83333 22.5209C7.83453 19.4302 8.6962 16.4008 10.3218 13.7721C11.9475 11.1435 14.2728 9.01929 17.0375 7.63756C19.3446 6.47221 21.8944 5.86832 24.4792 5.87506H25.4583C29.5402 6.10025 33.3955 7.82313 36.2862 10.7138C39.1769 13.6045 40.8998 17.4599 41.125 21.5417V22.5209Z" stroke="#F8BBD0" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-
-
-
-
+                    </div>
+                    <div>Chat</div>
+                  </div> */}
+                  <div className="chat text-center relative">
+                    {/* Chat Icon Container with relative positioning */}
+                    <div className="icon relative">
+                      <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41.125 22.5209C41.1317 25.1056 40.5278 27.6554 39.3625 29.9626C37.9808 32.7272 35.8566 35.0526 33.2279 36.6782C30.5992 38.3039 27.5699 39.1655 24.4792 39.1667C21.8944 39.1735 19.3446 38.5696 17.0375 37.4042L5.875 41.1251L9.59583 29.9626C8.43049 27.6554 7.82659 25.1056 7.83333 22.5209C7.83453 19.4302 8.6962 16.4008 10.3218 13.7721C11.9475 11.1435 14.2728 9.01929 17.0375 7.63756C19.3446 6.47221 21.8944 5.86832 24.4792 5.87506H25.4583C29.5402 6.10025 33.3955 7.82313 36.2862 10.7138C39.1769 13.6045 40.8998 17.4599 41.125 21.5417V22.5209Z" stroke="#F8BBD0" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      
+                      {/* Unread Message Badge */}
+                      {unreadCount > 0 && (
+                        <div className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full 
+                                      flex items-center justify-center min-w-[20px] h-5 px-1 text-xs">
+                          {unreadCount > 9 ? '9+' : unreadCount}
+                        </div>
+                      )}
                     </div>
                     <div>Chat</div>
                   </div>

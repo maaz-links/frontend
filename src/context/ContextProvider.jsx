@@ -35,6 +35,7 @@ export const ContextProvider = ({ children }) => {
       if (token) {
         const response = await axiosClient.get('/api/user');
         setUser(response.data);
+        checkUnreadMessages();
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -89,6 +90,19 @@ export const ContextProvider = ({ children }) => {
     getUserData();
   };
 
+  const [unreadCount, setUnreadCount] = useState(0);
+  const checkUnreadMessages = async () => {
+    try {
+      if (token) {
+        const response = await axiosClient.get('/api/unread-messages-count');
+        console.log(response.data);
+        setUnreadCount(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching unreadmsg:', error);
+    }
+  }
+
   const getProvinceName = (province_id,country_id = null) => {
   for (const country of countries) {
     const province = country.provinces.find(p => p.id == province_id);
@@ -114,7 +128,8 @@ export const ContextProvider = ({ children }) => {
       refreshUser,// setRefreshUser,
       countries,
       getProvinceName,
-      profileCosts
+      profileCosts,
+      unreadCount,checkUnreadMessages,
       // ... other values
     }}>
       {children}

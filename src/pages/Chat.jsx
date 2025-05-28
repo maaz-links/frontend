@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { getEcho } from "../../echo";
 //import { useEcho } from "../../echo";
 import RelativeTime from "../functions/RelativeTime";
+import ReportChatButton from "../components/ReportChatButton";
 
 const Chat = () => {
 
@@ -23,7 +24,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(true); //loading for chat sidebar
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
-  const {user,refreshUser,getProvinceName,profileCosts,useEcho} = useStateContext();
+  const {user,refreshUser,getProvinceName,profileCosts,checkUnreadMessages} = useStateContext();
 
   const [isRead, setReadStatus] = useState(2);
 
@@ -263,6 +264,7 @@ const Chat = () => {
   const markLastMessageAsRead = async (chatId) => {
     try {
         const response = await axiosClient.post(`/api/chats/${chatId}/messages/read`);
+        checkUnreadMessages();
         // console.log('readSent',response.data.message);
     } catch (error) {
         console.error('Error marking last message as read:', error);
@@ -283,7 +285,8 @@ const Chat = () => {
     const channel = echo.private(`App.Models.User.${user.id}`);
     // Proper event listening with dot prefix
     channel.listen('.NewMessage', (data) => {
-        // console.log('first try');
+        
+      //Because chat list is reset when user sends msg, there's no need to reset chat list again when we receive broadcat of our own message.
         if((data.sender_id === user.id) == false){
           fetchChats();
         }
@@ -305,6 +308,7 @@ const Chat = () => {
   // Initialize
   useEffect(() => {
     fetchChats();
+    checkUnreadMessages();
     
     return () => {
       if (pollingInterval) {
@@ -430,6 +434,7 @@ const Chat = () => {
                   </div>
                 </div>
                 <div className="flex space-x-2 items-center">
+                
                   {/* <button className="px-4 py-1 h-[32px] bg-[#F5F5F5]">Profile</button> */}
                   <Link to={`/user-profile/${selectedChat.other_user.name}`} className="px-4 py-1 h-[32px] bg-[#F5F5F5]">Profile</Link>
                   <button 
@@ -439,7 +444,11 @@ const Chat = () => {
                     <FaArchive className="mr-2" />
                     {selectedChat.is_archived ? 'Unarchive' : 'Archive'}
                   </button>
+                  <div >
+                    <ReportChatButton chatId={selectedChat.id}/>
+                  </div>
                 </div>
+                
               </div>
 
               {/* Messages */}
