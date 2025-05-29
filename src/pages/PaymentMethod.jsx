@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/common/footer';
 import Header from '../components/common/header';
 import { loadStripe } from '@stripe/stripe-js';
@@ -85,6 +85,16 @@ const PaymentMethod = () => {
                 {isProcessing ? 'Processing...' : `Pay $${data?.shop?.price}`}
               </button>
             )}
+
+              <Link
+                to="/shop">
+                <button 
+                disabled={isProcessing}
+                className="mt-6 mx-2 bg-[#F8BBD0] text-black py-3 px-6 rounded-md focus:outline-none"
+                 >
+                {isProcessing ? 'Processing...' : `Back to Shop`}
+                </button>
+              </Link>
           </div>
 
           {/* Order Summary */}

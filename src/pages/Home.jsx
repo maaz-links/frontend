@@ -19,7 +19,7 @@ function Home() {
    <IntroBox />
    <Models />
     <How_To />
-    <Blogs />
+    {/* <Blogs /> */}
    <Faqs />
    <Footer />
     </>
