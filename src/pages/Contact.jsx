@@ -67,7 +67,7 @@ function Contact() {
         setErrors(error.response.data.errors);
       } else {
         // Network or server errors
-        setErrors({ submit: 'Failed to submit form. Please try again.' });
+        setErrors({ submit: 'Failed to submit form. Please try again later.' });
       }
     } finally {
       setIsSubmitting(false);
@@ -140,7 +140,7 @@ function Contact() {
               className="mr-2 bg-[#F5F5F5]"
             />
             <label className="text-[20px]">
-              I accept the <Link to="/privacy">Privacy Policy</Link> and the <Link to="/terms">Terms & Condition</Link>
+              I accept the Privacy Policy and the Terms & Condition
             </label>
           </div>
           {errors.termsAccepted && <p className="text-red-500 text-sm">{errors.termsAccepted}</p>}

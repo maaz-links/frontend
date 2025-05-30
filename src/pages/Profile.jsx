@@ -453,29 +453,34 @@ export const ProfileInfoTab = () => {
   }
 
   const handleDelete = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete your account?");
-    if (!confirmed) return;
-
+    
     try {
-      const response = await axiosClient.delete('/api/deletelelelelele')
-      if (response.data.message) {
-        alert(response.data.message);
+      const response = await axiosClient.post('/api/send-cancellation-request')
+      if (response.data?.message) {
+        toast.success(response.data.message,{
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
         // Optionally redirect or update UI
         // console.log('we re out')
-                setUser(null)
-                setToken(null)
-                navigate('/login');
+                // setUser(null)
+                // setToken(null)
+                // navigate('/login');
       } else {
-        alert('Account Deleted?');
+        toast.info("Cancellation Request Sent",{
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
       }
     } catch (error) {
-      console.error('Error deleting account:', error);
-      // toast.error("An error occurred. Please try again later.",{
-      //   hideProgressBar: true,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      // })
-      alert('An error occurred. Please try again later.');
+      console.error('Error cancelling account:', error);
+      toast.error("Error Sending Request. Try again later.",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
     }
   };
 
@@ -782,12 +787,12 @@ export const ProfileInfoTab = () => {
         <button onClick={submitData} className="max-w-[500px] text-[20px] w-full m-auto bg-[#E91E63] text-white px-6 py-2 cursor-pointer hover:bg-[#F8BBD0]">SAVE</button>
       </div>
       
-      {/* <div className="mt-[50px]">
-        <h3 className="text-[20px] border-b">Delete Account</h3>
+      <div className="mt-[50px]">
+        <h3 className="text-[20px] border-b">Cancel Account</h3>
         <div className="flex flex-col items-center">
-          <button onClick={handleDelete} className="border max-w-[222px] text-[20px] w-full m-auto bg-[#E91E63] hover:bg-[#F8BBD0] text-white mt-[70px] px-6 py-2 cursor-pointer">DELETE ACCOUNT</button>
+          <button onClick={handleDelete} className="border max-w-[500px] text-[20px] w-full m-auto bg-[#E91E63] hover:bg-[#F8BBD0] text-white mt-[70px] px-6 py-2 cursor-pointer">SEND CANCELLATION REQUEST</button>
         </div>    
-      </div> */}
+      </div>
     </>
   );
 };
