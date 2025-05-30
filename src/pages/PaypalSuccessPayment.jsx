@@ -19,6 +19,7 @@ function PaypalSuccessPayment() {
   const payerId = queryParams.get("PayerID");
 
   const { refreshUser } = useStateContext();
+  const [message, setMessage] = useState('');
 
   const BuyCredit = async () => {
     try {
@@ -30,6 +31,7 @@ function PaypalSuccessPayment() {
       });
 
       if (response?.data?.status === true) {
+        setMessage('You have purchased credits successfully')
         toast.success(response.data.message);
         refreshUser();
         navigate(`/shop`);
@@ -37,6 +39,7 @@ function PaypalSuccessPayment() {
         toast.error("Failed to add credits.");
       }
     } catch (error) {
+      setMessage('Error adding credits.')
       toast.error("Error adding credits.");
     } finally {
       setLoading(false); 
@@ -66,7 +69,7 @@ function PaypalSuccessPayment() {
             <h1 className="font-bold text-center text-[30px]">Processing...</h1>
           ) : (
             <h1 className="font-bold text-center text-[30px]">
-              You have purchased credits successfully
+              {message}
             </h1>
           )}
         </div>

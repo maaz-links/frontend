@@ -9,6 +9,7 @@ import {
 import axiosClient from "../../axios-client";
 import { toast } from "react-toastify";
 import { useStateContext } from "../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ clientSecret, shopId,paymentIntentId }) => {
   const stripe = useStripe();
@@ -17,6 +18,7 @@ const CheckoutForm = ({ clientSecret, shopId,paymentIntentId }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const { refreshUser } = useStateContext();
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
@@ -41,8 +43,7 @@ const CheckoutForm = ({ clientSecret, shopId,paymentIntentId }) => {
       setErrorMessage(result.error.message);
       setIsProcessing(false);
     } else if (result.paymentIntent.status === "succeeded") {
-      toast.success("Payment successful!");
-
+      // toast.success("Payment successful!");
       try {
         const response = await axiosClient.post("api/add/user-credits", {
           payment_method: "stripe",
@@ -52,13 +53,15 @@ const CheckoutForm = ({ clientSecret, shopId,paymentIntentId }) => {
 
         if (response?.data?.status === true) {
           toast.success(response.data.message);
-          refreshUser();
+          
         }
       } catch (error) {
         toast.error("Error adding credits.");
       }
 
       setIsProcessing(false);
+      refreshUser();
+      navigate('/shop');
     }
   };
 
@@ -85,7 +88,7 @@ const CheckoutForm = ({ clientSecret, shopId,paymentIntentId }) => {
       <h3 className="text-2xl font-semibold mb-4">Enter Your Payment Details</h3>
 
       <div>
-        <label className="block text-sm mb-1 font-bold mb-1">Card Number</label>
+        <label className="block text-sm mb-1 font-bold">Card Number</label>
         <div className={inputClass}>
           <CardNumberElement options={{ style: stripeStyle }} />
         </div>
