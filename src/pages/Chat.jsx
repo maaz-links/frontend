@@ -31,16 +31,14 @@ const Chat = () => {
   const messagesRef = useRef(messages);
   const messagesContainerRef = useRef(null);
 
-  // const [selectedId, setSelectedId] = useState('');
-  // const location = useLocation();
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   const params = new URLSearchParams(location.search);
-  //   const tab = params.get("r");
-  //   if (tab) {
-  //     setSelectedId(tab);
-  //   }
-  // }, [location]);
+  const [isTimeout, setIsTimeout] = useState(false);
+
+  const handleTimeout = () => {
+    setIsTimeout(true);
+    setTimeout(() => {
+      setIsTimeout(false);
+    }, 60000); // 60 seconds = 60000 ms
+  };
 
   
 
@@ -137,7 +135,20 @@ const Chat = () => {
       const response = await axiosClient.post(`/api/chats/${selectedChat.id}/messages`, {
         message: newMessage
       });
-      
+
+      //Message interrupted by moderation
+      if(response.status == 202){
+        toast.warn(response.data.message,{
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
+        setNewMessage("");
+        scrollToBottom();
+        handleTimeout();
+        return;
+      }
+      console.log(response.data);
       setMessages(prev => [...prev, {
         ...response.data,
         //sentter: true,
@@ -210,6 +221,10 @@ const Chat = () => {
       // }]);
     });
 
+    channel.listen('.NewMessageAfterMod', (data) => {
+      //fetchMessages(selectedChat.id);
+      handleSelectChat(selectedChat);
+    });
     
     // // Subscribe to private channel
     // const channel2 = echo.private(`chatter.${selectedChat.id}`);
@@ -257,6 +272,7 @@ const Chat = () => {
     return () => {
       channel.stopListening('.NewMessage');
       channel.stopListening('.MessageRead');
+      channel.stopListening('.NewMessageAfterMod');
       echo.leave(`chat.${selectedChat.id}`);
     };
   }, [selectedChat]);
@@ -294,6 +310,12 @@ const Chat = () => {
         //(prev => [...prev, data.message]);
     });
 
+    channel.listen('.NewMessageAfterMod', (data) => {
+      
+          fetchChats();
+       
+    });
+
     // Connection debugging
     echo.connector.pusher.connection.bind('connected', () => {
         // console.log('Connected to WebSocket!');
@@ -301,6 +323,7 @@ const Chat = () => {
 
     return () => {
         channel.stopListening('.NewMessage');
+        channel.stopListening('.NewMessageAfterMod');
         echo.leave(`App.Models.User.${user.id}`);
     };
 }, []);
@@ -482,6 +505,7 @@ const Chat = () => {
               {/* Input Box */}
               <div className="p-4 mb-[20px] flex items-center">
               {selectedChat.unlocked ? <>
+                {!isTimeout ? (
                 <form className="flex items-center w-full" onSubmit={sendMessage}>
                 <input 
                   type="text" 
@@ -499,6 +523,9 @@ const Chat = () => {
                   <FaPaperPlane />
                 </button>
                 </form>
+                ) : 
+                <div className="flex-1 p-2 px-[25px] bg-[#F5F5F5] focus:outline-0">Cannot send message for 60 seconds</div>
+                }
                 </>
               :<>
               {user.role == ROLES.KING ?

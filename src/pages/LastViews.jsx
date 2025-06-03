@@ -12,7 +12,7 @@ import { formatDateToDMY, formatToHourMinute, getAttachmentURL } from "../functi
 function LastViews() {
 
 
-  const {user} = useStateContext()
+  const {user,getProvinceName} = useStateContext()
 
   const [views, setViews] = useState([]);
 
@@ -45,7 +45,7 @@ function LastViews() {
         </div>
         <div className="ml-4">
           <h2 className="text-[20px] font-bold">{user.name || 'USER'}</h2>
-          <p className="text-[16px] italic mt-[10px]">Profile Status: <span className=" font-semibold">ACTIVE</span></p>
+          <p className="text-[16px] italic mt-[10px]">{getProvinceName(user?.profile?.province_id) || 'City'}</p>
         </div>
        
       </div>

@@ -11,7 +11,7 @@ const Reviews = () => {
   // Sample data of users that can be reviewed
   const [reviewableUsers, setReviewableUsers] = useState([]);
 
-  const {user} = useStateContext();
+  const {user ,getProvinceName} = useStateContext();
 
   // State to track ratings for each user
   const [ratings, setRatings] = useState({});
@@ -107,7 +107,7 @@ const Reviews = () => {
           </div>
           <div className="ml-4">
             <h2 className="text-[20px] font-bold">{user.name || 'USER'}</h2>
-            <p className="text-[16px] italic mt-[10px]">Profile Status: <span className=" font-semibold">ACTIVE</span></p>
+            <p className="text-[16px] italic mt-[10px]">{getProvinceName(user?.profile?.province_id) || 'City'}</p>
           </div>
 
         </div>

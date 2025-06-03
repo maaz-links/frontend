@@ -26,8 +26,8 @@ function PaypalSuccessPayment() {
       const response = await axiosClient.post("api/add/user-credits", {
         payment_method: "paypal",
         shopId,
-        token, 
-        paymentIntentId:payerId,
+        
+        paymentIntentId:token,
       });
 
       if (response?.data?.status === true) {
