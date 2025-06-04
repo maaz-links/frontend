@@ -480,14 +480,14 @@ const Chat = () => {
                   <div className="text-center py-8">No messages yet. Start the conversation!</div>
                 ) : (
                   messages.map((msg, index) => (
-                    <div key={index} className={`flex ${msg.sent ? "justify-end" : "justify-start"}`}>
-                      <div className={`${msg.sent ? "chat-bubble-right" : "chat-bubble-left"}`}>
-                        <div className={`${msg.sent ? "chat-bubble-right-inner bg-[#E91E63] p-[15px] rounded-[20px]" : "chat-bubble-left-inner"}`}>
-                          <div className={`p-[15px] md:ps-[60px] max-w-xs ${msg.sent ? "bg-[#ffffff] text-[#424242] rounded-0 chat-box-gr" : "bg-[#E91E63] text-white rounded-[20px]"} text-center z-40 relative`}>
+                    <div key={index} className={`flex ${(msg.sent === user.id) ? "justify-end" : "justify-start"}`}>
+                      <div className={`${(msg.sent === user.id) ? "chat-bubble-right" : "chat-bubble-left"}`}>
+                        <div className={`${(msg.sent === user.id) ? "chat-bubble-right-inner bg-[#E91E63] p-[15px] rounded-[20px]" : "chat-bubble-left-inner"}`}>
+                          <div className={`p-[15px] md:ps-[60px] max-w-xs ${(msg.sent === user.id) ? "bg-[#ffffff] text-[#424242] rounded-0 chat-box-gr" : "bg-[#E91E63] text-white rounded-[20px]"} text-center z-40 relative`}>
                             {msg.text}
                           </div>
                         </div>
-                        <span className={`${msg.sent ? "mr-auto text-custom" : "ml-[60px]"}`}>
+                        <span className={`${(msg.sent === user.id) ? "mr-auto text-custom" : "ml-[60px]"}`}>
                           {/* {msg.time} */}
                           <RelativeTime timestamp={msg.time}/>
                         </span>
