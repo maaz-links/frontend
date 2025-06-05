@@ -72,7 +72,7 @@ const router = createBrowserRouter([
    
     // { path: "/login", element: <Login /> },
     { path: "/how-to", element: <HowTo /> },
-    { path: "/hostess", element: <Hostess /> },
+    // { path: "/hostess", element: <Hostess /> },
     { path: "/female-home", element: <HomeFemale /> },
     { path: "/male-home", element: <HomeMale /> },
     // { path: "/about-you", element: <AboutYou /> },

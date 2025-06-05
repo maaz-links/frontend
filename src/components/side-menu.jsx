@@ -59,7 +59,7 @@ const SideMenu = () => {
                         
                             <div className='before-login flex flex-col text-center justify-center mt-[40px] gap-[15px]'>
                                 <Link onClick={handleLinkClick} to="/how-to" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>How to?</Link>
-                                <Link onClick={handleLinkClick} to="/hostess" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Are you a Hostess?</Link>
+                                {/* <Link onClick={handleLinkClick} to="/hostess" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Are you a Hostess?</Link> */}
                                 <Link onClick={handleLinkClick} to="/contact" className='bg-[#F8BBD0] text-[#424242] p-[10px]'>Help & Contact</Link>
                             </div>
                             <div className='login-signup flex flex-col flex-end text-center align-bottom  mt-[40px] gap-[15px]'>

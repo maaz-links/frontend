@@ -490,7 +490,7 @@ export const ProfileInfoTab = () => {
       <h3 className="mt-6 font-[400]">Something about me *</h3>
       <textarea
         className="w-full max-w-[888px] p-2 mt-2 bg-[#F5F5F5] h-[99px] px-[20px] text-[#424242] focus:outline-0"
-        placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras molestie sapien eu ex congue tincidunt...."
+        placeholder="Write about yourself..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
