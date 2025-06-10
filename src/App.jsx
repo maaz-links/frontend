@@ -52,6 +52,7 @@ import BannedNotice from './pages/BannedNotice'
 import StaticPage from './pages/StaticPage'
 import RootLayout from './components/auth/RootLayout'
 import { TimeProvider } from './context/TimeContext'
+import ErrorPage from './pages/ErrorPage'
 function App() {
 
   return (
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
    
     // { path: "/login", element: <Login /> },

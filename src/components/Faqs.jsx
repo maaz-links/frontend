@@ -32,25 +32,7 @@ export default function Faqs() {
 
   const [faqs, setFaqs] = useState(
     [
-      {question: "What is Lorem Ipsum?",
-      answer: `
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      `
-      },
-      {question: "Where does it come from?",
-        answer: `
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        `
-        },
-        {question: "Why do we use it?",
-          answer: `
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          `
-          },
-
+     
     ]);
   useEffect(() => {
     axiosClient.get('/api/my-faqs')
@@ -76,20 +58,6 @@ export default function Faqs() {
             </div>
             
       ))}
-        {/* <AccordionItem header="What is Lorem Ipsum?" className='mb-[30px]'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </AccordionItem>
-
-        <AccordionItem header="Where does it come from?">
-          Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla vel
-          erat quis sodales. Nam ex enim, eleifend venenatis lectus vitae.
-        </AccordionItem>
-
-        <AccordionItem header="Why do we use it?">
-          Suspendisse massa risus, pretium id interdum in, dictum sit amet ante.
-          Fusce vulputate purus sed tempus feugiat.
-        </AccordionItem> */}
       </Accordion>
     </div>
     </div>}

@@ -106,7 +106,7 @@ function Models() {
     {shownServices.length != 0  && <div>
       <div className="mt-[35px] px-[15px]">
         <h1 className="text-center text-[32px] uppercase font-[400]">Hostess and Models</h1>
-        <p className="text-center text-[14px] uppercase font-[400] mt-[18px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum ante et blandit efficitur</p>
+        <p className="text-center text-[14px] uppercase font-[400] mt-[18px]">Unforgettable experiences begin with the right presence — refined hostess and modeling services for any occasion.</p>
         <div className="slider-container max-w-sm md:max-w-[1120px] m-auto mt-[36px]">
           <Slider {...settings}>
 

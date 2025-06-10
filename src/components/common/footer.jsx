@@ -21,9 +21,9 @@ function Footer() {
               />
             </Link>
           </div>
-            <p className="md:max-w-[346px] text-[14px] mt-[18px]">
-              Aliquam in feugiat orci. Phasellus ullamcorper nibh turpis, vitae rutrum enim malesuada sed. Cras a dui vestibulum, cursus leo in, dignissim libero.
-            </p>
+          <p className="md:max-w-[346px] text-[14px] mt-[18px]">
+            Discover the platform where elegance meets opportunity. Whether you're showcasing your talent or searching for it, we bring the fashion world closer—one connection at a time.
+          </p>
           </div>
           
 

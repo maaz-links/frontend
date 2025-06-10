@@ -23,7 +23,10 @@ function IntroBox() {
 <div className='card-intro max-w-100 md:max-w-[300px] text-center
 '>
 <h1 className="text-[#424242] mb-[15px] font-['Playfair_Display'] font-[400] text-[20px]">INTRODUCTION</h1>
-<p className='text-[#424242] text-[14px] font-[400] md:max-w-[294px]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum ante et blandit efficitur. Aenean eget tempus felis. Donec imperdiet condimentum quam sit amet lacinia. In congue sapien id nisi efficitur eleifend. Proin quis dictum dui, nec condimentum lectus. Mauris vel arcu at dui finibus bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+<p className='text-[#424242] text-[14px] font-[400] md:max-w-[294px]'>
+Step into the world of fashion, elegance, and professionalism. We connect leading brands, designers, and event organizers with exceptional hostesses and models who embody style and confidence. Whether you're casting for a runway show, launching a luxury product, or hosting an exclusive event — our talent brings presence, poise, and polish.
+
+Ready to discover the perfect match for your next project — or take the first step in your modeling journey? Join our community today.</p>
 <div className='intro-buttons flex items-center justify-between pt-[3em] gap-x-[40px]'>
 
 {!token && 
