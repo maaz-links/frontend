@@ -21,9 +21,8 @@ function UserProfile() {
   const [givenUser, setGivenUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [unlockChat,setUnlockChat] = useState(false);
+  const [canReport,setCanReport] = useState(false);
   const {username} = useParams();
-
-  const {warnModal, setWarnModal} = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,6 +34,7 @@ function UserProfile() {
       //setEntities(response.data);
       setGivenUser(response.data.user)
       setUnlockChat(response.data.unlockChat)
+      setCanReport(response.data.canReport)
       // console.log(url, response);
       
     })
@@ -338,7 +338,7 @@ function UserProfile() {
         GO TO THE CHAT
         </button> */}
         <div className='mt-20'>
-        {token &&
+        {canReport &&
           <ReportUserButton userId={givenUser.id}/>
         }
           

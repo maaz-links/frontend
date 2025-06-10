@@ -39,7 +39,7 @@ import UserProfile from './pages/UserProfile'
 import UserProfileMale from './pages/UserProfileMale'
 import Shop from './pages/Shop'
 import PaymenMethod from './pages/PaymentMethod'
-import DefaultLayout, { ProfileCompleteGuard, ShopForMale } from './components/auth/DefaultLayout'
+import DefaultLayout, { ProfileCompleteGuard, ProfileCompleteGuard2, ShopForMale } from './components/auth/DefaultLayout'
 import GuestLayout from './components/auth/GuestLayout'
 import VerifyEmail from './components/auth/VerifyEmail'
 import ForgotPassword from './components/auth/ForgotPassword'
@@ -75,8 +75,8 @@ const router = createBrowserRouter([
     // { path: "/login", element: <Login /> },
     { path: "/how-to", element: <HowTo /> },
     // { path: "/hostess", element: <Hostess /> },
-    { path: "/female-home", element: <HomeFemale /> },
-    { path: "/male-home", element: <HomeMale /> },
+    // { path: "/female-home", element: <HomeFemale /> },
+    // { path: "/male-home", element: <HomeMale /> },
     // { path: "/about-you", element: <AboutYou /> },
    
     
@@ -92,8 +92,7 @@ const router = createBrowserRouter([
     { path: "/privacy", element: <StaticPage slug='privacy' /> },
     { path: "/payments", element: <StaticPage slug='payments' /> },
 
-    { path: "/search", element: <Search /> },
-    { path: "/user-profile/:username", element: <UserProfile /> },
+    
     // { path: "/about-you", element: <AboutYou /> }, IMPORTANT IN FUTURE
     // { path: "/male-signup", element: <MaleSignup /> },
     // { path: "/addphoto-signup", element: <AddPhoto /> },
@@ -104,7 +103,14 @@ const router = createBrowserRouter([
     // { path: "/search-female", element: <SearchFemale /> },
     
     // { path: "/user-profile-male", element: <UserProfileMale /> },
-   
+    // {
+    //   path: '/',
+    //   element: <ProfileCompleteGuard2 />,
+    //   children: [
+        { path: "/search", element: <Search /> },
+        { path: "/user-profile/:username", element: <UserProfile /> },
+    //   ]
+    // },
 
     {
       path: '/',

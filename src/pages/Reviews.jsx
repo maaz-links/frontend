@@ -117,6 +117,9 @@ const Reviews = () => {
         </h2>
 
         {/* Reviews List */}
+        {(reviewableUsers.length == 0) ? 
+        <div className="mt-[10px] p-4 pt-[0px]">No Pending Reviews</div>
+          :
         <div className="mt-[10px] p-4 pt-[0px]">
           <div className="grid grid-cols-4 font-[600]">
             <p></p>
@@ -148,7 +151,7 @@ const Reviews = () => {
               </button>
             </div>
           ))}
-        </div>
+        </div>}
       </div>
       <Footer />
     </>
