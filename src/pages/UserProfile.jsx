@@ -9,9 +9,7 @@ import { ROLES } from '../../constants';
 import ReportUserButton from '../components/ReportUserButton';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-
-
-
+import { StarRating } from '../functions/StarRating';
 
 function UserProfile() {
 
@@ -74,6 +72,9 @@ function UserProfile() {
     
     }
 
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     var settings = {
         dots: true,
@@ -154,8 +155,8 @@ function UserProfile() {
                 <title>Top Profile</title>
               <path 
                 d="M13.5 2L16.35 9.5H24.3L17.85 14.5L20.7 22L13.5 17L6.3 22L9.15 14.5L2.7 9.5H10.65L13.5 2Z" 
-                fill="#FFD700" 
-                stroke="#FFD700"
+                fill="#000" 
+                stroke="#000"
                 strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"
               />
               </svg> : ''
@@ -174,75 +175,35 @@ function UserProfile() {
         </div>
         </a>
         </div>
-        {/* <div className="item">
-        <a href='#'>
-        <div className="item-inner-box">
-        <img src='https://placehold.co/400x500'/>
-        
-        </div>
-        </a>
-        </div>
-        <div className="item">
-        <a href='#'>
-        <div className="item-inner-box">
-        <img src='https://placehold.co/400x500'/>
-       
-        </div>
-        </a>
-        </div>
-        <div className="item">
-        <a href='#'>
-        <div className="iitem-inner-box">
-        <img src='https://placehold.co/400x500' />
-          
-        </div>
-       </a> 
-        </div>
-        <div className="item">
-        <a href='#'>
-        <div className="item-inner-box">
-        <img src='https://placehold.co/400x500'/>
-          
-        </div>
-        </a>
-        </div>
-        <div className="item">
-        <a href='#'>
-        <div className="item-inner-box">
-        <img src='https://placehold.co/400x500'/>
-         
-        </div>
-        </a>
-        </div>
-        <div className="item">
-        <a href='#'>
-        <div className="item-inner-box">
-        <img src='https://placehold.co/400x500' />
-         
-        </div>
-        </a>
-        </div>
-        <div className="item">
-        <a href='#'>
-        <div className="item-inner-box">
-        <img src='https://placehold.co/400x500' />
-       
-        </div>
-        </a>
-        </div> */}
-      {/* </Slider> */}
 
-</div>
-<div className='profile-details md:w-[60%] w-full'>
 
-{/* <p className='flex items-center gap-[10px] text-[16px]'><strong>Years</strong><span>32</span></p> */}
-<p  className='flex items-center gap-[10px] text-[16px]'><strong>Nationality:</strong><span>{givenUser.profile.nationality}</span></p>
-<p  className='flex items-center gap-[10px] text-[16px]'><strong>Height:</strong><span>{givenUser.profile.height}cm</span></p>
-<p  className='flex items-center gap-[10px] text-[16px]'><strong>Dress size:</strong> <span>{dressSizeName(givenUser.profile.dress_size)}</span></p>
-<p  className='flex items-center gap-[10px] text-[16px]'><strong>Shoes size:</strong><span>{givenUser.profile.shoe_size}</span></p>
-{(givenUser.role === ROLES.HOSTESS) && 
-<p  className='flex items-center gap-[10px] text-[16px]'><strong>Available for Tours:</strong><span>{givenUser.profile.travel_available ? 'Yes':'No'}</span></p>
-}
+            </div>
+            <div className='profile-details md:w-[60%] w-full'>
+              {/* <p className='flex items-center gap-[10px] text-[16px]'><strong>Years</strong><span>32</span></p> */}
+              <div className="flex flex-wrap">
+                <div className="w-full md:w-1/2 p-2">
+                  <p className='flex items-center gap-[10px] text-[16px]'><strong>Nationality:</strong><span>{givenUser.profile.nationality}</span></p>
+                  <p className='flex items-center gap-[10px] text-[16px]'><strong>Eye Colour:</strong><span>{capitalizeFirstLetter(givenUser.profile.eye_color || 'Brown')}</span></p>
+                  <p className='flex items-center gap-[10px] text-[16px]'><strong>Shoes size:</strong><span>{givenUser.profile.shoe_size || 0}</span></p>
+                  <p className='flex items-center gap-[10px] text-[16px]'><strong>Height:</strong><span>{givenUser.profile.height || 0}cm</span></p>
+                {/* </div>
+                <div className="w-full md:w-1/2 p-2"> */}
+                  {(givenUser.role === ROLES.HOSTESS) &&
+                    <>
+                      <p className='flex items-center gap-[10px] text-[16px]'><strong>Weight:</strong><span>{givenUser.profile.weight || 0}kg</span></p>
+                      <p className='flex items-center gap-[10px] text-[16px]'><strong>Dress size:</strong> <span>{dressSizeName(givenUser.profile.dress_size)}</span></p>
+                      <p className='flex items-center gap-[10px] text-[16px]'><strong>Available for Tours:</strong><span>{givenUser.profile.travel_available ? 'Yes' : 'No'}</span></p>
+                      <p className='flex items-center gap-[10px] text-[16px]'><strong>Telegram:</strong><span>{givenUser.profile.telegram || 'N/A'}</span></p>
+
+
+                    </>
+                  }
+                </div>
+              </div>
+
+
+
+{givenUser.visible_rating && <StarRating rating={givenUser?.rating || 0} size='text-[30px]'  />}
 <div className='about'>
 <h3 className="text-[24px] pt-[26px] border-b">About </h3>
 <p className='pt-[10px]'>{givenUser.profile.description}</p>
@@ -253,24 +214,9 @@ function UserProfile() {
 <>
 
 <h3 className="mt-[24px] font-[400] text-[26px] border-b">Available for:</h3>
-              {/* <div className="grid grid-cols-2 md:grid-cols-5 gap-[11px] mt-[24px]  max-w-[600px]">
-          {["photo model", "fashion pics", "travel & weekend", "dinners", "host hostess", "parties", "fake girlfriend", "talk"].map((item) => (
-            <span key={item} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[78px]">{item}</span>
-          ))}
-        </div> */}
-              {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
-          {optionsAvailableFor.map((item) => (
-            <span key={item.name} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[78px]">{item.name}</span>
             
-            // <div>{item.name}</div>
-          ))}
-        </div> */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
-                {/* {optionsAvailableFor.map((item) => (
-            <span key={item.name} className="bg-[#F5F5F5] px-3 py-1  text-[11px] text-center min-w-[78px]">{item.name}</span>
-            
-            // <div>{item.name}</div>
-          ))} */}
+               
                 {optionsAvailableFor
                   .filter(item => givenUser.profile.available_services.includes(item.id))
                   .map((item) => (
@@ -301,11 +247,7 @@ function UserProfile() {
 </>}
         {/* Languages */}
         <h3 className="mt-[24px] md:mt-[56px] font-[400] text-[26px] border-b">Spoken Languages</h3>
-        {/* <div className="grid grid-cols-2 md:grid-cols-5 gap-[11px] mt-[24px]  max-w-[600px]">
-          {["Deutsch", "English", "Italian", "Espanol", "Français"].map((lang) => (
-            <span key={lang} className="bg-[#F5F5F5] px-3 py-1  text-[11px] w-full md:w-[78px] text-center">{lang}</span>
-          ))}
-        </div> */}
+        
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
         {languageOptions
                   .filter(item => givenUser.profile.my_languages.includes(item.id))
@@ -332,7 +274,7 @@ function UserProfile() {
                 GO TO THE CHAT
               </Link>
             }
-        {/* <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
+        {/* <button className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
         GO TO THE CHAT
         </button> */}
         <div className='mt-20'>
