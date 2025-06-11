@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../components/common/footer';
 import Header from '../components/common/header';
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ModelImage from '/src/assets/images/model-img.jpg'
-import Slider from "react-slick";
 import { useStateContext } from '../context/ContextProvider';
 import axiosClient from '../../axios-client';
 import { dressSizeName, getAttachmentURL, getUserCost } from '../functions/Common';

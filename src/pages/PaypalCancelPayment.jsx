@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
-import ModelImage from '/src/assets/images/model-img.jpg'
 import { Link, useNavigate } from "react-router-dom";
-import axiosClient from "../../axios-client";
-import { useStateContext } from "../context/ContextProvider";
 import { toast } from "react-toastify";
 
 import 'react-loading-skeleton/dist/skeleton.css';

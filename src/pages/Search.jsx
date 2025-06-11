@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Header from '/src/components/common/header'
 import Footer from '/src/components/common/footer'
-import ModelImage from '/src/assets/images/model-img.jpg'
-import JoinUs from '../components/common/joinus'
 import { useStateContext } from '../context/ContextProvider'
 import axiosClient from '../../axios-client'
 import { getAttachmentURL } from '../functions/Common'

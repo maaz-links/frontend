@@ -2,7 +2,6 @@ import React from 'react'
 import Header from '/src/components/common/header'
 import Footer from '/src/components/common/footer'
 import { Outlet, Link } from "react-router-dom"
-import ModelImage from '/src/assets/images/model-img.jpg'
 import Faqs from '/src/components/Faqs'
 import JoinUs from '../components/common/joinus'
 import Models from '../components/Models'

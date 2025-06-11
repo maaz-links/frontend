@@ -4,7 +4,6 @@ import '/src/App.css'
 import IntroBox from '/src/components/IntroBox'
 import Models from '/src/components/Models'
 import How_To from '/src/components/How_To'
-import Blogs from '/src/components/Blogs'
 import Faqs from '/src/components/Faqs'
 import Footer from '/src/components/common/footer'
 
