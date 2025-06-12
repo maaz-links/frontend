@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '/src/components/common/header'
 import Footer from '/src/components/common/footer'
 import { useStateContext } from '../context/ContextProvider'
@@ -13,29 +13,29 @@ function Search() {
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState('');
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
 
-  const perPage = 50; // How many items per api call bcz pagination.
-  // Dependent on whether last loaded item of previous api call is visible in viewport.
-  // Avoid using smaller values to prevent duplication in results.
+  const [pagination, setPagination] = useState({
+    current_page: 1,
+    last_page: 1,
+    per_page: 10, // Match your backend default
+  });
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const filterRef = useRef(null);
-  const observer = useRef();
-  
+  // const [filters, setFilters] = useState({
+  //   verified_profile: false,
+  //   top_profile: false
+  // });
   const [filters, setFilters] = useState({
     province_id: searchParams.get('province') || '',
     verified_profile: searchParams.get('verified') === 'true',
     top_profile: searchParams.get('top') === 'true'
   });
-
-  // Fetch initial data
+  
+  const [loading, setLoading] = useState(false); // Add loading state
+  const filterRef = useRef(null);
   useEffect(() => {
-    const fetchFirstData = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         const url = token ? '/api/search' : '/api/search-guest';
@@ -45,28 +45,31 @@ function Search() {
           province_id: filters.province_id || undefined,
           verified_profile: filters.verified_profile || undefined,
           top_profile: filters.top_profile || undefined,
-          page: 1, // Always start with page 1 when filters change
-          per_page: perPage // Number of items per page
+          page: pagination.current_page, // Add page parameter
+          per_page: pagination.per_page // Add per_page parameter
         };
         
         const [searchRes, provincesRes] = await Promise.all([
           axiosClient.post(url, apiParams),
           axiosClient.get('/api/provinces')
         ]);
-        console.log(searchRes.data);
-        setEntities(searchRes.data.data);
+        
+        //setEntities(searchRes.data);
+        setEntities(searchRes.data.data); // Access data property from paginated response
+        setPagination({
+          current_page: searchRes.data.current_page,
+          last_page: searchRes.data.last_page,
+          per_page: searchRes.data.per_page,
+        });
         setProvinces(provincesRes.data);
-        setHasMore(searchRes.data.current_page < searchRes.data.last_page);
-        setPage(2); // Next page to load
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
-        setInitialLoad(false);
       }
     };
 
-    fetchFirstData();
+    fetchData();
     
     // Update URL with current filters
     const params = {};
@@ -76,48 +79,7 @@ function Search() {
     
     setSearchParams(params);
     
-  }, [token, filters]);
-
-  // Infinite scroll loader
-  const lastEntityRef = useCallback(node => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        loadMoreData();
-      }
-    });
-    
-    if (node) observer.current.observe(node);
-  }, [loading, hasMore]);
-
-  const loadMoreData = async () => {
-    if (!hasMore) return;
-    
-    try {
-      setLoading(true);
-      const url = token ? '/api/search' : '/api/search-guest';
-      
-      const apiParams = {
-        province_id: filters.province_id || undefined,
-        verified_profile: filters.verified_profile || undefined,
-        top_profile: filters.top_profile || undefined,
-        page: page,
-        per_page: perPage
-      };
-      
-      const searchRes = await axiosClient.post(url, apiParams);
-      console.log(searchRes.data);
-      setEntities(prev => [...prev, ...searchRes.data.data]);
-      setHasMore(searchRes.data.current_page < searchRes.data.last_page);
-      setPage(prev => prev + 1);
-    } catch (error) {
-      console.error('Error loading more data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [token, filters, pagination.current_page, pagination.per_page]);
 
   const handleProvinceChange = (e) => {
     setFilters(prev => ({
@@ -213,13 +175,12 @@ function Search() {
         </div>
 
         <div className='search-results relative'>
-          {initialLoad && (
+          {loading && (
             <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
               <ClipLoader color="#E91E63" size={50} />
             </div>
           )}
-          
-          {entities.length === 0 && !initialLoad ? (
+          {entities.length === 0 && !loading ? (
             <div className="text-center py-10">
               <h3 className="text-xl font-medium text-gray-600">No profiles found</h3>
               <p className="text-gray-500 mt-2">
@@ -230,14 +191,8 @@ function Search() {
             </div>
           ) : (
             <div className='grid grid-cols-2 md:grid-cols-5 gap-[15px] md:gap-x-[30px] mt-[40px] md:mt-[112px]'>
-              {entities.map((entity, index) => (
-                <Link 
-                  to={`/user-profile/${entity.name}`} 
-                  key={`${entity.id}-${index}`}
-
-                  //Put ref on last entity of currently loaded data
-                  ref={index === entities.length - 1 ? lastEntityRef : null}
-                >
+              {entities.map((entity) => (
+                <Link to={`/user-profile/${entity.name}`} key={entity.id}>
                   <div className='result-box'>
                     {/* {entity.profile.verified_profile ? <div className={`absolute top-0 end-0 text-[#E91E63] bg-[#F5F5F5]`}><strong>Verified</strong></div> : <></>} */}
                     {/* {entity.profile.top_profile ? <div className={`absolute top-0 start-0 text-yellow-500 bg-[#F5F5F5]`}><strong>Top Profile</strong></div> : <></>} */}
@@ -253,12 +208,38 @@ function Search() {
               ))}
             </div>
           )}
+
+
+{entities.length > 0 && (
+  <div className="flex justify-center mt-8 gap-2">
+    <button
+      onClick={() => setPagination(prev => ({
+        ...prev,
+        current_page: Math.max(prev.current_page - 1, 1)
+      }))}
+      disabled={pagination.current_page === 1}
+      className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+    >
+      Previous
+    </button>
+    
+    <span className="px-4 py-2">
+      Page {pagination.current_page} of {pagination.last_page}
+    </span>
+    
+    <button
+      onClick={() => setPagination(prev => ({
+        ...prev,
+        current_page: Math.min(prev.current_page + 1, prev.last_page)
+      }))}
+      disabled={pagination.current_page === pagination.last_page}
+      className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+    >
+      Next
+    </button>
+  </div>
+)}
           
-          {loading && !initialLoad && (
-            <div className="flex justify-center my-4">
-              <ClipLoader color="#E91E63" size={30} />
-            </div>
-          )}
         </div>
       </div>
 

@@ -119,6 +119,11 @@ export const ProfilePhotoTab = () => {
       //   setProfilePic(profilePicObj.id);
       // }
     } catch (error) {
+      toast.error("Error fetching images",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       console.error('Error fetching images:', error);
     } finally {
       setIsLoading(false);
@@ -147,6 +152,7 @@ export const ProfilePhotoTab = () => {
       setIsLoading(true);
       const response = await axiosClient.post('/api/attachments', formData);
      
+      //Get updated images after adding new image
       fetchImages();
       // const newImages = response.data.map(img => ({
       //   id: img.id,
@@ -159,6 +165,11 @@ export const ProfilePhotoTab = () => {
       // const newProfilePic = newImages.find(img => img.isProfilePic)?.id || profilePic;
       // setProfilePic(newProfilePic);
     } catch (error) {
+      toast.error("Error Uploading Image. Try Uploading image of smaller size.",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       console.error('Error uploading images:', error);
     } finally {
       setIsLoading(false);
@@ -187,6 +198,11 @@ export const ProfilePhotoTab = () => {
       //   isProfilePic: img.id === imageId
       // })));
     } catch (error) {
+      toast.error("Error Setting Profile Picture",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       console.error('Error setting profile picture:', error);
     }
   };
@@ -209,6 +225,11 @@ export const ProfilePhotoTab = () => {
       //   setProfilePic(null);
       // }
     } catch (error) {
+      toast.error("Error deleting image.",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       console.error('Error deleting image:', error);
     }
   };
