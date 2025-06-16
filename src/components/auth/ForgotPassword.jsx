@@ -16,7 +16,7 @@ function ForgotPassword() {
   // //   console.log("Password:", password);
   // // };
   const navigate = useNavigate();
-
+  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const ErrorText = ({ field }) => {
     return (
@@ -32,7 +32,7 @@ function ForgotPassword() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-
+    setSubmitting(true)
     const payload = {
       email: emailRef.current.value,
     }
@@ -51,12 +51,18 @@ function ForgotPassword() {
       // console.log('here');
       //navigate('/chat');
     } catch (err) {
-      const response = err.response;
-      // console.log(response);
-      if (response && response.status === 422) {
-        setErrors(response.data.formError);
-      }
+      toast.error("Error sending Link. Please wait before try again.",{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
+      // const response = err.response;
+      // // console.log(response);
+      // if (response && response.status === 422) {
+      //   setErrors(response.data.formError);
+      // }
     }
+    setSubmitting(false);
   }
 
   
@@ -87,8 +93,8 @@ function ForgotPassword() {
 
           {/* Login Button */}
           <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-        <button type="submit" className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
-         Send Link
+          <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
+         {submitting ? 'Sending Link...' : 'Send Link'}
         </button>
         </div>
         </form>

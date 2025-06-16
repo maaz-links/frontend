@@ -31,6 +31,7 @@ import StaticPage from './pages/StaticPage'
 import RootLayout from './components/auth/RootLayout'
 import { TimeProvider } from './context/TimeContext'
 import ErrorPage from './pages/ErrorPage'
+import SecretLogin from './components/auth/SecretLogin';
 function App() {
 
   return (
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
+    { path: "/secret-login", element: <SecretLogin /> },
     { path: "/how-to", element: <HowTo /> },
     
     { path: "/", element: <Home /> },

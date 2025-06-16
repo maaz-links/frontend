@@ -11,7 +11,7 @@ function ResetPassword() {
   const passwordRef = createRef()
   const location = useLocation();
   const navigate = useNavigate();
-
+  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const ErrorText = ({ field }) => {
     return (
@@ -39,8 +39,9 @@ function ResetPassword() {
   //console.log(token,email);
 
   const handleSubmit = async (ev) => {
-    ev.preventDefault()
 
+    ev.preventDefault()
+    setSubmitting(true);
     const payload = {
       password: passwordRef.current.value,
       password_confirmation: passwordRef.current.value,
@@ -69,6 +70,7 @@ function ResetPassword() {
        setErrors(response.data.formError);
       }
     }
+    setSubmitting(false);
   }
 
   
@@ -76,14 +78,14 @@ function ResetPassword() {
   return (
 <>
 <Header />
-<h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Forgot Password</h1>
+<h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Reset Password</h1>
     <div className="max-w-[971px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
       <div className="">
 
         <form onSubmit={handleSubmit}>
           {/* Email Field */}
           <div className="mb-[40px]">
-            <label className="block text-[20px] uppercase">Password</label>
+            <label className="block text-[20px] uppercase">New Password</label>
             <input
               type="password"
               //value={email}
@@ -99,8 +101,8 @@ function ResetPassword() {
 
           {/* Login Button */}
           <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-        <button type="submit" className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
-         Submit
+          <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
+         {submitting ? 'Submitting...' : 'Submit'}
         </button>
         </div>
         </form>
