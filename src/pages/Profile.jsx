@@ -165,11 +165,21 @@ export const ProfilePhotoTab = () => {
       // const newProfilePic = newImages.find(img => img.isProfilePic)?.id || profilePic;
       // setProfilePic(newProfilePic);
     } catch (error) {
-      toast.error("Error Uploading Image. Try Uploading image of smaller size.",{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
+      if(error.response.data.message){
+          toast.error(error.response.data.message,{
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+          })
+      }
+      else{
+        toast.error("Error Uploading Image. Try Uploading image of smaller size.",{
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
+      }
+      
       console.error('Error uploading images:', error);
     } finally {
       setIsLoading(false);
@@ -278,8 +288,7 @@ export const ProfilePhotoTab = () => {
       <label className="w-full max-w-[814px] h-40 bg-[#F5F5F5] flex items-center justify-center cursor-pointer mb-6 mx-auto">
         <span className="text-[20px]">Click here and add your pics</span>
         <input 
-          type="file" 
-          multiple 
+          type="file"
           accept="image/*" 
           className="hidden" 
           onChange={handleImageChange} 
