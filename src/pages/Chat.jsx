@@ -12,6 +12,7 @@ import { getEcho } from "../../echo";
 //import { useEcho } from "../../echo";
 import RelativeTime from "../functions/RelativeTime";
 import ReportChatButton from "../components/ReportChatButton";
+import { createChat } from "../functions/UnlockChat";
 
 const Chat = () => {
 
@@ -32,6 +33,7 @@ const Chat = () => {
   const messagesContainerRef = useRef(null);
 
   const [isTimeout, setIsTimeout] = useState(false);
+  const navigate = useNavigate();
 
   const handleTimeout = () => {
     setIsTimeout(true);
@@ -347,34 +349,6 @@ const Chat = () => {
     // console.log(messagesRef.current)
   }, [messages]);
 
-  const createChat = async (other_user_id) => {
-    try{
-      const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
-      // console.log('buychat',response);
-      toast.success(response.data.message,{
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-              })
-      //alert(response.data.message);
-      refreshUser();
-      //window.location.reload('/chat');
-      //navigate('/chat');
-    } catch (error) {
-      //alert(error.response.data.message);
-      toast.error(error.response.data.message,{
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-              })
-      if(error.response.data.shop_redirect){
-        navigate('/shop');
-      }
-      console.error('Error', error);
-    }
-
-    
-    }
 
   return (
     <>
@@ -530,7 +504,9 @@ const Chat = () => {
               :<>
               {user.role == ROLES.KING ?
                 <div className="flex-1">
-                  <button onClick={()=>createChat(selectedChat.other_user.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
+                  <button onClick={
+                    ()=>createChat(selectedChat.other_user.id,navigate,refreshUser, user.role, selectedChat.other_user.name)} 
+                    className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
                     {/* UNLOCK CHAT */}
                     {`UNLOCK CHAT FOR ${getUserCost(selectedChat.other_user.top_profile,selectedChat.other_user.verified_profile,profileCosts)} CREDITS`}
                   </button>

@@ -198,3 +198,29 @@ font-size: 20px;
     margin-top:20px;
  } */
 }
+
+/* Sweetalert styling */
+.my-confirm-button {
+    background-color: #E91E63;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    /* border-radius: 8px; */
+    font-weight: bold;
+    margin: 0 0.25rem;
+  }
+  
+  .my-cancel-button {
+    background-color: #F8BBD0;
+    color: black;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    /* border-radius: 8px; */
+    font-weight: bold;
+    margin: 0 0.25rem;
+  }
+  
+  .my-swal-popup {
+    /* border-radius: 20px; */
+    padding: 2rem;
+  }

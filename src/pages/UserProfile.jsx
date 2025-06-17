@@ -10,6 +10,7 @@ import ReportUserButton from '../components/ReportUserButton';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { StarRating } from '../functions/StarRating';
+import { createChat } from '../functions/UnlockChat';
 
 function UserProfile() {
 
@@ -44,33 +45,6 @@ function UserProfile() {
     
     }, [])
 
-    const createChat = async (other_user_id) => {
-    try{
-      const response = await axiosClient.post('/api/chats/credits',{other_user_id: other_user_id });
-      // console.log('buychat',response);
-      //alert(response.data.message);
-      toast.success(response.data.message,{
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                  })
-      refreshUser();
-      navigate('/chat');
-    } catch (error) {
-      //alert(error.response.data.message);
-      toast.error(error.response.data.message,{
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                  })
-      if(error.response.data.shop_redirect){
-        navigate('/shop');
-      }
-      console.error('Error', error);
-    }
-
-    
-    }
 
     function capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -266,7 +240,7 @@ function UserProfile() {
 </div>
   <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[200px]">
             {unlockChat ?
-              <button onClick={() => createChat(givenUser.id)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
+              <button onClick={() => createChat(givenUser.id,navigate,refreshUser,user.role,givenUser.name)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
                 {user?.role == ROLES.KING ? `UNLOCK CHAT FOR ${getUserCost(givenUser.profile.top_profile,givenUser.profile.verified_profile,profileCosts)} CREDITS` : 'SEND FREE MESSAGE'}
               </button>
               :
