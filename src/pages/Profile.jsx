@@ -330,7 +330,7 @@ export const ProfileInfoTab = () => {
   // Set user's current country and province when both user data and countries are loaded
   useEffect(() => {
     if (Object.keys(user).length !== 0 && countries.length > 0) {
-      console.log('initializing profile data');
+      // console.log('initializing profile data');
       // ... your existing user data setting code ...
       
       // Set country and province from user profile
@@ -392,7 +392,7 @@ export const ProfileInfoTab = () => {
       // const response = await axiosClient.get('/api/user');
       // console.log(response);
       if(Object.keys(user).length !== 0){
-        console.log('initializing profile data');
+        // console.log('initializing profile data');
         setDescription(user.profile.description || '');
         setSelectedIds(user.profile.personal_interests);
         setSelectedAvailableForIds(user.profile.available_services);

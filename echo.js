@@ -17,8 +17,8 @@ export const initializeEcho = () => {
   // Initialize new Echo instance
   echoInstance = new Echo({
     broadcaster: 'pusher',
-    key: '5a7756c9ab1d786d2015',
-    cluster: 'eu',
+    key: `${import.meta.env.VITE_PUSHER_APP_KEY}`,
+    cluster: `${import.meta.env.VITE_PUSHER_APP_CLUSTER}`,
     forceTLS: true,
     encrypted: true,
     authEndpoint: `${import.meta.env.VITE_API_BASE_URL}/api/broadcasting/auth`,

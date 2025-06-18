@@ -5,6 +5,7 @@ import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../context/ContextProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { RecaptchaComponent, RecaptchaVerify } from "../../functions/RecaptchaVerify";
 
 function ForgotPassword() {
   const emailRef = createRef()
@@ -18,6 +19,7 @@ function ForgotPassword() {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -32,6 +34,9 @@ function ForgotPassword() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
+    if(!RecaptchaVerify(recaptchaToken)){
+          return;
+    }
     setSubmitting(true)
     const payload = {
       email: emailRef.current.value,
@@ -96,6 +101,9 @@ function ForgotPassword() {
           <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
          {submitting ? 'Sending Link...' : 'Send Link'}
         </button>
+         <div className={`w-[300px] mx-auto mt-[25px]`}>
+                    <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
+                </div>
         </div>
         </form>
         {/*Signup Links */}

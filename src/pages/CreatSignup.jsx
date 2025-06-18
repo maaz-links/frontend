@@ -9,6 +9,7 @@ import { useStateContext } from "../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import { ROLES } from "../../constants";
 import { toast } from "react-toastify";
+import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -104,6 +105,7 @@ const CreatSignup = ({myRole}) => {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -119,6 +121,9 @@ const CreatSignup = ({myRole}) => {
   const { setUser, setToken } = useStateContext()
   const handleSubmit = async (ev) => {
     ev.preventDefault()
+    if(!RecaptchaVerify(recaptchaToken)){
+          return;
+    }
     setSubmitting(true);
     //const date_of_birth = dobRef.current.getDate();
     //const date_of_birth = `${yearRef.current.value || '2000'}-${monthRef.current.value.padStart(2, '0') || '01'}-${dayRef.current.value.padStart(2, '0') || '01'}`;
@@ -161,14 +166,10 @@ const CreatSignup = ({myRole}) => {
       // navigate('/verify-phone');
       // //navigate('/chat');
     } catch (err) {
-      console.log(err)
-      setErrors(err.response.data.formError)
-      console.log(err.response.data.formError)
-      // const response = err.response;
-      // console.log(response);
-      // if (response && response.status === 422) {
-      //   // setMessage(response.data.message);
-      // }
+      const response = err.response;
+      if (response && response.status === 422) {
+        setErrors(err.response.data.formError)
+      }
     }
     setSubmitting(false);
   }
@@ -249,6 +250,7 @@ const CreatSignup = ({myRole}) => {
             </label>
           </div>
           <button type="submit" disabled={submitting} className={`inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>{submitting ? 'REGISTERING...' : 'CREATE ACCOUNT'}</button>
+          <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
         </form>
       </div>
       <Footer />

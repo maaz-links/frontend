@@ -53,7 +53,7 @@ function Search() {
           axiosClient.post(url, apiParams),
           axiosClient.get('/api/provinces')
         ]);
-        console.log(searchRes.data);
+        // console.log(searchRes.data);
         setEntities(searchRes.data.data);
         setProvinces(provincesRes.data);
         setHasMore(searchRes.data.current_page < searchRes.data.last_page);
@@ -108,7 +108,7 @@ function Search() {
       };
       
       const searchRes = await axiosClient.post(url, apiParams);
-      console.log(searchRes.data);
+      // console.log(searchRes.data);
       setEntities(prev => [...prev, ...searchRes.data.data]);
       setHasMore(searchRes.data.current_page < searchRes.data.last_page);
       setPage(prev => prev + 1);

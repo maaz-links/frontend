@@ -5,6 +5,7 @@ import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ function Login() {
   const { setUser, setToken, refreshUser } = useStateContext()
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -34,6 +36,9 @@ function Login() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
+    if(!RecaptchaVerify(recaptchaToken)){
+      return;
+    }
     setSubmitting(true);
     const payload = {
       email: emailRef.current.value,
@@ -150,6 +155,10 @@ function Login() {
           <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
          {submitting ? 'Logging in...' : 'Login'}
         </button>
+        <div className={`w-[300px] mx-auto mt-[25px]`}>
+            <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
+        </div>
+        
         </div>
         </form>
         {/* <button onClick={handleUser}>check</button> */}

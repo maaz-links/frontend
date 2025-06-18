@@ -150,7 +150,7 @@ const Chat = () => {
         handleTimeout();
         return;
       }
-      console.log(response.data);
+      //console.log(response.data);
       setMessages(prev => [...prev, {
         ...response.data,
         //sentter: true,

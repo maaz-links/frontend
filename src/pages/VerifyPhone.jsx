@@ -67,7 +67,7 @@ function VerifyPhone() {
     }
     catch (err) {
       const response = err.response;
-      console.log(response);
+      // console.log(response);
       
       if (response && response.status === 422) {
         setErrors(response.data.formError)
