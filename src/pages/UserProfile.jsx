@@ -53,7 +53,6 @@ function UserProfile() {
     var settings = {
         dots: true,
         className: "center",
-    infinite: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,

@@ -63,7 +63,6 @@ function Models() {
     dots: false,
     className: "center",
     infinite: true,
-    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,

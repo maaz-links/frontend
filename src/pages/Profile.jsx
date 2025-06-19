@@ -521,6 +521,7 @@ export const ProfileInfoTab = () => {
       <textarea
         className="w-full max-w-[888px] p-2 mt-2 bg-[#F5F5F5] h-[99px] px-[20px] text-[#424242] focus:outline-0"
         placeholder="Write about yourself..."
+        maxLength={1000}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
@@ -647,13 +648,18 @@ export const ProfileInfoTab = () => {
       <div className="mt-[30px] grid grid-cols-2 gap-x-[21px] gap-y-[11px] max-w-[865px]">
         <div className="flex flex-col">
           <label className="font-[400] text-[16px] mb-1">Height (cm) *</label>
-          <input
-            type='number'
+          <select
             name="height"
             value={formData.height}
             onChange={handleChange}
             className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
-          />
+          >
+            {[...Array(400)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="flex flex-col">
@@ -672,13 +678,18 @@ export const ProfileInfoTab = () => {
 
         <div className="flex flex-col">
           <label className="font-[400] text-[16px] mb-1">Shoe Size *</label>
-          <input
-            type='number'
+          <select
             name="shoeSize"
             value={formData.shoeSize}
             onChange={handleChange}
             className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
-          />
+          >
+            {[...Array(100)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="flex flex-col">
@@ -715,20 +726,26 @@ export const ProfileInfoTab = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="font-[400] text-[16px] mb-1">Weight *</label>
-          <input
-            type='number'
+          <label className="font-[400] text-[16px] mb-1">Weight (kg) *</label>
+          <select
             name="weight"
             value={formData.weight}
             onChange={handleChange}
             className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
-          />
+          >
+            {[...Array(400)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="flex flex-col">
           <label className="font-[400] text-[16px] mb-1">Telegram</label>
           <input
             name="telegram"
+            maxLength={50}
             value={formData.telegram}
             onChange={handleChange}
             className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"

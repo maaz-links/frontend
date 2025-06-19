@@ -63,12 +63,13 @@ const Reviews = () => {
         return newRatings;
       });
     } catch (error) {
-      //alert(error.response.data.formError.rating);
-      toast.error(error.response.data.formError.rating[0],{
-                          hideProgressBar: true,
-                          closeOnClick: true,
-                          pauseOnHover: true,
-                        });
+      const ratingError = error?.response?.data?.formError?.rating?.[0] ?? 'An unexpected error occurred.';
+    
+      toast.error(ratingError, {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
       console.error("Error submitting review:", error);
     } finally {
       setIsSubmitting(false);
@@ -147,7 +148,7 @@ const Reviews = () => {
                 onClick={() => handleSubmitReview(user.id)}
                 disabled={!ratings[user.id] || isSubmitting}
               >
-                {isSubmitting ? "SUBMITTING..." : "LEAVE A REVIEW"}
+                LEAVE A REVIEW
               </button>
             </div>
           ))}

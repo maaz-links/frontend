@@ -4,6 +4,7 @@ import Footer from '/src/components/common/footer';
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import { toast } from "react-toastify";
+import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ function Contact() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-
+const [recaptchaToken, setRecaptchaToken] = useState(null);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -29,6 +30,9 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!RecaptchaVerify(recaptchaToken)){
+          return;
+    }
     setIsSubmitting(true);
     setSubmitSuccess(false);
 
@@ -154,6 +158,9 @@ function Contact() {
             >
               {isSubmitting ? 'Submitting...' : 'Send Request'}
             </button>
+             <div className={`w-[300px] mx-auto mt-[25px]`}>
+                        <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
+                    </div>
           </div>
         </form>
       </div>

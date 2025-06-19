@@ -121,7 +121,6 @@ export const ContextProvider = ({ children }) => {
       token,
       setToken,
       loading, // Expose loading state
-      refreshUser,
       optionsInterest, setOptionsInterest,
       optionsAvailableFor, setOptionsAvailableFor,
       languageOptions, setLanguageOptions,
