@@ -155,7 +155,7 @@ function UserProfile() {
               {/* <p className='flex items-center gap-[10px] text-[16px]'><strong>Years</strong><span>32</span></p> */}
               <div className="flex flex-wrap">
                 <div className="w-full md:w-1/2 p-2">
-                  <p className='flex items-center gap-[10px] text-[16px]'><strong>Nationality:</strong><span>{givenUser.profile.nationality}</span></p>
+                  <p className='flex items-center gap-[10px] text-[16px]'><strong>Nationality:</strong><span>{capitalizeFirstLetter(givenUser.profile.nationality || 'Eye Color')}</span></p>
                   <p className='flex items-center gap-[10px] text-[16px]'><strong>Eye Colour:</strong><span>{capitalizeFirstLetter(givenUser.profile.eye_color || 'Brown')}</span></p>
                   <p className='flex items-center gap-[10px] text-[16px]'><strong>Shoes size:</strong><span>{givenUser.profile.shoe_size || 0}</span></p>
                   <p className='flex items-center gap-[10px] text-[16px]'><strong>Height:</strong><span>{givenUser.profile.height || 0}cm</span></p>

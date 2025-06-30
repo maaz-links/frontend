@@ -50,6 +50,8 @@ export const ContextProvider = ({ children }) => {
   const [languageOptions, setLanguageOptions] = useState([]);
   const [countries, setCountries] = useState([]);
   const [profileCosts, setProfileCosts] = useState([]);
+  const [nationalitiesList, setNationalitiesList] = useState([]);
+  const [eyeColorList, setEyeColorList] = useState([]);
   
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
@@ -62,7 +64,10 @@ export const ContextProvider = ({ children }) => {
     setOptionsAvailableFor(response2.data.available_for);
     setLanguageOptions(response2.data.spoken_languages);
     setProfileCosts(response2.data.profile_costs);
-    
+    setNationalitiesList(response2.data.nationalities);
+    //console.log(response2.data.nationalities);
+    setEyeColorList(response2.data.eye_colors);
+    console.log(response2.data.eye_colors);
   }
 
   // Fetch countries on component mount
@@ -121,9 +126,11 @@ export const ContextProvider = ({ children }) => {
       token,
       setToken,
       loading, // Expose loading state
-      optionsInterest, setOptionsInterest,
-      optionsAvailableFor, setOptionsAvailableFor,
-      languageOptions, setLanguageOptions,
+      optionsInterest,
+      optionsAvailableFor,
+      languageOptions,
+      nationalitiesList,
+      eyeColorList,
       refreshUser,// setRefreshUser,
       countries,
       getProvinceName,

@@ -301,7 +301,7 @@ export const ProfilePhotoTab = () => {
 
 export const ProfileInfoTab = () => {
 
-  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions, countries } = useStateContext();
+  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions, countries,nationalitiesList,eyeColorList } = useStateContext();
 
   const [description, setDescription] = useState('');
   //const [optionsInterest, setOptionsInterest] = useState([]);
@@ -670,9 +670,14 @@ export const ProfileInfoTab = () => {
             onChange={(e)=>setNationality(e.target.value)}
             className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           >
-            <option value="Italian">Italian</option>
+            {/* <option value="Italian">Italian</option>
             <option value="French">French</option>
-            <option value="English">English</option>
+            <option value="English">English</option> */}
+            {nationalitiesList.map((nationalityOption) => (
+              <option key={nationalityOption} value={nationalityOption}>
+                {nationalityOption}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -700,11 +705,16 @@ export const ProfileInfoTab = () => {
             onChange={handleChange}
             className="w-full p-[15px] bg-[#F5F5F5] focus:outline-0"
           >
-            <option value="brown">Brown</option>
+            {/* <option value="brown">Brown</option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
             <option value="hazel">Hazel</option>
-            <option value="gray">Gray</option>
+            <option value="gray">Gray</option> */}
+            {eyeColorList.map((eyeColorOption) => (
+              <option key={eyeColorOption} value={eyeColorOption}>
+                {eyeColorOption}
+              </option>
+            ))}
           </select>
         </div>
 
