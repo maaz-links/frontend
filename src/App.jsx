@@ -32,6 +32,7 @@ import RootLayout from './components/auth/RootLayout'
 import { TimeProvider } from './context/TimeContext'
 import ErrorPage from './pages/ErrorPage'
 import SecretLogin from './components/auth/SecretLogin';
+import HomeN from './pages/HomeN';
 function App() {
 
   return (
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
     { path: "/how-to", element: <HowTo /> },
     
     { path: "/", element: <Home /> },
+    { path: "/new-home", element: <HomeN /> },
     { path: "/contact", element: <Contact /> },
 
     { path: "/cookies", element: <StaticPage slug='cookies' /> },

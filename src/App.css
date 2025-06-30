@@ -4,10 +4,12 @@
     font-family: Calibri;
     
 } */
-
 body {
+    font-family: 'Montserrat', sans-serif;
+  }
+/* body {
     font-family: 'Source Sans Pro', sans-serif;
-}
+} */
 
 input[type="radio"] {
     accent-color: #E91E63; /* Primary pink */
@@ -18,9 +20,8 @@ input[type="radio"] {
   }
 
   
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
-    /* font-weight: 700; Bold by default (adjust if needed) */
 }
 
 .h4u-heading-font{
@@ -29,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .h4u-body-font{
     font-family: 'Source Sans Pro', sans-serif;
-}
+} */
 
 .slick-list{
     margin:auto 5em;
@@ -108,7 +109,7 @@ width: 100%;
   }
 .item-inner:hover h3 {
     /* background: rgba(139, 139, 139, 1); */
-    background: #F8BBD0;
+    /* background: #F8BBD0; */
 
 }
 .result-box:hover .result-content {
