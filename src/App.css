@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+/* .bg-intro-mobile {
+    background-image: url('/src/assets/images/welcome-image-mobile.png');
+  }
+  .bg-intro-desktop {
+    background-image: url('/src/assets/images/welcome-image-desktop.png');
+  } */
+
+  .introduction {
+    background-image: url('/src/assets/images/welcome-image-desktop.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-color: silver;
+    /* padding-bottom: 500px; */
+  }
+  
+  @media (max-width: 767px) {
+    .introduction {
+      background-image: url('/src/assets/images/welcome-image-mobile.jpg');
+      background-position: bottom;
+      padding-bottom: 100%;
+    }
+    
+  }
+
+
+  
+  
 /* body {
     font-family: Calibri;
     

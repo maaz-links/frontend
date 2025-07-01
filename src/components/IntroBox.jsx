@@ -1,6 +1,6 @@
 import React from 'react';
 //import Introimage from "/src/assets/images/intro.png"
-import Introimage from "/src/assets/images/intro1.png"
+import star from "/src/assets/images/intro-rating-star.svg"
 import HeartIcon from "/src/assets/images/heart.svg"
 import WalletIcon from "/src/assets/images/Wallet.svg"
 import MemberIcon from "/src/assets/images/Member.svg"
@@ -14,38 +14,37 @@ function IntroBox() {
   return (
     <>
 
-      <div className="introduction card-box-into pt-[56px] rounded-2xl pb-[95px] px-[30px] bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center
-      
-      flex flex-col md:flex-row justify-between items-center gap-4"
-        //style={{ backgroundImage:`url(${Introimage})` }}
-        style={{
-          // backgroundImage: `linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%), url(${Introimage})`,
-          backgroundColor: 'silver',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          width: '100%',
-          height: '100%', // Adjust as needed
-        }}
+      <div className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into pt-[56px] rounded-4xl py-[95px] px-[50px] lg:px-[100px]
+      bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center
+      h-1/2 flex md:block justify-center"
+       
       >
         
-        <div className='card-intro max-w-100 md:max-w-[300px]  text-center'>
-          <h1 className="text-[#424242] mb-[15px] font-['Playfair_Display'] font-[400] text-[20px]">INTRODUCTION</h1>
-          <p className='text-[#424242] text-[14px] font-[400] md:max-w-[294px]'>
-            Step into the world of fashion, elegance, and professionalism. We connect leading brands, designers, and event organizers with exceptional hostesses and models who embody style and confidence. Whether you're casting for a runway show, launching a luxury product, or hosting an exclusive event — our talent brings presence, poise, and polish.
-
-            Ready to discover the perfect match for your next project — or take the first step in your modeling journey? Join our community today.</p>
-          <div className='intro-buttons flex items-center justify-between pt-[3em] gap-x-[40px]'>
+        <div className='card-intro max-w-fulsl md:max-w-1/2'>
+          <h1 className="text-black mb-[15px] font-bold text-[25px] sm:text-[30px] lg:text-[40px]">More Than Just a<br/> Presence — A Real <br/>Connection</h1>
+          <p className='text-black text-[14px] md:text-[12px]  lg:text-[14px] font-[400] md:max-w-[500px]'>
+          Discover a new way to connect: <strong>elegance, support, and meaningful companionship — on your terms</strong></p>
+          <div className='intro-buttons flex items-center justify-between pt-[2em] gap-x-[40px]'>
 
             {!token &&
               <>
-                <Link to='/sign-up' className='btn bg-[#F8BBD0] block p-[10px] w-full text-[20px] font-[400] leading-[130%]'>Sign Up </Link>
-                <Link to='/search' className='btn bg-[#F8BBD0]  p-[10px] w-full text-[20px] font-[400] leading-[130%]'>Search</Link>
+                <Link to='/sign-up' className='btn bg-black btn-grad text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]'
+                
+                >
+                                Get Started for Free </Link>
               </>
+              
             }
           </div>
-        </div>
-        <div className='max-w-100 md:max-w-[300px] overflow-visible relative'>
-        <img src={Introimage} className='w-[900px]'/>
+          <div className='flex items-center gap-1 mt-7'>
+            <img src={star} className='w-5'/>
+            <img src={star} className='w-5'/>
+            <img src={star} className='w-5'/>
+            <img src={star} className='w-5'/>
+            <img src={star} className='w-5'/>
+            <p className='text-black text-[14px] font-[400] md:max-w-[500px] ml-6'>
+          Trusted by about 300 users</p>
+          </div>
         </div>
 
       </div>
@@ -78,9 +77,9 @@ function IntroBox() {
                 <img src={WalletIcon} className='w-10 h-10'></img>
               </div>
               <div>
-                <h2 className="text-2xl font-bold mb-2">Tailored Experiences</h2>
+                <h2 className="text-2xl font-bold mb-2">Exclusive Companionship</h2>
                 <p className="text-lg leading-relaxed">
-                  From corporate events to personal getaways, each encounter is customized to fit your unique needs and lifestyle.
+                We connect you with refined, elegant companions who embody charm, discretion, and sophistication.
                 </p>
               </div>
             </div>
@@ -108,9 +107,9 @@ function IntroBox() {
                 <img src={HeartIcon} className='w-10 h-10'></img>
               </div>
               <div>
-                <h2 className="text-2xl font-bold mb-2">Tailored Experiences</h2>
+                <h2 className="text-2xl font-bold mb-2">Trusted Privacy and Respect</h2>
                 <p className="text-lg leading-relaxed">
-                  From corporate events to personal getaways, each encounter is customized to fit your unique needs and lifestyle.
+                Every connection is based on clear boundaries, mutual understanding, and the highest level of confidentiality.
                 </p>
               </div>
             </div>
