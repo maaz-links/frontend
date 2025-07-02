@@ -24,7 +24,7 @@ function Home() {
       <HowItWorks />
 
       <VerifiedPeopleOnly />
-      {/* <PromoBanner /> */}
+      <PromoBanner />
       {/* <How_To /> */}
       {/* <Blogs /> */}
       <Faqs />
