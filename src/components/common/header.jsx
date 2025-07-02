@@ -106,6 +106,7 @@
 // export default Header
 import { NavLink } from "react-router-dom";
 import GlobeIcon from "/src/assets/icons/globe.svg";
+import { useState } from "react";
 
 const headerLinks = [
   {
@@ -127,8 +128,14 @@ const headerLinks = [
 ];
 
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <nav className="bg-white flex items-center justify-between px-8 py-5 fixed top-0 left-0 w-full z-50">
+    <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50">
       <div className="flex items-center space-x-2">
         <div className="text-2xl font-bold">
           <span className="text-purple-600">H</span>
@@ -139,7 +146,7 @@ function Header() {
           FOR YOU
         </div>
       </div>
-      <div className="flex space-x-6">
+      <div className=" space-x-6 hidden md:flex">
         {headerLinks.map((link, index) => (
           <NavLink
             key={index}
@@ -154,15 +161,54 @@ function Header() {
           </NavLink>
         ))}
       </div>
-      <div className="flex items-center justify-between gap-5 space-x-4">
+      <div className="flex items-center justify-between gap-2 md:gap-5 ">
         <img src={GlobeIcon} alt="Globe Icon" />
         <NavLink
           to="/signup"
-          className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%]"
+          className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
         >
           Sign Up Now
         </NavLink>
+        <button
+          onClick={toggleMenu}
+          className="md:hidden focus:outline-none ml-2"
+        >
+          <img
+            src={
+              isMenuOpen
+                ? "/src/assets/icons/menu.svg"
+                : "/src/assets/icons/cross.svg"
+            }
+            alt="Menu"
+          />
+        </button>
       </div>
+      {isMenuOpen && (
+        <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
+          <div className="flex flex-col items-center p-4 space-y-4">
+            <NavLink
+              to="/signup"
+              className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
+            >
+              Sign Up Now
+            </NavLink>
+            {headerLinks.map((link, index) => (
+              <NavLink
+                key={index}
+                to={link.link}
+                onClick={toggleMenu}
+                className={({ isActive }) =>
+                  `text-gray-700 hover:text-black font-[400] text-center w-full py-2 ${
+                    isActive ? "text-black font-[600]" : ""
+                  }`
+                }
+              >
+                {link.text}
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
