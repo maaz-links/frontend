@@ -175,7 +175,7 @@ function Header() {
         >
           <img
             src={
-              isMenuOpen
+              !isMenuOpen
                 ? "/src/assets/icons/menu.svg"
                 : "/src/assets/icons/cross.svg"
             }
