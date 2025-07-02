@@ -8,7 +8,8 @@
   } */
 
   .introduction {
-    background-image: url('/src/assets/images/welcome-image-desktop.jpg');
+    /* background-image: url('/src/assets/images/welcome-image-desktop.jpg'); */
+    background-image: var(--desktop-bg);
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
@@ -18,7 +19,8 @@
   
   @media (max-width: 767px) {
     .introduction {
-      background-image: url('/src/assets/images/welcome-image-mobile.jpg');
+      /* background-image: url('/src/assets/images/welcome-image-mobile.jpg'); */
+      background-image: var(--mobile-bg);
       background-position: bottom;
       padding-bottom: 100%;
     }

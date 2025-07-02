@@ -6,6 +6,8 @@ import WalletIcon from "/src/assets/images/Wallet.svg"
 import MemberIcon from "/src/assets/images/Member.svg"
 import { useStateContext } from '../context/ContextProvider';
 import { Link } from 'react-router-dom';
+import mobileImage from '/src/assets/images/welcome-image-mobile.jpg';
+import desktopImage from '/src/assets/images/welcome-image-desktop.jpg';
 
 function IntroBox() {
 
@@ -17,7 +19,10 @@ function IntroBox() {
       <div className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into pt-[56px] rounded-4xl py-[95px] px-[50px] lg:px-[100px]
       bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center
       h-1/2 flex md:block justify-center"
-       
+      style={{
+        '--mobile-bg': `url(${mobileImage})`,
+        '--desktop-bg': `url(${desktopImage})`
+      }}
       >
         
         <div className='card-intro max-w-fulsl md:max-w-1/2'>

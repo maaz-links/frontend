@@ -1,22 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HostessImage from '/src/assets/images/servic3.png';
+import WingWomanImage from '/src/assets/images/servic2.png';
+import SugarBabyImage from '/src/assets/images/servic1.png';
+
+import mobileImage from '/src/assets/images/joinnow-mobile.png';
+import desktopImage from '/src/assets/images/joinnow-desktop.png';
 
 function Models() {
   const services = [
     {
       title: 'Hostess',
       description: 'Attend events, dinners, or private gatherings with a polished, professional presence.',
-      image: '/src/assets/images/servic3.png'
+      image: HostessImage
     },
     {
       title: 'Wing Woman',
       description: 'Navigate social environments with confidence and support; impress at business mixers or casual parties.',
-      image: '/src/assets/images/servic2.png'
+      image: WingWomanImage
     },
     {
       title: 'Sugar Baby',
       description: 'Engage in mutually beneficial relationships with clarity, honesty, and discretion.',
-      image: '/src/assets/images/servic1.png'
+      image: SugarBabyImage
     }
   ];
 
@@ -50,7 +56,7 @@ function Models() {
         <div className='h-[110vw] md:max-h-[300px] md:h-[23vw] p-15 md:p-10 lg:p-15 flex flex-wrap justify-between md:items-center'
 
           style={{
-            backgroundImage: `url("/src/assets/images/joinnow-desktop.png")`,
+            backgroundImage: `url(${desktopImage})`,
             backgroundSize: "100% 100%",
             backgroundRepeat: 'no-repeat'
           }}
@@ -74,7 +80,7 @@ function Models() {
       <div className=" md:hidden mt-[35px] px-[25px] max-w-[1300px] m-auto ">
         <div className='h-[120vw] md:max-h-[300px] md:h-[23vw] p-[10vw] md:p-10 lg:p-15 flex flex-wrap justify-between items-center'
           style={{
-            backgroundImage: `url("/src/assets/images/joinnow-mobile.png")`,
+            backgroundImage: `url(${mobileImage})`,
             backgroundSize: "100% 100%",
             backgroundRepeat: 'no-repeat'
           }}

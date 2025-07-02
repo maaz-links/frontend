@@ -1,6 +1,4 @@
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
-import { useEffect, useState } from "react";
-import axiosClient from "../../axios-client";
 
 /**
  * @type {React.ExoticComponent<import('@szhsin/react-accordion').AccordionItemProps>}
@@ -10,57 +8,85 @@ const AccordionItem = ({ header, ...rest }) => (
     {...rest}
     header={({ state: { isEnter } }) => (
       <>
-        {header}
-       
+        <strong>{header}</strong>
+        <div className={`ml-auto p-3 md:p-4 rounded-full shadow transition-all duration-200 ${
+          isEnter ? "bg-black text-white" : ""
+        }`}>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L10 10L19 1"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
       </>
     )}
-    className="mb-[30px]"
+    className={({ isEnter }) => `border-[2px] rounded-[35px] p-[5%] mb-[15px] md:mb-[30px] text-[18px] md:text-[24px] ${
+      isEnter ? "border-black" : "border-gray-200"
+    } transition-colors duration-200`}
     buttonProps={{
       className: ({ isEnter }) =>
-        `flex w-full text-[18px] p-4 bg-[#F8BBD0] shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-left cursor-pointer ${
-          isEnter && "bg-white-200"
+        `flex w-full items-center text-left transition-colors duration-200 ${
+          isEnter ? "" : ""
         }`
     }}
     contentProps={{
-      className: "transition-height duration-200 ease-out"
+      className: "transition-height mt-5 duration-200 ease-out"
     }}
-    panelProps={{ className: "p-4" }}
+    panelProps={{ className: "flex text-gray-400 w-full items-center text-left" }}
   />
 );
 
-export default function Faqs() {
+const FAQ_DATA = [
+  {
+    question: "What is Webflow and why is it the best website builder?",
+    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    question: "What is your favorite template from BRIX Templates?",
+    answer: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    question: "How do you clone a Webflow Template from the Showcase?",
+    answer: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+  },
+  {
+    question: "Why is BRIX Templates the best Webflow agency out there?",
+    answer: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  }
+];
 
-  const [faqs, setFaqs] = useState(
-    [
-     
-    ]);
-  useEffect(() => {
-    axiosClient.get('/api/my-faqs')
-      .then(response => setFaqs(response.data.faqs))
-      .catch(error => console.error(error));
-  }, []);
+export default function Faqs({ faqs = FAQ_DATA }) {
+  // Return null if no FAQs
+  if (!faqs || faqs.length === 0) {
+    return null;
+  }
 
   return (
-    <>
-    {faqs.length != 0 && <div>
-     <h1 className="mt-[66px] text-center text-[32px] font-[400] uppercase">Faqs</h1>
-    <div className=" max-w-[1246px] m-auto mt-[26px] mb-[50px] md:mb-[148px] px-[15px]">
-   
-      
-      {/* `transitionTimeout` prop should be equal to the transition duration in CSS */}
-      <Accordion transition transitionTimeout={200}>
-      {faqs.map(faq => (
-            <div key={faq.id}>
-              <AccordionItem header={`${faq.question}`} className='mb-[30px]'>
-              {faq.answer}
-        </AccordionItem>
-
-            </div>
-            
-      ))}
-      </Accordion>
-    </div>
-    </div>}
-    </>
+    <section className="py-16 md:py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 className="text-center text-3xl md:text-4xl font-medium uppercase mb-12 md:mb-16">
+          FAQs
+        </h2>
+        
+        <div className="max-w-4xl mx-auto">
+          <Accordion transition transitionTimeout={200}>
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} header={faq.question}>
+                {faq.answer}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
   );
 }
