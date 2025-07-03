@@ -1,4 +1,6 @@
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
+import { useEffect, useState } from "react";
+import axiosClient from "../../axios-client";
 
 /**
  * @type {React.ExoticComponent<import('@szhsin/react-accordion').AccordionItemProps>}
@@ -45,6 +47,8 @@ const AccordionItem = ({ header, ...rest }) => (
   />
 );
 
+
+
 const FAQ_DATA = [
   {
     question: "What is Webflow and why is it the best website builder?",
@@ -64,7 +68,19 @@ const FAQ_DATA = [
   }
 ];
 
-export default function Faqs({ faqs = FAQ_DATA }) {
+export default function Faqs() {
+
+
+  const [faqs, setFaqs] = useState(
+    [
+     
+    ]);
+  useEffect(() => {
+    axiosClient.get('/api/my-faqs')
+      .then(response => setFaqs([response.data.faqs]))
+      .catch(error => console.error(error));
+  }, []);
+
   // Return null if no FAQs
   if (!faqs || faqs.length === 0) {
     return null;
