@@ -4,6 +4,8 @@ import Footer from "/src/components/common/footer";
 import Hero from "./sections/Hero";
 import WhyUsSection from "./sections/WhyUs";
 import InterestSelectionSection from "./sections/InterestSelection";
+import HowToStart from "./sections/how-to-start";
+
 function Hostess() {
   return (
     <>
@@ -12,6 +14,7 @@ function Hostess() {
       <Hero />
       <WhyUsSection />
       <InterestSelectionSection />
+      <HowToStart />
       <Footer />
     </>
   );
