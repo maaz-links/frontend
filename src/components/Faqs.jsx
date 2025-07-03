@@ -1,8 +1,6 @@
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 import { useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
-import { useEffect, useState } from "react";
-import axiosClient from "../../axios-client";
 
 /**
  * @type {React.ExoticComponent<import('@szhsin/react-accordion').AccordionItemProps>}
@@ -48,8 +46,6 @@ const AccordionItem = ({ header, ...rest }) => (
     panelProps={{ className: "flex text-gray-400 w-full items-center text-left" }}
   />
 );
-
-
 
 
 
