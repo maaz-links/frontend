@@ -6,7 +6,10 @@ import desktopImage from "/src/assets/images/contact-bg-desktop.png";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import { toast } from "react-toastify";
-import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
+import {
+  RecaptchaComponent,
+  RecaptchaVerify,
+} from "../functions/RecaptchaVerify";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -62,11 +65,14 @@ function ContactUs() {
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "", termsAccepted: false });
       setErrors({});
-      toast.success("Thank you! Your request has been submitted successfully.", {
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      toast.success(
+        "Thank you! Your request has been submitted successfully.",
+        {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 422) {
@@ -83,18 +89,19 @@ function ContactUs() {
     <div>
       <Header />
       <div
-        className=" flex items-center my-20   justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200 introduction max-w-[1300px] m-auto"
+        className=" flex items-center mt-24 mb-8  
+bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px] m-auto"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="text-white  w-full max-w-4xl  flex flex-col md:flex-row items-center ">
+        <div className="text-white  w-full md:p-10 font-[400]  flex flex-col md:flex-row items-center ">
           <div className="md:w-1/2 p-5">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-[58px] font-bold mb-4 leading-[60px]">
               Do You Have Any Question?
             </h1>
-            <p className="text-lg mb-6">
+            <p className="text-[20px] font-[400] leading-[30px] text-[#FFFFFF] mb-6">
               Discover a new way to connect: elegance, support, and meaningful
               companionship - on your terms
             </p>
@@ -152,13 +159,13 @@ function ContactUs() {
                   <p className="text-red-500 text-sm">{errors.message}</p>
                 )}
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center  text-white  py-2 rounded-lg">
                 <input
                   type="checkbox"
                   name="termsAccepted"
                   checked={formData.termsAccepted}
                   onChange={handleChange}
-                  className="mr-2"
+                  className="mr-2 w-5 h-5 appearance-none border-2 border-white rounded focus:outline-none checked:bg-transparent checked:border-white"
                 />
                 <label className="text-sm">
                   I accept the Privacy Policy and the Terms & Conditions
@@ -167,11 +174,11 @@ function ContactUs() {
               {errors.termsAccepted && (
                 <p className="text-red-500 text-sm">{errors.termsAccepted}</p>
               )}
-                <RecaptchaComponent TokenSetter={setRecaptchaToken} />
+              <RecaptchaComponent TokenSetter={setRecaptchaToken} />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`md:py-5 w-full md:w-44 bg-white text-purple-800 p-2 rounded-lg font-semibold hover:bg-gray-100 ${
+                className={`md:py-5 w-full md:w-60 bg-white text-black  p-2 rounded-lg font-semibold hover:bg-gray-100 ${
                   isSubmitting ? "opacity-50" : ""
                 }`}
               >
@@ -182,6 +189,36 @@ function ContactUs() {
         </div>
       </div>
       <Footer />
+      <style jsx>{`
+        .bg-image {
+          /* background-image: url('/src/assets/images/welcome-image-desktop.jpg'); */
+          background-image: var(--desktop-bg);
+          background-size: cover;
+          background-position: top;
+          background-repeat: no-repeat;
+          background-color: silver;
+        }
+
+        @media (max-width: 767px) {
+          .bg-image {
+            background-image: var(--mobile-bg);
+          }
+        }
+
+        input[type="checkbox"] {
+          appearance: none;
+          position: relative;
+        }
+        input[type="checkbox"]:checked::after {
+          content: "✔";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+          font-size: 14px;
+        }
+      `}</style>
     </div>
   );
 }

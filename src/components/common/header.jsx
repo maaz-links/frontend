@@ -136,7 +136,7 @@ function Header() {
 
   return (
     <div className="mb-24">
-      <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50 ">
+      <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
         <div className="flex items-center space-x-2">
           <div className="text-2xl font-bold">
             <span className="text-purple-600">H</span>
