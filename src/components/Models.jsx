@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HostessImage from '/src/assets/images/servic3.png';
 import WingWomanImage from '/src/assets/images/servic2.png';
@@ -6,25 +6,65 @@ import SugarBabyImage from '/src/assets/images/servic1.png';
 
 import mobileImage from '/src/assets/images/joinnow-mobile.png';
 import desktopImage from '/src/assets/images/joinnow-desktop.png';
+import axiosClient from '../../axios-client';
 
 function Models() {
-  const services = [
-    {
-      title: 'Hostess',
-      description: 'Attend events, dinners, or private gatherings with a polished, professional presence.',
-      image: HostessImage
-    },
-    {
-      title: 'Wing Woman',
-      description: 'Navigate social environments with confidence and support; impress at business mixers or casual parties.',
-      image: WingWomanImage
-    },
-    {
-      title: 'Sugar Baby',
-      description: 'Engage in mutually beneficial relationships with clarity, honesty, and discretion.',
-      image: SugarBabyImage
-    }
-  ];
+
+  const [services, setShownServices] = useState([]);
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data } = await axiosClient.get('/api/my-shown-services');
+      
+        // Ensure we always have an array and grab at most the first 3 elements
+        const services = (Array.isArray(data) ? data : [data]).slice(0, 3);
+      
+        setShownServices(services);
+      } catch (err) {
+        console.error(err);
+
+        setShownServices(
+          [
+            {
+              title: 'Hostess',
+              description: 'Attend events, dinners, or private gatherings with a polished, professional presence.',
+              image: HostessImage
+            },
+            {
+              title: 'Wing Woman',
+              description: 'Navigate social environments with confidence and support; impress at business mixers or casual parties.',
+              image: WingWomanImage
+            },
+            {
+              title: 'Sugar Baby',
+              description: 'Engage in mutually beneficial relationships with clarity, honesty, and discretion.',
+              image: SugarBabyImage
+            }
+          ]
+        );
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  // const services = [
+  //   {
+  //     title: 'Hostess',
+  //     description: 'Attend events, dinners, or private gatherings with a polished, professional presence.',
+  //     image: HostessImage
+  //   },
+  //   {
+  //     title: 'Wing Woman',
+  //     description: 'Navigate social environments with confidence and support; impress at business mixers or casual parties.',
+  //     image: WingWomanImage
+  //   },
+  //   {
+  //     title: 'Sugar Baby',
+  //     description: 'Engage in mutually beneficial relationships with clarity, honesty, and discretion.',
+  //     image: SugarBabyImage
+  //   }
+  // ];
 
   return (
     <>
