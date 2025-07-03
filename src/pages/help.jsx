@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/common/header";
 import Footer from "../components/common/footer";
-import mobileImage from "/src/assets/images/for-hostess-hero-mobile.png";
+import mobileImage from "/src/assets/images/contact-bg-mobile.png";
 import desktopImage from "/src/assets/images/contact-bg-desktop.png";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
@@ -83,13 +83,13 @@ function ContactUs() {
     <div>
       <Header />
       <div
-        className="min-h-screen flex items-center my-20 justify-center mx-5 rounded-2xl bg-gray-200 introduction max-w-[1300px] m-auto"
+        className="min-h-screen flex items-center my-20  justify-center mx-5 rounded-2xl bg-gray-200 introduction max-w-[1300px] m-auto"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="text-white p-10 w-full max-w-4xl flex flex-col md:flex-row items-center">
+        <div className="text-white p-10 w-full max-w-4xl flex flex-col md:flex-row items-center ">
           <div className="md:w-1/2 p-5">
             <h1 className="text-4xl font-bold mb-4">
               Do You Have Any Question?
@@ -173,7 +173,7 @@ function ContactUs() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-44 bg-white text-purple-800 p-2 rounded-lg font-semibold hover:bg-gray-100 ${
+                className={`md:py-5 w-full md:w-44 bg-white text-purple-800 p-2 rounded-lg font-semibold hover:bg-gray-100 ${
                   isSubmitting ? "opacity-50" : ""
                 }`}
               >
