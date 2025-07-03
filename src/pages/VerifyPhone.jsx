@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 function VerifyPhone() {
   // const [phone, setPhone] = useState("");
-  const { token, user, setToken,setUser } = useStateContext();
+  const { token, user, setToken, setUser } = useStateContext();
 
   const [otp, setOtp] = useState("");
   const [errors, setErrors] = useState({});
@@ -47,11 +47,11 @@ function VerifyPhone() {
       setErrors({});
       //setUser(response.data.user);
       //alert('OTP Successfully verified');
-      toast.success('OTP Successfully verified',{
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-            })
+      toast.success('OTP Successfully verified', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       setToken(response.data.access_token);
       sessionStorage.removeItem('hostess_otp_email');
       sessionStorage.removeItem('hostess_otp_phone');
@@ -68,7 +68,7 @@ function VerifyPhone() {
     catch (err) {
       const response = err.response;
       // console.log(response);
-      
+
       if (response && response.status === 422) {
         setErrors(response.data.formError)
         // setMessage(response.data.message);
@@ -79,9 +79,9 @@ function VerifyPhone() {
   const [disabledResend, setDisabledResend] = useState(false);
   const [timer, setTimer] = useState(0);
 
-  async function handleResend (e){
+  async function handleResend(e) {
     e.preventDefault();
-    
+
     if (disabledResend) return;
 
     // Trigger your resend logic here
@@ -93,7 +93,7 @@ function VerifyPhone() {
     try {
       const response = await axiosClient.post('/api/resend-otp', payload);
       // console.log(response.data.message);
-      toast.info(response.data.message,{
+      toast.info(response.data.message, {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -101,7 +101,7 @@ function VerifyPhone() {
     }
     catch (err) {
       //const response = err.response;
-      toast.error("Error resending OTP",{
+      toast.error("Error resending OTP", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -125,13 +125,14 @@ function VerifyPhone() {
   return (
     <>
       <Header />
-      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Verify your Phone Number</h1>
-      <div className="max-w-[971px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
+      <div className="max-w-[600px] mx-auto">
+        <h1 className="text-center text-[38px] font-[bold] mt-[170px]">Mobile Phone Verification</h1>
+        <div className="max-w-[971px] mx-auto mt-[10px] px-[15px] mb-[50px] md:mb-[121px]">
 
 
-        <form onSubmit={verifyOtp}>
-          {/* Phone Number Input */}
-          <div className="mb-4">
+          <form onSubmit={verifyOtp}>
+            {/* Phone Number Input */}
+            {/* <div className="mb-4">
             <label className="block text-center text-[20px] mb-[20px]">Enter the verification code that we sent to: {otpPhone}</label>
 
             <input
@@ -142,33 +143,82 @@ function VerifyPhone() {
               className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
             />
             <ErrorText field='otp' />
-          </div>
+          </div> */}
+            <div className="mb-4 max-w-[600px] mx-auto">
+              <label className="block text-center text-[20px] mb-[20px]">The OTP has been sent via to your mobile phone:<br /> <strong>{otpPhone}</strong></label>
+
+              <div className="">
+              <div className="block text-[20px] mb-[20px]"><strong>Verification Code</strong></div>
+                <div className="flex justify-center gap-2 mb-2">
+                
+                  {[...Array(5)].map((_, index) => (
+                    <input
+                      key={index}
+                      type="tel"
+                      maxLength="1"
+                      value={otp[index] || ''}
+                      onChange={(e) => {
+                        const newOtp = otp.split('');
+                        newOtp[index] = e.target.value;
+                        setOtp(newOtp.join(''));
+
+                        // Auto focus to next input
+                        if (e.target.value && index < 4) {
+                          const nextInput = e.target.nextElementSibling;
+                          if (nextInput) nextInput.focus();
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        // Handle backspace to move to previous input
+                        if (e.key === 'Backspace' && !otp[index] && index > 0) {
+                          const prevInput = e.target.previousElementSibling;
+                          if (prevInput) prevInput.focus();
+                        }
+                      }}
+                      className="w-full aspect-square text-lg sm:text-3xl border-2 border-gray-300 text-center focus:outline-0 rounded-2xl"
+                    />
+                  ))}
+                </div>
+                <ErrorText field='otp' />
+              </div>
 
 
-          <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[45px]">
-            <button
-              //onClick={sendOtp}
-              // onClick={() => { verifyOtp() }}
-              className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]"
-            >
-              VERIFY
-            </button> </div>
-          <label className="block text-center text-[20px] mb-[20px]">{otpMessage}</label>
 
-        </form>
-        {/* <div className="mt-[30px] text-center">
+              <div className="text-center mx-auto">
+
+                <div className="text-start">
+                  <button
+                    onClick={handleResend}
+                    disabled={disabledResend}
+                    className={`py-[5px] my-[20px] text-[16px] ${disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
+                      }`}
+                  >
+                    <strong>{disabledResend ? `Resend OTP in ${timer}s` : 'Resend?'}</strong>
+                  </button>
+                </div>
+                <button
+                  //onClick={sendOtp}
+                  // onClick={() => { verifyOtp() }}
+                  className="cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]"
+                >
+                  Verify the Code
+                </button> </div>
+              <label className="block text-center text-[20px] mb-[20px]">{otpMessage}</label>
+            </div>
+          </form>
+          {/* <div className="mt-[30px] text-center">
           <a onClick={handleResend} className="px-[25px] py-[5px] bg-[#F5F5F5] hover:underline text-[16px]">Resend OTP</a>
         </div> */}
-        <div className="mt-[30px] text-center">
-          <button
-            onClick={handleResend}
-            disabled={disabledResend}
-            className={`px-[25px] py-[5px] text-[16px] bg-[#F5F5F5] ${
-              disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
-            }`}
-          >
-            {disabledResend ? `Resend OTP in ${timer}s` : 'Resend OTP'}
-          </button>
+          {/* <div className="mb-[170px] text-center ">
+            <button
+              onClick={handleResend}
+              disabled={disabledResend}
+              className={`px-[25px] py-[5px] text-[16px] bg-[#F5F5F5] ${disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
+                }`}
+            >
+              {disabledResend ? `Resend OTP in ${timer}s` : 'Resend OTP'}
+            </button>
+          </div> */}
         </div>
       </div>
       <Footer />
