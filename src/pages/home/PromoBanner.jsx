@@ -8,7 +8,7 @@ const PromoBanner = () => {
         {`
           .promo-banner {
             background-image: var(--mobile-bg, linear-gradient(90deg, #6B46C1, #E6E6FA));
-            background-size: cover;
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
@@ -19,27 +19,18 @@ const PromoBanner = () => {
               background-image: var(--desktop-bg, linear-gradient(90deg, #6B46C1, #E6E6FA));
             }
           }
-          /* Mobile-specific image positioning */
-          @media (max-width: 767px) {
-            .promo-banner img {
-              right: 50%;
-              transform: translateX(50%);
-              bottom: -6rem; /* Adjusted for better overlap */
-              width: 240px; /* Reduced width for mobile */
-            }
-          }
         `}
       </style>
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="relative overflow-visible rounded-[2rem] px-8 py-12 md:py-16 flex flex-col md:flex-row items-center shadow-xl promo-banner"
+          className="relative overflow-visible rounded-[2rem] md:px-8 pt-12 pb-5 md:py-16 flex flex-col md:flex-row items-center  promo-banner  md:h-fit "
           style={{
             "--mobile-bg": `url(${mobileImage})`,
             "--desktop-bg": `url(${desktopImage})`,
           }}
         >
           {/* Left Text */}
-          <div className="w-full md:w-1/2 z-10 text-center md:text-left">
+          <div className="w-full md:w-1/2 z-10 text-center md:text-left  ">
             <h2 className="text-3xl md:text-4xl font-bold text-black">
               Are You a Hostess or Model?
             </h2>
@@ -55,11 +46,11 @@ const PromoBanner = () => {
           </div>
 
           {/* Right Image — Overflowing */}
-          <div className="w-full md:w-1/2 relative">
+          <div className="w-full md:w-1/2 relative     ">
             <img
               src="/src/assets/images/hostess.png"
               alt="Hostess or Model"
-              className="absolute bottom-[-10rem] right-[5rem] w-[280px] md:w-[320px] lg:w-[370px] object-cover z-20"
+              className="md:absolute md:bottom-[-10rem] md:right-[5rem] w-full   md:w-[320px] lg:w-[370px] object-cover z-20"
             />
           </div>
         </div>

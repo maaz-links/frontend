@@ -110,7 +110,7 @@ import { useState } from "react";
 
 const headerLinks = [
   {
-    link: "/",
+    link: "/about",
     text: "About Us",
   },
   {
