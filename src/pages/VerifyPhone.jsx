@@ -187,7 +187,7 @@ function VerifyPhone() {
               <div className="text-center mx-auto">
 
                 <div className="text-start">
-                  <button
+                  <button type="button"
                     onClick={handleResend}
                     disabled={disabledResend}
                     className={`py-[5px] my-[20px] text-[16px] ${disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
@@ -196,7 +196,7 @@ function VerifyPhone() {
                     <strong>{disabledResend ? `Resend OTP in ${timer}s` : 'Resend?'}</strong>
                   </button>
                 </div>
-                <button
+                <button type='submit'
                   //onClick={sendOtp}
                   // onClick={() => { verifyOtp() }}
                   className="cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]"
