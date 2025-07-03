@@ -62,9 +62,9 @@ function JoinHostess() {
       </div>
 
       {/* FOR MOBILE */}
-      <div className=" md:hidden mt-[35px]  max-w-[1300px]  ">
+      <div className=" md:hidden mt-[35px]  max-w-[1300px]  bg-red-200 ">
         <div
-          className="h-[120vw] md:max-h-[300px] md:h-[23vw] p-[10vw] md:p-10 lg:p-15 flex flex-wrap justify-between items-center"
+          className="h-[120vw] md:max-h-[300px]    md:p-10 lg:p-15 flex flex-wrap justify-between items-center"
           style={{
             backgroundImage: `url(${mobileImage})`,
             backgroundSize: "100% 100%",
@@ -72,7 +72,7 @@ function JoinHostess() {
           }}
         >
           <div className=" w-full h-[35vw] md:w-1/2 text-center md:text-start">
-            <h1 className="text-white  font-bold text-[44px] md:text-[25px] lg:text-[35px] ">
+            <h1 className="text-white  font-bold text-[32px] md:text-[25px] lg:text-[35px] ">
               Join HostessForYou
             </h1>
           </div>

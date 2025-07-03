@@ -83,13 +83,13 @@ function ContactUs() {
     <div>
       <Header />
       <div
-        className="min-h-screen flex items-center my-20  justify-center mx-5 rounded-2xl bg-gray-200 introduction max-w-[1300px] m-auto"
+        className="min-h-screen flex items-center my-20   justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200 introduction max-w-[1300px] m-auto"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="text-white p-10 w-full max-w-4xl flex flex-col md:flex-row items-center ">
+        <div className="text-white p-10 w-full max-w-4xl  flex flex-col md:flex-row items-center ">
           <div className="md:w-1/2 p-5">
             <h1 className="text-4xl font-bold mb-4">
               Do You Have Any Question?
@@ -167,9 +167,7 @@ function ContactUs() {
               {errors.termsAccepted && (
                 <p className="text-red-500 text-sm">{errors.termsAccepted}</p>
               )}
-              <div className="w-[300px] mx-auto mt-[25px]">
                 <RecaptchaComponent TokenSetter={setRecaptchaToken} />
-              </div>
               <button
                 type="submit"
                 disabled={isSubmitting}

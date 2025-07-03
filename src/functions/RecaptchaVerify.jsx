@@ -20,7 +20,7 @@ export const RecaptchaComponent = ({TokenSetter}) => {
     return <>
     {import.meta.env.VITE_RECAPTCHA_MODE &&
         <ReCAPTCHA
-                className={`mt-[25px]`}
+                className={`mt-[25px] `}
                 sitekey={import.meta.env.VITE_RECAPTCHA_SITEKEY} // Replace with your key
                 onChange={(recaptchaToken) => {TokenSetter(recaptchaToken)}}
         />
