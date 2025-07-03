@@ -46,14 +46,14 @@ function StaticPage({slug}) {
   return (
     <>
     <Header />
-    <div className='max-w-[1200px] m-auto mt-[50px] mb-[50px] md:mt-[126px] md:mb-[144px]'>
-    <h1 className="text-center text-[32px] font-[400] uppercase">{title}</h1>
-  <div className='terms-text text-center text-[24px] mt-[50px]'>
+    <div className='max-w-[1200px] m-auto mt-[50px] mb-[50px] md:mt-[126px] md:mb-[144px] px-[25px]'>
+    <h1 className="text-[36px]"><strong>{title}</strong></h1>
+  <div className='terms-text text-[15px] mt-[20px]'>
   <div dangerouslySetInnerHTML={{ __html: text }} />
   </div>
-  <div className='text-center mt-[110px]'>
+  {/* <div className='text-center mt-[110px]'>
 <Link to='/contact' className='bg-[#E91E63] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#F8BBD0] '>HELP & CONTACT</Link>
-</div>
+</div> */}
     </div>
     <Footer />
     </>
