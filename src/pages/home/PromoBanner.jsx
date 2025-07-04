@@ -1,5 +1,6 @@
 import mobileImage from "/src/assets/images/hostess-bg-mobile.png";
 import desktopImage from "/src/assets/images/hostess-bg-desktop.png";
+import HostessImg from "/src/assets/images/hostess.png";
 
 const PromoBanner = () => {
   return (
@@ -48,7 +49,7 @@ const PromoBanner = () => {
           {/* Right Image — Overflowing */}
           <div className="w-full md:w-1/2 relative     ">
             <img
-              src="/src/assets/images/hostess.png"
+              src={HostessImg}
               alt="Hostess or Model"
               className="md:absolute md:bottom-[-10rem]  md:right-[5rem] h-[392px]  w-[397.60546875px] md:w-[320px] lg:w-[370px] object-cover z-20"
             />
