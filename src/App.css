@@ -42,11 +42,11 @@ body {
 } */
 
 input[type="radio"] {
-    accent-color: #E91E63; /* Primary pink */
+    accent-color: #000000; /* Primary pink */
   }
 
   input[type="checkbox"] {
-    accent-color: #E91E63; /* Primary pink */
+    accent-color: #000000; /* Primary pink */
   }
 
   

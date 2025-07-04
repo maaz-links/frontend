@@ -113,68 +113,75 @@ function Login() {
   }
 
   return (
-<>
-<Header />
-<h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Login</h1>
-    <div className="max-w-[971px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
-      <div className="">
+    <>
+      <Header />
 
-        <form onSubmit={handleSubmit}>
-          {/* Email Field */}
-          <div className="mb-[40px]">
-            <label className="block text-[20px] uppercase">Email</label>
-            <input
-              type="email"
-              //value={email}
-              //onChange={(e) => setEmail(e.target.value)}
-              ref={emailRef}
-              required
-              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
-              placeholder="Enter your email"
-            />
-            <ErrorText field='email'/>
-          </div>
 
-          {/* Password Field */}
-          <div className="mb-4">
-            <label className="block text-[20px] uppercase">Password</label>
-            <input
-              type="password"
-              //value={password}
-              //onChange={(e) => setPassword(e.target.value)}
-              ref={passwordRef}
-              required
-              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
-              placeholder="Enter your password"
-            />
-            <ErrorText field='password'/>
-          </div>
+      <div className="max-w-[700px] mx-auto border-2 rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+        <h1 className="text-center text-[38px] my-7"><strong>Log In</strong></h1>
+        <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
-          {/* Login Button */}
-          <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-          <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
-         {submitting ? 'Logging in...' : 'Login'}
-        </button>
-        <div className={`w-[300px] mx-auto mt-[25px]`}>
-            <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
-        </div>
-        
-        </div>
-        </form>
-        {/* <button onClick={handleUser}>check</button> */}
-        {/* Forgot Password & Signup Links */}
-        <div className="mt-[30px] text-center">
-          <Link 
-          to='/forgot-password' 
-          
-          className="px-[25px] py-[5px] bg-[#F5F5F5] hover:underline text-[16px]">Forgot password?</Link>
-          <p className="text-sm mt-2">
-            Don't have an account? <Link to="/sign-up" className="hover:underline">Sign up</Link>
-          </p>
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4 max-w-[600px] mx-auto">
+
+              <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]"><strong>Email</strong></div>
+                {/* Email Field */}
+                <input
+                  type="email"
+                  ref={emailRef}
+                  required
+
+                  className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                  placeholder="Enter Email"
+                />
+                <ErrorText field='email' />
+
+              </div>
+              <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]"><strong>Password</strong></div>
+                {/* Password Field */}
+                <input
+                  type="password"
+                  ref={passwordRef}
+                  required
+
+                  className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                  placeholder="Enter Password"
+                />
+                <ErrorText field='password' />
+
+              </div>
+
+              <div className="text-center mx-auto">
+
+                <div className="text-start">
+                  <button type="button" onClick={() => navigate('/forgot-password')}
+
+                    className={`py-[5px] mb-[20px] text-[16px] ${false ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
+                      }`}
+                  >
+                    <strong>{'Forgot Password?'}</strong>
+                  </button>
+                </div>
+                <button type='submit'
+                  disabled={submitting}
+                  className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
+                >
+                  <strong>{submitting ? 'Logging in...' : 'Log In'}</strong>
+                </button>
+              </div>
+
+              <div className="text-center my-9">
+                New User? <strong><Link to='/signup'>Sign up for Free</Link></strong>
+              </div>
+            </div>
+          </form>
+
         </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 }

@@ -125,9 +125,9 @@ function VerifyPhone() {
   return (
     <>
       <Header />
-      <div className="max-w-[600px] mx-auto">
-        <h1 className="text-center text-[38px] font-[bold] mt-[170px]">Mobile Phone Verification</h1>
-        <div className="max-w-[971px] mx-auto mt-[10px] px-[15px] mb-[50px] md:mb-[121px]">
+      <div className="max-w-[700px] mx-auto border-2 rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+        <h1 className="text-center text-[38px] font-[bold] ">Mobile Phone Verification</h1>
+        <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 
           <form onSubmit={verifyOtp}>
@@ -201,7 +201,7 @@ function VerifyPhone() {
                   // onClick={() => { verifyOtp() }}
                   className="cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]"
                 >
-                  Verify the Code
+                  <strong>Verify the Code</strong>
                 </button> </div>
               <label className="block text-center text-[20px] mb-[20px]">{otpMessage}</label>
             </div>

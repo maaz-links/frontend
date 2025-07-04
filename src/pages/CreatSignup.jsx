@@ -6,7 +6,7 @@ import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROLES } from "../../constants";
 import { toast } from "react-toastify";
 import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
@@ -93,6 +93,7 @@ const CreatSignup = ({myRole}) => {
   const usernameRef = createRef();
   const emailRef = createRef();
   const passwordRef = createRef();
+  const confirmPasswordRef = createRef();
   // const dayRef = createRef();
   // const monthRef = createRef();
   // const yearRef = createRef();
@@ -132,9 +133,10 @@ const CreatSignup = ({myRole}) => {
       name: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      password_confirmation: passwordRef.current.value, // Assuming password_confirmation is the same as password
+      password_confirmation: confirmPasswordRef.current.value, // Assuming password_confirmation is the same as password
       dob: dobRef.current.getDate().formatted,
-      phone: (CCodeRef.current.value + phoneRef.current.value),
+      //phone: (CCodeRef.current.value + phoneRef.current.value),
+      phone: phoneRef.current.value,
       role: myRole,
       isModel: isModel,
       newsletter: newsletterRef.current.checked,
@@ -177,81 +179,141 @@ const CreatSignup = ({myRole}) => {
   return (
     <>
       <Header />
-      <div className="max-w-[1300px] mx-auto mt-[64px] mb-[50px] md:mb-[150px] px-[15px]">
-        <h3 className="text-[32px] md:pt-[70px]">Sign Up </h3>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-[58px]  gap-x-[55px] w-full max-w-[865px]">
-            <div >
-              <label className="block">Name (Username)</label>
-              <input type="text" name="username" ref={usernameRef} className="w-full p-2 bg-[#F5F5F5] focus:outline-0" />
-              <ErrorText field='name' />
-            </div>
-            <div>
-              <label className="block">Date of Birth</label>
+      
+      <div className="max-w-[700px] mx-auto border-2 rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+        <h1 className="text-center text-[38px] my-7"><strong>Free Registration</strong></h1>
+        <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
+
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4 max-w-[600px] mx-auto">
+
+              <div className="mb-7">
+                  <div className="block text-[20px] mb-[20px]"><strong>Name (or Nickname)</strong></div>
+                  {/* Name Field */}
+                  <input
+                    type="name"
+                    ref={usernameRef}
+                    required
+
+                    className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                    placeholder="Enter Username"
+                  />
+                  <ErrorText field='name' />
+           
+              </div>
+              <div className="mb-7">
+            <div className="block text-[20px] mb-[20px]"><strong>Date of Birth</strong></div>
               <DateOfBirthInput ref={dobRef} />
               <ErrorText field='dob' />
             </div>
-            {/* {errors.dob && <p className="text-red-500 text-sm">{errors.dob}</p>} */}
-            {/* <div>
-          <label className="block">Date of Birth</label>
-          <div className="flex space-x-2">
-                <input type="text" ref={dayRef} placeholder="Day" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
-                <input type="text" ref={monthRef} placeholder="Month" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
-                <input type="text" ref={yearRef} placeholder="Year" className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0" />
+              <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]"><strong>Email</strong></div>
+                {/* Email Field */}
+                <input
+                  type="email"
+                  ref={emailRef}
+                  required
+
+                  className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                  placeholder="Enter Email"
+                />
+                <ErrorText field='email' />
+              
               </div>
-        </div> */}
-          </div>
-          <div className="mt-[20px] md:mt-[58px]">
-            <label className="block">Phone Number</label>
-            <div className="flex gap-x-[28px]  max-w-[750px] w-full">
-              <input ref={CCodeRef} className="bg-[#F5F5F5] w-full p-2 focus:outline-0 md:max-w-[15%] text-center" placeholder="+39" />
-              <input type="text" name="phone" ref={phoneRef} className="w-full md:w-max-[80%] bg-[#F5F5F5] p-2 focus:outline-0 " />
-            </div>
-            <ErrorText field='phone' />
-          </div>
-          <div className="flex flex-col md:flex-row max-w-[865px] mt-[20px] md:mt-[58px]  w-full gap-x-[54px]">
-            <div className="w-full">
-              <label className="block">Email</label>
-              <input type="email" name="email" ref={emailRef} className="w-full p-2 focus:outline-0 bg-[#F5F5F5] " />
-              <ErrorText field='email' />
-            </div>
-            <div className="w-full">
-              <label className="block">Password</label>
-              <input type="password" name="password" ref={passwordRef} className="w-full p-2 focus:outline-0 bg-[#F5F5F5] " />
-              <ErrorText field='password' />
-            </div>
-          </div>
+              <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]"><strong>Mobile Phone</strong></div>
+                {/* Phone Field */}
+                <input
+                  type="phone"
+                  ref={phoneRef}
+                  required
 
-          {false &&
-          <div className="mt-[20px] md:mt-[58px] mb-[0px]" ref={modelRef}>
-            <label className="block mb-[13px]">I am:</label>
-            <label className="block space-x-2">
-              <input type="radio" name="isModel" value="0" />
-              <span>Hostess</span>
-            </label>
-            <label className="block  space-x-2">
-              <input type="radio" name="isModel" value="1" />
-              <span>Model</span>
-            </label>
-          </div>
-          }
-          <p className="py-[18px] mb-[0px] md:px-[20px]">Hostessforyou.com won't share your private information like phone number or email adress with anyone</p>
+                  className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                  placeholder="Enter Phone Number"
+                />
+                <ErrorText field='phone' />
 
-          <div className="mb-[0px]">
-            <label className="inline-flex items-center">
-              <input type="checkbox" value="newsletter" ref={newsletterRef} name="newsletter" />
-              <span className="ml-2">Newsletter</span>
-            </label>
-          </div>
-          <div>
-            <label className="inline-flex items-center">
-              <input type="checkbox" name="termsAccepted" required />
-              <span className="ml-2">I accept the Terms & Conditions and Privacy Policy</span>
-            </label>
-          </div>
-          <button type="submit" disabled={submitting} className={`inline-block p-2 px-[20px] md:px-[70px] bg-[#E91E63] text-white hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>{submitting ? 'REGISTERING...' : 'CREATE ACCOUNT'}</button>
-          <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
-        </form>
+              </div>
+              <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]"><strong>Password</strong></div>
+                {/* Password Field */}
+                <input
+                  type="password"
+                  ref={passwordRef}
+                  required
+
+                  className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                  placeholder="Enter Password"
+                />
+                <ErrorText field='password' />
+
+              </div>
+              <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]"><strong>Confirm Password</strong></div>
+                {/* Confirm Password Field */}
+                <input
+                  type="password"
+                  ref={confirmPasswordRef}
+                  required
+                  className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                  placeholder="Enter Password"
+                />
+                <ErrorText field='password_confirmation' />
+
+              </div>
+              
+
+              <div className="text-center mx-auto">
+
+                <div className="text-center my-8">
+                Hostessforyou.com won't share your private information like phone number or email address with anyone
+                </div>
+                <div className="text-center my-8">
+                  <div className="inline-flex items-center ">
+                    <input type="checkbox" name="termsAccepted" required className="mr-2 w-[25px] aspect-square appearance-none bg-gray-300 rounded focus:outline-none" />
+                    <span className="ml-2">I accept the <Link to="/terms"><strong>Terms & Conditions</strong></Link> and <Link to="/privacy"><strong>Privacy Policy</strong></Link></span>
+                  </div>
+                </div>
+                {/* <div className="text-start">
+                  <button type="button" onClick={() => navigate('/forgot-password')}
+
+                    className={`py-[5px] mb-[20px] text-[16px] ${false ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
+                      }`}
+                  >
+                    <strong>{'Forgot Password?'}</strong>
+                  </button>
+                </div> */}
+                <button type='submit'
+                  disabled={submitting}
+                  className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
+                >
+                  <strong>{submitting ? 'Registering...' : 'Create Account'}</strong>
+                </button>
+              </div>
+              <div className="text-center my-9">
+                              Have an account? <strong><Link to='/login'>Sign in</Link></strong>
+                            </div>
+
+                      <style jsx>{`
+                input[type="checkbox"] {
+                  appearance: none;
+                  position: relative;
+                }
+                input[type="checkbox"]:checked::after {
+                  content: "✔";
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  color: #000;
+                  font-size: 14px;
+                }
+              `}</style>
+            </div>
+          </form>
+
+        </div>
       </div>
       <Footer />
     </>
@@ -342,7 +404,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
       <select
         value={day}
         onChange={(e) => setDay(e.target.value)}
-        className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
+        className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
       >
         <option value="">Day</option>
         {days.map((d) => (
@@ -353,7 +415,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
       <select
         value={month}
         onChange={(e) => setMonth(e.target.value)}
-        className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
+        className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
       >
         <option className="" value="">Month</option>
         {months.map((m) => (
@@ -364,7 +426,8 @@ const DateOfBirthInput = forwardRef((props, ref) => {
       <select
         value={year}
         onChange={(e) => setYear(e.target.value)}
-        className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
+        //className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
+        className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
       >
         <option value="">Year</option>
         {years.map((y) => (
