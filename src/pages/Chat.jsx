@@ -530,6 +530,7 @@
 // };
 
 // export default Chat;
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 import {
@@ -538,6 +539,8 @@ import {
   FaPaperPlane,
   FaArchive,
   FaPaperclip,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
@@ -561,14 +564,19 @@ const Chat = () => {
   const [loading, setLoading] = useState(true); //loading for chat sidebar
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
-  const {user,refreshUser,getProvinceName,profileCosts,checkUnreadMessages} = useStateContext();
+  const {
+    user,
+    refreshUser,
+    getProvinceName,
+    profileCosts,
+    checkUnreadMessages,
+  } = useStateContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [isRead, setReadStatus] = useState(2);
-
   const messagesRef = useRef(messages);
   const messagesContainerRef = useRef(null);
-
   const [isTimeout, setIsTimeout] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleTimeout = () => {
@@ -577,8 +585,6 @@ const Chat = () => {
       setIsTimeout(false);
     }, 60000); // 60 seconds = 60000 ms
   };
-
-  
 
   // Fetch chats based on active tab (either 'all' or 'archived')
   const fetchChats = async () => {
@@ -604,15 +610,14 @@ const Chat = () => {
         markLastMessageAsRead(chatId);
         if (lastMessage.sent === true) {
           // If message is not sent (assuming this means it's received)
-          
           if (lastMessage.is_read === 1) {
-            setReadStatus(1);  // Message is read
+            setReadStatus(1); // Message is read
           } else {
             setReadStatus(0); // Message is unread
           }
         }
       }
-      
+
       scrollToBottom();
     } catch (err) {
       console.error("Error fetching messages:", err);
@@ -626,38 +631,42 @@ const Chat = () => {
       clearInterval(pollingInterval);
     }
     //console.log('pooler',chats);
-    
+
     // Start new polling
     const interval = setInterval(async () => {
       // console.log('ref',messagesRef.current.length);
       // console.log(Math.max(...messagesRef.current.map(m => m.id)))
-      const lastMessageId = messagesRef.current.length > 0 ? Math.max(...messagesRef.current.map(m => m.id)) : 0;
+      const lastMessageId =
+        messagesRef.current.length > 0
+          ? Math.max(...messagesRef.current.map((m) => m.id))
+          : 0;
       //console.log(chatId,lastMessageId,messages);
       try {
-        const response = await axiosClient.get(`/api/chats/${chatId}/messages/poll?last_message_id=${lastMessageId}`);
+        const response = await axiosClient.get(
+          `/api/chats/${chatId}/messages/poll?last_message_id=${lastMessageId}`
+        );
         // console.log(response.data);
         if (response.data.length > 0) {
-          setMessages(prev => [...prev, ...response.data]);
+          setMessages((prev) => [...prev, ...response.data]);
           scrollToBottom();
         }
       } catch (err) {
         console.error("Error polling messages:", err);
       }
     }, 10000); // Poll every 8 seconds
-    
+
     setPollingInterval(interval);
   };
 
   // Archive/unarchive chat
   const toggleArchive = async (chatId, archive) => {
     try {
-      const endpoint = archive ? 'archive' : 'unarchive';
+      const endpoint = archive ? "archive" : "unarchive";
       await axiosClient.post(`/api/chats/${chatId}/${endpoint}`);
       fetchChats(); // Refresh chat list
-
       //Update archive status without fetchChats();
       if (selectedChat?.id === chatId) {
-        setSelectedChat(prev => ({ ...prev, is_archived: archive }));
+        setSelectedChat((prev) => ({ ...prev, is_archived: archive }));
       }
     } catch (err) {
       console.error("Error toggling archive:", err);
@@ -668,41 +677,49 @@ const Chat = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim() || !selectedChat) return;
-    
-    try {
-      const response = await axiosClient.post(`/api/chats/${selectedChat.id}/messages`, {
-        message: newMessage
-      });
 
+    try {
+      const response = await axiosClient.post(
+        `/api/chats/${selectedChat.id}/messages`,
+        {
+          message: newMessage,
+        }
+      );
       //Message interrupted by moderation
-      if(response.status == 202){
-        toast.warn(response.data.message,{
+      if (response.status == 202) {
+        toast.warn(response.data.message, {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
-        })
+        });
         setNewMessage("");
         scrollToBottom();
         handleTimeout();
         return;
       }
       //console.log(response.data);
-      setMessages(prev => [...prev, {
-        ...response.data,
-        //sentter: true,
-        //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          ...response.data,
+          //sentter: true,
+          //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
+        },
+      ]);
       fetchChats();
       setReadStatus(0);
       //console.log('pooler',messages)
       setNewMessage("");
       scrollToBottom();
     } catch (err) {
-      toast.error('Error sending message, Your message must not be greater than 1000 characters.',{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
+      toast.error(
+        "Error sending message, Your message must not be greater than 1000 characters.",
+        {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
       setNewMessage("");
       console.error("Error sending message:", err);
     }
@@ -714,18 +731,20 @@ const Chat = () => {
     if (messagesContainerRef.current && messagesEndRef.current) {
       const container = messagesContainerRef.current;
       const scrollHeight = messagesEndRef.current.offsetTop;
-      
+
       container.scrollTo({
         top: scrollHeight,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
 
   // Handle chat selection
-  const handleSelectChat = (chat) => { //Passing chat object
+  const handleSelectChat = (chat) => {
+    //Passing chat object
     setReadStatus(2);
     setSelectedChat(chat);
+    setIsMobileSidebarOpen(false); // Close mobile sidebar when chat is selected
     // console.log('chatter',chat);
     fetchMessages(chat.id);
     // startPolling(chat.id);
@@ -736,21 +755,21 @@ const Chat = () => {
     const echo = getEcho();
     // Subscribe to private channel
     const channel = echo.private(`chatter.${selectedChat.id}`);
-  
+
     // Listen for new messages (with Laravel's dot notation)
-    channel.listen('.NewMessage', (data) => {
+    channel.listen(".NewMessage", (data) => {
       const payload = data.message;
-      const sender_id = data.sender_id
+      const sender_id = data.sender_id;
       // console.log('payload',data)
       // console.log(payload['sent'] === user.id)
       // payload['sent'] = payload['sent'] === user.id
       // if(payload['sent'] == false){
-      if((sender_id === user.id) == false){
-        setMessages(prev => [...prev, payload]);
+      if ((sender_id === user.id) == false) {
+        setMessages((prev) => [...prev, payload]);
         setReadStatus(2);
         markLastMessageAsRead(selectedChat.id);
       }
-      
+
       // console.log(data.message);
       // setMessages(prev => [...prev, {
       //   ...response.data,
@@ -758,24 +777,22 @@ const Chat = () => {
       //   //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
       // }]);
     });
-
-    channel.listen('.NewMessageAfterMod', (data) => {
+    channel.listen(".NewMessageAfterMod", (data) => {
       //fetchMessages(selectedChat.id);
       handleSelectChat(selectedChat);
     });
-    
+
     // // Subscribe to private channel
     // const channel2 = echo.private(`chatter.${selectedChat.id}`);
-  
+
     // Listen for new messages (with Laravel's dot notation)
-    channel.listen('.MessageRead', (data) => {
-      
+    channel.listen(".MessageRead", (data) => {
       // console.log('resdbroadcast',data)
-      const currentMsgs = messagesRef.current
+      const currentMsgs = messagesRef.current;
       const lastMessage = currentMsgs[currentMsgs.length - 1];
       // console.log('resdbroadcast',messages,messages[messages.length - 1]);
-      if(data.messageId == lastMessage.id){
-        if(data.readerId != user.id){
+      if (data.messageId == lastMessage.id) {
+        if (data.readerId != user.id) {
           setReadStatus(1);
         }
       }
@@ -785,7 +802,6 @@ const Chat = () => {
       //   //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
       // }]);
     });
-
     // Listen for read receipts
     // channel.listen('.MessageRead', (data) => {
     //   setMessages(prev =>
@@ -796,81 +812,77 @@ const Chat = () => {
     //     )
     //   );
     // });
-  
+
     // Connection debugging
-    echo.connector.pusher.connection.bind('connected', () => {
-      console.log('✅ Connected to private chat channel');
+    echo.connector.pusher.connection.bind("connected", () => {
+      console.log("✅ Connected to private chat channel");
     });
-  
-    echo.connector.pusher.connection.bind('error', (error) => {
-      console.error('Pusher error:', error);
+
+    echo.connector.pusher.connection.bind("error", (error) => {
+      console.error("Pusher error:", error);
     });
-  
+
     // Cleanup
     return () => {
-      channel.stopListening('.NewMessage');
-      channel.stopListening('.MessageRead');
-      channel.stopListening('.NewMessageAfterMod');
+      channel.stopListening(".NewMessage");
+      channel.stopListening(".MessageRead");
+      channel.stopListening(".NewMessageAfterMod");
       echo.leave(`chat.${selectedChat.id}`);
     };
   }, [selectedChat]);
 
   const markLastMessageAsRead = async (chatId) => {
     try {
-        const response = await axiosClient.post(`/api/chats/${chatId}/messages/read`);
-        checkUnreadMessages();
-        // console.log('readSent',response.data.message);
+      const response = await axiosClient.post(
+        `/api/chats/${chatId}/messages/read`
+      );
+      checkUnreadMessages();
+      // console.log('readSent',response.data.message);
     } catch (error) {
-        console.error('Error marking last message as read:', error);
+      console.error("Error marking last message as read:", error);
     }
-};
+  };
+
   useEffect(() => {
     const echo = getEcho();
-    echo.connector.pusher.connection.bind('connected', () => {
-        // console.log('✅ WebSocket CONNECTED');
+    echo.connector.pusher.connection.bind("connected", () => {
+      // console.log('✅ WebSocket CONNECTED');
     });
-    echo.connector.pusher.connection.bind('failed', () => {
-        // console.log('❌ WebSocket FAILED');
+    echo.connector.pusher.connection.bind("failed", () => {
+      // console.log('❌ WebSocket FAILED');
     });
-    echo.connector.pusher.connection.bind('error', (err) => {
-        console.error('WebSocket ERROR:', err);
+    echo.connector.pusher.connection.bind("error", (err) => {
+      console.error("WebSocket ERROR:", err);
     });
     //const channel = echo.channel('chat');
     const channel = echo.private(`App.Models.User.${user.id}`);
     // Proper event listening with dot prefix
-    channel.listen('.NewMessage', (data) => {
-        
+    channel.listen(".NewMessage", (data) => {
       //Because chat list is reset when user sends msg, there's no need to reset chat list again when we receive broadcat of our own message.
-        if((data.sender_id === user.id) == false){
-          fetchChats();
-        }
-
-        //(prev => [...prev, data.message]);
+      if ((data.sender_id === user.id) == false) {
+        fetchChats();
+      }
+      //(prev => [...prev, data.message]);
     });
-
-    channel.listen('.NewMessageAfterMod', (data) => {
-      
-          fetchChats();
-       
+    channel.listen(".NewMessageAfterMod", (data) => {
+      fetchChats();
     });
-
     // Connection debugging
-    echo.connector.pusher.connection.bind('connected', () => {
-        // console.log('Connected to WebSocket!');
+    echo.connector.pusher.connection.bind("connected", () => {
+      // console.log('Connected to WebSocket!');
     });
-
     return () => {
-        channel.stopListening('.NewMessage');
-        channel.stopListening('.NewMessageAfterMod');
-        echo.leave(`App.Models.User.${user.id}`);
+      channel.stopListening(".NewMessage");
+      channel.stopListening(".NewMessageAfterMod");
+      echo.leave(`App.Models.User.${user.id}`);
     };
-}, []);
+  }, []);
 
   // Initialize
   useEffect(() => {
     fetchChats();
     checkUnreadMessages();
-    
+
     return () => {
       if (pollingInterval) {
         clearInterval(pollingInterval);
@@ -897,28 +909,54 @@ const Chat = () => {
   return (
     <>
       <Header />
-      <div className="flex h-screen w-[98%] md:w-[90%] mx-auto my-10 ">
+      <div className="flex h-screen w-[98%] md:w-[90%] mx-auto my-4 md:my-10 relative">
+        {/* Mobile Sidebar Overlay */}
+        {isMobileSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setIsMobileSidebarOpen(false)}
+          />
+        )}
+
         {/* Sidebar */}
-        <div className="w-80 border-r border-gray-200 bg-white flex flex-col">
-          <div className="p-6 flex-shrink-0">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">Chat</h1>
+        <div
+          className={`
+          ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          md:translate-x-0 fixed md:relative z-50 md:z-auto
+          w-80 md:w-80 h-full md:h-auto
+          border-r border-gray-200 bg-white flex flex-col
+          transition-transform duration-300 ease-in-out
+        `}
+        >
+          <div className="p-4 md:p-6 flex-shrink-0">
+            {/* Mobile close button */}
+            <div className="flex items-center justify-between mb-4 md:mb-0">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
+                Chat
+              </h1>
+              <button
+                className="md:hidden p-2 text-gray-500 hover:text-gray-700"
+                onClick={() => setIsMobileSidebarOpen(false)}
+              >
+                <FaTimes className="text-lg" />
+              </button>
+            </div>
 
             {/* Search */}
-            <div className="relative mb-6">
-              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+            <div className="relative mb-4 md:mb-6">
+              <FaSearch className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
               <input
                 type="text"
                 placeholder="Search messages"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 md:pl-12 pr-4 py-2 md:py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
               />
             </div>
-
             {/* Tab Buttons */}
             <div className="flex gap-2 mb-4">
               <button
-                className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
                   activeTab === "all"
                     ? "bg-[#8880FE] text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -928,7 +966,7 @@ const Chat = () => {
                 ALL
               </button>
               <button
-                className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
                   activeTab === "archived"
                     ? "bg-[#8880FE] text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -939,7 +977,6 @@ const Chat = () => {
               </button>
             </div>
           </div>
-
           {/* Chat List */}
           <div className="flex-1 overflow-y-auto">
             {loading ? (
@@ -970,15 +1007,15 @@ const Chat = () => {
                           ) || "/placeholder.svg"
                         }
                         alt={chat.other_user.name}
-                        className="w-12 h-12 rounded-full object-cover"
+                        className="w-10 md:w-12 h-10 md:h-12 rounded-full object-cover"
                       />
                       {/* Online indicator - you can add online status logic here */}
-                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                      <div className="absolute bottom-0 right-0 w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full border-2 border-white"></div>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <p
-                          className={`font-semibold truncate ${
+                          className={`font-semibold truncate text-sm md:text-base ${
                             selectedChat?.id === chat.id
                               ? "text-white"
                               : "text-gray-900"
@@ -987,7 +1024,7 @@ const Chat = () => {
                           {chat.other_user.name}
                         </p>
                         <span
-                          className={`text-sm ${
+                          className={`text-xs md:text-sm ${
                             selectedChat?.id === chat.id
                               ? "text-white/80"
                               : "text-gray-500"
@@ -999,7 +1036,7 @@ const Chat = () => {
                         </span>
                       </div>
                       <p
-                        className={`text-sm truncate ${
+                        className={`text-xs md:text-sm truncate ${
                           selectedChat?.id === chat.id
                             ? "text-white/80"
                             : "text-gray-600"
@@ -1030,13 +1067,21 @@ const Chat = () => {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col w-full md:w-auto">
           {selectedChat ? (
             <>
               {/* Chat Header */}
-              <div className="border-b border-gray-200 p-6 bg-white">
+              <div className="border-b border-gray-200 p-3 md:p-6 bg-white">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2 md:space-x-4">
+                    {/* Mobile menu button */}
+                    <button
+                      className="md:hidden p-2 text-gray-500 hover:text-gray-700"
+                      onClick={() => setIsMobileSidebarOpen(true)}
+                    >
+                      <FaBars className="text-lg" />
+                    </button>
+
                     <img
                       src={
                         getAttachmentURL(
@@ -1044,27 +1089,27 @@ const Chat = () => {
                         ) || "/placeholder.svg"
                       }
                       alt={selectedChat.other_user.name}
-                      className="w-12 h-12 rounded-full object-cover"
+                      className="w-10 md:w-12 h-10 md:h-12 rounded-full object-cover"
                     />
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-900">
+                      <h2 className="text-lg md:text-xl font-semibold text-gray-900">
                         {selectedChat.other_user.name}
                       </h2>
-                      <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <div className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         <span>Online</span>
                         {selectedChat.other_user.dob && (
                           <>
-                            <span>•</span>
-                            <span>
+                            <span className="hidden sm:inline">•</span>
+                            <span className="hidden sm:inline">
                               {getAge(selectedChat.other_user.dob)} years old
                             </span>
                           </>
                         )}
                         {selectedChat.other_user.province_id && (
                           <>
-                            <span>•</span>
-                            <span>
+                            <span className="hidden md:inline">•</span>
+                            <span className="hidden md:inline">
                               {getProvinceName(
                                 selectedChat.other_user.province_id
                               )}
@@ -1074,15 +1119,15 @@ const Chat = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-1 md:space-x-3">
                     <Link
                       to={`/user-profile/${selectedChat.other_user.name}`}
-                      className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors"
+                      className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium transition-colors"
                     >
                       Profile
                     </Link>
                     <button
-                      className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium flex items-center space-x-2 transition-colors"
+                      className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
                       onClick={() =>
                         toggleArchive(
                           selectedChat.id,
@@ -1090,8 +1135,8 @@ const Chat = () => {
                         )
                       }
                     >
-                      <FaArchive className="text-sm" />
-                      <span>
+                      <FaArchive className="text-xs md:text-sm" />
+                      <span className="hidden sm:inline">
                         {selectedChat.is_archived ? "Unarchive" : "Archive"}
                       </span>
                     </button>
@@ -1100,21 +1145,22 @@ const Chat = () => {
                 </div>
                 {/* Unlock status */}
                 {selectedChat.unlocked && (
-                  <div className="mt-3 text-sm text-gray-600">
+                  <div className="mt-3 text-xs md:text-sm text-gray-600">
                     <span>You unlocked the chat. Access is active.</span>
                   </div>
                 )}
               </div>
-
               {/* Messages */}
               <div
                 ref={messagesContainerRef}
-                className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50"
+                className="flex-1 overflow-y-auto p-3 md:p-6 space-y-3 md:space-y-4 bg-gray-50"
               >
                 {messages.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
-                    <FaComments className="mx-auto text-4xl mb-4 text-gray-300" />
-                    <p>No messages yet. Start the conversation!</p>
+                    <FaComments className="mx-auto text-3xl md:text-4xl mb-4 text-gray-300" />
+                    <p className="text-sm md:text-base">
+                      No messages yet. Start the conversation!
+                    </p>
                   </div>
                 ) : (
                   messages.map((msg, index) => (
@@ -1129,15 +1175,15 @@ const Chat = () => {
                           src={
                             getAttachmentURL(
                               selectedChat.other_user.profile_picture_id
-                            )
+                            ) || "/placeholder.svg"
                           }
                           alt={selectedChat.other_user.name}
-                          className="w-8 h-8 rounded-full object-cover mr-3 mt-1 flex-shrink-0"
+                          className="w-6 md:w-8 h-6 md:h-8 rounded-full object-cover mr-2 md:mr-3 mt-1 flex-shrink-0"
                         />
                       )}
-                      <div className="flex flex-col max-w-xs lg:max-w-md">
+                      <div className="flex flex-col max-w-[75%] sm:max-w-xs lg:max-w-md">
                         <div
-                          className={`px-4 py-2 rounded-2xl ${
+                          className={`px-3 md:px-4 py-2 rounded-2xl text-sm md:text-base ${
                             msg.sent === user.id
                               ? "bg-[#8880FE] text-white rounded-br-md"
                               : "bg-[#F1F1F1] text-gray-900 rounded-bl-md shadow-sm"
@@ -1157,18 +1203,18 @@ const Chat = () => {
                       </div>
                       {msg.sent === user.id && (
                         <img
-                          src={getAttachmentURL(
-                            user.profile_picture_id
-                          )}
+                          src={
+                            getAttachmentURL(user.profile_picture_id) ||
+                            "/placeholder.svg"
+                          }
                           alt="You"
-                          className="w-8 h-8 rounded-full object-cover ml-3 mt-1 flex-shrink-0"
+                          className="w-6 md:w-8 h-6 md:h-8 rounded-full object-cover ml-2 md:ml-3 mt-1 flex-shrink-0"
                         />
                       )}
                     </div>
                   ))
                 )}
                 <div ref={messagesEndRef} />
-
                 {/* Read status */}
                 <div className="flex justify-end">
                   <span className="text-xs text-gray-500">
@@ -1176,21 +1222,20 @@ const Chat = () => {
                   </span>
                 </div>
               </div>
-
               {/* Message Input */}
-              <div className="border-t border-gray-200 p-6 bg-white">
+              <div className="border-t border-gray-200 p-3 md:p-6 bg-white">
                 {selectedChat.unlocked ? (
                   <>
                     {!isTimeout ? (
                       <form
                         onSubmit={sendMessage}
-                        className="flex items-center space-x-4"
+                        className="flex items-center space-x-2 md:space-x-4"
                       >
                         <button
                           type="button"
-                          className="p-3 text-gray-400 hover:text-gray-600 transition-colors"
+                          className="p-2 md:p-3 text-gray-400 hover:text-gray-600 transition-colors"
                         >
-                          <FaPaperclip className="text-lg" />
+                          <FaPaperclip className="text-base md:text-lg" />
                         </button>
                         <div className="flex-1 relative">
                           <input
@@ -1198,19 +1243,19 @@ const Chat = () => {
                             placeholder="Type a message"
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
-                            className="w-full px-4 py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
                           />
                         </div>
                         <button
                           type="submit"
                           disabled={!newMessage.trim()}
-                          className="p-3 bg-[#8880FE] text-white rounded-xl hover:bg-violet-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2 md:p-3 bg-[#8880FE] text-white rounded-xl hover:bg-violet-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          <FaPaperPlane />
+                          <FaPaperPlane className="text-sm md:text-base" />
                         </button>
                       </form>
                     ) : (
-                      <div className="flex-1 p-4 bg-gray-100 rounded-xl text-gray-600 text-center">
+                      <div className="flex-1 p-3 md:p-4 bg-gray-100 rounded-xl text-gray-600 text-center text-sm md:text-base">
                         Cannot send message for 60 seconds
                       </div>
                     )}
@@ -1229,7 +1274,7 @@ const Chat = () => {
                               selectedChat.other_user.name
                             )
                           }
-                          className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-4 px-6 rounded-xl transition-colors uppercase text-lg"
+                          className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 md:py-4 px-4 md:px-6 rounded-xl transition-colors uppercase text-sm md:text-lg"
                         >
                           {`UNLOCK CHAT FOR ${getUserCost(
                             selectedChat.other_user.top_profile,
@@ -1239,7 +1284,7 @@ const Chat = () => {
                         </button>
                       </div>
                     ) : (
-                      <div className="flex-1 p-4 bg-gray-100 rounded-xl text-gray-600 text-center">
+                      <div className="flex-1 p-3 md:p-4 bg-gray-100 rounded-xl text-gray-600 text-center text-sm md:text-base">
                         Cannot send message until other user unlocks the chat
                       </div>
                     )}
@@ -1249,16 +1294,22 @@ const Chat = () => {
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center bg-gray-50">
-              <div className="text-center">
-                <FaComments className="mx-auto text-6xl text-gray-300 mb-4" />
-                <p className="text-xl text-gray-500">
+              <div className="text-center px-4">
+                {/* Mobile menu button when no chat selected */}
+                <button
+                  className="md:hidden mb-4 p-3 bg-[#8880FE] text-white rounded-xl hover:bg-violet-500 transition-colors"
+                  onClick={() => setIsMobileSidebarOpen(true)}
+                >
+                  <FaBars className="text-lg" />
+                </button>
+                <FaComments className="mx-auto text-4xl md:text-6xl text-gray-300 mb-4" />
+                <p className="text-lg md:text-xl text-gray-500">
                   Select a chat to start messaging
                 </p>
               </div>
             </div>
           )}
         </div>
-        
       </div>
       <Footer />
     </>
