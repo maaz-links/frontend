@@ -10,6 +10,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { ROLES } from "../../constants";
 import { toast } from "react-toastify";
 import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
+import femaleIcon from "../assets/icons/female-symbol.svg";
+import femaleIconWhite from "../assets/icons/female-symbol-white.svg";
+import maleIcon from "../assets/icons/male-symbol.svg";
+import maleIconWhite from "../assets/icons/male-symbol-white.svg";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -42,46 +46,59 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">CHOOSE A PROFILE</h1>
-      <div className="max-w-[971px] mx-auto mt-[50px] md:mt-[100px] px-[15px] mb-[50px] md:mb-[121px]">
+      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+      <h1 className="text-center text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
+      <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Choose a Profile</h2>
+      <div className="max-w-[971px] mx-auto px-[15px] mb-[50px]">
         {/* Selection Options */}
-        <div className="flex flex-col md:flex-row  gap-[30px] md:gap-[150px] mb-6">
+        <div className="flex flex-col md:flex-row gap-[30px] mb-6">
           {/* Option 1 */}
           <div
-            className={`relative w-full md:w-[50%] h-[171px]  flex items-center justify-center bg-[#F5F5F5]  cursor-pointer  border-4
-          ${myRole === ROLES.HOSTESS ? "border-[#E91E63]" : "border-[#FFFFFF]"}`}
+            className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-5 flex flex-wrap items-center justify-center cursor-pointer 
+          ${myRole === ROLES.HOSTESS ? "bg-[#8880FE] text-white" : "bg-[#F3F3F5] text-black"}`}
             onClick={() => handleSelect(ROLES.HOSTESS)}
           >
-            <p className="text-[#424242] text-center text-[22px]">I am an hostess or model</p>
-            <span
-              className={`absolute top-2 right-2 w-4 h-4 rounded-full
+            <img
+              className="w-[40%]"
+              src={myRole === ROLES.HOSTESS ? femaleIconWhite : femaleIcon}
+              alt="Hostess Icon"
+            />
+            <p className="text-center text-[15px] sm:text-[22px]"><strong>I am an hostess or model</strong></p>
+            {/* <span
+              className={`absolute top-2 right-2 w-4 h-4 rounded-fulll
             ${myRole === ROLES.HOSTESS ? "bg-[#E91E63]" : "bg-white"}`}
-            ></span>
+            ></span> */}
           </div>
 
           {/* Option 2 */}
           <div
-            className={`relative w-full md:w-[50%] h-[171px] flex items-center justify-center bg-[#F5F5F5]  cursor-pointer border-4
-          ${myRole === ROLES.KING ? "border-[#E91E63]" : "border-[#FFFFFF]"}`}
+            className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-5 flex flex-wrap items-center justify-center cursor-pointer 
+          ${myRole === ROLES.KING ? "bg-[#8880FE] text-white" : "bg-[#F3F3F5] text-black"}`}
             onClick={() => handleSelect(ROLES.KING)}
           >
-            <p className="text-[#424242] text-center text-[22px]">I am looking for an hostess or model</p>
-            <span
-              className={`absolute top-2 right-2 w-4 h-4 rounded-full 
-            ${myRole === ROLES.KING ? "bg-[#E91E63]" : "bg-white"}`}
-            ></span>
+            <img
+              className="w-[40%]"
+              src={myRole === ROLES.KING ? maleIconWhite : maleIcon}
+              alt="King Icon"
+            />
+            <p className="text-center text-[15px] sm:text-[22px]"><strong>I am looking for an hostess or model</strong></p>
+            {/* <span
+              className={`absolute top-2 right-2 w-4 h-4 rounded-fulll
+            ${myRole === ROLES.HOSTESS ? "bg-[#E91E63]" : "bg-white"}`}
+            ></span> */}
           </div>
         </div>
 
         {/* Next Button */}
         <div className="ext-center max-w-[200px] mx-auto mt-[30px] md:mt-[70px]">
           <button
-            className="cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]"
+            className="cursor-pointer w-full bg-black text-[20px] text-white p-[12px] rounded-4xl"
             onClick={handleNext}
           >
-            NEXT
+            <strong>NEXT</strong>
           </button>
         </div>
+      </div>
       </div>
       <Footer />
     </>
@@ -119,7 +136,7 @@ const CreatSignup = ({myRole}) => {
     );
   };
 
-  const { setUser, setToken } = useStateContext()
+  const { setUser, setToken } = useStateContext();
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     if(!RecaptchaVerify(recaptchaToken)){
@@ -139,7 +156,7 @@ const CreatSignup = ({myRole}) => {
       phone: phoneRef.current.value,
       role: myRole,
       isModel: isModel,
-      newsletter: newsletterRef.current.checked,
+      newsletter: 0,
     };
     // console.log(payload)
     //return;
@@ -180,7 +197,7 @@ const CreatSignup = ({myRole}) => {
     <>
       <Header />
       
-      <div className="max-w-[700px] mx-auto border-2 rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
         <h1 className="text-center text-[38px] my-7"><strong>Free Registration</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
@@ -403,7 +420,7 @@ const DateOfBirthInput = forwardRef((props, ref) => {
     <div className="flex space-x-2">
       <select
         value={day}
-        onChange={(e) => setDay(e.target.value)}
+        onChange={(e) => {setDay(e.target.value);}}
         className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
       >
         <option value="">Day</option>

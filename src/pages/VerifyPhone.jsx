@@ -125,8 +125,8 @@ function VerifyPhone() {
   return (
     <>
       <Header />
-      <div className="max-w-[700px] mx-auto border-2 rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
-        <h1 className="text-center text-[38px] font-[bold] ">Mobile Phone Verification</h1>
+      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+        <h1 className="text-center text-[38px]"><strong>Mobile Phone Verification</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 

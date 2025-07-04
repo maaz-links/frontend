@@ -117,7 +117,7 @@ function Login() {
       <Header />
 
 
-      <div className="max-w-[700px] mx-auto border-2 rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
         <h1 className="text-center text-[38px] my-7"><strong>Log In</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
