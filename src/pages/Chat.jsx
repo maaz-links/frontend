@@ -1079,7 +1079,7 @@ const Chat = () => {
                           src={
                             getAttachmentURL(
                               selectedChat.other_user.profile_picture_id
-                            ) || "/placeholder.svg"
+                            )
                           }
                           alt={selectedChat.other_user.name}
                           className="w-8 h-8 rounded-full object-cover mr-3 mt-1 flex-shrink-0"
@@ -1107,7 +1107,9 @@ const Chat = () => {
                       </div>
                       {msg.sent === user.id && (
                         <img
-                          src="/placeholder.svg?height=32&width=32"
+                          src={getAttachmentURL(
+                            user.profile_picture_id
+                          )}
                           alt="You"
                           className="w-8 h-8 rounded-full object-cover ml-3 mt-1 flex-shrink-0"
                         />
