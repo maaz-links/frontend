@@ -8,7 +8,7 @@ const PromoBanner = () => {
         {`
           .promo-banner {
             background-image: var(--mobile-bg, linear-gradient(90deg, #6B46C1, #E6E6FA));
-            background-size: contain;
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
@@ -23,7 +23,7 @@ const PromoBanner = () => {
       </style>
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="relative overflow-visible rounded-[2rem] md:px-8 pt-12 pb-5 md:py-16 flex flex-col md:flex-row items-center  promo-banner  md:h-fit "
+          className="relative overflow-visible rounded-[2rem] md:px-8 pt-12  md:py-16 flex flex-col md:flex-row items-center  promo-banner  md:h-fit "
           style={{
             "--mobile-bg": `url(${mobileImage})`,
             "--desktop-bg": `url(${desktopImage})`,
@@ -50,7 +50,7 @@ const PromoBanner = () => {
             <img
               src="/src/assets/images/hostess.png"
               alt="Hostess or Model"
-              className="md:absolute md:bottom-[-10rem] md:right-[5rem] w-full   md:w-[320px] lg:w-[370px] object-cover z-20"
+              className="md:absolute md:bottom-[-10rem]  md:right-[5rem] h-[392px]  w-[397.60546875px] md:w-[320px] lg:w-[370px] object-cover z-20"
             />
           </div>
         </div>

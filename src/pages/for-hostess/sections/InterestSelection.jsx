@@ -3,7 +3,6 @@ import { useStateContext } from "../../../context/ContextProvider";
 function InterestSelectionSection() {
   const { token } = useStateContext();
 
-  // Sample data for interest areas, grouped into rows to match the image's staggered layout
   const interestAreas = [
     [
       { name: "Photo Model", selected: true },
@@ -24,20 +23,23 @@ function InterestSelectionSection() {
   ];
 
   return (
-    <div className="interest-section bg-white max-w-[1300px] m-auto p-[20px] lg:p-[40px] flex flex-col items-center">
-      <h2 className="text-[#1A2E5A] mb-[15px] font-bold text-[32px] leading-[38px] tracking-[-0.64px] text-center">
+    <div className="interest-section bg-white m-auto p-5 lg:p-10 flex flex-col items-center">
+      <h2 className="text-[#1A2E5A] mb-4 font-bold text-2xl lg:text-[32px] leading-[38px] tracking-[-0.64px] text-center">
         You Can Choose the Areas that Interest you Most
       </h2>
-      <p className="text-[#4A4A4A] text-[14px] leading-[20px] font-[400] text-center mb-[30px] max-w-[600px]">
+      <p className="text-[#4A4A4A] text-sm leading-[20px] font-[400] text-center mb-7 lg:max-w-[600px]">
         When filling out your profile, select what interests you most and receive offers based on your preferences.
       </p>
-      <div className="flex flex-col items-center w-full max-w-[700px]">
+      <div className="flex flex-col items-center w-full max-w-[90%] lg:max-w-[700px]">
         {interestAreas.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex justify-center gap-[10px] mb-[10px] w-full">
+          <div
+            key={rowIndex}
+            className="flex flex-wrap justify-center gap-2 mb-2.5 w-full"
+          >
             {row.map((area, index) => (
               <button
                 key={index}
-                className={`px-[15px] py-[8px] rounded-[8px] text-[14px] leading-[20px] font-[400] flex items-center justify-center ${
+                className={`px-3.5 py-2 rounded-[8px] text-sm leading-[20px] font-[400] flex items-center justify-center ${
                   area.selected
                     ? "bg-[#F2F2FF] text-[#8880FE]"
                     : "bg-[#F3F3F5] text-[#090909]"

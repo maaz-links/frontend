@@ -96,9 +96,9 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="text-white  w-full md:p-10 font-[400]  flex flex-col md:flex-row items-center ">
-          <div className="md:w-1/2 p-5">
-            <h1 className="text-[58px] font-bold mb-4 leading-[60px]">
+        <div className="text-white  w-full md:p-10 font-[400]  flex flex-col md:flex-row md:items-center justify-around ">
+          <div className="p-5 w-[295px] md:w-[486px]">
+            <h1 className="text-[32px] md:text-[58px] font-bold mb-4 leading-[60px]">
               Do You Have Any Question?
             </h1>
             <p className="text-[20px] font-[400] leading-[30px] text-[#FFFFFF] mb-6">
@@ -106,7 +106,7 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
               companionship - on your terms
             </p>
           </div>
-          <div className="md:w-1/2 p-5">
+          <div className="md:w-1/2 p-5 ">
             {submitSuccess && (
               <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
                 Thank you! Your request has been submitted successfully.

@@ -93,8 +93,41 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <div key={index} className="text-center group">
               <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 group-hover:bg-purple-100 group-hover:text-purple-600 transition-colors duration-300">
-                  {step.icon}
+                <div className="flex gap-15 items-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 group-hover:bg-purple-100 group-hover:text-purple-600 transition-colors duration-300">
+                    {step.icon}
+                  </div>
+                  {index < steps.length-1 && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="34"
+                      height="17"
+                      viewBox="0 0 34 17"
+                      fill="none"
+                      className="hidden md:block"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M33.1502 9.35987L26.4032 16.2498L24.7168 14.5276L30.6206 8.49878L24.7168 2.46997L26.4032 0.747803L33.1502 7.6377C33.3738 7.8661 33.4994 8.17583 33.4994 8.49878C33.4994 8.82174 33.3738 9.13147 33.1502 9.35987Z"
+                        fill="#090909"
+                      />
+                      <path
+                        opacity="0.3"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M21.2244 9.35987L14.4775 16.2498L12.791 14.5276L18.6948 8.49878L12.791 2.46997L14.4775 0.747803L21.2244 7.6377C21.448 7.8661 21.5736 8.17583 21.5736 8.49878C21.5736 8.82174 21.448 9.13147 21.2244 9.35987Z"
+                        fill="#090909"
+                      />
+                      <path
+                        opacity="0.1"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M9.29671 9.35987L2.54973 16.2498L0.863281 14.5276L6.76704 8.49878L0.863281 2.46997L2.54973 0.747803L9.29671 7.6377C9.52031 7.8661 9.64591 8.17583 9.64591 8.49878C9.64591 8.82174 9.52031 9.13147 9.29671 9.35987Z"
+                        fill="#090909"
+                      />
+                    </svg>
+                  )}
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">

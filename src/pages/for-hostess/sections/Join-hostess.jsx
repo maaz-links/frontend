@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import HostessImage from "/src/assets/images/servic3.png";
 import WingWomanImage from "/src/assets/images/servic2.png";
 import SugarBabyImage from "/src/assets/images/servic1.png";
-
 import mobileImage from "/src/assets/images/joinnow-mobile.png";
 import desktopImage from "/src/assets/images/joinnow-desktop.png";
 
@@ -30,30 +29,32 @@ function JoinHostess() {
   ];
 
   return (
-    <div className="mb-10 px-2">
-      <div className="hidden md:block mt-[35px] px-[25px] max-w-[1300px] m-auto ">
+    <div className="mb-10 md:px-4 px-1">
+      {/* Desktop */}
+      <div className="hidden md:block mt-9 px-6 max-w-[1300px] m-auto ">
         <div
-          className="h-[110vw] md:max-h-[300px] md:h-[23vw] p-15 md:p-10 lg:p-15 flex flex-wrap justify-between md:items-center"
+          className="min-h-[300px] p-6 lg:p-10 flex flex-wrap justify-between items-center rounded-3xl"
           style={{
             backgroundImage: `url(${desktopImage})`,
-            backgroundSize: "100% 100%",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
           }}
         >
-          <div className="md:w-1/2 text-center md:text-start">
-            <h1 className="text-white mb-[15px] font-bold text-[35px] md:text-[25px] lg:text-[35px]">
+          <div className="w-full md:w-1/2 text-center md:text-start">
+            <h1 className="text-white mb-4 font-bold text-3xl lg:text-[35px]">
               Join HostessForYou
             </h1>
-            <p className="text-white text-[14px] md:text-[12px]  lg:text-[14px] font-[400] md:max-w-[500px]">
+            <p className="text-white text-sm lg:text-[14px] font-[400] md:max-w-[500px]">
               A job you can do in your free time that allows you to meet new
               people and visit new places. Accompany clients and offer your
               company in exchange for a fee agreed directly with them.
             </p>
           </div>
-          <div className="md:w-2/5 flex flex-row-reverse justify-center items-center">
+          <div className="w-full md:w-1/3 flex justify-center md:justify-end mt-4 md:mt-0">
             <Link
               to="/sign-up"
-              className="btn bg-white text-black px-[40px] mt-2 py-[20px] rounded-2xl text-[15px] md:text-[15px] font-[600] leading-[130%]"
+              className="btn bg-white text-black px-10 py-5 rounded-2xl text-base font-[600] leading-[130%]"
             >
               Create your profile for free
             </Link>
@@ -61,36 +62,31 @@ function JoinHostess() {
         </div>
       </div>
 
-      {/* FOR MOBILE */}
-      <div className=" md:hidden mt-[35px]  max-w-[1300px]  bg-red-200 ">
+      {/* Mobile */}
+      <div className="md:hidden mt-9 max-w-[1300px] m-auto ">
         <div
-          className="h-[120vw] md:max-h-[300px]    md:p-10 lg:p-15 flex flex-wrap justify-between items-center"
+          className="min-h-[300px] p-8 flex flex-col items-center pt-16 rounded-3xl "
           style={{
             backgroundImage: `url(${mobileImage})`,
-            backgroundSize: "100% 100%",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
           }}
         >
-          <div className=" w-full h-[35vw] md:w-1/2 text-center md:text-start">
-            <h1 className="text-white  font-bold text-[32px] md:text-[25px] lg:text-[35px] ">
-              Join HostessForYou
-            </h1>
-          </div>
-          <div className="w-full md:w-1/2 text-center md:text-start">
-            <p className="text-white text-[4vw] sm:text-[3vw] md:text-[12px]  lg:text-[14px] font-[400]">
-              A job you can do in your free time that allows you to meet new
-              people and visit new places. Accompany clients and offer your
-              company in exchange for a fee agreed directly with them.
-            </p>
-          </div>
-          <div className="w-full md:w-2/5 flex flex-row-reverse justify-center items-center">
-            <Link
-              to="/sign-up"
-              className="btn bg-white text-black px-[40px] py-[20px] rounded-2xl mt-[5vw] text-[3vw] md:text-[15px] font-[600] leading-[130%]"
-            >
-              Create your profile for free
-            </Link>
-          </div>
+          <h1 className="text-white font-bold text-3xl text-center">
+            Join HostessForYou
+          </h1>
+          <p className="text-white text-sm font-[400] text-center mt-4">
+            A job you can do in your free time that allows you to meet new
+            people and visit new places. Accompany clients and offer your
+            company in exchange for a fee agreed directly with them.
+          </p>
+          <Link
+            to="/sign-up"
+            className="btn bg-white text-black px-10 py-4 rounded-2xl mt-6 text-base font-[600] leading-[130%]"
+          >
+            Create your profile for free
+          </Link>
         </div>
       </div>
     </div>
