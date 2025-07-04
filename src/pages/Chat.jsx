@@ -554,24 +554,20 @@ import { createChat } from "../functions/UnlockChat";
 
 const Chat = () => {
   const [activeTab, setActiveTab] = useState("all");
-  const [chats, setChats] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [pollingInterval, setPollingInterval] = useState(null);
+  const [chats, setChats] = useState([]); //list of chats to show sidebar
+  const [selectedChat, setSelectedChat] = useState(null); //duh
+  const [messages, setMessages] = useState([]); //list of msgs to show on dashboard
+  const [newMessage, setNewMessage] = useState(""); //text field where you'll type new text
+  const [loading, setLoading] = useState(true); //loading for chat sidebar
+  const [pollingInterval, setPollingInterval] = useState(null); //???
+  const messagesEndRef = useRef(null); //Controls scrolling
+  const {user,refreshUser,getProvinceName,profileCosts,checkUnreadMessages} = useStateContext();
   const [searchQuery, setSearchQuery] = useState("");
-  const messagesEndRef = useRef(null);
-  const {
-    user,
-    refreshUser,
-    getProvinceName,
-    profileCosts,
-    checkUnreadMessages,
-  } = useStateContext();
   const [isRead, setReadStatus] = useState(2);
+
   const messagesRef = useRef(messages);
   const messagesContainerRef = useRef(null);
+
   const [isTimeout, setIsTimeout] = useState(false);
   const navigate = useNavigate();
 
@@ -579,8 +575,10 @@ const Chat = () => {
     setIsTimeout(true);
     setTimeout(() => {
       setIsTimeout(false);
-    }, 60000);
+    }, 60000); // 60 seconds = 60000 ms
   };
+
+  
 
   // Fetch chats based on active tab (either 'all' or 'archived')
   const fetchChats = async () => {
@@ -602,15 +600,19 @@ const Chat = () => {
       setMessages(messages);
       if (messages.length > 0) {
         const lastMessage = messages[messages.length - 1];
+        // console.log(lastMessage);
         markLastMessageAsRead(chatId);
         if (lastMessage.sent === true) {
+          // If message is not sent (assuming this means it's received)
+          
           if (lastMessage.is_read === 1) {
-            setReadStatus(1);
+            setReadStatus(1);  // Message is read
           } else {
-            setReadStatus(0);
+            setReadStatus(0); // Message is unread
           }
         }
       }
+      
       scrollToBottom();
     } catch (err) {
       console.error("Error fetching messages:", err);
@@ -619,39 +621,43 @@ const Chat = () => {
 
   // Start polling for new messages
   const startPolling = (chatId) => {
+    // Clear any existing polling
     if (pollingInterval) {
       clearInterval(pollingInterval);
     }
-
+    //console.log('pooler',chats);
+    
+    // Start new polling
     const interval = setInterval(async () => {
-      const lastMessageId =
-        messagesRef.current.length > 0
-          ? Math.max(...messagesRef.current.map((m) => m.id))
-          : 0;
+      // console.log('ref',messagesRef.current.length);
+      // console.log(Math.max(...messagesRef.current.map(m => m.id)))
+      const lastMessageId = messagesRef.current.length > 0 ? Math.max(...messagesRef.current.map(m => m.id)) : 0;
+      //console.log(chatId,lastMessageId,messages);
       try {
-        const response = await axiosClient.get(
-          `/api/chats/${chatId}/messages/poll?last_message_id=${lastMessageId}`
-        );
+        const response = await axiosClient.get(`/api/chats/${chatId}/messages/poll?last_message_id=${lastMessageId}`);
+        // console.log(response.data);
         if (response.data.length > 0) {
-          setMessages((prev) => [...prev, ...response.data]);
+          setMessages(prev => [...prev, ...response.data]);
           scrollToBottom();
         }
       } catch (err) {
         console.error("Error polling messages:", err);
       }
-    }, 10000);
-
+    }, 10000); // Poll every 8 seconds
+    
     setPollingInterval(interval);
   };
 
   // Archive/unarchive chat
   const toggleArchive = async (chatId, archive) => {
     try {
-      const endpoint = archive ? "archive" : "unarchive";
+      const endpoint = archive ? 'archive' : 'unarchive';
       await axiosClient.post(`/api/chats/${chatId}/${endpoint}`);
-      fetchChats();
+      fetchChats(); // Refresh chat list
+
+      //Update archive status without fetchChats();
       if (selectedChat?.id === chatId) {
-        setSelectedChat((prev) => ({ ...prev, is_archived: archive }));
+        setSelectedChat(prev => ({ ...prev, is_archived: archive }));
       }
     } catch (err) {
       console.error("Error toggling archive:", err);
@@ -662,46 +668,41 @@ const Chat = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim() || !selectedChat) return;
-
+    
     try {
-      const response = await axiosClient.post(
-        `/api/chats/${selectedChat.id}/messages`,
-        {
-          message: newMessage,
-        }
-      );
+      const response = await axiosClient.post(`/api/chats/${selectedChat.id}/messages`, {
+        message: newMessage
+      });
 
-      if (response.status == 202) {
-        toast.warn(response.data.message, {
+      //Message interrupted by moderation
+      if(response.status == 202){
+        toast.warn(response.data.message,{
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
-        });
+        })
         setNewMessage("");
         scrollToBottom();
         handleTimeout();
         return;
       }
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          ...response.data,
-        },
-      ]);
+      //console.log(response.data);
+      setMessages(prev => [...prev, {
+        ...response.data,
+        //sentter: true,
+        //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
+      }]);
       fetchChats();
       setReadStatus(0);
+      //console.log('pooler',messages)
       setNewMessage("");
       scrollToBottom();
     } catch (err) {
-      toast.error(
-        "Error sending message, Your message must not be greater than 1000 characters.",
-        {
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        }
-      );
+      toast.error('Error sending message, Your message must not be greater than 1000 characters.',{
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       setNewMessage("");
       console.error("Error sending message:", err);
     }
@@ -709,119 +710,167 @@ const Chat = () => {
 
   // Scroll to bottom of messages
   const scrollToBottom = () => {
+    //messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     if (messagesContainerRef.current && messagesEndRef.current) {
       const container = messagesContainerRef.current;
       const scrollHeight = messagesEndRef.current.offsetTop;
+      
       container.scrollTo({
         top: scrollHeight,
-        behavior: "smooth",
+        behavior: 'smooth'
       });
     }
   };
 
   // Handle chat selection
-  const handleSelectChat = (chat) => {
+  const handleSelectChat = (chat) => { //Passing chat object
     setReadStatus(2);
     setSelectedChat(chat);
+    // console.log('chatter',chat);
     fetchMessages(chat.id);
+    // startPolling(chat.id);
   };
 
   useEffect(() => {
     if (!selectedChat) return;
     const echo = getEcho();
+    // Subscribe to private channel
     const channel = echo.private(`chatter.${selectedChat.id}`);
-
-    channel.listen(".NewMessage", (data) => {
+  
+    // Listen for new messages (with Laravel's dot notation)
+    channel.listen('.NewMessage', (data) => {
       const payload = data.message;
-      const sender_id = data.sender_id;
-      if ((sender_id === user.id) == false) {
-        setMessages((prev) => [...prev, payload]);
+      const sender_id = data.sender_id
+      // console.log('payload',data)
+      // console.log(payload['sent'] === user.id)
+      // payload['sent'] = payload['sent'] === user.id
+      // if(payload['sent'] == false){
+      if((sender_id === user.id) == false){
+        setMessages(prev => [...prev, payload]);
         setReadStatus(2);
         markLastMessageAsRead(selectedChat.id);
       }
+      
+      // console.log(data.message);
+      // setMessages(prev => [...prev, {
+      //   ...response.data,
+      //   //sentter: true,
+      //   //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
+      // }]);
     });
 
-    channel.listen(".NewMessageAfterMod", (data) => {
+    channel.listen('.NewMessageAfterMod', (data) => {
+      //fetchMessages(selectedChat.id);
       handleSelectChat(selectedChat);
     });
-
-    channel.listen(".MessageRead", (data) => {
-      const currentMsgs = messagesRef.current;
+    
+    // // Subscribe to private channel
+    // const channel2 = echo.private(`chatter.${selectedChat.id}`);
+  
+    // Listen for new messages (with Laravel's dot notation)
+    channel.listen('.MessageRead', (data) => {
+      
+      // console.log('resdbroadcast',data)
+      const currentMsgs = messagesRef.current
       const lastMessage = currentMsgs[currentMsgs.length - 1];
-      if (data.messageId == lastMessage.id) {
-        if (data.readerId != user.id) {
+      // console.log('resdbroadcast',messages,messages[messages.length - 1]);
+      if(data.messageId == lastMessage.id){
+        if(data.readerId != user.id){
           setReadStatus(1);
         }
       }
+      // setMessages(prev => [...prev, {
+      //   ...response.data,
+      //   //sentter: true,
+      //   //id: messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1
+      // }]);
     });
 
-    echo.connector.pusher.connection.bind("connected", () => {
-      console.log("✅ Connected to private chat channel");
+    // Listen for read receipts
+    // channel.listen('.MessageRead', (data) => {
+    //   setMessages(prev =>
+    //     prev.map(msg =>
+    //       msg.sender_id === data.userId && !msg.read_at
+    //         ? { ...msg, read_at: data.timestamp }
+    //         : msg
+    //     )
+    //   );
+    // });
+  
+    // Connection debugging
+    echo.connector.pusher.connection.bind('connected', () => {
+      console.log('✅ Connected to private chat channel');
     });
-
-    echo.connector.pusher.connection.bind("error", (error) => {
-      console.error("Pusher error:", error);
+  
+    echo.connector.pusher.connection.bind('error', (error) => {
+      console.error('Pusher error:', error);
     });
-
+  
+    // Cleanup
     return () => {
-      channel.stopListening(".NewMessage");
-      channel.stopListening(".MessageRead");
-      channel.stopListening(".NewMessageAfterMod");
+      channel.stopListening('.NewMessage');
+      channel.stopListening('.MessageRead');
+      channel.stopListening('.NewMessageAfterMod');
       echo.leave(`chat.${selectedChat.id}`);
     };
   }, [selectedChat]);
 
   const markLastMessageAsRead = async (chatId) => {
     try {
-      const response = await axiosClient.post(
-        `/api/chats/${chatId}/messages/read`
-      );
-      checkUnreadMessages();
+        const response = await axiosClient.post(`/api/chats/${chatId}/messages/read`);
+        checkUnreadMessages();
+        // console.log('readSent',response.data.message);
     } catch (error) {
-      console.error("Error marking last message as read:", error);
+        console.error('Error marking last message as read:', error);
     }
-  };
-
+};
   useEffect(() => {
     const echo = getEcho();
-    echo.connector.pusher.connection.bind("connected", () => {
-      // console.log('✅ WebSocket CONNECTED');
+    echo.connector.pusher.connection.bind('connected', () => {
+        // console.log('✅ WebSocket CONNECTED');
     });
-    echo.connector.pusher.connection.bind("failed", () => {
-      // console.log('❌ WebSocket FAILED');
+    echo.connector.pusher.connection.bind('failed', () => {
+        // console.log('❌ WebSocket FAILED');
     });
-    echo.connector.pusher.connection.bind("error", (err) => {
-      console.error("WebSocket ERROR:", err);
+    echo.connector.pusher.connection.bind('error', (err) => {
+        console.error('WebSocket ERROR:', err);
     });
-
+    //const channel = echo.channel('chat');
     const channel = echo.private(`App.Models.User.${user.id}`);
+    // Proper event listening with dot prefix
+    channel.listen('.NewMessage', (data) => {
+        
+      //Because chat list is reset when user sends msg, there's no need to reset chat list again when we receive broadcat of our own message.
+        if((data.sender_id === user.id) == false){
+          fetchChats();
+        }
 
-    channel.listen(".NewMessage", (data) => {
-      if ((data.sender_id === user.id) == false) {
-        fetchChats();
-      }
+        //(prev => [...prev, data.message]);
     });
 
-    channel.listen(".NewMessageAfterMod", (data) => {
-      fetchChats();
+    channel.listen('.NewMessageAfterMod', (data) => {
+      
+          fetchChats();
+       
     });
 
-    echo.connector.pusher.connection.bind("connected", () => {
-      // console.log('Connected to WebSocket!');
+    // Connection debugging
+    echo.connector.pusher.connection.bind('connected', () => {
+        // console.log('Connected to WebSocket!');
     });
 
     return () => {
-      channel.stopListening(".NewMessage");
-      channel.stopListening(".NewMessageAfterMod");
-      echo.leave(`App.Models.User.${user.id}`);
+        channel.stopListening('.NewMessage');
+        channel.stopListening('.NewMessageAfterMod');
+        echo.leave(`App.Models.User.${user.id}`);
     };
-  }, []);
+}, []);
 
   // Initialize
   useEffect(() => {
     fetchChats();
     checkUnreadMessages();
-
+    
     return () => {
       if (pollingInterval) {
         clearInterval(pollingInterval);
@@ -833,6 +882,7 @@ const Chat = () => {
   useEffect(() => {
     scrollToBottom();
     messagesRef.current = messages;
+    // console.log(messagesRef.current)
   }, [messages]);
 
   // Filter chats based on search query
