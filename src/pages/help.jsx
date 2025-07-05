@@ -102,8 +102,11 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
               Do You Have Any Question?
             </h1>
             <p className="text-[20px] font-[400] leading-[30px] text-[#FFFFFF] mb-6">
-              Discover a new way to connect: elegance, support, and meaningful
-              companionship - on your terms
+              Discover a new way to connect:{" "}
+              <strong>
+                {" "}
+                elegance, support, and meaningful companionship - on your terms
+              </strong>
             </p>
           </div>
           <div className="md:w-1/2 p-5 ">
@@ -126,7 +129,7 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter Name"
-                  className="w-full p-2 rounded border border-white text-white placeholder-gray-300"
+                  className="w-full p-4 rounded-xl border border-white text-white placeholder-gray-300"
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm">{errors.name}</p>
@@ -140,7 +143,7 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter Email"
-                  className="w-full p-2 rounded border border-white text-white placeholder-gray-300"
+                  className="w-full p-4 rounded-xl border border-white text-white placeholder-gray-300"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm">{errors.email}</p>
@@ -153,13 +156,13 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Enter Request"
-                  className="w-full p-2 rounded border border-white text-white placeholder-gray-300 h-24"
+                  className="w-full p-4 rounded-xl border border-white text-white placeholder-gray-300 h-24"
                 ></textarea>
                 {errors.message && (
                   <p className="text-red-500 text-sm">{errors.message}</p>
                 )}
               </div>
-              <div className="flex items-center  text-white  py-2 rounded-lg">
+              <div className="flex items-center  text-white  py-2 rounded-xl">
                 <input
                   type="checkbox"
                   name="termsAccepted"
@@ -178,7 +181,7 @@ bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px]
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`md:py-5 w-full md:w-60 bg-white text-black  p-2 rounded-lg font-semibold hover:bg-gray-100 ${
+                className={`md:py-5 w-full md:w-60 bg-white text-black text-[16px]  p-2 rounded-xl font-[400] hover:bg-gray-100 ${
                   isSubmitting ? "opacity-50" : ""
                 }`}
               >

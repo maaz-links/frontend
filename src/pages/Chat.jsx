@@ -930,18 +930,19 @@ const Chat = () => {
         >
           <div className="p-4 md:p-6 flex-shrink-0">
             {/* Mobile close button */}
-            <div className="flex items-center justify-between mb-4 md:mb-0">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
-                Chat
-              </h1>
-              <button
-                className="md:hidden p-2 text-gray-500 hover:text-gray-700"
-                onClick={() => setIsMobileSidebarOpen(false)}
-              >
-                <FaTimes className="text-lg" />
-              </button>
-            </div>
-
+            {selectedChat !== null && (
+              <div className="flex items-center justify-between mb-4 md:mb-0">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
+                  Your Chat
+                </h1>
+                <button
+                  className="md:hidden p-2 text-gray-500 hover:text-gray-700"
+                  onClick={() => setIsMobileSidebarOpen(false)}
+                >
+                  <FaTimes className="text-lg" />
+                </button>
+              </div>
+            )}
             {/* Search */}
             <div className="relative mb-4 md:mb-6">
               <FaSearch className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
@@ -1229,30 +1230,30 @@ const Chat = () => {
                     {!isTimeout ? (
                       <form
                         onSubmit={sendMessage}
-                        className="flex items-center space-x-2 md:space-x-4"
+                        className="flex justify-center items-center space-x-2  w-full border-t border-gray-300 pt-2"
                       >
                         <button
                           type="button"
-                          className="p-2 md:p-3 text-gray-400 hover:text-gray-600 transition-colors"
+                          className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
                         >
-                          <FaPaperclip className="text-base md:text-lg" />
+                          <FaPaperclip className="text-base" />
                         </button>
-                        <div className="flex-1 relative">
+                        <div className="relative md:w-[80%] w-full">
                           <input
                             type="text"
                             placeholder="Type a message"
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
-                            className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                            className="w-full px-4 py-4 bg-white border  border-[#0C103838] rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                           />
+                          <button
+                            type="submit"
+                            disabled={!newMessage.trim()}
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
+                          >
+                            <FaPaperPlane className=" text-[#615EF0] text-xl" />
+                          </button>
                         </div>
-                        <button
-                          type="submit"
-                          disabled={!newMessage.trim()}
-                          className="p-2 md:p-3 bg-[#8880FE] text-white rounded-xl hover:bg-violet-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          <FaPaperPlane className="text-sm md:text-base" />
-                        </button>
                       </form>
                     ) : (
                       <div className="flex-1 p-3 md:p-4 bg-gray-100 rounded-xl text-gray-600 text-center text-sm md:text-base">
