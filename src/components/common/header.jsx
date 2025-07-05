@@ -4,7 +4,7 @@ import LogoutIcon from "/src/assets/icons/logout.svg";
 import { useState } from "react";
 
 import MenuIcon from "/src/assets/icons/menu.svg";
-import CrossIcon from "/src/assets/icons/cross.svg"
+import CrossIcon from "/src/assets/icons/cross.svg";
 
 import { ROLES } from "../../../constants";
 import { useStateContext } from "../../context/ContextProvider";
@@ -46,30 +46,105 @@ const headerLinksLoggedIn = [
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-
-  const { token, user,setUser, setToken,unreadCount } = useStateContext();
+  const { token, user, setUser, setToken, unreadCount } = useStateContext();
   const navigate = useNavigate();
 
+  const triggerLogout = (ev) => {
+    ev.preventDefault();
 
-  const triggerLogout = ev => {
-    ev.preventDefault()
-
-    axiosClient.post('/api/logout')
-        .then(() => {
-            console.log('we re out')
-            setUser(null)
-            setToken(null)
-            navigate('/login');
-        })
-}
+    axiosClient.post("/api/logout").then(() => {
+      console.log("we re out");
+      setUser(null);
+      setToken(null);
+      navigate("/login");
+    });
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  if(!token){
-
+  if (!token) {
     // IF USER IS NOT LOGGED IN
+    return (
+      <div className="mb-24">
+        <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
+          <div className="flex items-center space-x-2">
+            <div className="text-2xl font-bold">
+              <span className="text-purple-600">H</span>
+              <span>4Y</span>
+            </div>
+            <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
+              <span>HOSTESS</span>
+              FOR YOU
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-2 md:gap-20 ">
+            <div className=" space-x-6 hidden md:flex">
+              {headerLinks.map((link, index) => (
+                <NavLink
+                  key={index}
+                  to={link.link}
+                  className={({ isActive }) =>
+                    `text-gray-700 hover:text-black font-[400] ${
+                      isActive ? "text-black font-[600]" : ""
+                    }`
+                  }
+                >
+                  {link.text}
+                </NavLink>
+              ))}
+            </div>
+            <div className="flex items-center gap-5">
+              <img src={GlobeIcon} alt="Globe Icon" />
+              <NavLink
+                to="/signup"
+                className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+              >
+                Sign Up Now
+              </NavLink>
+            </div>
+
+            <button
+              onClick={toggleMenu}
+              className="md:hidden focus:outline-none ml-2"
+            >
+              <img src={!isMenuOpen ? MenuIcon : CrossIcon} alt="Menu" />
+            </button>
+          </div>
+          {isMenuOpen && (
+            <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
+              <div className="flex flex-col items-center p-4 space-y-4">
+                <NavLink
+                  to="/signup"
+                  className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
+                >
+                  Sign Up Now
+                </NavLink>
+                {headerLinks.map((link, index) => (
+                  <NavLink
+                    key={index}
+                    to={link.link}
+                    onClick={toggleMenu}
+                    className={({ isActive }) =>
+                      `text-gray-700 hover:text-black font-[400] text-center w-full py-2 ${
+                        isActive ? "text-black font-[600]" : ""
+                      }`
+                    }
+                  >
+                    {link.text}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+          )}
+        </nav>
+      </div>
+    );
+
+    // IF USER ISs LOGGED IN
+  }
   return (
     <div className="mb-24">
       <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
@@ -83,152 +158,62 @@ function Header() {
             FOR YOU
           </div>
         </div>
-        
-        <div className="flex items-center justify-between gap-2 md:gap-5 ">
-        <div className=" space-x-6 hidden md:flex">
-          {headerLinks.map((link, index) => (
-            <NavLink
-              key={index}
-              to={link.link}
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-black font-[400] ${
-                  isActive ? "text-black font-[600]" : ""
-                }`
-              }
-            >
-              {link.text}
-            </NavLink>
-          ))}
-        </div>
-          <img src={GlobeIcon} alt="Globe Icon" />
-          <NavLink
-            to="/signup"
-            className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
-          >
-            Sign Up Now
-          </NavLink>
-          <button
-            onClick={toggleMenu}
-            className="md:hidden focus:outline-none ml-2"
-          >
-            <img
-              src={
-                !isMenuOpen
-                  ? MenuIcon
-                  : CrossIcon
-              }
-              alt="Menu"
-            />
-          </button>
-        </div>
-        {isMenuOpen && (
-          <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
-            <div className="flex flex-col items-center p-4 space-y-4">
-              <NavLink
-                to="/signup"
-                className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
-              >
-                Sign Up Now
-              </NavLink>
-              {headerLinks.map((link, index) => (
-                <NavLink
-                  key={index}
-                  to={link.link}
-                  onClick={toggleMenu}
-                  className={({ isActive }) =>
-                    `text-gray-700 hover:text-black font-[400] text-center w-full py-2 ${
-                      isActive ? "text-black font-[600]" : ""
-                    }`
-                  }
-                >
-                  {link.text}
-                </NavLink>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
-    </div>
-  );
 
-// IF USER ISs LOGGED IN
-  }
-  return (
-  <div className="mb-24">
-      <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
-        <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold">
-            <span className="text-purple-600">H</span>
-            <span>4Y</span>
-          </div>
-          <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
-            <span>HOSTESS</span>
-            FOR YOU
-          </div>
-        </div>
-        
         <div className="flex items-center justify-between gap-2 md:gap-5 ">
-        <div className=" space-x-6 hidden md:flex">
-          {headerLinksLoggedIn.map((link, index) => (
-            <NavLink
-              key={index}
-              to={link.link}
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-black font-[400] flex items-center ${
-                  isActive ? "text-black font-[600]" : ""
-                }`
-              }
-            >
-              {link.text}
-              
-              
-            </NavLink>
-          ))}
-          {/* Unread Message Badge */}
-          {unreadCount > 0 && (
-            <Link to="/chat">
-                         <div className="relative -start-4 bg-black text-sm text-center text-white rounded-full w-7 h-7 aspect-square px-1.5 py-1">
-                         <strong>{unreadCount > 9 ? '9+' : unreadCount}</strong>
-                         </div>
-                         </Link>
-                       )}
-        </div>
-        {/* <NavLink
+          <div className=" space-x-6 hidden md:flex">
+            {headerLinksLoggedIn.map((link, index) => (
+              <NavLink
+                key={index}
+                to={link.link}
+                className={({ isActive }) =>
+                  `text-gray-700 hover:text-black font-[400] flex items-center ${
+                    isActive ? "text-black font-[600]" : ""
+                  }`
+                }
+              >
+                {link.text}
+              </NavLink>
+            ))}
+            {/* Unread Message Badge */}
+            {unreadCount > 0 && (
+              <Link to="/chat">
+                <div className="relative -start-4 bg-black text-sm text-center text-white rounded-full w-7 h-7 aspect-square px-1.5 py-1">
+                  <strong>{unreadCount > 9 ? "9+" : unreadCount}</strong>
+                </div>
+              </Link>
+            )}
+          </div>
+          {/* <NavLink
             to="/signup"
             className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] invisible hidden md:block"
           >
             S
           </NavLink> */}
           <div className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] invisible hidden md:block">
-          s
+            s
           </div>
-          
-          
+
           {/* ONLY SHOW CREDITS TO MALE USERS */}
-        {(user?.role === ROLES.KING) &&
-        <div className="relative start-4 bg-black text-sm text-center text-white rounded-full h-6.5 mx-4 px-4 py-1">
-                              <strong>{user.profile.credits} Credits</strong>
-                              </div>
-                              }
-          
+          {user?.role === ROLES.KING && (
+            <div className="relative start-4 bg-black text-sm text-center text-white rounded-full h-6.5 mx-4 px-4 py-1">
+              <strong>{user.profile.credits} Credits</strong>
+            </div>
+          )}
+
           <img className="mx-2" src={GlobeIcon} alt="Globe Icon" />
-          <img className=" px-4" src={LogoutIcon} onClick={(e)=>triggerLogout(e)} alt="Logout Icon" />
-          
-          
+          <img
+            className=" px-4"
+            src={LogoutIcon}
+            onClick={(e) => triggerLogout(e)}
+            alt="Logout Icon"
+          />
+
           <button
             onClick={toggleMenu}
             className="md:hidden focus:outline-none ml-2"
           >
-            <img
-              src={
-                !isMenuOpen
-                  ? MenuIcon
-                  : CrossIcon
-              }
-              alt="Menu"
-            />
+            <img src={!isMenuOpen ? MenuIcon : CrossIcon} alt="Menu" />
           </button>
-          
         </div>
         {isMenuOpen && (
           <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
@@ -252,16 +237,14 @@ function Header() {
                 >
                   {link.text}
 
-
-                {/* Unread Message Badge */}
-                {unreadCount > 0 && (link.link == "/chat") && (
-                  <Link to="/chat">
-                              <div className="relative start-4 bg-black text-sm text-center text-white rounded-full w-6.5 h-6.5 aspect-square px-1.5 py-1">
-                              <strong>{unreadCount > 9 ? '9+' : unreadCount}</strong>
-                              </div>
-                              </Link>
-                            )}
-
+                  {/* Unread Message Badge */}
+                  {unreadCount > 0 && link.link == "/chat" && (
+                    <Link to="/chat">
+                      <div className="relative start-4 bg-black text-sm text-center text-white rounded-full w-6.5 h-6.5 aspect-square px-1.5 py-1">
+                        <strong>{unreadCount > 9 ? "9+" : unreadCount}</strong>
+                      </div>
+                    </Link>
+                  )}
                 </NavLink>
               ))}
             </div>
