@@ -8,15 +8,19 @@ function InterestSelectionSection() {
       { name: "Photo Model", selected: true },
       { name: "Parlare", selected: true },
       { name: "Glamour Photo", selected: true },
-      { name: "Business Event", selected: true },
+      { name: "Event", selected: true },
     ],
     [
       { name: "Fashion Photo", selected: true },
       { name: "Wingwoman", selected: false },
       { name: "Yacht Crew", selected: false },
+      { name: "Hostess Fiere", selected: false },
+      { name: "Wingwoman", selected: false },
+
     ],
     [
-      { name: "Wingwoman", selected: false },
+      { name: "Yacht Crew", selected: false },
+      { name: "Hostess Fiere", selected: false },
       { name: "Hostess Fiere", selected: false },
       { name: "Private Event", selected: false },
     ],
@@ -30,7 +34,7 @@ function InterestSelectionSection() {
       <p className="text-[#4A4A4A] text-sm leading-[20px] font-[400] text-center mb-7 lg:max-w-[600px]">
         When filling out your profile, select what interests you most and receive offers based on your preferences.
       </p>
-      <div className="flex flex-col items-center w-full max-w-[90%] lg:max-w-[700px]">
+      <div className="flex flex-col items-center w-full md:max-w-[90%] ">
         {interestAreas.map((row, rowIndex) => (
           <div
             key={rowIndex}
@@ -39,7 +43,7 @@ function InterestSelectionSection() {
             {row.map((area, index) => (
               <button
                 key={index}
-                className={`px-3.5 py-2 rounded-[8px] text-sm leading-[20px] font-[400] flex items-center justify-center ${
+                className={` md:p-3  p-2 rounded-[8px] roundness-xl text-[18px] leading-[24px] font-[400] flex items-center justify-center ${
                   area.selected
                     ? "bg-[#F2F2FF] text-[#8880FE]"
                     : "bg-[#F3F3F5] text-[#090909]"
