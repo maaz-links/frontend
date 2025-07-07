@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { initializeEcho } from "../../echo";
 
@@ -34,6 +34,7 @@ export const ContextProvider = ({ children }) => {
       setLoading(true);
       if (token) {
         const response = await axiosClient.get('/api/user');
+        console.log(response.data)
         setUser(response.data);
         checkUnreadMessages();
       }
@@ -56,7 +57,7 @@ export const ContextProvider = ({ children }) => {
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
   //const [refreshUser, setRefreshUser] = useState([]);
-
+  const heartbeatInterval = useRef(null); // Store interval reference
 
   async function getMiscData() {
     const response2 = await axiosClient.get('/api/miscdata');
@@ -67,7 +68,7 @@ export const ContextProvider = ({ children }) => {
     setNationalitiesList(response2.data.nationalities);
     //console.log(response2.data.nationalities);
     setEyeColorList(response2.data.eye_colors);
-    console.log(response2.data.eye_colors);
+    //console.log(response2.data.eye_colors);
   }
 
   // Fetch countries on component mount
@@ -94,6 +95,51 @@ export const ContextProvider = ({ children }) => {
   const refreshUser = () => {
     getUserData();
   };
+
+  async function heartbeatCall() {
+    try{
+      if (token) {
+        const response = await axiosClient.post('/api/heartbeat');
+        console.log('hb',response.data)
+      }
+    }
+    catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  }
+
+  useEffect(() => {
+    const startHeartbeat = () => {
+      // Clear any existing interval
+      if (heartbeatInterval.current) {
+        clearInterval(heartbeatInterval.current);
+      }
+      
+      // Call immediately
+      heartbeatCall();
+      
+      // Set up interval
+      heartbeatInterval.current = setInterval(heartbeatCall, 90000); // 90 seconds
+    };
+
+    const stopHeartbeat = () => {
+      if (heartbeatInterval.current) {
+        clearInterval(heartbeatInterval.current);
+        heartbeatInterval.current = null;
+      }
+    };
+
+    if (token) {
+      startHeartbeat();
+    } else {
+      stopHeartbeat();
+    }
+
+    // Cleanup on unmount or token change
+    return () => {
+      stopHeartbeat();
+    };
+  }, [token]); // Re-run when token changes
 
   const [unreadCount, setUnreadCount] = useState(0);
   const checkUnreadMessages = async () => {

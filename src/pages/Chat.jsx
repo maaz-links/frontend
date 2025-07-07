@@ -590,6 +590,7 @@ const Chat = () => {
   const fetchChats = async () => {
     try {
       const response = await axiosClient.get(`/api/chats?type=${activeTab}`);
+      //console.log(response.data);
       setChats(response.data);
       setLoading(false);
     } catch (err) {
@@ -883,11 +884,14 @@ const Chat = () => {
     fetchChats();
     checkUnreadMessages();
 
-    return () => {
-      if (pollingInterval) {
-        clearInterval(pollingInterval);
-      }
-    };
+    // return () => {
+    //   if (pollingInterval) {
+    //     clearInterval(pollingInterval);
+    //   }
+    // };
+    const intervalId = setInterval(fetchChats, 120000);
+    return () => clearInterval(intervalId);
+
   }, [activeTab]);
 
   // Auto-scroll when messages change
@@ -1011,7 +1015,7 @@ const Chat = () => {
                         className="w-10 md:w-12 h-10 md:h-12 rounded-full object-cover"
                       />
                       {/* Online indicator - you can add online status logic here */}
-                      <div className="absolute bottom-0 right-0 w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                      {(chat.other_user.is_online == 'online') && <div className="absolute bottom-0 right-0 w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full border-2 border-white"></div>}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
