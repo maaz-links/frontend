@@ -61,11 +61,11 @@ function ForgotPassword() {
         closeOnClick: true,
         pauseOnHover: true,
       })
-      // const response = err.response;
+      const response = err.response;
       // // console.log(response);
-      // if (response && response.status === 422) {
-      //   setErrors(response.data.formError);
-      // }
+      if (response && response.status === 422) {
+        setErrors(response.data.formError);
+      }
     }
     setSubmitting(false);
   }
@@ -75,45 +75,47 @@ function ForgotPassword() {
   return (
 <>
 <Header />
-<h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Forgot Password</h1>
-    <div className="max-w-[971px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
-      <div className="">
-
-        <form onSubmit={handleSubmit}>
-          {/* Email Field */}
-          <div className="mb-[40px]">
-            <label className="block text-[20px] uppercase">Email</label>
-            <input
-              type="email"
-              //value={email}
-              //onChange={(e) => setEmail(e.target.value)}
-              ref={emailRef}
-              required
-              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
-              placeholder="Enter your email"
-            />
-            <ErrorText field="email"/>
-          </div>
-
-
-          {/* Login Button */}
-          <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-          <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
-         {submitting ? 'Sending Link...' : 'Send Link'}
-        </button>
-         <div className={`w-[300px] mx-auto mt-[25px]`}>
-                    <RecaptchaComponent TokenSetter={setRecaptchaToken}/>
+    <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+            <h1 className="text-center text-[38px] my-7"><strong>Forgot Password</strong></h1>
+            <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
+    
+    
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4 max-w-[600px] mx-auto">
+    
+                  <div className="mb-15">
+                    <div className="block text-[20px] mb-[20px]"><strong>Email</strong></div>
+                    {/* Email Field */}
+                    <input
+                      type="email"
+                      ref={emailRef}
+                      required
+    
+                      className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                      placeholder="Enter Email"
+                    />
+                    <ErrorText field='email' />
+    
+                  </div>
+    
+                  <div className="text-center mx-auto">
+    
+                    <button type='submit'
+                      disabled={submitting}
+                      className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
+                    >
+                      <strong>{submitting ? 'Sending Link...' : 'Send Link'}</strong>
+                    </button>
+                  </div>
+    
+                  <div className="text-center my-9">
+                    New User? <strong><Link to='/signup'>Sign up for Free</Link></strong>
+                  </div>
                 </div>
-        </div>
-        </form>
-        {/*Signup Links */}
-        <div className="mt-[30px] text-center">
-          <p className="text-sm mt-2">
-            Don't have an account? <Link to="/sign-up" className="hover:underline">Sign up</Link>
-          </p>
-        </div>
-      </div>
-    </div>
+              </form>
+    
+            </div>
+          </div>
     <Footer />
     </>
   );

@@ -545,7 +545,7 @@ import {
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
-import { getAge, getAttachmentURL, getUserCost } from "../functions/Common";
+import { getAge, getAttachmentURL} from "../functions/Common";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import { ROLES } from "../../constants";
@@ -1281,11 +1281,7 @@ const Chat = () => {
                           }
                           className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 md:py-4 px-4 md:px-6 rounded-xl transition-colors uppercase text-sm md:text-lg"
                         >
-                          {`UNLOCK CHAT FOR ${getUserCost(
-                            selectedChat.other_user.top_profile,
-                            selectedChat.other_user.verified_profile,
-                            profileCosts
-                          )} CREDITS`}
+                          {`UNLOCK CHAT FOR ${selectedChat.other_user.unlock_cost} CREDITS`}
                         </button>
                       </div>
                     ) : (

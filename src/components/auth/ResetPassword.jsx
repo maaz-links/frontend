@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 function ResetPassword() {
   //const emailRef = createRef()
   const passwordRef = createRef()
+  const confirmPasswordRef = createRef()
   const location = useLocation();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
@@ -31,7 +32,10 @@ function ResetPassword() {
   const email = params.get('email');
 
   if (!token || !email) {
-    throw new Error('Missing required reset parameters');
+    //throw new Error('Missing required reset parameters');
+    //navigate('/');
+    //navigate('/404');
+        //return <></>;
   }
 
   //const backendLink = `${id}?expires=${expires}&hash=${hash}&signature=${signature}`;
@@ -44,7 +48,7 @@ function ResetPassword() {
     setSubmitting(true);
     const payload = {
       password: passwordRef.current.value,
-      password_confirmation: passwordRef.current.value,
+      password_confirmation: confirmPasswordRef.current.value,
       email: email,
       token: token,
     }
@@ -78,42 +82,63 @@ function ResetPassword() {
   return (
 <>
 <Header />
-<h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">Reset Password</h1>
-    <div className="max-w-[971px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
-      <div className="">
 
-        <form onSubmit={handleSubmit}>
-          {/* Email Field */}
-          <div className="mb-[40px]">
-            <label className="block text-[20px] uppercase">New Password</label>
-            <input
-              type="password"
-              //value={email}
-              //onChange={(e) => setEmail(e.target.value)}
-              ref={passwordRef}
-              required
-              className="w-full bg-[#F5F5F5] h-[45px] p-[10px] focus:outline-0"
-              placeholder="Enter your new password"
-            />
-            <ErrorText field="password"/>
+
+    <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+            <h1 className="text-center text-[38px] my-7"><strong>Reset Password</strong></h1>
+            <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
+    
+    
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4 max-w-[600px] mx-auto">
+                  
+                  <div className="mb-7">
+                    <div className="block text-[20px] mb-[20px]"><strong>New Password</strong></div>
+                    {/* Password Field */}
+                    <input
+                      type="password"
+                      ref={passwordRef}
+                      required
+    
+                      className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                      placeholder="Enter New Password"
+                    />
+                    <ErrorText field='password' />
+    
+                  </div>
+                  <div className="mb-15">
+                    <div className="block text-[20px] mb-[20px]"><strong>Confirm New Password</strong></div>
+                    {/* Password Field */}
+                    <input
+                      type="password"
+                      ref={confirmPasswordRef}
+                      required
+    
+                      className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+                      placeholder=""
+                    />
+                    <ErrorText field='password_confirmation' />
+    
+                  </div>
+    
+                  <div className="text-center mx-auto">
+    
+                    <button type='submit'
+                      disabled={submitting}
+                      className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
+                    >
+                      <strong>{submitting ? 'Submitting...' : 'Submit'}</strong>
+                    </button>
+                  </div>
+    
+                  <div className="text-center my-9">
+                    New User? <strong><Link to='/signup'>Sign up for Free</Link></strong>
+                  </div>
+                </div>
+              </form>
+    
+            </div>
           </div>
-
-
-          {/* Login Button */}
-          <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[70px]">
-          <button type="submit" disabled={submitting} className={`cursor-pointer w-full bg-[#E91E63] uppercase text-[20px] text-white p-[12px] hover:bg-[#F8BBD0] ${submitting ? 'opacity-50' : ''}`}>
-         {submitting ? 'Submitting...' : 'Submit'}
-        </button>
-        </div>
-        </form>
-        {/*Signup Links */}
-        <div className="mt-[30px] text-center">
-          <p className="text-sm mt-2">
-            Don't have an account? <Link to="/sign-up" className="hover:underline">Sign up</Link>
-          </p>
-        </div>
-      </div>
-    </div>
     <Footer />
     </>
   );

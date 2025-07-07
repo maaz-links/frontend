@@ -4,7 +4,7 @@ import Header from '../components/common/header';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useStateContext } from '../context/ContextProvider';
 import axiosClient from '../../axios-client';
-import { dressSizeName, getAttachmentURL, getUserCost } from '../functions/Common';
+import { dressSizeName, getAttachmentURL } from '../functions/Common';
 import { ROLES } from '../../constants';
 import ReportUserButton from '../components/ReportUserButton';
 import { ClipLoader } from 'react-spinners';
@@ -32,7 +32,7 @@ function UserProfile() {
       setGivenUser(response.data.user)
       setUnlockChat(response.data.unlockChat)
       setCanReport(response.data.canReport)
-      // console.log(url, response);
+      console.log(url, response);
       
     })
     .catch(error => {
@@ -134,16 +134,42 @@ function UserProfile() {
               />
               </svg> : ''
             }
+            {givenUser.is_online == "online" ?
+              <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <title>Online</title>
+              <path 
+                d="M13.5 2L16.35 9.5H24.3L17.85 14.5L20.7 22L13.5 17L6.3 22L9.15 14.5L2.7 9.5H10.65L13.5 2Z" 
+                fill="green" 
+                stroke="green"
+                strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"
+              />
+              </svg> : ''
+            }
 </h1>
 <p className='italic'><span>{getProvinceName(givenUser.profile.province_id)}</span> | <span>{new Date(givenUser.created_at).getFullYear()}</span></p>
 <div className='flex flex-col md:flex-row gap-[40px] md:gap-x-[100px]  mt-[50px]'>
 <div className='profile-slider md:w-[40%] w-full'>
 {/* <Slider {...settings}> */}
-        <div className="item">
+        <div className="">
         <a href='#'>
         <div className="item-inner-box">
         {/* <img src='https://placehold.co/400x500'/> */}
         <img src={getAttachmentURL(givenUser.profile_picture_id)}/>
+        {/* <div className='w-full flex'>
+        <img className='w-[50%]' src={getAttachmentURL(givenUser.profile_picture_id)}/>
+        <img className='w-[50%]' src={getAttachmentURL(givenUser.profile_picture_id)}/>
+        </div> */}
+        <div className="w-full flex flex-wrap">
+          {givenUser.other_pics.map((id, i) => (
+            <img
+              key={id ?? i}
+              src={getAttachmentURL(id)}
+              alt={`user-pic-${i + 1}`}
+              className="w-[50%]"
+            />
+          ))}
+        </div>
+        
          
         </div>
         </a>
@@ -240,7 +266,7 @@ function UserProfile() {
   <div className="text-center max-w-[400px] mx-auto mt-[30px] md:mt-[200px]">
             {unlockChat ?
               <button onClick={() => createChat(givenUser.id,navigate,refreshUser,user.role,givenUser.name)} className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
-                {user?.role == ROLES.KING ? `UNLOCK CHAT FOR ${getUserCost(givenUser.profile.top_profile,givenUser.profile.verified_profile,profileCosts)} CREDITS` : 'SEND FREE MESSAGE'}
+                {user?.role == ROLES.KING ? `UNLOCK CHAT FOR ${givenUser.profile.unlock_cost} CREDITS` : 'SEND FREE MESSAGE'}
               </button>
               :
               <Link to='/chat' className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] text-white p-[12px]  hover:bg-[#F8BBD0]">
