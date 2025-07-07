@@ -26,7 +26,7 @@ function IntroBox() {
       >
         
         <div className='card-intro max-w-fulsl md:max-w-1/2'>
-          <h1 className="text-black mb-[15px] font-bold text-[25px] sm:text-[30px] lg:text-[40px]">More Than Just a<br/> Presence — A Real <br/>Connection</h1>
+          <h1 className="text-black mb-[15px] font-extrabold text-[25px] sm:text-[30px] lg:text-[40px]">More Than Just a<br/> Presence — A Real <br/>Connection</h1>
           <p className='text-black text-[14px] md:text-[12px]  lg:text-[14px] font-[400] md:max-w-[500px]'>
           Discover a new way to connect: <strong>elegance, support, and meaningful companionship — on your terms</strong></p>
           <div className='intro-buttons flex items-center justify-between pt-[2em] gap-x-[40px]'>
