@@ -23,7 +23,7 @@ const headerLinks = [
     text: "For Hostess/Models",
   },
   {
-    link: "/help",
+    link: "/contact",
     text: "Help",
   },
 ];
@@ -42,6 +42,24 @@ const headerLinksLoggedIn = [
     text: "Chat",
   },
 ];
+
+function HeaderLogo(){
+
+  return (
+    <Link to="/">
+        <div className="flex items-center space-x-2">
+          <div className="text-2xl font-bold">
+            <span className="text-purple-600">H</span>
+            <span>4Y</span>
+          </div>
+          <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
+            <span>HOSTESS</span>
+            FOR YOU
+          </div>
+        </div>
+      </Link>
+  )
+}
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,16 +87,7 @@ function Header() {
     return (
       <div className="mb-24">
         <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
-          <div className="flex items-center space-x-2">
-            <div className="text-2xl font-bold">
-              <span className="text-purple-600">H</span>
-              <span>4Y</span>
-            </div>
-            <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
-              <span>HOSTESS</span>
-              FOR YOU
-            </div>
-          </div>
+        <HeaderLogo/>
 
           <div className="flex items-center justify-between gap-2 md:gap-20 ">
             <div className=" space-x-6 hidden md:flex">
@@ -97,7 +106,7 @@ function Header() {
               ))}
             </div>
             <div className="flex items-center gap-5">
-              <img src={GlobeIcon} alt="Globe Icon" />
+              {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
                 to="/signup"
                 className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
@@ -148,17 +157,7 @@ function Header() {
   return (
     <div className="mb-24">
       <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
-        <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold">
-            <span className="text-purple-600">H</span>
-            <span>4Y</span>
-          </div>
-          <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
-            <span>HOSTESS</span>
-            FOR YOU
-          </div>
-        </div>
-
+      <HeaderLogo/>
         <div className="flex items-center justify-between gap-2 md:gap-5 ">
           <div className=" space-x-6 hidden md:flex">
             {headerLinksLoggedIn.map((link, index) => (
@@ -200,7 +199,7 @@ function Header() {
             </div>
           )}
 
-          <img className="mx-2" src={GlobeIcon} alt="Globe Icon" />
+          {/* <img className="mx-2" src={GlobeIcon} alt="Globe Icon" /> */}
           <img
             className=" px-4"
             src={LogoutIcon}

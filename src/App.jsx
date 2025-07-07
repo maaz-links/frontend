@@ -60,10 +60,10 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       // new pages
       { path: "/hostess", element: <Hostess /> },
-      { path: "/help", element: <ContactUs /> },
+      { path: "/contact", element: <ContactUs /> },
 
       // { path: "/new-home", element: <HomeN /> },
-      { path: "/contact", element: <Contact /> },
+      // { path: "/contact", element: <Contact /> },
 
       { path: "/cookies", element: <StaticPage slug="cookies" /> },
       { path: "/terms", element: <StaticPage slug="terms" /> },
