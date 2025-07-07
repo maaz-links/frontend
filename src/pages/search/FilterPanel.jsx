@@ -24,12 +24,12 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
 
       {/* Filter Panel */}
       <div
-        className={`fixed top-0 right-0 h-full rounded-3xl w-[80%] md:w-[484px] bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full rounded-3xl p-2 md:p-4 xl:p-8 w-[80%] md:w-[484px] bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="p-6 h-full overflow-y-auto">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Filter</h3>
+          <h3 className="text-[45px] font-[400]  text-gray-900 mb-6">Filter</h3>
 
           {/* Type Section */}
           <div className="mb-6">
