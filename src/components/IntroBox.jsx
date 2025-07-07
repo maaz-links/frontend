@@ -25,9 +25,9 @@ function IntroBox() {
       }}
       >
         
-        <div className='card-intro max-w-fulsl md:max-w-1/2'>
-          <h1 className="text-black mb-[15px] font-bold text-[25px] sm:text-[30px] lg:text-[40px]">More Than Just a<br/> Presence — A Real <br/>Connection</h1>
-          <p className='text-black text-[14px] md:text-[12px]  lg:text-[14px] font-[400] md:max-w-[500px]'>
+        <div className='card-intro max-w-full md:max-w-1/2'>
+          <h1 className="text-black mb-[15px] text-[25px] sm:text-[30px] lg:text-[40px]"><strong>More Than Just a<br/> Presence — A Real <br/>Connection</strong></h1>
+          <p className='text-black text-[14px] md:text-[12px]  lg:text-[14px] md:max-w-[500px]'>
           Discover a new way to connect: <strong>elegance, support, and meaningful companionship — on your terms</strong></p>
           <div className='intro-buttons flex items-center justify-between pt-[2em] gap-x-[40px]'>
 
@@ -53,8 +53,8 @@ function IntroBox() {
         </div>
 
       </div>
-
-      <section className="bg-white text-gray-800 py-16 px-8 mt-15 md:py-8 md:px-4 font-sans">
+     
+      <section className="bg-white text-gray-800 py-16 px-8 mt-15 md:py-8 md:px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
 
           <div className="w-full flex justify-center md:block">

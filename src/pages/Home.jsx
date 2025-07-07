@@ -84,7 +84,7 @@ function VerifiedPeopleOnly() {
           <div className="slider-container max-w-sm md:max-w-[1120px] m-auto mt-[36px]"></div>
         </div>
 
-        <section className="bg-white text-gray-800 p-8 px-8 md:mt-10 md:py-8 md:px-4 font-sans">
+        <section className="bg-white text-gray-800 p-8 px-8 md:mt-10 md:py-8 md:px-4">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-1/2 flex justify-center md:block">
               {/* <img src={worldMap} className='relative -start-30 -top-10 max-w-[900px]'/> */}
