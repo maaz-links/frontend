@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-function PopUpModel({ isOpen, onClose, children, className = "" }) {
-  // Handle escape key press
+function PopUpModel({ isOpen, onClose, children }) {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -11,7 +10,6 @@ function PopUpModel({ isOpen, onClose, children, className = "" }) {
 
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
-      // Prevent body scroll when modal is open
       document.body.style.overflow = "hidden";
     }
 
@@ -24,12 +22,16 @@ function PopUpModel({ isOpen, onClose, children, className = "" }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center  bg-black/80"
+      onClick={onClose}
+    >
       <div
-        className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
-        onClick={onClose}
-      />
-      {children}
+        className="relative z-50 max-w-md w-full  mx-4 bg-white rounded-2xl shadow-xl p-8 text-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
     </div>
   );
 }

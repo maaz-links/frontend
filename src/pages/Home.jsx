@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "/src/components/common/header";
 import "/src/App.css";
 import IntroBox from "/src/components/IntroBox";
@@ -11,11 +11,14 @@ import WalletIcon from "/src/assets/images/money-filled.svg";
 import MemberIcon from "/src/assets/images/question-cloud.svg";
 import worldMap from "/src/assets/images/worldmap.png";
 import { Link } from "react-router-dom";
+import PopUpModel from "../components/common/popup-model";
 
 //
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
 function Home() {
+  const [open, setIsopen] = useState(false);
+
   return (
     <>
       <Header />
@@ -25,9 +28,31 @@ function Home() {
 
       <VerifiedPeopleOnly />
       <PromoBanner />
+
       {/* <How_To /> */}
       {/* <Blogs /> */}
       <Faqs />
+
+      {/* for Testying Only */}
+      <div className="w-full flex justify-center mb-10">
+        <button
+          onClick={() => setIsopen(true)}
+          className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition  w-fit"
+        >
+          Open POPUP (testing only)
+        </button>
+      </div>
+      <PopUpModel isOpen={open} onClose={() => setIsopen(false)}>
+        <h2 className=" text-[45px] font-extrabold ">Verify your email</h2>
+
+        <p className=" mb-4 ">
+          Check your mailbox, follow the instructions, and confirm account!
+        </p>
+        <button className="bg-black text-white rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+          Next
+        </button>
+      </PopUpModel>
+
       <Footer />
     </>
   );
