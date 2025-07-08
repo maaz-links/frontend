@@ -1,46 +1,46 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState, useCallback } from "react"
-import Header from "/src/components/common/header"
-import Footer from "/src/components/common/footer"
-import { useStateContext } from "../context/ContextProvider"
-import axiosClient from "../../axios-client"
-import { getAttachmentURL } from "../functions/Common"
-import { ClipLoader } from "react-spinners" // Import spinner
-import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import FilterPanel from "./search/FilterPanel"
+import { useEffect, useRef, useState, useCallback } from "react";
+import Header from "/src/components/common/header";
+import Footer from "/src/components/common/footer";
+import { useStateContext } from "../context/ContextProvider";
+import axiosClient from "../../axios-client";
+import { getAttachmentURL } from "../functions/Common";
+import { ClipLoader } from "react-spinners"; // Import spinner
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import FilterPanel from "./search/FilterPanel";
 
 function Search() {
-  const { user, token, getProvinceName } = useStateContext()
-  const [entities, setEntities] = useState([])
-  const [provinces, setProvinces] = useState([])
-  const [selectedProvince, setSelectedProvince] = useState("")
-  const [showFilterDropdown, setShowFilterDropdown] = useState(false)
-  const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
-  const [loading, setLoading] = useState(false)
-  const [initialLoad, setInitialLoad] = useState(true)
-  const perPage = 50 // How many items per api call bcz pagination.
+  const { user, token, getProvinceName } = useStateContext();
+  const [entities, setEntities] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const perPage = 50; // How many items per api call bcz pagination.
   // Dependent on whether last loaded item of previous api call is visible in viewport.
   // Avoid using smaller values to prevent duplication in results.
-  const [searchParams, setSearchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const observer = useRef()
-  const [showFilterPanel, setShowFilterPanel] = useState(false)
-  const filterRef = useRef() // Declare filterRef variable
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const observer = useRef();
+  const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const filterRef = useRef(); // Declare filterRef variable
 
   const [filters, setFilters] = useState({
     province_id: searchParams.get("province") || "",
     verified_profile: searchParams.get("verified") === "true",
     top_profile: searchParams.get("top") === "true",
-  })
+  });
 
   // Fetch initial data
   useEffect(() => {
     const fetchFirstData = async () => {
       try {
-        setLoading(true)
-        const url = token ? "/api/search" : "/api/search-guest"
+        setLoading(true);
+        const url = token ? "/api/search" : "/api/search-guest";
 
         // Convert filters to API params
         const apiParams = {
@@ -49,59 +49,59 @@ function Search() {
           top_profile: filters.top_profile || undefined,
           page: 1, // Always start with page 1 when filters change
           per_page: perPage, // Number of items per page
-        }
+        };
 
         const [searchRes, provincesRes] = await Promise.all([
           axiosClient.post(url, apiParams),
           axiosClient.get("/api/provinces"),
-        ])
+        ]);
         // console.log(searchRes.data);
-        setEntities(searchRes.data.data)
-        setProvinces(provincesRes.data)
-        setHasMore(searchRes.data.current_page < searchRes.data.last_page)
-        setPage(2) // Next page to load
+        setEntities(searchRes.data.data);
+        setProvinces(provincesRes.data);
+        setHasMore(searchRes.data.current_page < searchRes.data.last_page);
+        setPage(2); // Next page to load
       } catch (error) {
-        console.error("Error fetching data:", error)
+        console.error("Error fetching data:", error);
       } finally {
-        setLoading(false)
-        setInitialLoad(false)
+        setLoading(false);
+        setInitialLoad(false);
       }
-    }
+    };
 
-    fetchFirstData()
+    fetchFirstData();
 
     // Update URL with current filters
-    const params = {}
-    if (filters.province_id) params.province = filters.province_id
-    if (filters.verified_profile) params.verified = "true"
-    if (filters.top_profile) params.top = "true"
+    const params = {};
+    if (filters.province_id) params.province = filters.province_id;
+    if (filters.verified_profile) params.verified = "true";
+    if (filters.top_profile) params.top = "true";
 
-    setSearchParams(params)
-  }, [token, filters])
+    setSearchParams(params);
+  }, [token, filters]);
 
   // Infinite scroll loader
   const lastEntityRef = useCallback(
     (node) => {
-      if (loading) return
-      if (observer.current) observer.current.disconnect()
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          loadMoreData()
+          loadMoreData();
         }
-      })
+      });
 
-      if (node) observer.current.observe(node)
+      if (node) observer.current.observe(node);
     },
-    [loading, hasMore],
-  )
+    [loading, hasMore]
+  );
 
   const loadMoreData = async () => {
-    if (!hasMore) return
+    if (!hasMore) return;
 
     try {
-      setLoading(true)
-      const url = token ? "/api/search" : "/api/search-guest"
+      setLoading(true);
+      const url = token ? "/api/search" : "/api/search-guest";
 
       const apiParams = {
         province_id: filters.province_id || undefined,
@@ -109,48 +109,48 @@ function Search() {
         top_profile: filters.top_profile || undefined,
         page: page,
         per_page: perPage,
-      }
+      };
 
-      const searchRes = await axiosClient.post(url, apiParams)
+      const searchRes = await axiosClient.post(url, apiParams);
       // console.log(searchRes.data);
-      setEntities((prev) => [...prev, ...searchRes.data.data])
-      setHasMore(searchRes.data.current_page < searchRes.data.last_page)
-      setPage((prev) => prev + 1)
+      setEntities((prev) => [...prev, ...searchRes.data.data]);
+      setHasMore(searchRes.data.current_page < searchRes.data.last_page);
+      setPage((prev) => prev + 1);
     } catch (error) {
-      console.error("Error loading more data:", error)
+      console.error("Error loading more data:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleProvinceChange = (e) => {
     setFilters((prev) => ({
       ...prev,
       province_id: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target
+    const { name, checked } = e.target;
     setFilters((prev) => ({
       ...prev,
       [name]: checked,
-    }))
-  }
+    }));
+  };
 
   // Handle click outside filter dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (filterRef.current && !filterRef.current.contains(event.target)) {
-        setShowFilterDropdown(false)
+        setShowFilterDropdown(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -169,7 +169,7 @@ function Search() {
         <div className="flex gap-x-[15px] md:gap-x-[20px] mb-8 justify-center max-w-2xl mx-auto">
           <div className="selection flex-1">
             <select
-              className="w-full bg-white border border-gray-400 py-4 rounded-xl px-4  text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="appearance-none w-full bg-white border border-gray-400 py-4 rounded-xl px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={filters.province_id}
               onChange={handleProvinceChange}
             >
@@ -186,7 +186,13 @@ function Search() {
               onClick={() => setShowFilterPanel(true)}
               className="flex cursor-pointer items-center gap-2 text-[14px] font-extrabold  border bg-white leading-[100%] rounded-xl px-4 py-3 text-gray-700 hover:bg-gray-100 focus:outline-none  "
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="31"
+                height="31"
+                viewBox="0 0 31 31"
+                fill="none"
+              >
                 <path
                   d="M6.125 9.5625H24.875M9.73125 15.5H21.2687M13.3375 21.4375H17.6625"
                   stroke="black"
@@ -209,9 +215,13 @@ function Search() {
 
           {entities.length === 0 && !initialLoad ? (
             <div className="text-center py-20">
-              <h3 className="text-2xl font-medium text-gray-600 mb-2">No profiles found</h3>
+              <h3 className="text-2xl font-medium text-gray-600 mb-2">
+                No profiles found
+              </h3>
               <p className="text-gray-500">
-                {filters.province_id || filters.verified_profile || filters.top_profile
+                {filters.province_id ||
+                filters.verified_profile ||
+                filters.top_profile
                   ? "Try adjusting your search filters"
                   : "There are currently no profiles available"}
               </p>
@@ -230,7 +240,11 @@ function Search() {
                       <div className="aspect-[3/4] bg-gray-100">
                         <img
                           className="w-full h-full object-cover"
-                          src={getAttachmentURL(entity.profile_picture_id) || "/placeholder.svg" || "/placeholder.svg"}
+                          src={
+                            getAttachmentURL(entity.profile_picture_id) ||
+                            "/placeholder.svg" ||
+                            "/placeholder.svg"
+                          }
                           alt={entity.name}
                         />
                       </div>
@@ -248,16 +262,19 @@ function Search() {
                             Wingwoman
                           </span>
                         )}
-                        {!entity.profile?.verified_profile && !entity.profile?.top_profile && (
-                          <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
-                            Sugarbaby
-                          </span>
-                        )}
+                        {!entity.profile?.verified_profile &&
+                          !entity.profile?.top_profile && (
+                            <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
+                              Sugarbaby
+                            </span>
+                          )}
                       </div>
                       {/* Content - Bottom */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
                         <div className="flex items-center gap-1 mb-1">
-                          <h3 className="font-semibold text-lg">{entity.name}</h3>
+                          <h3 className="font-semibold text-lg">
+                            {entity.name}
+                          </h3>
                           <span className="text-[#76FF5B] text-xl">•</span>
                           <span className="text-sm opacity-90">(34years)</span>
                         </div>
@@ -274,7 +291,9 @@ function Search() {
                               fill="white"
                             />
                           </svg>
-                          <span>{getProvinceName(entity?.profile?.province_id)}</span>
+                          <span>
+                            {getProvinceName(entity?.profile?.province_id)}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -299,7 +318,7 @@ function Search() {
       />
       <Footer />
     </>
-  )
+  );
 }
 
-export default Search
+export default Search;

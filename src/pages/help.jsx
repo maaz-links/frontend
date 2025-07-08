@@ -90,7 +90,7 @@ function ContactUs() {
       <Header />
       <div
         className=" flex items-center mt-24 mb-8  
-bg-image justify-center 2xl:mx-auto mx-5 rounded-2xl bg-gray-200  max-w-[1300px] m-auto"
+bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px] m-auto"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
