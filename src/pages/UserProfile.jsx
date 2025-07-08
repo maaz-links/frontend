@@ -406,6 +406,17 @@ function UserProfile() {
                   className="w-full h-60 sm:h-80 lg:h-60 xl:h-[526px] object-cover"
                 />
               </div>
+
+              <div className="w-full grid grid-cols-2 gap-1 md:gap-5 mt-3 ">
+                {givenUser.other_pics.map((id, i) => (
+                  <img
+                    key={id ?? i}
+                    src={getAttachmentURL(givenUser.other_pics)}
+                    alt={`user-pic-${i + 1}`}
+                    className=" rounded-2xl md:h-60 w-full"
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Profile Information */}
@@ -621,7 +632,7 @@ function UserProfile() {
               {/* Start chat section */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
-                  Start chat  with {givenUser.name}
+                  Start chat with {givenUser.name}
                 </h3>
                 {unlockChat ? (
                   <button
