@@ -413,7 +413,7 @@ function UserProfile() {
                     key={id ?? i}
                     src={getAttachmentURL(givenUser.other_pics)}
                     alt={`user-pic-${i + 1}`}
-                    className=" rounded-2xl md:h-60 w-full"
+                    className=" rounded-2xl md:h-60 w-full object-cover"
                   />
                 ))}
               </div>
