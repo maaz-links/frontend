@@ -5,13 +5,32 @@ import Header from "/src/components/common/header";
 import Footer from "/src/components/common/footer";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../../axios-client";
-import { getAttachmentURL } from "../functions/Common";
+import { getAge, getAttachmentURL } from "../functions/Common";
 import { ClipLoader } from "react-spinners"; // Import spinner
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FilterPanel from "./search/FilterPanel";
 
+export function FilterDisplay({name="Name",value="Value",onCross = () => console.log('empty')  }){
+  return (
+    <div className="rounded-4xl flex items-center text-nowrap bg-gray-200 px-4 py-2 text-[15px]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="23"
+              height="23"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              className="inline rounded-full p-1  hover:bg-gray-300 me-3"
+              onClick={onCross}
+            >
+              <path d="M2.146 2.146a.5.5 0 0 1 .708 0L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854a.5.5 0 0 1 0-.708z" />
+            </svg>
+              <strong>
+              {name}: {value}</strong></div>
+  );
+}
+
 function Search() {
-  const { user, token, getProvinceName } = useStateContext();
+  const { user, token, getProvinceName, languageOptions } = useStateContext();
   const [entities, setEntities] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -33,6 +52,10 @@ function Search() {
     province_id: searchParams.get("province") || "",
     verified_profile: searchParams.get("verified") === "true",
     top_profile: searchParams.get("top") === "true",
+    minage: searchParams.get("minage") || "",
+    maxage: searchParams.get("maxage") || "",
+    language: searchParams.get("language") || "",
+    cost: searchParams.get("cost") || "",
   });
 
   // Fetch initial data
@@ -47,6 +70,10 @@ function Search() {
           province_id: filters.province_id || undefined,
           verified_profile: filters.verified_profile || undefined,
           top_profile: filters.top_profile || undefined,
+          minage: filters.minage || undefined,
+          maxage: filters.maxage || undefined,
+          language: filters.language || undefined,
+          cost: filters.cost || undefined,
           page: 1, // Always start with page 1 when filters change
           per_page: perPage, // Number of items per page
         };
@@ -75,6 +102,10 @@ function Search() {
     if (filters.province_id) params.province = filters.province_id;
     if (filters.verified_profile) params.verified = "true";
     if (filters.top_profile) params.top = "true";
+    if (filters.maxage) params.maxage = filters.maxage;
+    if (filters.minage) params.minage = filters.minage;
+    if (filters.language) params.language = filters.language;
+    if (filters.cost) params.cost = filters.cost;
 
     setSearchParams(params);
   }, [token, filters]);
@@ -107,6 +138,10 @@ function Search() {
         province_id: filters.province_id || undefined,
         verified_profile: filters.verified_profile || undefined,
         top_profile: filters.top_profile || undefined,
+        minage: filters.minage || undefined,
+        maxage: filters.maxage || undefined,
+        language: filters.language || undefined,
+        cost: filters.cost || undefined,
         page: page,
         per_page: perPage,
       };
@@ -151,6 +186,12 @@ function Search() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  function getLanguageNameById(id) {
+    //console.log(languageOptions)
+    const lang = languageOptions.find((l) => l.id == id);
+    return lang ? lang.name : "Unknown";
+  }
 
   return (
     <>
@@ -205,6 +246,68 @@ function Search() {
             </button>
           </div>
         </div>
+        <div className="flex justify-center w-full flex-wrap  gap-2">
+          {(filters.verified_profile) && 
+          <FilterDisplay name="Verified Profile" value="True" 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              verified_profile: false,
+            }))
+          }
+          />}
+
+          {(filters.top_profile) && 
+          <FilterDisplay name="Top Profile" value="True" 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              top_profile: false,
+            }))
+          }
+          />}
+
+        {(filters.minage) && 
+          <FilterDisplay name="Min Age" value={filters.minage} 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              minage: '',
+            }))
+          }
+          />}
+
+        {(filters.maxage) && 
+          <FilterDisplay name="Max Age" value={filters.maxage} 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              maxage: '',
+            }))
+          }
+          />}
+
+        {(filters.language) && 
+          <FilterDisplay name="Language" value={getLanguageNameById(filters.language)} 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              language: '',
+            }))
+          }
+          />}
+        {(filters.cost) && 
+          <FilterDisplay name="Cost" value={`${filters.cost} credits`} 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              cost: '',
+            }))
+          }
+          />}
+        </div>
+
+        
 
         <div className="search-results relative">
           {initialLoad && (
@@ -219,11 +322,12 @@ function Search() {
                 No profiles found
               </h3>
               <p className="text-gray-500">
-                {filters.province_id ||
+                {/* {filters.province_id ||
                 filters.verified_profile ||
                 filters.top_profile
                   ? "Try adjusting your search filters"
-                  : "There are currently no profiles available"}
+                  : "There are currently no profiles available"} */}
+                  There are currently no profiles available
               </p>
             </div>
           ) : (
@@ -252,7 +356,7 @@ function Search() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                       {/* Profile Tags - Top */}
                       <div className="absolute top-3 left-3 flex flex-wrap gap-1 z-10">
-                        {entity.profile?.verified_profile && (
+                        {/* {entity.profile?.verified_profile && (
                           <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
                             Hostess
                           </span>
@@ -267,7 +371,7 @@ function Search() {
                             <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
                               Sugarbaby
                             </span>
-                          )}
+                          )} */}
                       </div>
                       {/* Content - Bottom */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
@@ -275,8 +379,8 @@ function Search() {
                           <h3 className="font-semibold text-lg">
                             {entity.name}
                           </h3>
-                          <span className="text-[#76FF5B] text-xl">•</span>
-                          <span className="text-sm opacity-90">(34years)</span>
+                          {entity.is_online == "online" && <span className="text-[#76FF5B] text-xl">•</span>}
+                          <span className="text-sm opacity-90">({getAge(entity.dob)} years)</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm opacity-90">
                           <svg

@@ -1,9 +1,27 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useStateContext } from "../../context/ContextProvider"
 
 function FilterPanel({ isOpen, onClose, filters, setFilters }) {
+
+  const {languageOptions} = useStateContext()
   const [localFilters, setLocalFilters] = useState(filters)
+
+  const priceOptions = [
+    { label: "Up to 50 coins", value: 50 },
+    { label: "Up to 100 coins", value: 100 },
+    { label: "Up to 200 coins", value: 200 },
+    { label: "Any price", value: "" }
+  ]
+
+  const handlePriceChange = (e) => {
+    const value = e.target.value === "" ? "" : parseInt(e.target.value, 10)
+    setLocalFilters(prev => ({
+      ...prev,
+      cost: value
+    }))
+  }
 
   const handleApplyFilters = () => {
     setFilters(localFilters)
@@ -16,6 +34,28 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
       [type]: !prev[type],
     }))
   }
+
+  const handleAgeChange = (type, value) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      [type]: parseInt(value, 10),  // Convert string to number
+    }))
+  }
+
+  const handleLanguageChange = (e) => {
+    const selectedLanguageId = e.target.value
+    setLocalFilters((prev) => ({
+      ...prev,
+      language: selectedLanguageId === "" ? "" : selectedLanguageId,
+    }))
+  }
+
+
+  useEffect(() => {
+    setLocalFilters(filters);
+
+  }, [filters]);
+
 
   return (
     <>
@@ -41,7 +81,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
                   localFilters.verified_profile ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                Hostess
+                Verified Profile
               </button>
               <button
                 onClick={() => handleTypeToggle("top_profile")}
@@ -49,17 +89,17 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
                   localFilters.top_profile ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                Wingwoman
+                Top Profile
               </button>
-              <button className="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
+              {/* <button className="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
                 Sugarbaby
-              </button>
+              </button> */}
             </div>
           </div>
 
-          {/* Age Section */}
-          <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Age</h4>
+           {/* Min Age Section */}
+           {/* <div className="mb-6">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Minimum Age</h4>
             <div className="px-2">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>18</span>
@@ -70,15 +110,43 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
                   type="range"
                   min="18"
                   max="45"
-                  defaultValue="30"
+                  value={localFilters.minage}
+                  onChange={(e) => handleAgeChange("minage", e.target.value)}
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                 />
+                <div className="text-center mt-2 text-sm">
+                  Selected: {localFilters.minage}
+                </div>
+              </div>
+            </div>
+          </div> */}
+
+          {/* Max Age Section */}
+          <div className="mb-6">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Maximum Age</h4>
+            <div className="px-2">
+              <div className="flex justify-between text-sm text-gray-600 mb-2">
+                <span>18</span>
+                <span>45</span>
+              </div>
+              <div className="relative">
+                <input
+                  type="range"
+                  min="18"
+                  max="45"
+                  value={localFilters.maxage}
+                  onChange={(e) => handleAgeChange("maxage", e.target.value)}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                />
+                <div className="text-center mt-2 text-sm">
+                  Selected: {localFilters.maxage}
+                </div>
               </div>
             </div>
           </div>
 
           {/* Sort by Section */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Sort by</h4>
             <select className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option>Popular</option>
@@ -86,27 +154,38 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
               <option>Rating</option>
               <option>Price</option>
             </select>
-          </div>
+          </div> */}
 
           {/* Unlock Price Section */}
           <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Unlock Price</h4>
-            <select className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Up to 50 coins</option>
-              <option>Up to 100 coins</option>
-              <option>Up to 200 coins</option>
-              <option>Any price</option>
+            <select
+              value={localFilters.cost ?? ""}
+              onChange={handlePriceChange}
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {priceOptions.map((option) => (
+                <option key={option.value ?? "any"} value={option.value ?? ""}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
 
           {/* Language Section */}
           <div className="mb-8">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Language</h4>
-            <select className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>English</option>
-              <option>Spanish</option>
-              <option>French</option>
-              <option>German</option>
+            <select
+              value={localFilters.language || ""}
+              onChange={handleLanguageChange}
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Any language</option>
+              {languageOptions?.map((language) => (
+                <option key={language.id} value={language.id}>
+                  {language.name}
+                </option>
+              ))}
             </select>
           </div>
 
