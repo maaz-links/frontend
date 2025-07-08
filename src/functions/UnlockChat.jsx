@@ -7,7 +7,7 @@ export const createChat = async (other_user_id,navigate,refreshUser,myRole,other
     const result = await CustomSwal.fire({
       title: 'Confirm Action',
       text: myRole == ROLES.KING 
-      ? `Are you sure you want to unlock chat with ${other_user_name}?`
+      ? `Are you sure you want to  unlock chat with ${other_user_name}?`
       : `Are you sure you want to send free message to ${other_user_name}?`,
     //   icon: 'warning',
       showCancelButton: true,

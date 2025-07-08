@@ -33,7 +33,7 @@
 //       setUnlockChat(response.data.unlockChat)
 //       setCanReport(response.data.canReport)
 //       console.log(url, response);
-      
+
 //     })
 //     .catch(error => {
 //         console.error('Error response:', error);
@@ -42,9 +42,8 @@
 //       setLoading(false);
 //       // console.log('Request completed');
 //     });
-    
-//     }, [])
 
+//     }, [])
 
 //     function capitalizeFirstLetter(string) {
 //       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -126,9 +125,9 @@
 //             {givenUser.profile.top_profile ?
 //               <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 //                 <title>Top Profile</title>
-//               <path 
-//                 d="M13.5 2L16.35 9.5H24.3L17.85 14.5L20.7 22L13.5 17L6.3 22L9.15 14.5L2.7 9.5H10.65L13.5 2Z" 
-//                 fill="#000" 
+//               <path
+//                 d="M13.5 2L16.35 9.5H24.3L17.85 14.5L20.7 22L13.5 17L6.3 22L9.15 14.5L2.7 9.5H10.65L13.5 2Z"
+//                 fill="#000"
 //                 stroke="#000"
 //                 strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"
 //               />
@@ -137,9 +136,9 @@
 //             {givenUser.is_online == "online" ?
 //               <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 //                 <title>Online</title>
-//               <path 
-//                 d="M13.5 2L16.35 9.5H24.3L17.85 14.5L20.7 22L13.5 17L6.3 22L9.15 14.5L2.7 9.5H10.65L13.5 2Z" 
-//                 fill="green" 
+//               <path
+//                 d="M13.5 2L16.35 9.5H24.3L17.85 14.5L20.7 22L13.5 17L6.3 22L9.15 14.5L2.7 9.5H10.65L13.5 2Z"
+//                 fill="green"
 //                 stroke="green"
 //                 strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"
 //               />
@@ -169,12 +168,10 @@
 //             />
 //           ))}
 //         </div>
-        
-         
+
 //         </div>
 //         </a>
 //         </div>
-
 
 //             </div>
 //             <div className='profile-details md:w-[60%] w-full'>
@@ -194,13 +191,10 @@
 //                       <p className='flex items-center gap-[10px] text-[16px]'><strong>Available for Tours:</strong><span>{givenUser.profile.travel_available ? 'Yes' : 'No'}</span></p>
 //                       <p className='flex items-center gap-[10px] text-[16px]'><strong>Telegram:</strong><span>{givenUser.profile.telegram || 'N/A'}</span></p>
 
-
 //                     </>
 //                   }
 //                 </div>
 //               </div>
-
-
 
 // {givenUser.visible_rating && <StarRating rating={givenUser?.rating || 0} size='text-[30px]'  />}
 // <div className='about'>
@@ -208,14 +202,13 @@
 // <p className='pt-[10px]'>{givenUser.profile.description}</p>
 // </div>
 
-
 // {(givenUser.role === ROLES.HOSTESS) &&
 // <>
 
 // <h3 className="mt-[24px] font-[400] text-[26px] border-b">Available for:</h3>
-            
+
 //               <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
-               
+
 //                 {optionsAvailableFor
 //                   .filter(item => givenUser.profile.available_services.includes(item.id))
 //                   .map((item) => (
@@ -227,7 +220,7 @@
 //                     </span>
 //                   ))
 //                 }
-          
+
 //         </div>
 //         <h3 className="mt-[24px] font-[400] text-[26px] border-b">Personality and Hobbies</h3>
 //         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
@@ -246,7 +239,7 @@
 // </>}
 //         {/* Languages */}
 //         <h3 className="mt-[24px] md:mt-[56px] font-[400] text-[26px] border-b">Spoken Languages</h3>
-        
+
 //         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 //         {languageOptions
 //                   .filter(item => givenUser.profile.my_languages.includes(item.id))
@@ -280,11 +273,10 @@
 //         {canReport &&
 //           <ReportUserButton userId={givenUser.id}/>
 //         }
-          
-          
+
 //         </div>
 //         </div>
-       
+
 // </div>
 
 // <Footer />
@@ -292,30 +284,25 @@
 // </>
 
 //     )
-    
+
 // }
 // export default UserProfile;
 
-
-
-
 // ------------------ NEW CODE ------------------------------
 
+"use client";
 
-
-"use client"
-
-import { useEffect, useState } from "react"
-import Footer from "../components/common/footer"
-import Header from "../components/common/header"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { useStateContext } from "../context/ContextProvider"
-import axiosClient from "../../axios-client"
-import { dressSizeName, getAttachmentURL } from "../functions/Common"
-import { ROLES } from "../../constants"
-import ReportUserButton from "../components/ReportUserButton"
-import { ClipLoader } from "react-spinners"
-import { createChat } from "../functions/UnlockChat"
+import { useEffect, useState } from "react";
+import Footer from "../components/common/footer";
+import Header from "../components/common/header";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useStateContext } from "../context/ContextProvider";
+import axiosClient from "../../axios-client";
+import { dressSizeName, getAttachmentURL } from "../functions/Common";
+import { ROLES } from "../../constants";
+// import ReportUserButton from "../components/ReportUserButton";
+import { ClipLoader } from "react-spinners";
+import { createChat } from "../functions/UnlockChat";
 
 function UserProfile() {
   const {
@@ -327,34 +314,36 @@ function UserProfile() {
     getProvinceName,
     refreshUser,
     profileCosts,
-  } = useStateContext()
-  const [givenUser, setGivenUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [unlockChat, setUnlockChat] = useState(false)
-  const [canReport, setCanReport] = useState(false)
-  const { username } = useParams()
-  const navigate = useNavigate()
+  } = useStateContext();
+  const [givenUser, setGivenUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [unlockChat, setUnlockChat] = useState(false);
+  const [canReport, setCanReport] = useState(false);
+  const { username } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const url = token ? `/api/user-profile/${username}` : `/api/user-profile-guest/${username}`
+    const url = token
+      ? `/api/user-profile/${username}`
+      : `/api/user-profile-guest/${username}`;
     axiosClient
       .get(url)
       .then((response) => {
-        setGivenUser(response.data.user)
-        setUnlockChat(response.data.unlockChat)
-        setCanReport(response.data.canReport)
-        console.log(url, response)
+        setGivenUser(response.data.user);
+        setUnlockChat(response.data.unlockChat);
+        // setCanReport(response.data.canReport);
+        console.log(url, response);
       })
       .catch((error) => {
-        console.error("Error response:", error)
+        console.error("Error response:", error);
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+        setLoading(false);
+      });
+  }, []);
 
   function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   if (loading) {
@@ -362,7 +351,7 @@ function UserProfile() {
       <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
         <ClipLoader color="#E91E63" size={50} />
       </div>
-    )
+    );
   }
 
   if (!givenUser) {
@@ -374,7 +363,7 @@ function UserProfile() {
         </div>
         <Footer />
       </>
-    )
+    );
   }
 
   return (
@@ -387,8 +376,18 @@ function UserProfile() {
             onClick={() => navigate(-1)}
             className="flex items-center text-black text-[16px] font-[400] hover:text-gray-800 mb-4 sm:mb-8 text-sm"
           >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             Back
           </button>
@@ -398,7 +397,11 @@ function UserProfile() {
             <div className="w-full lg:w-60 xl:w-[672px] flex-shrink-0">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
                 <img
-                  src={getAttachmentURL(givenUser.profile_picture_id) || "/placeholder.svg" || "/placeholder.svg"}
+                  src={
+                    getAttachmentURL(givenUser.profile_picture_id) ||
+                    "/placeholder.svg" ||
+                    "/placeholder.svg"
+                  }
                   alt={givenUser.name}
                   className="w-full h-60 sm:h-80 lg:h-60 xl:h-[526px] object-cover"
                 />
@@ -408,14 +411,18 @@ function UserProfile() {
             {/* Profile Information */}
             <div className="flex-1 relative pt-4 sm:pt-12">
               {/* Credit Badge - Top Left */}
-              <div className="absolute top-0 left-0">
-                <div className="bg-black text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
-                  16 Credit
-                </div>
-              </div>
 
+              {token && user?.role === ROLES.KING && (
+                <div className="absolute top-0 left-0">
+                  <div className="bg-black text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
+                    <strong>{user.profile.credits} Credits</strong>
+                  </div>
+                </div>
+              )}
               {/* User ID - Top Right */}
-              <div className="absolute top-0 right-0 text-xs sm:text-sm text-gray-400">User ID: {givenUser.id}</div>
+              <div className="absolute top-0 right-0 text-xs sm:text-sm text-gray-400">
+                User ID: {givenUser.id}
+              </div>
 
               <div className="my-3">
                 {/* Name with Green Dot and Age */}
@@ -425,14 +432,20 @@ function UserProfile() {
                     <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>
                   </div>
                   <span className="text-black text-[14px] sm:text-[16px] font-[400] mt-1 sm:mt-0">
-                    ({new Date().getFullYear() - new Date(givenUser.created_at).getFullYear()}
+                    (
+                    {new Date().getFullYear() -
+                      new Date(givenUser.created_at).getFullYear()}
                     years)
                   </span>
                 </h1>
 
                 {/* Location */}
                 <div className="flex items-center text-black text-[14px] sm:text-[16px] font-[400] mb-4 sm:mb-6">
-                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
@@ -445,7 +458,9 @@ function UserProfile() {
 
               {/* About Me */}
               <div className="mb-6 sm:mb-8">
-                <h2 className="text-[18px] sm:text-[20px] font-extrabold text-black mb-3">About Me</h2>
+                <h2 className="text-[18px] sm:text-[20px] font-extrabold text-black mb-3">
+                  About Me
+                </h2>
                 <p className="text-gray-700 text-sm leading-relaxed">
                   {givenUser.profile.description || "New User here."}
                 </p>
@@ -454,10 +469,14 @@ function UserProfile() {
               {/* Available for */}
               {givenUser.role === ROLES.HOSTESS && (
                 <div className="mb-6 sm:mb-8">
-                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">Available for</h3>
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
+                    Available for
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {optionsAvailableFor
-                      .filter((item) => givenUser.profile.available_services.includes(item.id))
+                      .filter((item) =>
+                        givenUser.profile.available_services.includes(item.id)
+                      )
                       .map((item) => (
                         <span
                           key={item.id}
@@ -472,12 +491,19 @@ function UserProfile() {
 
               {/* Personality and interests */}
               <div className="mb-6 sm:mb-8">
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">Personality and interests:</h3>
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
+                  Personality and interests:
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {optionsInterest
-                    .filter((item) => givenUser.profile.personal_interests.includes(item.id))
+                    .filter((item) =>
+                      givenUser.profile.personal_interests.includes(item.id)
+                    )
                     .map((item) => (
-                      <span key={item.id} className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs">
+                      <span
+                        key={item.id}
+                        className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs"
+                      >
                         {item.name}
                       </span>
                     ))}
@@ -491,34 +517,51 @@ function UserProfile() {
                 </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Age</span>
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                      Age
+                    </span>
                     <span className="text-gray-900 text-[14px] sm:text-[16px]">
-                      {new Date().getFullYear() - new Date(givenUser.created_at).getFullYear()}
+                      {new Date().getFullYear() -
+                        new Date(givenUser.created_at).getFullYear()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Eye Colour</span>
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                      Eye Colour
+                    </span>
                     <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                      {capitalizeFirstLetter(givenUser.profile.eye_color || "Blue")}
+                      {capitalizeFirstLetter(
+                        givenUser.profile.eye_color || "Blue"
+                      )}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Nationality</span>
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                      Nationality
+                    </span>
                     <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                      {capitalizeFirstLetter(givenUser.profile.nationality || "Italian")}
+                      {capitalizeFirstLetter(
+                        givenUser.profile.nationality || "Italian"
+                      )}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Shoe Size</span>
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                      Shoe Size
+                    </span>
                     <span className="text-gray-900 text-[14px] sm:text-[16px]">
                       {givenUser.profile.shoe_size || "45"}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Languages</span>
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                      Languages
+                    </span>
                     <span className="text-gray-900 text-[14px] sm:text-[16px] text-right">
                       {languageOptions
-                        .filter((item) => givenUser.profile.my_languages.includes(item.id))
+                        .filter((item) =>
+                          givenUser.profile.my_languages.includes(item.id)
+                        )
                         .map((item) => item.name)
                         .join(", ") || "Italian, English"}
                     </span>
@@ -526,7 +569,9 @@ function UserProfile() {
                   {givenUser.role === ROLES.HOSTESS && (
                     <>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Weight</span>
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                          Weight
+                        </span>
                         <span className="text-gray-900 text-[14px] sm:text-[16px]">
                           {givenUser.profile.weight || "70"}kg
                         </span>
@@ -534,7 +579,9 @@ function UserProfile() {
                     </>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Height</span>
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                      Height
+                    </span>
                     <span className="text-[#090909] text-[14px] sm:text-[16px]">
                       {givenUser.profile.height || "170"}cm
                     </span>
@@ -542,19 +589,26 @@ function UserProfile() {
                   {givenUser.role === ROLES.HOSTESS && (
                     <>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Dress size</span>
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                          Dress size
+                        </span>
                         <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                          {dressSizeName(givenUser.profile.dress_size) || "Medium"}
+                          {dressSizeName(givenUser.profile.dress_size) ||
+                            "Medium"}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Available for Tours</span>
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                          Available for Tours
+                        </span>
                         <span className="text-gray-900 text-[14px] sm:text-[16px]">
                           {givenUser.profile.travel_available ? "Yes" : "No"}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Telegram</span>
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                          Telegram
+                        </span>
                         <span className="text-orange-500 text-[14px] sm:text-[16px]">
                           {givenUser.profile.telegram || "N/A"}
                         </span>
@@ -567,42 +621,56 @@ function UserProfile() {
               {/* Start chat section */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
-                  Start chat with {givenUser.name}
+                  Start chat  with {givenUser.name}
                 </h3>
                 {unlockChat ? (
                   <button
-                    onClick={() => createChat(givenUser.id, navigate, refreshUser, user.role, givenUser.name)}
-                    className="w-full bg-black text-white py-3 px-4 sm:px-6 rounded text-sm font-medium hover:bg-gray-800 transition-colors"
+                    onClick={() =>
+                      createChat(
+                        givenUser.id,
+                        navigate,
+                        refreshUser,
+                        user.role,
+                        givenUser.name
+                      )
+                    }
+                    className="w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
-                    {user?.role == ROLES.KING
-                      ? `Unlock Chat for ${givenUser.profile.unlock_cost} credits`
-                      : "Send Free Message"}
+                    {user?.role == ROLES.KING ? (
+                      <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-[400]">
+                        {" "}
+                        Unlock Chat for
+                        <div className="text-[#8880FE] ">
+                          {givenUser.profile.unlock_cost} credits
+                        </div>
+                      </div>
+                    ) : (
+                      "Send Free Message"
+                    )}
                   </button>
                 ) : (
                   <Link
                     to="/chat"
-                    className="block w-full bg-black text-white py-3 px-4 sm:px-6 rounded text-sm font-medium text-center hover:bg-gray-800 transition-colors"
+                    className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium text-center hover:bg-gray-800 transition-colors"
                   >
                     Go to the Chat
                   </Link>
                 )}
               </div>
 
-              {/* Report Button */}
+              {/* Report Button
               {canReport && (
                 <div className="mt-6 sm:mt-8">
                   <ReportUserButton userId={givenUser.id} />
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
       </div>
       <Footer />
     </>
-  )
+  );
 }
 
-export default UserProfile
-
-
+export default UserProfile;
