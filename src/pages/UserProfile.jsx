@@ -411,7 +411,7 @@ function UserProfile() {
                 {givenUser.other_pics.map((id, i) => (
                   <img
                     key={id ?? i}
-                    src={getAttachmentURL(givenUser.other_pics)}
+                    src={getAttachmentURL(id)}
                     alt={`user-pic-${i + 1}`}
                     className=" rounded-2xl md:h-60 w-full object-cover"
                   />
