@@ -303,18 +303,19 @@
 
 
 
+"use client"
 
-import { useEffect, useState } from "react";
-import Footer from "../components/common/footer";
-import Header from "../components/common/header";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
-import axiosClient from "../../axios-client";
-import { dressSizeName, getAttachmentURL } from "../functions/Common";
-import { ROLES } from "../../constants";
-import ReportUserButton from "../components/ReportUserButton";
-import { ClipLoader } from "react-spinners";
-import { createChat } from "../functions/UnlockChat";
+import { useEffect, useState } from "react"
+import Footer from "../components/common/footer"
+import Header from "../components/common/header"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { useStateContext } from "../context/ContextProvider"
+import axiosClient from "../../axios-client"
+import { dressSizeName, getAttachmentURL } from "../functions/Common"
+import { ROLES } from "../../constants"
+import ReportUserButton from "../components/ReportUserButton"
+import { ClipLoader } from "react-spinners"
+import { createChat } from "../functions/UnlockChat"
 
 function UserProfile() {
   const {
@@ -326,36 +327,34 @@ function UserProfile() {
     getProvinceName,
     refreshUser,
     profileCosts,
-  } = useStateContext();
-  const [givenUser, setGivenUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [unlockChat, setUnlockChat] = useState(false);
-  const [canReport, setCanReport] = useState(false);
-  const { username } = useParams();
-  const navigate = useNavigate();
+  } = useStateContext()
+  const [givenUser, setGivenUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [unlockChat, setUnlockChat] = useState(false)
+  const [canReport, setCanReport] = useState(false)
+  const { username } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const url = token
-      ? `/api/user-profile/${username}`
-      : `/api/user-profile-guest/${username}`;
+    const url = token ? `/api/user-profile/${username}` : `/api/user-profile-guest/${username}`
     axiosClient
       .get(url)
       .then((response) => {
-        setGivenUser(response.data.user);
-        setUnlockChat(response.data.unlockChat);
-        setCanReport(response.data.canReport);
-        console.log(url, response);
+        setGivenUser(response.data.user)
+        setUnlockChat(response.data.unlockChat)
+        setCanReport(response.data.canReport)
+        console.log(url, response)
       })
       .catch((error) => {
-        console.error("Error response:", error);
+        console.error("Error response:", error)
       })
       .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+        setLoading(false)
+      })
+  }, [])
 
   function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
   if (loading) {
@@ -363,7 +362,7 @@ function UserProfile() {
       <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
         <ClipLoader color="#E91E63" size={50} />
       </div>
-    );
+    )
   }
 
   if (!givenUser) {
@@ -375,84 +374,65 @@ function UserProfile() {
         </div>
         <Footer />
       </>
-    );
+    )
   }
 
   return (
     <>
       <Header />
       <div className="bg-gray-50 min-h-screen">
-        <div className="max-w-[1400px] mx-auto px-6 py-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
           {/* Back Button */}
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center text-black text-[16px] font-[400] hover:text-gray-800 mb-8 text-sm"
+            className="flex items-center text-black text-[16px] font-[400] hover:text-gray-800 mb-4 sm:mb-8 text-sm"
           >
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back
           </button>
 
-          <div className="flex gap-8">
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
-            <div className=" w-60 lg:w-[672px] flex-shrink-0">
+            <div className="w-full lg:w-60 xl:w-[672px] flex-shrink-0">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
                 <img
-                  src={
-                    getAttachmentURL(givenUser.profile_picture_id) ||
-                    "/placeholder.svg"
-                  }
+                  src={getAttachmentURL(givenUser.profile_picture_id) || "/placeholder.svg" || "/placeholder.svg"}
                   alt={givenUser.name}
-                  className="w-full h-60 lg:h-[526px] object-cover"
+                  className="w-full h-60 sm:h-80 lg:h-60 xl:h-[526px] object-cover"
                 />
               </div>
             </div>
 
             {/* Profile Information */}
-            <div className="flex-1 relative pt-12 ">
+            <div className="flex-1 relative pt-4 sm:pt-12">
               {/* Credit Badge - Top Left */}
-              <div className="absolute top-0 left-0 ">
-                <div className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium ">
+              <div className="absolute top-0 left-0">
+                <div className="bg-black text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
                   16 Credit
                 </div>
               </div>
 
               {/* User ID - Top Right */}
-              <div className="absolute top-0 right-0 text-sm text-gray-400">
-                User ID: {givenUser.id}
-              </div>
+              <div className="absolute top-0 right-0 text-xs sm:text-sm text-gray-400">User ID: {givenUser.id}</div>
 
-              <div className="my-3 ">
+              <div className="my-3">
                 {/* Name with Green Dot and Age */}
-                <h1 className="text-4xl font-normal text-black mb-2 flex items-center">
-                  {givenUser.name}
-                  <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>
-                  <span className="text-black text-[16px] font-[400] ">
-                    (
-                    {new Date().getFullYear() -
-                      new Date(givenUser.created_at).getFullYear()}
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-2 flex flex-col sm:flex-row sm:items-center">
+                  <div className="flex items-center">
+                    {givenUser.name}
+                    <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>
+                  </div>
+                  <span className="text-black text-[14px] sm:text-[16px] font-[400] mt-1 sm:mt-0">
+                    ({new Date().getFullYear() - new Date(givenUser.created_at).getFullYear()}
                     years)
                   </span>
                 </h1>
 
                 {/* Location */}
-                <div className="flex items-center text-black text-[16px] font-[400] mb-6">
-                  <svg
-                    className="w-4 h-4 mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
+                <div className="flex items-center text-black text-[14px] sm:text-[16px] font-[400] mb-4 sm:mb-6">
+                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
                       d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
@@ -464,10 +444,8 @@ function UserProfile() {
               </div>
 
               {/* About Me */}
-              <div className="mb-8">
-                <h2 className="text-[20px]  font-extrabold text-black mb-3">
-                  About Me
-                </h2>
+              <div className="mb-6 sm:mb-8">
+                <h2 className="text-[18px] sm:text-[20px] font-extrabold text-black mb-3">About Me</h2>
                 <p className="text-gray-700 text-sm leading-relaxed">
                   {givenUser.profile.description || "New User here."}
                 </p>
@@ -475,19 +453,15 @@ function UserProfile() {
 
               {/* Available for */}
               {givenUser.role === ROLES.HOSTESS && (
-                <div className="mb-8">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">
-                    Available for
-                  </h3>
+                <div className="mb-6 sm:mb-8">
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">Available for</h3>
                   <div className="flex flex-wrap gap-2">
                     {optionsAvailableFor
-                      .filter((item) =>
-                        givenUser.profile.available_services.includes(item.id)
-                      )
+                      .filter((item) => givenUser.profile.available_services.includes(item.id))
                       .map((item) => (
                         <span
                           key={item.id}
-                          className="bg-[#8880FE] text-white px-3 py-2 font-[400] rounded-full text-[14px] "
+                          className="bg-[#8880FE] text-white px-3 py-2 font-[400] rounded-full text-[12px] sm:text-[14px]"
                         >
                           {item.name}
                         </span>
@@ -497,20 +471,13 @@ function UserProfile() {
               )}
 
               {/* Personality and interests */}
-              <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-3">
-                  Personality and interests:
-                </h3>
+              <div className="mb-6 sm:mb-8">
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">Personality and interests:</h3>
                 <div className="flex flex-wrap gap-2">
                   {optionsInterest
-                    .filter((item) =>
-                      givenUser.profile.personal_interests.includes(item.id)
-                    )
+                    .filter((item) => givenUser.profile.personal_interests.includes(item.id))
                     .map((item) => (
-                      <span
-                        key={item.id}
-                        className="bg-[#F3F3F5] text-black  px-3 py-2 rounded-full text-xs"
-                      >
+                      <span key={item.id} className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs">
                         {item.name}
                       </span>
                     ))}
@@ -518,114 +485,77 @@ function UserProfile() {
               </div>
 
               {/* Informations */}
-              <div className="mb-8">
-                <h3 className="text[20px]  font-[400] leading-[24px] text-gray-900 mb-4">
+              <div className="mb-6 sm:mb-8">
+                <h3 className="text-[18px] sm:text-[20px] font-[400] leading-[24px] text-gray-900 mb-4">
                   Informations
                 </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[16px] font-[400]">
-                      Age
-                    </span>
-                    <span className="text-gray-900">
-                      {new Date().getFullYear() -
-                        new Date(givenUser.created_at).getFullYear()}
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Age</span>
+                    <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                      {new Date().getFullYear() - new Date(givenUser.created_at).getFullYear()}
                     </span>
                   </div>
-
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[16px] font-[400]">
-                      Eye Colour
-                    </span>
-                    <span className="text-[#090909]">
-                      {capitalizeFirstLetter(
-                        givenUser.profile.eye_color || "Blue"
-                      )}
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Eye Colour</span>
+                    <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                      {capitalizeFirstLetter(givenUser.profile.eye_color || "Blue")}
                     </span>
                   </div>
-
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[16px] font-[400]">
-                      Nationality
-                    </span>
-                    <span className="text-[#090909]">
-                      {capitalizeFirstLetter(
-                        givenUser.profile.nationality || "Italian"
-                      )}
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Nationality</span>
+                    <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                      {capitalizeFirstLetter(givenUser.profile.nationality || "Italian")}
                     </span>
                   </div>
-
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[16px] font-[400]">
-                      Shoe Size
-                    </span>
-                    <span className="text-gray-900">
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Shoe Size</span>
+                    <span className="text-gray-900 text-[14px] sm:text-[16px]">
                       {givenUser.profile.shoe_size || "45"}
                     </span>
                   </div>
-
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[16px] font-[400]">
-                      Languages
-                    </span>
-                    <span className="text-gray-900">
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Languages</span>
+                    <span className="text-gray-900 text-[14px] sm:text-[16px] text-right">
                       {languageOptions
-                        .filter((item) =>
-                          givenUser.profile.my_languages.includes(item.id)
-                        )
+                        .filter((item) => givenUser.profile.my_languages.includes(item.id))
                         .map((item) => item.name)
                         .join(", ") || "Italian, English"}
                     </span>
                   </div>
-
                   {givenUser.role === ROLES.HOSTESS && (
                     <>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[16px] font-[400]">
-                          Weight
-                        </span>
-                        <span className="text-gray-900">
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Weight</span>
+                        <span className="text-gray-900 text-[14px] sm:text-[16px]">
                           {givenUser.profile.weight || "70"}kg
                         </span>
                       </div>
                     </>
                   )}
-
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[16px] font-[400]">
-                      Height
-                    </span>
-                    <span className="text-[#090909]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">Height</span>
+                    <span className="text-[#090909] text-[14px] sm:text-[16px]">
                       {givenUser.profile.height || "170"}cm
                     </span>
                   </div>
-
                   {givenUser.role === ROLES.HOSTESS && (
                     <>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[16px] font-[400]">
-                          Dress size
-                        </span>
-                        <span className="text-[#090909]">
-                          {dressSizeName(givenUser.profile.dress_size) ||
-                            "Medium"}
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Dress size</span>
+                        <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                          {dressSizeName(givenUser.profile.dress_size) || "Medium"}
                         </span>
                       </div>
-
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[16px] font-[400]">
-                          Available for Tours
-                        </span>
-                        <span className="text-gray-900">
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Available for Tours</span>
+                        <span className="text-gray-900 text-[14px] sm:text-[16px]">
                           {givenUser.profile.travel_available ? "Yes" : "No"}
                         </span>
                       </div>
-
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[16px] font-[400]">
-                          Telegram
-                        </span>
-                        <span className="text-orange-500">
+                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">Telegram</span>
+                        <span className="text-orange-500 text-[14px] sm:text-[16px]">
                           {givenUser.profile.telegram || "N/A"}
                         </span>
                       </div>
@@ -635,23 +565,14 @@ function UserProfile() {
               </div>
 
               {/* Start chat section */}
-              <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <div className="mb-6 sm:mb-8">
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
                   Start chat with {givenUser.name}
                 </h3>
-
                 {unlockChat ? (
                   <button
-                    onClick={() =>
-                      createChat(
-                        givenUser.id,
-                        navigate,
-                        refreshUser,
-                        user.role,
-                        givenUser.name
-                      )
-                    }
-                    className="w-full bg-black text-white py-3 px-6 rounded text-sm font-medium hover:bg-gray-800 transition-colors"
+                    onClick={() => createChat(givenUser.id, navigate, refreshUser, user.role, givenUser.name)}
+                    className="w-full bg-black text-white py-3 px-4 sm:px-6 rounded text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
                     {user?.role == ROLES.KING
                       ? `Unlock Chat for ${givenUser.profile.unlock_cost} credits`
@@ -660,7 +581,7 @@ function UserProfile() {
                 ) : (
                   <Link
                     to="/chat"
-                    className="block w-full bg-black text-white py-3 px-6 rounded text-sm font-medium text-center hover:bg-gray-800 transition-colors"
+                    className="block w-full bg-black text-white py-3 px-4 sm:px-6 rounded text-sm font-medium text-center hover:bg-gray-800 transition-colors"
                   >
                     Go to the Chat
                   </Link>
@@ -669,7 +590,7 @@ function UserProfile() {
 
               {/* Report Button */}
               {canReport && (
-                <div className="mt-8">
+                <div className="mt-6 sm:mt-8">
                   <ReportUserButton userId={givenUser.id} />
                 </div>
               )}
@@ -679,9 +600,9 @@ function UserProfile() {
       </div>
       <Footer />
     </>
-  );
+  )
 }
 
-export default UserProfile;
+export default UserProfile
 
 
