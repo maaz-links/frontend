@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         element: <GuestLayout />,
         children: [
           { path: "/login", element: <Login /> },
-          { path: "/signup", element: <SignUp /> },
+          { path: "/sign-up", element: <SignUp /> },
           { path: "/verify-email", element: <VerifyEmail /> },
           { path: "/verify-phone", element: <VerifyPhone /> },
           { path: "forgot-password", element: <ForgotPassword /> },

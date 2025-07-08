@@ -108,7 +108,7 @@ function Header() {
             <div className="flex items-center gap-5">
               {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
-                to="/signup"
+                to="/sign-up"
                 className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
                 Sign Up Now
@@ -126,7 +126,7 @@ function Header() {
             <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
               <div className="flex flex-col items-center p-4 space-y-4">
                 <NavLink
-                  to="/signup"
+                  to="/sign-up"
                   className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
                 >
                   Sign Up Now
@@ -183,7 +183,7 @@ function Header() {
             )}
           </div>
           {/* <NavLink
-            to="/signup"
+            to="/sign-up"
             className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] invisible hidden md:block"
           >
             S
@@ -218,7 +218,7 @@ function Header() {
           <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
             <div className="flex flex-col items-center p-4 space-y-4">
               {/* <NavLink
-                to="/signup"
+                to="/sign-up"
                 className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
               >
                 Sign Up Now

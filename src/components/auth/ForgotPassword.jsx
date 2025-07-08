@@ -109,7 +109,7 @@ function ForgotPassword() {
                   </div>
     
                   <div className="text-center my-9">
-                    New User? <strong><Link to='/signup'>Sign up for Free</Link></strong>
+                    New User? <strong><Link to='/sign-up'>Sign up for Free</Link></strong>
                   </div>
                 </div>
               </form>

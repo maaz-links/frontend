@@ -1,8 +1,12 @@
 import mobileImage from "/src/assets/images/hostess-bg-mobile.png";
 import desktopImage from "/src/assets/images/hostess-bg-desktop.png";
 import HostessImg from "/src/assets/images/hostess.png";
+import { useNavigate } from "react-router-dom";
 
 const PromoBanner = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="relative py-16 px-4 sm:px-6 lg:px-8 ">
       <style>
@@ -41,7 +45,7 @@ const PromoBanner = () => {
               sophistication and charm, attending elite events, forming genuine
               connections, and embracing a lifestyle beyond the ordinary.
             </p>
-            <button className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition">
+            <button onClick={() => navigate('/sign-up')} className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition">
               Create your profile for free
             </button>
           </div>
