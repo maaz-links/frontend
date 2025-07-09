@@ -98,7 +98,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
           </div>
 
            {/* Min Age Section */}
-           {/* <div className="mb-6">
+           <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Minimum Age</h4>
             <div className="px-2">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
@@ -119,7 +119,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* Max Age Section */}
           <div className="mb-6">
