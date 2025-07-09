@@ -290,8 +290,6 @@
 
 // ------------------ NEW CODE ------------------------------
 
-"use client";
-
 import { useEffect, useState } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
@@ -303,8 +301,14 @@ import { ROLES } from "../../constants";
 // import ReportUserButton from "../components/ReportUserButton";
 import { ClipLoader } from "react-spinners";
 import { createChat } from "../functions/UnlockChat";
+import UnlockChatModal from "../components/common/unlock-chat-modal";
 
 function UserProfile() {
+  const openModal = (user) => {
+    setIsModalOpen(true);
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {
     token,
     user,
@@ -629,6 +633,15 @@ function UserProfile() {
                 </div>
               </div>
 
+              <UnlockChatModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                userName={givenUser.name}
+                userId={givenUser.id}
+                coinCost={givenUser.profile.unlock_cost}
+                userBalance={user.profile.credits}
+              />
+
               {/* Start chat section */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
@@ -636,9 +649,7 @@ function UserProfile() {
                 </h3>
                 {unlockChat ? (
                   <button
-                    onClick={() =>
-                      createChat(givenUser, navigate, refreshUser, user)
-                    }
+                    onClick={() => openModal(givenUser)}
                     className="w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
                     {user?.role == ROLES.KING ? (

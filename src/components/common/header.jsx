@@ -96,8 +96,8 @@ function Header() {
                   key={index}
                   to={link.link}
                   className={({ isActive }) =>
-                    `text-gray-700 hover:text-black hover:font-medium font-[400] ${
-                      isActive ? "text-black font-medium" : ""
+                    `text-gray-700 hover:text-gray-950 hover:font-medium font-[400] ${
+                      isActive ? "text-gray-950 font-medium" : ""
                     }`
                   }
                 >
@@ -165,8 +165,8 @@ function Header() {
                 key={index}
                 to={link.link}
                 className={({ isActive }) =>
-                  `text-gray-700 hover:text-black hover:font-medium font-[400] flex items-center ${
-                    isActive ? "text-black font-medium" : ""
+                  `text-gray-700 hover:text-gray-950 hover:font-medium font-[400] flex items-center ${
+                    isActive ? "text-gray-950 font-medium" : ""
                   }`
                 }
               >
