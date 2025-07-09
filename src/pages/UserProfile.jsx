@@ -205,7 +205,7 @@
 // {(givenUser.role === ROLES.HOSTESS) &&
 // <>
 
-// <h3 className="mt-[24px] font-[400] text-[26px] border-b">Available for:</h3>
+// <h3 className="mt-[24px] font-medium text-[26px] border-b">Available for:</h3>
 
 //               <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 
@@ -222,7 +222,7 @@
 //                 }
 
 //         </div>
-//         <h3 className="mt-[24px] font-[400] text-[26px] border-b">Personality and Hobbies</h3>
+//         <h3 className="mt-[24px] font-medium text-[26px] border-b">Personality and Hobbies</h3>
 //         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 //         {optionsInterest
 //                   .filter(item => givenUser.profile.personal_interests.includes(item.id))
@@ -238,7 +238,7 @@
 //         </div>
 // </>}
 //         {/* Languages */}
-//         <h3 className="mt-[24px] md:mt-[56px] font-[400] text-[26px] border-b">Spoken Languages</h3>
+//         <h3 className="mt-[24px] md:mt-[56px] font-medium text-[26px] border-b">Spoken Languages</h3>
 
 //         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 //         {languageOptions
@@ -374,7 +374,7 @@ function UserProfile() {
           {/* Back Button */}
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center text-black text-[16px] font-[400] hover:text-gray-800 mb-4 sm:mb-8 text-sm"
+            className="flex items-center text-black text-[16px] font-medium hover:text-gray-800 mb-4 sm:mb-8 text-sm"
           >
             <svg
               className="w-4 h-4 mr-2"
@@ -442,7 +442,7 @@ function UserProfile() {
                     {givenUser.name}
                     <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>
                   </div>
-                  <span className="text-black text-[14px] sm:text-[16px] font-[400] mt-1 sm:mt-0">
+                  <span className="text-black text-[14px] sm:text-[16px] font-medium mt-1 sm:mt-0">
                     (
                     {new Date().getFullYear() -
                       new Date(givenUser.created_at).getFullYear()}
@@ -451,7 +451,7 @@ function UserProfile() {
                 </h1>
 
                 {/* Location */}
-                <div className="flex items-center text-black text-[14px] sm:text-[16px] font-[400] mb-4 sm:mb-6">
+                <div className="flex items-center text-black text-[14px] sm:text-[16px] font-medium mb-4 sm:mb-6">
                   <svg
                     className="w-4 h-4 mr-1"
                     fill="currentColor"
@@ -469,7 +469,7 @@ function UserProfile() {
 
               {/* About Me */}
               <div className="mb-6 sm:mb-8">
-                <h2 className="text-[18px] sm:text-[20px] font-extrabold text-black mb-3">
+                <h2 className="text-[18px] sm:text-[20px] font-medium text-black mb-3">
                   About Me
                 </h2>
                 <p className="text-gray-700 text-sm leading-relaxed">
@@ -491,7 +491,7 @@ function UserProfile() {
                       .map((item) => (
                         <span
                           key={item.id}
-                          className="bg-[#8880FE] text-white px-3 py-2 font-[400] rounded-full text-[12px] sm:text-[14px]"
+                          className="bg-[#8880FE] text-white px-3 py-2 font-medium rounded-full text-[12px] sm:text-[14px]"
                         >
                           {item.name}
                         </span>
@@ -523,12 +523,12 @@ function UserProfile() {
 
               {/* Informations */}
               <div className="mb-6 sm:mb-8">
-                <h3 className="text-[18px] sm:text-[20px] font-[400] leading-[24px] text-gray-900 mb-4">
+                <h3 className="text-[18px] sm:text-[20px] font-medium leading-[24px] text-gray-900 mb-4">
                   Informations
                 </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
                       Age
                     </span>
                     <span className="text-gray-900 text-[14px] sm:text-[16px]">
@@ -537,7 +537,7 @@ function UserProfile() {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
                       Eye Colour
                     </span>
                     <span className="text-[#090909] text-[14px] sm:text-[16px]">
@@ -547,7 +547,7 @@ function UserProfile() {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
                       Nationality
                     </span>
                     <span className="text-[#090909] text-[14px] sm:text-[16px]">
@@ -557,7 +557,7 @@ function UserProfile() {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
                       Shoe Size
                     </span>
                     <span className="text-gray-900 text-[14px] sm:text-[16px]">
@@ -565,7 +565,7 @@ function UserProfile() {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
                       Languages
                     </span>
                     <span className="text-gray-900 text-[14px] sm:text-[16px] text-right">
@@ -580,7 +580,7 @@ function UserProfile() {
                   {givenUser.role === ROLES.HOSTESS && (
                     <>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
                           Weight
                         </span>
                         <span className="text-gray-900 text-[14px] sm:text-[16px]">
@@ -590,7 +590,7 @@ function UserProfile() {
                     </>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
                       Height
                     </span>
                     <span className="text-[#090909] text-[14px] sm:text-[16px]">
@@ -600,7 +600,7 @@ function UserProfile() {
                   {givenUser.role === ROLES.HOSTESS && (
                     <>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
                           Dress size
                         </span>
                         <span className="text-[#090909] text-[14px] sm:text-[16px]">
@@ -609,7 +609,7 @@ function UserProfile() {
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
                           Available for Tours
                         </span>
                         <span className="text-gray-900 text-[14px] sm:text-[16px]">
@@ -617,7 +617,7 @@ function UserProfile() {
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-[400]">
+                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
                           Telegram
                         </span>
                         <span className="text-orange-500 text-[14px] sm:text-[16px]">
@@ -637,18 +637,12 @@ function UserProfile() {
                 {unlockChat ? (
                   <button
                     onClick={() =>
-                      createChat(
-                        givenUser.id,
-                        navigate,
-                        refreshUser,
-                        user.role,
-                        givenUser.name
-                      )
+                      createChat(givenUser, navigate, refreshUser, user)
                     }
                     className="w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
                     {user?.role == ROLES.KING ? (
-                      <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-[400]">
+                      <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-medium">
                         {" "}
                         Unlock Chat for
                         <div className="text-[#8880FE] ">

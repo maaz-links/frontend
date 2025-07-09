@@ -13,7 +13,6 @@ import worldMap from "/src/assets/images/worldmap.png";
 import { Link } from "react-router-dom";
 import PopUpModel from "../components/common/popup-model";
 
-//
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
 function Home() {

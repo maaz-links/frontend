@@ -122,7 +122,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
             )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-[400] mb-1">Name</label>
+                <label className="block text-sm font-medium mb-1">Name</label>
                 <input
                   type="text"
                   name="name"
@@ -136,7 +136,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
                 )}
               </div>
               <div>
-                <label className="block text-sm font-[400] mb-1">Email</label>
+                <label className="block text-sm  font-medium mb-1">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -150,7 +150,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
                 )}
               </div>
               <div>
-                <label className="block text-sm font-[400] mb-1">Request</label>
+                <label className="block text-sm font-medium mb-1">Request</label>
                 <textarea
                   name="message"
                   value={formData.message}
