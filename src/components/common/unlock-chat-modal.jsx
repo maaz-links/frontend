@@ -1,4 +1,7 @@
 import { toast } from "react-toastify";
+import { useStateContext } from "../../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../../../axios-client";
 
 const UnlockChatModal = ({
   isOpen,
@@ -11,10 +14,12 @@ const UnlockChatModal = ({
   if (!isOpen) return null;
   const canAfford = userBalance >= coinCost;
 
+  const {refreshUser} = useStateContext();
+  const navigate = useNavigate();
   async function onConfirm() {
     try {
       const response = await axiosClient.post("/api/chats/credits", {
-        other_user_id: other_user_id,
+        other_user_id: userId,
       });
       // console.log('buychat',response);
       //alert(response.data.message);
@@ -26,6 +31,7 @@ const UnlockChatModal = ({
       refreshUser();
       navigate("/chat");
     } catch (error) {
+      console.log(error);
       //alert(error.response.data.message);
       toast.error(error.response.data.message, {
         hideProgressBar: true,
@@ -92,24 +98,31 @@ const UnlockChatModal = ({
               <span className="font-semibold">{userBalance} coins</span>
             </p>
 
-            <button
+            {canAfford ? <button
               onClick={onConfirm}
-              disabled={!canAfford}
               className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${
-                canAfford
-                  ? "bg-black text-white hover:bg-gray-800 active:scale-95"
-                  : "bg-gray-600 text-gray-300 cursor-not-allowed"
+                  "bg-black text-white hover:bg-gray-800 active:scale-95"
               }`}
             >
-              {canAfford ? "Confirm" : "Top Up my Balance"}
+              Confirm
             </button>
+            :
+            <button
+              onClick={() => navigate('/shop')}
+              className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${
+                  "bg-black text-white hover:bg-gray-800 active:scale-95"
+              }`}
+            >
+              Top Up my Balance
+            </button>
+            }
           </div>
 
           {/* Lock and Key Image */}
           <div className="  w-[40%] ">
             <div className=" flex items-center   justify-center">
               <img
-                src={canAfford ? "/src/assets/images/lock-key.png" : ""}
+                src={canAfford ? "/src/assets/images/lock-key.png" : null}
                 alt="Lock and Key"
                 className="w-full h-full object-contain"
               />
