@@ -54,6 +54,7 @@ export const ContextProvider = ({ children }) => {
   const [profileCosts, setProfileCosts] = useState([]);
   const [nationalitiesList, setNationalitiesList] = useState([]);
   const [eyeColorList, setEyeColorList] = useState([]);
+  const [profileTypeList, setProfileTypeList] = useState([]);
 
   const [GenericModalOpen, setGenericModalOpen] = useState(false);
   const [GenericModalContent, setGenericModalContent] = useState(<></>);
@@ -72,6 +73,7 @@ export const ContextProvider = ({ children }) => {
     setNationalitiesList(response2.data.nationalities);
     //console.log(response2.data.nationalities);
     setEyeColorList(response2.data.eye_colors);
+    setProfileTypeList(response2.data.profile_types);
     //console.log(response2.data.eye_colors);
   }
 
@@ -186,6 +188,7 @@ export const ContextProvider = ({ children }) => {
       getProvinceName,
       profileCosts,
       unreadCount,checkUnreadMessages,
+      profileTypeList,
       // ... other values
       GenericModalOpen, setGenericModalOpen,
       GenericModalContent, setGenericModalContent

@@ -107,6 +107,16 @@ const SignUp = () => {
 
 const CreatSignup = ({myRole}) => {
 
+  const [selectedIds, setSelectedIds] = useState([]);
+
+  const handleCheckboxChange = (id) => {
+    setSelectedIds(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id) // Remove if already selected
+        : [...prev, id] // Add if not selected
+    );
+  };
+
   const usernameRef = createRef();
   const emailRef = createRef();
   const passwordRef = createRef();
@@ -136,7 +146,7 @@ const CreatSignup = ({myRole}) => {
     );
   };
 
-  const { setUser, setToken,setGenericModalOpen,setGenericModalContent } = useStateContext();
+  const { setUser, setToken,setGenericModalOpen,setGenericModalContent,profileTypeList } = useStateContext();
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     if(!RecaptchaVerify(recaptchaToken)){
@@ -156,6 +166,7 @@ const CreatSignup = ({myRole}) => {
       phone: phoneRef.current.value,
       role: myRole,
       isModel: isModel,
+      profileTypes: selectedIds,
       newsletter: 0,
     };
     // console.log(payload)
@@ -292,7 +303,26 @@ const CreatSignup = ({myRole}) => {
 
               </div>
               
-
+              {myRole == ROLES.HOSTESS && <>
+                <div className="block text-[20px] mb-[20px]"><strong>I am a</strong></div>
+                <div className="flex flex-wrap">
+                  {profileTypeList.map((type) => (
+                    <div key={type.id} className="inline-flex items-center mr-5 mb-3">
+                      <input
+                        type="checkbox"
+                        id={`profile-type-${type.id}`}
+                        checked={selectedIds.includes(type.id)}
+                        onChange={() => handleCheckboxChange(type.id)}
+                        className="mr-2 w-[25px] aspect-square appearance-none bg-gray-300 rounded focus:outline-none csshecked:bg-blue-500"
+                      />
+                      <label htmlFor={`profile-type-${type.id}`} className="ml-2">
+                        {type.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </>}
+                
               <div className="text-center mx-auto">
 
                 <div className="text-center my-8">

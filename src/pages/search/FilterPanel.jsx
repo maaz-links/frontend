@@ -75,6 +75,30 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
             <h4 className="text-sm font-medium text-gray-700 mb-3">Type</h4>
             <div className="flex gap-2 flex-wrap">
               <button
+                onClick={() => handleTypeToggle("hostess")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  localFilters.hostess ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Hostess
+              </button>
+              <button
+                onClick={() => handleTypeToggle("wingwoman")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  localFilters.wingwoman ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Wingwoman
+              </button>
+              <button
+                onClick={() => handleTypeToggle("sugarbaby")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  localFilters.sugarbaby ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Sugarbaby
+              </button>
+              <button
                 onClick={() => handleTypeToggle("verified_profile")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   localFilters.verified_profile ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -90,9 +114,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
               >
                 Top Profile
               </button>
-              {/* <button className="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
-                Sugarbaby
-              </button> */}
+              
             </div>
           </div>
 

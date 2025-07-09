@@ -9,6 +9,7 @@ import { getAge, getAttachmentURL } from "../functions/Common";
 import { ClipLoader } from "react-spinners"; // Import spinner
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FilterPanel from "./search/FilterPanel";
+import { ROLES } from "../../constants";
 
 export function FilterDisplay({name="Name",value="Value",onCross = () => console.log('empty')  }){
   return (
@@ -24,8 +25,8 @@ export function FilterDisplay({name="Name",value="Value",onCross = () => console
             >
               <path d="M2.146 2.146a.5.5 0 0 1 .708 0L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854a.5.5 0 0 1 0-.708z" />
             </svg>
-              <strong>
-              {name}: {value}</strong></div>
+             
+              {name}: {value}</div>
   );
 }
 
@@ -52,6 +53,10 @@ function Search() {
     province_id: searchParams.get("province") || "",
     verified_profile: searchParams.get("verified") === "true",
     top_profile: searchParams.get("top") === "true",
+    hostess: searchParams.get("hostess") === "true",
+    sugarbaby: searchParams.get("sugarbaby") === "true",
+    wingwoman: searchParams.get("wingwoman") === "true",
+
     minage: searchParams.get("minage") || "",
     maxage: searchParams.get("maxage") || "",
     language: searchParams.get("language") || "",
@@ -70,6 +75,10 @@ function Search() {
           province_id: filters.province_id || undefined,
           verified_profile: filters.verified_profile || undefined,
           top_profile: filters.top_profile || undefined,
+          hostess: filters.hostess || undefined,
+          sugarbaby: filters.sugarbaby || undefined,
+          wingwoman: filters.wingwoman || undefined,
+
           minage: filters.minage || undefined,
           maxage: filters.maxage || undefined,
           language: filters.language || undefined,
@@ -82,7 +91,7 @@ function Search() {
           axiosClient.post(url, apiParams),
           axiosClient.get("/api/provinces"),
         ]);
-        // console.log(searchRes.data);
+        console.log(searchRes.data);
         setEntities(searchRes.data.data);
         setProvinces(provincesRes.data);
         setHasMore(searchRes.data.current_page < searchRes.data.last_page);
@@ -102,6 +111,10 @@ function Search() {
     if (filters.province_id) params.province = filters.province_id;
     if (filters.verified_profile) params.verified = "true";
     if (filters.top_profile) params.top = "true";
+    if (filters.hostess) params.hostess = "true";
+    if (filters.sugarbaby) params.sugarbaby = "true";
+    if (filters.wingwoman) params.wingwoman = "true";
+
     if (filters.maxage) params.maxage = filters.maxage;
     if (filters.minage) params.minage = filters.minage;
     if (filters.language) params.language = filters.language;
@@ -138,6 +151,10 @@ function Search() {
         province_id: filters.province_id || undefined,
         verified_profile: filters.verified_profile || undefined,
         top_profile: filters.top_profile || undefined,
+        hostess: filters.hostess || undefined,
+          sugarbaby: filters.sugarbaby || undefined,
+          wingwoman: filters.wingwoman || undefined,
+
         minage: filters.minage || undefined,
         maxage: filters.maxage || undefined,
         language: filters.language || undefined,
@@ -267,6 +284,34 @@ function Search() {
           }
           />}
 
+          {(filters.hostess) && 
+          <FilterDisplay name="Hostess" value="True" 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              hostess: false,
+            }))
+          }
+          />}
+          {(filters.wingwoman) && 
+          <FilterDisplay name="Wingwoman" value="True" 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              wingwoman: false,
+            }))
+          }
+          />}
+          {(filters.sugarbaby) && 
+          <FilterDisplay name="Sugarbaby" value="True" 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              sugarbaby: false,
+            }))
+          }
+          />}
+
         {(filters.minage) && 
           <FilterDisplay name="Min Age" value={filters.minage} 
           onCross={ () =>
@@ -312,7 +357,10 @@ function Search() {
           filters.minage ||
           filters.maxage ||
           filters.language ||
-          filters.cost
+          filters.cost ||
+          filters.wingwoman ||
+          filters.hostess ||
+          filters.sugarbaby
         ) && 
           <FilterDisplay name="Clear" value="All" 
           onCross={ () =>
@@ -321,6 +369,9 @@ function Search() {
               province_id: "",
               verified_profile: false,
               top_profile: false,
+              wingwoman:false,
+              hostess:false,
+              sugarbaby:false,
               minage: "",
               maxage: "",
               language: "",
@@ -346,12 +397,7 @@ function Search() {
                 No profiles found
               </h3>
               <p className="text-gray-500">
-                {/* {filters.province_id ||
-                filters.verified_profile ||
-                filters.top_profile
-                  ? "Try adjusting your search filters"
-                  : "There are currently no profiles available"} */}
-                  There are currently no profiles available
+                  Try adjusting your search filters
               </p>
             </div>
           ) : (
@@ -380,22 +426,16 @@ function Search() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                       {/* Profile Tags - Top */}
                       <div className="absolute top-3 left-3 flex flex-wrap gap-1 z-10">
-                        {/* {entity.profile?.verified_profile && (
-                          <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
-                            Hostess
-                          </span>
-                        )}
-                        {entity.profile?.top_profile && (
-                          <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
-                            Wingwoman
-                          </span>
-                        )}
-                        {!entity.profile?.verified_profile &&
-                          !entity.profile?.top_profile && (
-                            <span className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
-                              Sugarbaby
-                            </span>
-                          )} */}
+                      {(entity.role == ROLES.HOSTESS) && entity.profile.profile_types.map((type) => (
+                        <span 
+                          key={type.id}
+                          className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium"
+                        >
+                          {type.name}
+                        </span>
+                        
+                      ))}
+                      
                       </div>
                       {/* Content - Bottom */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
