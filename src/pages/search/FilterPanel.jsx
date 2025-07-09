@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useStateContext } from "../../context/ContextProvider"
+import { DualRangeSlider } from "@/components/common/DualRangeSlider"
 
 function FilterPanel({ isOpen, onClose, filters, setFilters }) {
 
@@ -35,11 +36,12 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
     }))
   }
 
-  const handleAgeChange = (type, value) => {
+  const handleAgeChange = (values) => {
     setLocalFilters((prev) => ({
       ...prev,
-      [type]: parseInt(value, 10),  // Convert string to number
-    }))
+      minage: values[0],
+      maxage: values[1]
+    }));
   }
 
   const handleLanguageChange = (e) => {
@@ -50,12 +52,9 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
     }))
   }
 
-
   useEffect(() => {
     setLocalFilters(filters);
-
   }, [filters]);
-
 
   return (
     <>
@@ -97,8 +96,31 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
             </div>
           </div>
 
-           {/* Min Age Section */}
+           {/* Age Section */}
            <div className="mb-6">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Age</h4>
+            <div className="px-2">
+              <div className="flex justify-between text-sm text-gray-600 mb-2">
+                <span>18</span>
+                <span>45</span>
+              </div>
+              <DualRangeSlider
+                label={(value) => <span>{value}</span>}
+                value={[localFilters.minage, localFilters.maxage]}
+                onValueChange={handleAgeChange}
+                min={18}
+                max={45}
+                step={1}
+              />
+              <div className="flex justify-between mt-2 text-sm">
+                <span>From {localFilters.minage}</span>
+                <span>To {localFilters.maxage}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Min Age Section - Removed */}
+          {/* <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Minimum Age</h4>
             <div className="px-2">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
@@ -121,8 +143,8 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
             </div>
           </div>
 
-          {/* Max Age Section */}
-          <div className="mb-6">
+          {/* Max Age Section - Removed */}
+          {/* <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Maximum Age</h4>
             <div className="px-2">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
@@ -143,7 +165,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Sort by Section */}
           {/* <div className="mb-6">
