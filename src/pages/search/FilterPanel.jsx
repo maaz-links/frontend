@@ -141,54 +141,6 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
             </div>
           </div>
 
-          {/* Min Age Section - Removed */}
-          {/* <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Minimum Age</h4>
-            <div className="px-2">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>18</span>
-                <span>45</span>
-              </div>
-              <div className="relative">
-                <input
-                  type="range"
-                  min="18"
-                  max="45"
-                  value={localFilters.minage}
-                  onChange={(e) => handleAgeChange("minage", e.target.value)}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                />
-                <div className="text-center mt-2 text-sm">
-                  Selected: {localFilters.minage}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Max Age Section - Removed */}
-          {/* <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Maximum Age</h4>
-            <div className="px-2">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>18</span>
-                <span>45</span>
-              </div>
-              <div className="relative">
-                <input
-                  type="range"
-                  min="18"
-                  max="45"
-                  value={localFilters.maxage}
-                  onChange={(e) => handleAgeChange("maxage", e.target.value)}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                />
-                <div className="text-center mt-2 text-sm">
-                  Selected: {localFilters.maxage}
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           {/* Sort by Section */}
           {/* <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Sort by</h4>

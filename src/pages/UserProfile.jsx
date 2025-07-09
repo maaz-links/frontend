@@ -639,7 +639,7 @@ function UserProfile() {
                 userName={givenUser.name}
                 userId={givenUser.id}
                 coinCost={givenUser.profile.unlock_cost}
-                userBalance={user.profile.credits}
+                userBalance={user?.profile?.credits || 0}
               />
 
               {/* Start chat section */}
