@@ -305,6 +305,30 @@ function Search() {
             }))
           }
           />}
+
+        {(
+          filters.verified_profile ||
+          filters.top_profile ||
+          filters.minage ||
+          filters.maxage ||
+          filters.language ||
+          filters.cost
+        ) && 
+          <FilterDisplay name="Clear" value="All" 
+          onCross={ () =>
+            setFilters((prev) => ({
+              ...prev,
+              province_id: "",
+              verified_profile: false,
+              top_profile: false,
+              minage: "",
+              maxage: "",
+              language: "",
+              cost: ""
+            }))
+          }
+          />
+        }
         </div>
 
         
