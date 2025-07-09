@@ -45,7 +45,7 @@ const PromoBanner = () => {
               sophistication and charm, attending elite events, forming genuine
               connections, and embracing a lifestyle beyond the ordinary.
             </p>
-            <button onClick={() => navigate('/sign-up')} className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition">
+            <button onClick={() => navigate('/sign-up')} className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-[#FFFFFF] hover:text-black hover:border transition">
               Create your profile for free
             </button>
           </div>

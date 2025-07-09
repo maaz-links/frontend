@@ -100,3 +100,6 @@ body,
 #root {
   font-family: "Gotham Pro", sans-serif;
 }
+button{
+  cursor: pointer;
+}

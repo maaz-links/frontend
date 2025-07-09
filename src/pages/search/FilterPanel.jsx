@@ -236,7 +236,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
           {/* Search Button */}
           <button
             onClick={handleApplyFilters}
-            className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+            className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-[#8880FE] transition-colors"
           >
             Search
           </button>
