@@ -95,7 +95,7 @@ const UnlockChatModal = ({
             <button
               onClick={onConfirm}
               disabled={!canAfford}
-              className={`w-full py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${
+              className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${
                 canAfford
                   ? "bg-black text-white hover:bg-gray-800 active:scale-95"
                   : "bg-gray-600 text-gray-300 cursor-not-allowed"
