@@ -13,7 +13,6 @@ import worldMap from "/src/assets/images/worldmap.png";
 import { Link } from "react-router-dom";
 import PopUpModel from "../components/common/popup-model";
 
-//
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
 function Home() {
@@ -42,7 +41,7 @@ function Home() {
           Open POPUP (testing only)
         </button>
       </div>
-      {false &&<PopUpModel isOpen={open} onClose={() => setIsopen(false)}>
+      <PopUpModel isOpen={open} onClose={() => setIsopen(false)}>
         <h2 className=" text-[45px] font-extrabold ">Verify your email</h2>
 
         <p className=" mb-4 ">
@@ -51,7 +50,7 @@ function Home() {
         <button className="bg-black text-white rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
           Next
         </button>
-      </PopUpModel>}
+      </PopUpModel>
 
       <Footer />
     </>
