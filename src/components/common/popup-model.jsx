@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import desktopImage from '/src/assets/images/welcome-image-desktop.jpg';
 
 function PopUpModel({ isOpen, onClose, children }) {
   useEffect(() => {
@@ -27,7 +28,11 @@ function PopUpModel({ isOpen, onClose, children }) {
       onClick={onClose}
     >
       <div
-        className="relative z-50 max-w-md w-full  mx-4 bg-white rounded-2xl shadow-xl p-8 text-center justify-center"
+        className="relative z-50  mx-4 bg-white rounded-2xl shadow-xl p-12 text-center justify-center"
+        style={{
+          // backgroundImage: `url(${desktopImage})`,
+          // backgroundSize: 'cover',
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

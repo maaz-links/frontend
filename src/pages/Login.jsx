@@ -12,7 +12,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const emailRef = createRef()
   const passwordRef = createRef()
-  const { setUser, setToken, refreshUser } = useStateContext()
+  const { setUser, setToken, refreshUser, setGenericModalContent, setGenericModalOpen } = useStateContext()
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState(null);
@@ -50,11 +50,23 @@ function Login() {
       setErrors({});
       //BAN LOGIC
       if(response.data.mustverify){
-         toast.info('A link is sent to your email address. Click on it to verify account and complete registration',{
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-              })
+        //  toast.info('A link is sent to your email address. Click on it to verify account and complete registration',{
+        //         hideProgressBar: true,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //       })
+              setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Verify your email</h1>
+                <p className=" my-4 ">
+                  Check your mailbox, follow the instructions, and confirm account!
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  Got It
+                </button>
+                </>
+              )
         // alert('A link is sent to your email address. Click on it to verify account and complete registration')
         navigate(`/`);
         return;

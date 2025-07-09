@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { initializeEcho } from "../../echo";
+import PopUpModel from "../components/common/popup-model";
 
 const StateContext = createContext({
   user: null,
@@ -53,6 +54,9 @@ export const ContextProvider = ({ children }) => {
   const [profileCosts, setProfileCosts] = useState([]);
   const [nationalitiesList, setNationalitiesList] = useState([]);
   const [eyeColorList, setEyeColorList] = useState([]);
+
+  const [GenericModalOpen, setGenericModalOpen] = useState(false);
+  const [GenericModalContent, setGenericModalContent] = useState(<></>);
   
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
@@ -183,8 +187,13 @@ export const ContextProvider = ({ children }) => {
       profileCosts,
       unreadCount,checkUnreadMessages,
       // ... other values
+      GenericModalOpen, setGenericModalOpen,
+      GenericModalContent, setGenericModalContent
     }}>
       {children}
+      <PopUpModel isOpen={GenericModalOpen} onClose={() => setGenericModalOpen(false)}>
+        {GenericModalContent}
+      </PopUpModel>
     </StateContext.Provider>
   );
 };

@@ -15,9 +15,10 @@ import PopUpModel from "../components/common/popup-model";
 
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
+import { useStateContext } from "../context/ContextProvider";
 function Home() {
-  const [open, setIsopen] = useState(false);
-
+  //const [GenericModalOpen, setGenericModalOpen] = useState(false);
+  const {setGenericModalOpen,setGenericModalContent} = useStateContext();
   return (
     <>
       <Header />
@@ -35,22 +36,36 @@ function Home() {
       {/* for Testying Only */}
       <div className="w-full flex justify-center mb-10">
         <button
-          onClick={() => setIsopen(true)}
+          // onClick={() => setGenericModalOpen(true)}
+          onClick={() => {
+            setGenericModalOpen(true);
+            setGenericModalContent(
+              <>
+              <h1 className=" text-[45px] font-bold">Verify your email</h1>
+              <p className=" my-4 ">
+                Check your mailbox, follow the instructions, and confirm account!
+              </p>
+              <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                Got It
+              </button>
+              </>
+            )
+          }}
           className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition  w-fit"
         >
           Open POPUP (testing only)
         </button>
       </div>
-      <PopUpModel isOpen={open} onClose={() => setIsopen(false)}>
-        <h2 className=" text-[45px] font-extrabold ">Verify your email</h2>
+      {/* <PopUpModel isOpen={GenericModalOpen} onClose={() => setGenericModalOpen(false)}>
+        <h1 className=" text-[45px] font-bold">Verify your email</h1>
 
-        <p className=" mb-4 ">
+        <p className=" my-4 ">
           Check your mailbox, follow the instructions, and confirm account!
         </p>
-        <button className="bg-black text-white rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-          Next
+        <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+          Got It
         </button>
-      </PopUpModel>
+      </PopUpModel> */}
 
       <Footer />
     </>

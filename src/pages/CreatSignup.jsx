@@ -136,7 +136,7 @@ const CreatSignup = ({myRole}) => {
     );
   };
 
-  const { setUser, setToken } = useStateContext();
+  const { setUser, setToken,setGenericModalOpen,setGenericModalContent } = useStateContext();
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     if(!RecaptchaVerify(recaptchaToken)){
@@ -165,11 +165,23 @@ const CreatSignup = ({myRole}) => {
       setErrors({})
       // console.log(response);
       // alert('A link is sent to your email address. Click on it to verify account and complete registration')
-      toast.info('A link is sent to your email address. Click on it to verify account and complete registration.',{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
+      // toast.info('A link is sent to your email address. Click on it to verify account and complete registration.',{
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      // })
+      setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Verify your email</h1>
+                <p className=" my-4 ">
+                  Check your mailbox, follow the instructions, and confirm account!
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  Got It
+                </button>
+                </>
+              )
       navigate('/');
       // //WITHOUT EMAIL VERIF
       // alert("Account Successfully created")
