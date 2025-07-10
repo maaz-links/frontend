@@ -31,10 +31,9 @@ function BannedNotice() {
   return (
     <>
       <Header />
-      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">{message}</h1>
-      <div className="max-w-[971px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
-
-
+      
+      <div className="max-w-[971px] min-h-[300px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px] flex items-center">
+      <h1 className="text-center text-[32px] font-[400] mt-[50px] md:mt-[121px]">{message}</h1>
 
       </div>
       <Footer />

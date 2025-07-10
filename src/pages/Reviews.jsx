@@ -102,9 +102,9 @@ const Reviews = () => {
       <div className="max-w-[1300px] m-auto mt-[60px] mb-[60px]">
         {/* User Profile Section */}
         <div className=" p-4 flex pb-[0px]">
-          <div className="w-[130px] h-[130px] bg-[#F5F5F5]">
+          <div className="w-[130px] h-[130px]">
 
-            {user.profile_picture_id && <img className={`w-full h-full object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
+            {user.profile_picture_id && <img className={`w-full h-full rounded-2xl object-cover`} src={getAttachmentURL(user.profile_picture_id)}></img>}
           </div>
           <div className="ml-4">
             <h2 className="text-[20px] font-bold">{user.name || 'USER'}</h2>
@@ -113,7 +113,7 @@ const Reviews = () => {
 
         </div>
 
-        <h2 className="ml-auto text-[32px] font-bold text-right border-b pe-[15px]">
+        <h2 className="ml-auto text-[25px] md:text-[32px] font-bold text-start my-5 border-b pe-[15px]">
           Leave a Review
         </h2>
 
@@ -122,22 +122,22 @@ const Reviews = () => {
         <div className="mt-[10px] p-4 pt-[0px]">No Pending Reviews</div>
           :
         <div className="mt-[10px] p-4 pt-[0px]">
-          <div className="grid grid-cols-4 font-[600]">
+          <div className="grid grid-cols-3 md:grid-cols-4  font-[600]">
             <p></p>
-            <p className="text-[16px]">UNLOCKED ON</p>
+            <p className="hidden md:block text-[16px]">Unlocked on</p>
             <p></p>
             <p></p>
           </div>
 
           {reviewableUsers.map((user) => (
-            <div key={user.id} className="grid grid-cols-4 items-center py-3">
+            <div key={user.id} className="grid grid-cols-3 md:grid-cols-4  items-center py-3">
               <div className="flex items-center">
                 <div className="w-15 h-15 bg-[#F5F5F5] rounded-full">
                 <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(user.profile_picture_id)}></img>
                 </div>
-                <p className="ml-3 text-[16px] font-[600]">{user.name}</p>
+                <p className="hidden sm:block ml-3 text-[16px] font-[600]">{user.name}</p>
               </div>
-              <p className="text-[18px]">{formatDateToDMY(user.unlocked_at)}</p>
+              <p className="hidden md:block text-[18px]">{formatDateToDMY(user.unlocked_at)}</p>
               <div className="text-[18px] text-[#BDBDBD]">
                 {renderStars(user.id, ratings[user.id])}
               </div>

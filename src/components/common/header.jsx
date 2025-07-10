@@ -193,8 +193,8 @@ function Header() {
 
           {/* ONLY SHOW CREDITS TO MALE USERS */}
           {user?.role === ROLES.KING && (
-            <div className="relative start-4 bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-4 py-1">
-              <strong>{user.profile.credits} Credits</strong>
+            <div className="relative start-4 bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
+              <strong>{user.profile.credits} <span className="hidden md:inline">Credits</span></strong>
             </div>
           )}
 

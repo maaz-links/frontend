@@ -14,6 +14,7 @@ import femaleIcon from "../assets/icons/female-symbol.svg";
 import femaleIconWhite from "../assets/icons/female-symbol-white.svg";
 import maleIcon from "../assets/icons/male-symbol.svg";
 import maleIconWhite from "../assets/icons/male-symbol-white.svg";
+import BackgroundGrad from "@/components/common/BackgroundGrad";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -46,7 +47,8 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px] ">
+      <BackgroundGrad/>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full bg-white max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px] ">
       <h1 className="text-center text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
       <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Choose a Profile</h2>
       <div className="max-w-[971px] mx-auto px-[15px] mb-[50px]">
@@ -219,8 +221,18 @@ const CreatSignup = ({myRole}) => {
   return (
     <>
       <Header />
-      
-      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+      {/* <BackgroundGrad className="h-[200vh]"/> */}
+      {/* <BackgroundGrad/> */}
+      <div className="py-[170px]"
+      style={{
+        backgroundImage: 'url(/src/assets/images/bg-grad.png)',
+        backgroundPosition: 'bottom',
+        backgroundColor: '#f5edfe',
+        backgroundRepeat: 'no-repeat'
+        // backgroundColor: "black"
+      }}
+      >
+      <div className="bg-white max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] ">
         <h1 className="text-center text-[38px] my-7"><strong>Free Registration</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
@@ -373,6 +385,7 @@ const CreatSignup = ({myRole}) => {
           </form>
 
         </div>
+      </div>
       </div>
       <Footer />
     </>
