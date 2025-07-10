@@ -408,29 +408,18 @@ function Login() {
             }}
           />
         </div>
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[526px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] px-[40px] py-[40px]">
-          <h1
-            className="text-center text-[32px] mb-[26px] font-normal"
-            style={{
-              fontFamily: "Gotham Pro",
-              letterSpacing: "-0.06em",
-              color: "#090909",
-            }}
-          >
+      <div className="max-w-[700px]  mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+
+        {/* <div className="absolute bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[526px]  rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] px-[40px] py-[40px]"> */}
+          <h1 className="text-center text-[38px] my-7">
             <strong>Log In</strong>
           </h1>
-          <div className="w-full">
+
+          <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
             <form onSubmit={handleSubmit}>
-              <div className="w-full">
-                <div className="mb-[18px]">
-                  <div
-                    className="block text-[16px] mb-[12px] font-normal"
-                    style={{
-                      fontFamily: "Gotham Pro",
-                      letterSpacing: "-0.03em",
-                      color: "#090909",
-                    }}
-                  >
+              <div className="mb-4 max-w-[600px] mx-auto">
+                <div className="mb-7">
+                  <div className="block text-[20px] mb-[20px]">
                     <strong>Email</strong>
                   </div>
                   {/* Email Field */}
@@ -438,25 +427,13 @@ function Login() {
                     type="email"
                     ref={emailRef}
                     required
-                    className="w-full h-[55px] text-[16px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] focus:outline-0 rounded-[12px]"
+                    className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
                     placeholder="Enter Email"
-                    style={{
-                      fontFamily: "Gotham Pro",
-                      letterSpacing: "-0.03em",
-                      backdropFilter: "blur(12.5px)",
-                    }}
                   />
                   <ErrorText field="email" />
                 </div>
-                <div className="mb-[14px]">
-                  <div
-                    className="block text-[16px] mb-[12px] font-normal"
-                    style={{
-                      fontFamily: "Gotham Pro",
-                      letterSpacing: "-0.03em",
-                      color: "#090909",
-                    }}
-                  >
+                <div className="mb-7">
+                  <div className="block text-[20px] mb-[20px]">
                     <strong>Password</strong>
                   </div>
                   {/* Password Field */}
@@ -464,58 +441,39 @@ function Login() {
                     type="password"
                     ref={passwordRef}
                     required
-                    className="w-full h-[55px] text-[16px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] focus:outline-0 rounded-[12px]"
+                    className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
                     placeholder="Enter Password"
-                    style={{
-                      fontFamily: "Gotham Pro",
-                      letterSpacing: "-0.03em",
-                      backdropFilter: "blur(12.5px)",
-                    }}
                   />
                   <ErrorText field="password" />
                 </div>
-                <div className="text-start mb-[32px]">
-                  <button
-                    type="button"
-                    onClick={() => navigate("/forgot-password")}
-                    className={`text-[14px] ${
-                      false
-                        ? "text-gray-400 cursor-not-allowed"
-                        : "hover:underline"
-                    }`}
-                    style={{
-                      fontFamily: "Gotham Pro",
-                      letterSpacing: "-0.03em",
-                      color: "#090909",
-                    }}
-                  >
-                    <strong>{"Forgot Password?"}</strong>
-                  </button>
-                </div>
-                <div className="text-center">
+
+                <div className="text-center mx-auto">
+                  <div className="text-start">
+                    <button
+                      type="button"
+                      onClick={() => navigate("/forgot-password")}
+                      className={`py-[5px] mb-[20px] text-[16px] ${
+                        false
+                          ? "text-gray-400 cursor-not-allowed"
+                          : "hover:underline"
+                      }`}
+                    >
+                      <strong>{"Forgot Password?"}</strong>
+                    </button>
+                  </div>
                   <button
                     type="submit"
                     disabled={submitting}
                     className={`${
                       submitting ? "opacity-50" : ""
-                    } cursor-pointer w-full bg-[#090909] rounded-[12px] text-[16px] text-white h-[60px] mb-[32px]`}
-                    style={{
-                      fontFamily: "Gotham Pro",
-                      letterSpacing: "-0.03em",
-                    }}
+                    } cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
                   >
                     <strong>{submitting ? "Logging in..." : "Log In"}</strong>
                   </button>
                 </div>
-                <div
-                  className="text-center text-[16px]"
-                  style={{
-                    fontFamily: "Gotham Pro",
-                    letterSpacing: "-0.03em",
-                    color: "#090909",
-                  }}
-                >
-                  <span style={{ opacity: 0.7 }}>New user? </span>
+
+                <div className="text-center my-9">
+                  New User?{" "}
                   <strong>
                     <Link to="/sign-up">Sign up for Free</Link>
                   </strong>
