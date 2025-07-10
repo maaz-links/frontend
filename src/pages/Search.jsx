@@ -246,6 +246,7 @@ function Search() {
           <div className="filter relative">
             <button
               onClick={() => setShowFilterPanel(true)}
+              className="flex cursor-pointer items-center gap-2 text-[14px] font-extrabold  border bg-white leading-[100%] rounded-xl px-4 py-3 focus:outline-none text-gray-700 hover:bg-black  hover:text-white  transition-all duration-300 ease-in-out"
               className="group flex cursor-pointer items-center gap-2 text-[14px] font-extrabold border hover:bg-black hover:text-white bg-white leading-[100%] rounded-xl px-4 py-3 text-gray-700 focus:outline-none"
             >
               <svg
@@ -253,10 +254,11 @@ function Search() {
                 width="31"
                 height="31"
                 viewBox="0 0 31 31"
-                fill="none"
+                fill="none" className="black"
               >
                 <path
                   d="M6.125 9.5625H24.875M9.73125 15.5H21.2687M13.3375 21.4375H17.6625"
+                  stroke="currentColor"
                   className="stroke-black group-hover:stroke-white"
                   strokeWidth="1.875"
                   strokeLinecap="round"
