@@ -46,7 +46,7 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px] ">
       <h1 className="text-center text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
       <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Choose a Profile</h2>
       <div className="max-w-[971px] mx-auto px-[15px] mb-[50px]">
