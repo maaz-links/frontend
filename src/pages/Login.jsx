@@ -1,22 +1,28 @@
-"use client"
+"use client";
 
-import { createRef, useState } from "react"
-import Footer from "../components/common/footer"
-import Header from "../components/common/header"
-import axiosClient from "../../axios-client"
-import { useStateContext } from "../context/ContextProvider"
-import { Link, useNavigate } from "react-router-dom"
-import { RecaptchaVerify } from "../functions/RecaptchaVerify"
+import { createRef, useState } from "react";
+import Footer from "../components/common/footer";
+import Header from "../components/common/header";
+import axiosClient from "../../axios-client";
+import { useStateContext } from "../context/ContextProvider";
+import { Link, useNavigate } from "react-router-dom";
+import { RecaptchaVerify } from "../functions/RecaptchaVerify";
 
 function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const emailRef = createRef()
-  const passwordRef = createRef()
-  const { setUser, setToken, refreshUser, setGenericModalContent, setGenericModalOpen } = useStateContext()
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-  const [recaptchaToken, setRecaptchaToken] = useState(null)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const emailRef = createRef();
+  const passwordRef = createRef();
+  const {
+    setUser,
+    setToken,
+    refreshUser,
+    setGenericModalContent,
+    setGenericModalOpen,
+  } = useStateContext();
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
   const ErrorText = ({ field }) => {
     return (
@@ -27,8 +33,8 @@ function Login() {
           </p>
         ))}
       </>
-    )
-  }
+    );
+  };
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -36,23 +42,23 @@ function Login() {
   //   console.log("Password:", password);
   // };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (ev) => {
-    ev.preventDefault()
+    ev.preventDefault();
     if (!RecaptchaVerify(recaptchaToken)) {
-      return
+      return;
     }
-    setSubmitting(true)
+    setSubmitting(true);
     const payload = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    }
+    };
 
     try {
-      const response = await axiosClient.post("/api/login", payload)
+      const response = await axiosClient.post("/api/login", payload);
       // console.log(response);
-      setErrors({})
+      setErrors({});
       //BAN LOGIC
       if (response.data.mustverify) {
         //  toast.info('A link is sent to your email address. Click on it to verify account and complete registration',{
@@ -60,26 +66,28 @@ function Login() {
         //         closeOnClick: true,
         //         pauseOnHover: true,
         //       })
-        setGenericModalOpen(true)
+        setGenericModalOpen(true);
         setGenericModalContent(
           <>
             <h1 className=" text-[45px] font-bold">Verify your email</h1>
-            <p className=" my-4 ">Check your mailbox, follow the instructions, and confirm account!</p>
+            <p className=" my-4 ">
+              Check your mailbox, follow the instructions, and confirm account!
+            </p>
             <button
               onClick={() => setGenericModalOpen(false)}
               className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full"
             >
               Got It
             </button>
-          </>,
-        )
+          </>
+        );
         // alert('A link is sent to your email address. Click on it to verify account and complete registration')
-        navigate(`/`)
-        return
+        navigate(`/`);
+        return;
       }
       if (response.data.banned) {
-        navigate(`/am-i-banned/${response.data.username}`)
-        return
+        navigate(`/am-i-banned/${response.data.username}`);
+        return;
       }
       //setUser(response.data.user);
       //  toast.info('Verify OTP for Successful Login',{
@@ -88,11 +96,11 @@ function Login() {
       //         pauseOnHover: true,
       //       })
       // alert('Verify OTP for Successful Login');
-      sessionStorage.setItem("hostess_otp_email", payload.email)
-      sessionStorage.setItem("hostess_otp_phone", response.data.phone)
-      sessionStorage.setItem("hostess_otp_message", response.data.message)
+      sessionStorage.setItem("hostess_otp_email", payload.email);
+      sessionStorage.setItem("hostess_otp_phone", response.data.phone);
+      sessionStorage.setItem("hostess_otp_message", response.data.message);
       //setToken(response.data.access_token);
-      navigate("/verify-phone")
+      navigate("/verify-phone");
       // <Navigate to="/verify-phone" replace />
       // console.log('here');
       // window.location.href('/verify-phone');
@@ -100,31 +108,31 @@ function Login() {
       // console.log('here');
       // window.location.href('/profile');
     } catch (err) {
-      const response = err.response
+      const response = err.response;
       // console.log(response);
       if (response && response.status === 422) {
-        setErrors(response.data.formError)
+        setErrors(response.data.formError);
         // setMessage(response.data.message);
       }
     }
-    setSubmitting(false)
-  }
+    setSubmitting(false);
+  };
 
   const handleUser = async (ev) => {
-    ev.preventDefault()
+    ev.preventDefault();
     try {
-      const response = await axiosClient.get("/api/user")
+      const response = await axiosClient.get("/api/user");
       // console.log(response);
       // setUser(data.user);
       // setToken(data.token);
     } catch (err) {
-      const response = err.response
+      const response = err.response;
       // console.log(response);
       if (response && response.status === 422) {
         // setMessage(response.data.message);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -152,7 +160,8 @@ function Login() {
               height: "450.26px",
               left: "977px",
               top: "605px",
-              background: "radial-gradient(50% 50% at 50% 50%, #3144EF 71.39%, #3D0DFF 81.49%)",
+              background:
+                "radial-gradient(50% 50% at 50% 50%, #3144EF 71.39%, #3D0DFF 81.49%)",
               filter: "blur(148.176px)",
               transform: "rotate(4.1deg)",
             }}
@@ -255,7 +264,8 @@ function Login() {
               height: "380.76px",
               left: "893px",
               top: "374.19px",
-              background: "radial-gradient(50% 50% at 50% 50%, #3144EF 71.39%, #3D0DFF 81.49%)",
+              background:
+                "radial-gradient(50% 50% at 50% 50%, #3144EF 71.39%, #3D0DFF 81.49%)",
               filter: "blur(109.676px)",
               transform: "rotate(-18.42deg)",
             }}
@@ -294,7 +304,8 @@ function Login() {
               left: "140.97px",
               top: "1830.04px",
               opacity: 0.3,
-              background: "radial-gradient(50% 50% at 50% 50%, #3144EF 71.39%, #3D0DFF 81.49%)",
+              background:
+                "radial-gradient(50% 50% at 50% 50%, #3144EF 71.39%, #3D0DFF 81.49%)",
               filter: "blur(109.676px)",
               transform: "rotate(159.62deg)",
             }}
@@ -362,7 +373,7 @@ function Login() {
               }}
             />
             <div
-              className="absolute"
+              className="absolute rounded-full"
               style={{
                 left: "36.45%",
                 right: "62.35%",
@@ -373,7 +384,7 @@ function Login() {
               }}
             />
             <div
-              className="absolute"
+              className="absolute rounded-full"
               style={{
                 left: "99.25%",
                 right: "-0.45%",
@@ -392,7 +403,7 @@ function Login() {
               height: "586px",
               left: "788px",
               top: "666px",
-              background: "#FFFFFF",
+              background: "#fff",
               filter: "blur(100px)",
             }}
           />
@@ -400,7 +411,11 @@ function Login() {
         <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[526px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] px-[40px] py-[40px]">
           <h1
             className="text-center text-[32px] mb-[26px] font-normal"
-            style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.06em", color: "#090909" }}
+            style={{
+              fontFamily: "Gotham Pro",
+              letterSpacing: "-0.06em",
+              color: "#090909",
+            }}
           >
             <strong>Log In</strong>
           </h1>
@@ -410,7 +425,11 @@ function Login() {
                 <div className="mb-[18px]">
                   <div
                     className="block text-[16px] mb-[12px] font-normal"
-                    style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em", color: "#090909" }}
+                    style={{
+                      fontFamily: "Gotham Pro",
+                      letterSpacing: "-0.03em",
+                      color: "#090909",
+                    }}
                   >
                     <strong>Email</strong>
                   </div>
@@ -421,14 +440,22 @@ function Login() {
                     required
                     className="w-full h-[55px] text-[16px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] focus:outline-0 rounded-[12px]"
                     placeholder="Enter Email"
-                    style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em", backdropFilter: "blur(12.5px)" }}
+                    style={{
+                      fontFamily: "Gotham Pro",
+                      letterSpacing: "-0.03em",
+                      backdropFilter: "blur(12.5px)",
+                    }}
                   />
                   <ErrorText field="email" />
                 </div>
                 <div className="mb-[14px]">
                   <div
                     className="block text-[16px] mb-[12px] font-normal"
-                    style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em", color: "#090909" }}
+                    style={{
+                      fontFamily: "Gotham Pro",
+                      letterSpacing: "-0.03em",
+                      color: "#090909",
+                    }}
                   >
                     <strong>Password</strong>
                   </div>
@@ -439,7 +466,11 @@ function Login() {
                     required
                     className="w-full h-[55px] text-[16px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] focus:outline-0 rounded-[12px]"
                     placeholder="Enter Password"
-                    style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em", backdropFilter: "blur(12.5px)" }}
+                    style={{
+                      fontFamily: "Gotham Pro",
+                      letterSpacing: "-0.03em",
+                      backdropFilter: "blur(12.5px)",
+                    }}
                   />
                   <ErrorText field="password" />
                 </div>
@@ -447,8 +478,16 @@ function Login() {
                   <button
                     type="button"
                     onClick={() => navigate("/forgot-password")}
-                    className={`text-[14px] ${false ? "text-gray-400 cursor-not-allowed" : "hover:underline"}`}
-                    style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em", color: "#090909" }}
+                    className={`text-[14px] ${
+                      false
+                        ? "text-gray-400 cursor-not-allowed"
+                        : "hover:underline"
+                    }`}
+                    style={{
+                      fontFamily: "Gotham Pro",
+                      letterSpacing: "-0.03em",
+                      color: "#090909",
+                    }}
                   >
                     <strong>{"Forgot Password?"}</strong>
                   </button>
@@ -460,14 +499,21 @@ function Login() {
                     className={`${
                       submitting ? "opacity-50" : ""
                     } cursor-pointer w-full bg-[#090909] rounded-[12px] text-[16px] text-white h-[60px] mb-[32px]`}
-                    style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em" }}
+                    style={{
+                      fontFamily: "Gotham Pro",
+                      letterSpacing: "-0.03em",
+                    }}
                   >
                     <strong>{submitting ? "Logging in..." : "Log In"}</strong>
                   </button>
                 </div>
                 <div
                   className="text-center text-[16px]"
-                  style={{ fontFamily: "Gotham Pro", letterSpacing: "-0.03em", color: "#090909" }}
+                  style={{
+                    fontFamily: "Gotham Pro",
+                    letterSpacing: "-0.03em",
+                    color: "#090909",
+                  }}
                 >
                   <span style={{ opacity: 0.7 }}>New user? </span>
                   <strong>
@@ -481,7 +527,7 @@ function Login() {
       </div>
       <Footer />
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;
