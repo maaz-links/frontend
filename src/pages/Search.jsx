@@ -246,7 +246,7 @@ function Search() {
           <div className="filter relative">
             <button
               onClick={() => setShowFilterPanel(true)}
-              className="flex cursor-pointer items-center gap-2 text-[14px] font-extrabold  border bg-white leading-[100%] rounded-xl px-4 py-3 focus:outline-none text-gray-700 hover:bg-black  hover:text-white  transition-all duration-300 ease-in-out"
+              //className="flex cursor-pointer items-center gap-2 text-[14px] font-extrabold  border bg-white leading-[100%] rounded-xl px-4 py-3 focus:outline-none text-gray-700 hover:bg-black  hover:text-white  transition-all duration-300 ease-in-out"
               className="group flex cursor-pointer items-center gap-2 text-[14px] font-extrabold border hover:bg-black hover:text-white bg-white leading-[100%] rounded-xl px-4 py-3 text-gray-700 focus:outline-none"
             >
               <svg

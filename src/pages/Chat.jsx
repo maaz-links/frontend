@@ -559,6 +559,8 @@ const Chat = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [chats, setChats] = useState([]); //list of chats to show sidebar
   const [selectedChat, setSelectedChat] = useState(null); //duh
+  const [selectedChatOnline, setSelectedChatOnline] = useState(""); //duh
+
   const [messages, setMessages] = useState([]); //list of msgs to show on dashboard
   const [newMessage, setNewMessage] = useState(""); //text field where you'll type new text
   const [loading, setLoading] = useState(true); //loading for chat sidebar
@@ -592,6 +594,14 @@ const Chat = () => {
       const response = await axiosClient.get(`/api/chats?type=${activeTab}`);
       //console.log(response.data);
       setChats(response.data);
+
+      if (selectedChat && selectedChat.id) {
+        const matchedChat = response.data.find(chat => chat.id === selectedChat.id);
+        // Do something with matchedChat if needed
+        console.log('Matched chat:', matchedChat);
+        setSelectedChatOnline(matchedChat.other_user.is_online);
+      }
+
       setLoading(false);
     } catch (err) {
       console.error("Error fetching chats:", err);
@@ -744,7 +754,17 @@ const Chat = () => {
   const handleSelectChat = (chat) => {
     //Passing chat object
     setReadStatus(2);
+
+    setChats(prevChats => 
+      prevChats.map(c => 
+          c.id === chat.id ? {...c, unread_count: 0} : c
+      )
+  );
+
     setSelectedChat(chat);
+    //setSelectedChat({...chat, unread_count: 0}); // Also update the unread_count in the selected chat
+
+    setSelectedChatOnline(chat.other_user.is_online);
     setIsMobileSidebarOpen(false); // Close mobile sidebar when chat is selected
     // console.log('chatter',chat);
     fetchMessages(chat.id);
@@ -948,7 +968,7 @@ const Chat = () => {
               </div>
             )}
             {/* Search */}
-            <div className="relative mb-4 md:mb-6">
+            {/* <div className="relative mb-4 md:mb-6">
               <FaSearch className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
               <input
                 type="text"
@@ -957,7 +977,7 @@ const Chat = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 md:pl-12 pr-4 py-2 md:py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
               />
-            </div>
+            </div> */}
             {/* Tab Buttons */}
             <div className="flex gap-2 mb-4">
               <button
@@ -968,7 +988,7 @@ const Chat = () => {
                 }`}
                 onClick={() => setActiveTab("all")}
               >
-                ALL
+                All
               </button>
               <button
                 className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
@@ -978,7 +998,7 @@ const Chat = () => {
                 }`}
                 onClick={() => setActiveTab("archived")}
               >
-                ARCHIVED
+                Archived
               </button>
             </div>
           </div>
@@ -1036,12 +1056,12 @@ const Chat = () => {
                           }`}
                         >
                           {chat.last_message && (
-                            <RelativeTime timestamp={chat.last_message.time} />
+                            <RelativeTime timestamp={chat?.last_message?.created_at || ''} short={true} />
                           )}
                         </span>
                       </div>
                       <p
-                        className={`text-xs md:text-sm truncate ${
+                        className={`text-xs md:text-sm truncate flex justify-between ${
                           selectedChat?.id === chat.id
                             ? "text-white/80"
                             : "text-gray-600"
@@ -1049,21 +1069,26 @@ const Chat = () => {
                       >
                         {chat.last_message ? (
                           <>
+                            
+                            <span>
                             {chat.last_message.sender_id !==
                               chat.other_user.id && (
                               <span className="font-medium">You: </span>
                             )}
                             {chat.last_message.message}
+                            </span>
+                            {selectedChat?.id !== chat.id && chat.unread_count > 0 && (
+                              <div className="w-8 h-5 bg-[#8880FE] text-white font-bold text-[15px] rounded-full text-center">{chat.unread_count}</div>
+                            )}
                           </>
                         ) : (
                           "No messages yet"
                         )}
                       </p>
+                       {/* Unread indicator */}
+                    
                     </div>
-                    {/* Unread indicator */}
-                    {selectedChat?.id !== chat.id && chat.unread_count > 0 && (
-                      <div className="w-2 h-2 bg-[#8880FE] rounded-full"></div>
-                    )}
+                   
                   </div>
                 ))}
               </div>
@@ -1101,8 +1126,22 @@ const Chat = () => {
                         {selectedChat.other_user.name}
                       </h2>
                       <div className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span>Online</span>
+                        {/* <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>Online</span> */}
+                        {(selectedChatOnline == "online") ? (
+                          <>
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>Online</span>
+                          </>
+                        )
+                        :
+                        (
+                          <>
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span>Away</span>
+                          </>
+                        )
+                      }
                         {selectedChat.other_user.dob && (
                           <>
                             <span className="hidden sm:inline">•</span>
@@ -1140,20 +1179,20 @@ const Chat = () => {
                         )
                       }
                     >
-                      <FaArchive className="text-xs md:text-sm" />
+                      {/* <FaArchive className="text-xs md:text-sm" /> */}
                       <span className="hidden sm:inline">
                         {selectedChat.is_archived ? "Unarchive" : "Archive"}
                       </span>
                     </button>
-                    <ReportChatButton chatId={selectedChat.id} />
+                    {selectedChat.unlocked ? <ReportChatButton chatId={selectedChat.id} /> : <></>}
                   </div>
                 </div>
                 {/* Unlock status */}
-                {selectedChat.unlocked && (
+                
                   <div className="mt-3 text-xs md:text-sm text-gray-600">
-                    <span>You unlocked the chat. Access is active.</span>
+                  <span>{selectedChat.unlocked ? `You unlocked the chat. Access is active.` : "This chat is locked"}</span>
                   </div>
-                )}
+                
               </div>
               {/* Messages */}
               <div
@@ -1236,12 +1275,12 @@ const Chat = () => {
                         onSubmit={sendMessage}
                         className="flex justify-center items-center space-x-2  w-full border-t border-gray-300 pt-2"
                       >
-                        <button
+                        {/* <button
                           type="button"
                           className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
                         >
                           <FaPaperclip className="text-base" />
-                        </button>
+                        </button> */}
                         <div className="relative md:w-[80%] w-full">
                           <input
                             type="text"

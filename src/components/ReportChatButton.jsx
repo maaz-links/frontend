@@ -68,10 +68,10 @@ const ReportChatButton = ({ chatId }) => {
   // Modal content styles
   const modalStyle = {
     backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '8px',
+    padding: '20px 30px',
+    borderRadius: '25px',
     width: '90%',
-    maxWidth: '500px',
+    maxWidth: '600px',
     maxHeight: '90vh',
     overflow: 'auto'
   };
@@ -102,11 +102,11 @@ const ReportChatButton = ({ chatId }) => {
     cursor: 'pointer'
   };
 
-  const primaryButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: '#E91E63',
-    color: 'white'
-  };
+  // const primaryButtonStyle = {
+  //   ...buttonStyle,
+  //   backgroundColor: '#E91E63',
+  //   color: 'white'
+  // };
 
   const dangerButtonStyle = {
     ...buttonStyle,
@@ -117,9 +117,9 @@ const ReportChatButton = ({ chatId }) => {
   return (
     <>
       <button 
-        className="px-4 py-1 h-[32px] bg-[#F5F5F5] flex items-center"
+        className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
         onClick={openModal}
-        style={dangerButtonStyle}
+        //style={dangerButtonStyle}
       >
         Report Chat
       </button>
@@ -127,7 +127,7 @@ const ReportChatButton = ({ chatId }) => {
       {isOpen && (
         <div style={backdropStyle} onClick={closeModal}>
           <div style={modalStyle} onClick={e => e.stopPropagation()}>
-            <h2 style={{ marginTop: 0 }}>Report Chat</h2>
+            <h2 className='font-bold text-4xl text-center my-4'>Report Chat</h2>
             
             {success ? (
               <div style={{ color: 'green', margin: '10px 0' }}>
@@ -168,7 +168,8 @@ const ReportChatButton = ({ chatId }) => {
                   <button
                     type="button"
                     onClick={closeModal}
-                    style={buttonStyle}
+                    // style={buttonStyle}
+                    className='rounded-2xl px-4 py-2 m-3 bg-gray-100 hover:bg-gray-200 transition-colors'
                     disabled={isSubmitting}
                   >
                     Cancel
@@ -176,7 +177,8 @@ const ReportChatButton = ({ chatId }) => {
                   <button
                   
                     type="submit"
-                    style={primaryButtonStyle}
+                    // style={primaryButtonStyle}
+                    className='rounded-2xl bg-black text-white px-4 py-2 hover:bg-[#8880FE] transition-colors'
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Submitting...' : 'Submit Report'}
