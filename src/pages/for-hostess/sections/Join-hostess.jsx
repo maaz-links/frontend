@@ -54,7 +54,7 @@ function JoinHostess() {
           <div className="w-full md:w-1/3 flex justify-center md:justify-end mt-4 md:mt-0">
             <Link
               to="/sign-up"
-              className="btn bg-white text-black px-10 py-5 rounded-2xl text-base font-[600] leading-[130%]"
+              className="btn bg-white hover:text-white hover:bg-black text-black px-10 py-5 rounded-2xl text-base font-[600] leading-[130%]"
             >
               Create your profile for free
             </Link>

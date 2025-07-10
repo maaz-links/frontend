@@ -181,7 +181,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`md:py-5 w-full md:w-60 bg-white text-black text-[16px]  p-2 rounded-xl font-[400] hover:bg-gray-100 ${
+                className={`md:py-5 w-full md:w-60 hover:text-white hover:bg-black bg-white text-black text-[16px]  p-2 rounded-xl font-[400]  ${
                   isSubmitting ? "opacity-50" : ""
                 }`}
               >

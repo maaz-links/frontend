@@ -109,7 +109,7 @@ function Models() {
             </p>
           </div>
           <div className="md:w-2/5 flex flex-row-reverse justify-center items-center">
-            <Link to='/sign-up' className='btn bg-white text-black px-[40px] mt-2 py-[20px] rounded-2xl text-[15px] md:text-[15px] font-[600] leading-[130%]'
+            <Link to='/sign-up' className='btn bg-white hover:bg-black hover:text-white transition-all text-black px-[40px] mt-2 py-[20px] rounded-2xl text-[15px] md:text-[15px] font-[600] leading-[130%]'
             >
               Get Started for Free</Link>
           </div>

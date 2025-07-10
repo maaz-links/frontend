@@ -11,22 +11,26 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FilterPanel from "./search/FilterPanel";
 import { ROLES } from "../../constants";
 
-export function FilterDisplay({name="Name",value="Value",onCross = () => console.log('empty')  }){
+export function FilterDisplay({
+  name = "Name",
+  value = "Value",
+  onCross = () => console.log("empty"),
+}) {
   return (
     <div className="rounded-4xl flex items-center text-nowrap bg-gray-200 px-4 py-2 text-[15px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="23"
-              height="23"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-              className="inline rounded-full p-1  hover:bg-gray-300 me-3"
-              onClick={onCross}
-            >
-              <path d="M2.146 2.146a.5.5 0 0 1 .708 0L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854a.5.5 0 0 1 0-.708z" />
-            </svg>
-             
-              {name}: {value}</div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="23"
+        height="23"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        className="inline rounded-full p-1  hover:bg-gray-300 me-3"
+        onClick={onCross}
+      >
+        <path d="M2.146 2.146a.5.5 0 0 1 .708 0L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854a.5.5 0 0 1 0-.708z" />
+      </svg>
+      {name}: {value}
+    </div>
   );
 }
 
@@ -152,8 +156,8 @@ function Search() {
         verified_profile: filters.verified_profile || undefined,
         top_profile: filters.top_profile || undefined,
         hostess: filters.hostess || undefined,
-          sugarbaby: filters.sugarbaby || undefined,
-          wingwoman: filters.wingwoman || undefined,
+        sugarbaby: filters.sugarbaby || undefined,
+        wingwoman: filters.wingwoman || undefined,
 
         minage: filters.minage || undefined,
         maxage: filters.maxage || undefined,
@@ -242,7 +246,7 @@ function Search() {
           <div className="filter relative">
             <button
               onClick={() => setShowFilterPanel(true)}
-              className="flex cursor-pointer items-center gap-2 text-[14px] font-extrabold  border bg-white leading-[100%] rounded-xl px-4 py-3 text-gray-700 hover:bg-gray-100 focus:outline-none  "
+              className="group flex cursor-pointer items-center gap-2 text-[14px] font-extrabold border hover:bg-black hover:text-white bg-white leading-[100%] rounded-xl px-4 py-3 text-gray-700 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +257,7 @@ function Search() {
               >
                 <path
                   d="M6.125 9.5625H24.875M9.73125 15.5H21.2687M13.3375 21.4375H17.6625"
-                  stroke="black"
+                  className="stroke-black group-hover:stroke-white"
                   strokeWidth="1.875"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -264,125 +268,150 @@ function Search() {
           </div>
         </div>
         <div className="flex justify-center w-full flex-wrap  gap-2">
-          {(filters.verified_profile) && 
-          <FilterDisplay name="Verified Profile" value="True" 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              verified_profile: false,
-            }))
-          }
-          />}
+          {filters.verified_profile && (
+            <FilterDisplay
+              name="Verified Profile"
+              value="True"
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  verified_profile: false,
+                }))
+              }
+            />
+          )}
 
-          {(filters.top_profile) && 
-          <FilterDisplay name="Top Profile" value="True" 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              top_profile: false,
-            }))
-          }
-          />}
+          {filters.top_profile && (
+            <FilterDisplay
+              name="Top Profile"
+              value="True"
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  top_profile: false,
+                }))
+              }
+            />
+          )}
 
-          {(filters.hostess) && 
-          <FilterDisplay name="Hostess" value="True" 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              hostess: false,
-            }))
-          }
-          />}
-          {(filters.wingwoman) && 
-          <FilterDisplay name="Wingwoman" value="True" 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              wingwoman: false,
-            }))
-          }
-          />}
-          {(filters.sugarbaby) && 
-          <FilterDisplay name="Sugarbaby" value="True" 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              sugarbaby: false,
-            }))
-          }
-          />}
+          {filters.hostess && (
+            <FilterDisplay
+              name="Hostess"
+              value="True"
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  hostess: false,
+                }))
+              }
+            />
+          )}
+          {filters.wingwoman && (
+            <FilterDisplay
+              name="Wingwoman"
+              value="True"
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  wingwoman: false,
+                }))
+              }
+            />
+          )}
+          {filters.sugarbaby && (
+            <FilterDisplay
+              name="Sugarbaby"
+              value="True"
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  sugarbaby: false,
+                }))
+              }
+            />
+          )}
 
-        {(filters.minage) && 
-          <FilterDisplay name="Min Age" value={filters.minage} 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              minage: '',
-            }))
-          }
-          />}
+          {filters.minage && (
+            <FilterDisplay
+              name="Min Age"
+              value={filters.minage}
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  minage: "",
+                }))
+              }
+            />
+          )}
 
-        {(filters.maxage) && 
-          <FilterDisplay name="Max Age" value={filters.maxage} 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              maxage: '',
-            }))
-          }
-          />}
+          {filters.maxage && (
+            <FilterDisplay
+              name="Max Age"
+              value={filters.maxage}
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  maxage: "",
+                }))
+              }
+            />
+          )}
 
-        {(filters.language) && 
-          <FilterDisplay name="Language" value={getLanguageNameById(filters.language)} 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              language: '',
-            }))
-          }
-          />}
-        {(filters.cost) && 
-          <FilterDisplay name="Cost" value={`${filters.cost} credits`} 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              cost: '',
-            }))
-          }
-          />}
+          {filters.language && (
+            <FilterDisplay
+              name="Language"
+              value={getLanguageNameById(filters.language)}
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  language: "",
+                }))
+              }
+            />
+          )}
+          {filters.cost && (
+            <FilterDisplay
+              name="Cost"
+              value={`${filters.cost} credits`}
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  cost: "",
+                }))
+              }
+            />
+          )}
 
-        {(
-          filters.verified_profile ||
-          filters.top_profile ||
-          filters.minage ||
-          filters.maxage ||
-          filters.language ||
-          filters.cost ||
-          filters.wingwoman ||
-          filters.hostess ||
-          filters.sugarbaby
-        ) && 
-          <FilterDisplay name="Clear" value="All" 
-          onCross={ () =>
-            setFilters((prev) => ({
-              ...prev,
-              province_id: "",
-              verified_profile: false,
-              top_profile: false,
-              wingwoman:false,
-              hostess:false,
-              sugarbaby:false,
-              minage: "",
-              maxage: "",
-              language: "",
-              cost: ""
-            }))
-          }
-          />
-        }
+          {(filters.verified_profile ||
+            filters.top_profile ||
+            filters.minage ||
+            filters.maxage ||
+            filters.language ||
+            filters.cost ||
+            filters.wingwoman ||
+            filters.hostess ||
+            filters.sugarbaby) && (
+            <FilterDisplay
+              name="Clear"
+              value="All"
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  province_id: "",
+                  verified_profile: false,
+                  top_profile: false,
+                  wingwoman: false,
+                  hostess: false,
+                  sugarbaby: false,
+                  minage: "",
+                  maxage: "",
+                  language: "",
+                  cost: "",
+                }))
+              }
+            />
+          )}
         </div>
-
-        
 
         <div className="search-results relative">
           {initialLoad && (
@@ -396,9 +425,7 @@ function Search() {
               <h3 className="text-2xl font-medium text-gray-600 mb-2">
                 No profiles found
               </h3>
-              <p className="text-gray-500">
-                  Try adjusting your search filters
-              </p>
+              <p className="text-gray-500">Try adjusting your search filters</p>
             </div>
           ) : (
             <div className="mt-8">
@@ -426,16 +453,15 @@ function Search() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                       {/* Profile Tags - Top */}
                       <div className="absolute top-3 left-3 flex flex-wrap gap-1 z-10">
-                      {(entity.role == ROLES.HOSTESS) && entity.profile.profile_types.map((type) => (
-                        <span 
-                          key={type.id}
-                          className="bg-black backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium"
-                        >
-                          {type.name}
-                        </span>
-                        
-                      ))}
-                      
+                        {entity.role == ROLES.HOSTESS &&
+                          entity.profile.profile_types.map((type) => (
+                            <span
+                              key={type.id}
+                              className="bg-black hover:bg-[#8880FE] backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium"
+                            >
+                              {type.name}
+                            </span>
+                          ))}
                       </div>
                       {/* Content - Bottom */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
@@ -443,8 +469,12 @@ function Search() {
                           <h3 className="font-semibold text-lg">
                             {entity.name}
                           </h3>
-                          {entity.is_online == "online" && <span className="text-[#76FF5B] text-xl">•</span>}
-                          <span className="text-sm opacity-90">({getAge(entity.dob)} years)</span>
+                          {entity.is_online == "online" && (
+                            <span className="text-[#76FF5B] text-xl">•</span>
+                          )}
+                          <span className="text-sm opacity-90">
+                            ({getAge(entity.dob)} years)
+                          </span>
                         </div>
                         <div className="flex items-center gap-2 text-sm opacity-90">
                           <svg

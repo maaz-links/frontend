@@ -429,7 +429,7 @@ function UserProfile() {
 
               {token && user?.role === ROLES.KING && (
                 <div className="absolute top-0 left-0">
-                  <div className="bg-black text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
+                  <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
                     <strong>{user.profile.credits} Credits</strong>
                   </div>
                 </div>
@@ -495,7 +495,7 @@ function UserProfile() {
                       .map((item) => (
                         <span
                           key={item.id}
-                          className="bg-[#8880FE] text-white px-3 py-2 font-medium rounded-full text-[12px] sm:text-[14px]"
+                          className="bg-[#8880FE] hover:bg-black text-white px-3 py-2 font-medium rounded-full text-[12px] sm:text-[14px]"
                         >
                           {item.name}
                         </span>
@@ -650,7 +650,7 @@ function UserProfile() {
                 {unlockChat ? (
                   <button
                     onClick={() => openModal(givenUser)}
-                    className="w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="w-full bg-black  text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium  transition-colors"
                   >
                     {user?.role == ROLES.KING ? (
                       <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-medium">
@@ -667,7 +667,7 @@ function UserProfile() {
                 ) : (
                   <Link
                     to="/chat"
-                    className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium text-center hover:bg-gray-800 transition-colors"
+                    className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium text-center hover:bg-[#8880FE] transition-colors"
                   >
                     Go to the Chat
                   </Link>

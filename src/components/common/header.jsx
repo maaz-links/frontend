@@ -43,22 +43,21 @@ const headerLinksLoggedIn = [
   },
 ];
 
-function HeaderLogo(){
-
+function HeaderLogo() {
   return (
     <Link to="/">
-        <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold">
-            <span className="text-purple-600">H</span>
-            <span>4Y</span>
-          </div>
-          <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
-            <span>HOSTESS</span>
-            FOR YOU
-          </div>
+      <div className="flex items-center space-x-2">
+        <div className="text-2xl font-bold">
+          <span className="text-purple-600">H</span>
+          <span>4Y</span>
         </div>
-      </Link>
-  )
+        <div className="flex flex-col text-[12.58px] leading-[16.57px] font-[600] border-l pl-2 ">
+          <span>HOSTESS</span>
+          FOR YOU
+        </div>
+      </div>
+    </Link>
+  );
 }
 
 function Header() {
@@ -87,7 +86,7 @@ function Header() {
     return (
       <div className="mb-24">
         <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
-        <HeaderLogo/>
+          <HeaderLogo />
 
           <div className="flex items-center justify-between gap-2 md:gap-20 ">
             <div className=" space-x-6 hidden md:flex">
@@ -109,7 +108,7 @@ function Header() {
               {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
                 to="/sign-up"
-                className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+                className="border-2 hover:bg-[#090909] hover:text-white text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
                 Sign Up Now
               </NavLink>
@@ -127,7 +126,7 @@ function Header() {
               <div className="flex flex-col items-center p-4 space-y-4">
                 <NavLink
                   to="/sign-up"
-                  className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
+                  className="border-2 text-[14px] hover:bg-[#090909] hover:text-white font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
                 >
                   Sign Up Now
                 </NavLink>
@@ -157,7 +156,7 @@ function Header() {
   return (
     <div className="mb-24">
       <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
-      <HeaderLogo/>
+        <HeaderLogo />
         <div className="flex items-center justify-between gap-2 md:gap-5 ">
           <div className=" space-x-6 hidden md:flex">
             {headerLinksLoggedIn.map((link, index) => (
@@ -194,7 +193,7 @@ function Header() {
 
           {/* ONLY SHOW CREDITS TO MALE USERS */}
           {user?.role === ROLES.KING && (
-            <div className="relative start-4 bg-black text-sm text-center text-white rounded-full h-6.5 mx-4 px-4 py-1">
+            <div className="relative start-4 bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-4 py-1">
               <strong>{user.profile.credits} Credits</strong>
             </div>
           )}
