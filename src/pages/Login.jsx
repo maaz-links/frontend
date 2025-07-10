@@ -408,9 +408,8 @@ function Login() {
             }}
           />
         </div>
-      <div className="max-w-[700px]  mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
 
-        {/* <div className="absolute bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[526px]  rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] px-[40px] py-[40px]"> */}
+        <div className="absolute bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[526px]  rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] px-[40px] py-[40px]">
           <h1 className="text-center text-[38px] my-7">
             <strong>Log In</strong>
           </h1>
