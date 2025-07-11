@@ -39,6 +39,8 @@ import SecretLogin from "./components/auth/SecretLogin";
 
 import Hostess from "./pages/for-hostess/Hostess";
 import ContactUs from "./pages/help";
+import ProfilePage from "./pages/profile/profile.jsx";
+
 
 function App() {
   return (
@@ -61,6 +63,8 @@ const router = createBrowserRouter([
       // new pages
       { path: "/hostess", element: <Hostess /> },
       { path: "/contact", element: <ContactUs /> },
+      { path: "/profile-test", element: <ProfilePage /> },
+
 
       // { path: "/new-home", element: <HomeN /> },
       // { path: "/contact", element: <Contact /> },
