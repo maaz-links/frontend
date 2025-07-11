@@ -91,7 +91,8 @@ export default function ProfilePage() {
           {/* Right Side - Credits, Contacts, Personal Data */}
           <div className="flex-1 space-y-4">
             <CreditsSection credits={profileData.credits} />
-            <PhotoGallery />
+            {isProfileComplete && <PhotoGallery />}
+
             <ContactsSection contacts={profileData.contacts} />
             <PersonalDataSection personalData={profileData.personalData} />
           </div>
