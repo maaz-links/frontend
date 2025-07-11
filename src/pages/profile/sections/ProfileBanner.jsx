@@ -1,10 +1,12 @@
-
 import { X } from "lucide-react";
+import { useState } from "react";
 
 export default function ProfileBanner({ isComplete, onToggleProfile }) {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
   return (
     <div className="  w-[98%]     mx-auto h-fit lg:h-[125px] bg-[#8880FE] rounded-[20px] mt-2 ">
-
       {/* Content */}
       <div className="flex flex-col lg:flex-row justify-between px-4 gap-5 lg:text-start text-center py-10 lg:px-16 items-center h-full">
         <div className="  flex  flex-col gap-3">
@@ -31,7 +33,10 @@ export default function ProfileBanner({ isComplete, onToggleProfile }) {
         </button>
       </div>
       {/* Close Button */}
-      <button className="absolute right-10 top-3 opacity-50">
+      <button
+        className="absolute right-10 top-3 opacity-50"
+        onClick={() => setIsVisible(false)}
+      >
         <X className=" text-white" strokeWidth={2} />
       </button>
     </div>
