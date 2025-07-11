@@ -226,7 +226,7 @@ function Search() {
         </h1>
       </div>
 
-      <div className="max-w-[1200px] m-auto mt-[20px] mb-[50px] px-[15px]">
+      <div className="max-w-[1200px] min-h-[80vh] m-auto mt-[20px] mb-[50px] px-[15px]">
         {/* Search Controls */}
         <div className="flex gap-x-[15px] md:gap-x-[20px] mb-8 justify-center max-w-2xl mx-auto">
           <div className="selection flex-1">

@@ -90,7 +90,7 @@ const PaymentMethod = () => {
                 to="/shop">
                 <button 
                 disabled={isProcessing}
-                className="mt-6 mx-2 bg-white border-2  hover:bg-black transition-colors text-black hover:text-white py-3 px-6 rounded-md focus:outline-none"
+                className="mt-6 mx-2 bg-white border-1  hover:bg-[#8880fe] transition-colors text-black hover:text-white py-3 px-6 rounded-md focus:outline-none"
                  >
                 {isProcessing ? 'Processing...' : `Back to Shop`}
                 </button>

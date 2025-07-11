@@ -36,8 +36,8 @@ function Shop() {
   return (
     <>
       <Header />
-      <h1 className="text-center text-[32px] font-[400] uppercase mt-[50px] md:mt-[121px]">
-        Shop
+      <h1 className="text-center text-[32px] font-[400] mt-[50px] md:mt-[121px]">
+        <strong>Shop</strong>
       </h1>
 
       <div className="max-w-[1180px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
@@ -56,17 +56,17 @@ function Shop() {
             data.shops.map((item) => (
               <div className="blog-box text-center" key={item.id}>
                 <div className="blog-inner">
-                  <div className="blog-img bg-[#ffffff] h-99">
-                    <img src={item.icon_url} className={`w-full h-full object-cover`} alt="Shop Icon" />
+                  <div className="blog-img bg-[#ffffff] h-[50vw] md:h-[30vw]">
+                    <img src={item.icon_url} className={`w-full h-full rounded-md shadow-md object-cover`} alt="Shop Icon" />
                   </div>
-                  <h1 style={{ fontSize: "35px", fontWeight: "bold" }}>
+                  {/* <h1 style={{ fontSize: "35px", fontWeight: "bold" }}>
                     Price: ${item.price}
-                  </h1>
+                  </h1> */}
                   <h3
                     onClick={() => handlePaymentClick(item.id)}
-                    className="uppercase cursor-pointer font-[400] py-[12px] bg-[#E91E63] mt-[20px] text-white hover:bg-[#F8BBD0]"
+                    className="cursor-pointer shadow-md font-[400] text-sm sm:text-lg bg-black my-4 text-white py-3 px-6 rounded-md hover:bg-[#8880fe] transition-colors"
                   >
-                    GET {item.credits} CREDITS
+                    Get {item.credits} Credits (${item.price})
                   </h3>
                 </div>
               </div>

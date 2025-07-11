@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import MenuIcon from "/src/assets/icons/menu.svg";
 import CrossIcon from "/src/assets/icons/cross.svg";
+import HeaderLogoImage from "/src/assets/images/h4ulogoheader.png";
 
 import { ROLES } from "../../../constants";
 import { useStateContext } from "../../context/ContextProvider";
@@ -46,7 +47,7 @@ const headerLinksLoggedIn = [
 function HeaderLogo() {
   return (
     <Link to="/">
-      <div className="flex items-center space-x-2">
+      {/* <div className="flex items-center space-x-2">
         <div className="text-2xl font-bold">
           <span className="text-purple-600">H</span>
           <span>4Y</span>
@@ -55,7 +56,8 @@ function HeaderLogo() {
           <span>HOSTESS</span>
           FOR YOU
         </div>
-      </div>
+      </div> */}
+      <img src={HeaderLogoImage} alt="" />
     </Link>
   );
 }
@@ -193,8 +195,8 @@ function Header() {
           {/* <img className="mx-2" src={BellIcon} alt="Bell Icon" /> */}
           {/* ONLY SHOW CREDITS TO MALE USERS */}
           {user?.role === ROLES.KING && (
-            <div className="relative bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
-              <strong>{user.profile.credits} <span className="hidden md:inline">Credits</span></strong>
+            <div className="relative hidden sm:block bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
+              <strong>{user.profile.credits} <span className="">Credits</span></strong>
             </div>
           )}
 
