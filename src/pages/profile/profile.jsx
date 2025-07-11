@@ -5,6 +5,7 @@ import ProfileCard from "./sections/ProfileCard";
 import CreditsSection from "./sections/CreditsSection";
 import ContactsSection from "./sections/ContactsSection";
 import PersonalDataSection from "./sections/PersonalDataSection";
+import PhotoGallery from "./sections/Photos";
 
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
@@ -87,10 +88,10 @@ export default function ProfilePage() {
               progressValue={50}
             />
           </div>
-
           {/* Right Side - Credits, Contacts, Personal Data */}
           <div className="flex-1 space-y-4">
             <CreditsSection credits={profileData.credits} />
+            <PhotoGallery />
             <ContactsSection contacts={profileData.contacts} />
             <PersonalDataSection personalData={profileData.personalData} />
           </div>
