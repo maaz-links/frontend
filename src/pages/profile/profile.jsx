@@ -18,6 +18,20 @@ export default function ProfilePage() {
     description:
       "Ciao, sono una giovane ragazza di 28 anni. Amo il mondo artistico, sono solare e passionale. Amo viaggiare",
     interests: ["Travel", "Books", "Books", "Cooking"],
+    available_for: [
+      "Model Photo",
+      "Talk",
+      "Dinners",
+      "Fake Girlfriend",
+      "Company",
+    ],
+    information: {
+      age: 30,
+      nationality: "Italian",
+      languages: ["Italian", "English"],
+      height: "160cm",
+      shoeSize: 36,
+    },
     credits: isProfileComplete ? 125 : 0,
     contacts: isProfileComplete
       ? [
@@ -41,7 +55,6 @@ export default function ProfilePage() {
             status: "Online 5 minutes ago",
             avatar: "/placeholder.svg?height=34&width=34",
           },
-    
         ]
       : [],
     personalData: {
@@ -71,6 +84,7 @@ export default function ProfilePage() {
             <ProfileCard
               profileData={profileData}
               isComplete={isProfileComplete}
+              progressValue={50}
             />
           </div>
 

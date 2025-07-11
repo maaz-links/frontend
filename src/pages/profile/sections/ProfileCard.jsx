@@ -8,7 +8,7 @@ import {
 export default function ProfileCard({
   profileData,
   isComplete,
-  progressValue = 75,
+  progressValue,
 }) {
   // Calculate the stroke-dasharray and stroke-dashoffset for the progress ring
   const radius = 75; // Radius of the progress circle
@@ -153,16 +153,63 @@ export default function ProfileCard({
                   ))}
                 </div>
               </div>
+
               <div className="w-full h-px bg-black/10"></div>
+              <div className="space-y-4">
+                <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
+                  Available For
+                </p>
+                <div className="flex flex-wrap gap-1 justify-center">
+                  {profileData.available_for.map((available_for, index) => (
+                    <span
+                      key={index}
+                      className="bg-[#8880FE]  hover:bg-black cursor-pointer rounded-full px-3 py-2 text-sm font-bold text-white  tracking-[-0.03em]"
+                    >
+                      {available_for}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               <div className="w-full h-px bg-black/10"></div>
               {/* Informations */}
               <div className="space-y-4">
                 <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
                   Informations
                 </p>
-                <p className="text-sm font-normal text-[#090909]/40 tracking-[-0.02em] leading-[23px]">
-                  No Informations
-                </p>
+
+                {profileData.information ? (
+                  <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
+                    <li className="flex items-center justify-between">
+                      <span className="font-bold">Age</span>
+                      <span>{profileData.information.age}</span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span className="font-bold">Nationality</span>
+                      <span className="">
+                        {profileData.information.nationality}
+                      </span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span className="font-bold">Languages</span>
+                      <span>
+                        {profileData.information.languages.join(", ")}
+                      </span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span className="font-bold">Height</span>
+                      <span>{profileData.information.height}</span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span className="font-bold">Shoe Size</span>
+                      <span>{profileData.information.shoeSize}</span>
+                    </li>
+                  </ul>
+                ) : (
+                  <p className="text-sm font-normal text-[#090909]/40 tracking-[-0.02em] leading-[23px]">
+                    No Informations
+                  </p>
+                )}
               </div>
             </>
           )}

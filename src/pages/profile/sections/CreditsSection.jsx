@@ -1,8 +1,8 @@
 
 export default function CreditsSection({ credits }) {
   return (
-    <div className="w-full  lg:gap-96 flex-wrap  bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between lg:h-[149px]">
-      <div className="space-y-4   flex  flex-col items-center  lg:w-fit w-full ">
+    <div className="w-full  gap-4 flex-col lg:flex-row  bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between lg:h-[149px]">
+      <div className="space-y-4   flex  flex-col lg:items-start items-center  lg:w-[60%] w-full ">
         <h3 className="text-xl font-bold  text-[#090909] tracking-[-0.04em]">
           Your Credits
         </h3>
@@ -16,7 +16,7 @@ export default function CreditsSection({ credits }) {
         </div>
       </div>
 
-      <button className="bg-[#8880FE] rounded-xl mx-auto px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
+      <button className="bg-[#8880FE] w-fit rounded-xl mx-auto px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
         <span className="text-white text-base font-bold tracking-[-0.03em] capitalize">
           top up the balance
         </span>
