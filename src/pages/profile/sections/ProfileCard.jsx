@@ -1,5 +1,10 @@
 import { MoreVertical, Plus } from "lucide-react";
-
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 export default function ProfileCard({
   profileData,
   isComplete,
@@ -11,13 +16,40 @@ export default function ProfileCard({
   const strokeDashoffset =
     circumference - (progressValue / 100) * circumference;
 
-  return (
-    <div className="w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-6">
-      {/* More Button */}
-      <div className="flex justify-end mb-6">
-        <MoreVertical className="w-6 h-6 text-[#090909]" />
-      </div>
+  const menuItems = [
+    {
+      id: "edit",
+      label: "Edit Information",
+      onClick: () => console.log("Edit Information"),
+    },
+    {
+      id: "delete",
+      label: "Delete Profile",
+      onClick: () => console.log("Delete Profile"),
+      variant: "danger",
+    },
+  ];
 
+  return (
+    <div className=" md:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-6">
+      {/* More Button */}
+
+      <div className="flex justify-end mb-6">
+        <DropdownMenu >
+          <DropdownMenuTrigger>
+            <MoreVertical className="w-6 h-6 text-[#090909]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+          className={"border-0 rounded-2xl p-2  font-bold leading-[100%] "}
+          >
+            <DropdownMenuItem>Edit Information</DropdownMenuItem>
+            <DropdownMenuItem
+            className={"text-red-600 text-[14px]"}
+            >Delete Profile</DropdownMenuItem>
+
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       {/* Profile Section */}
       <div className="flex flex-col items-center gap-6">
         {/* Avatar */}
