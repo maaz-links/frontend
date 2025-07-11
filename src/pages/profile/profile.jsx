@@ -10,7 +10,7 @@ import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 
 export default function ProfilePage() {
-  const [isProfileComplete, setIsProfileComplete] = useState(true);
+  const [isProfileComplete, setIsProfileComplete] = useState(false);
 
   // Sample data for full profile
   const profileData = {
@@ -54,7 +54,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <>
       <Header />
 
       <div className="relative w-full max-w-[1440px] mx-auto px-4">
@@ -65,7 +65,7 @@ export default function ProfilePage() {
         />
 
         {/* Main Content */}
-        <div className="flex gap-8 mt-8">
+        <div className="flex gap-8 my-8">
           {/* Left Side - Profile Card */}
           <div className="w-[387px]">
             <ProfileCard
@@ -83,6 +83,6 @@ export default function ProfilePage() {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }

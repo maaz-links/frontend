@@ -18,9 +18,11 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="text"
-            value={personalData.name}
+            // value={personalData.name}
+              placeholder={personalData.name}
+
             className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
-            readOnly
+            
           />
         </div>
 
@@ -32,21 +34,26 @@ export default function PersonalDataSection({ personalData }) {
           <div className="flex gap-[18px]">
             <input
               type="text"
-              value={personalData.dateOfBirth.day}
+              // value={personalData.dateOfBirth.day}
+              placeholder={personalData.dateOfBirth.day}
+
               className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
-              readOnly
+              
             />
             <input
               type="text"
-              value={personalData.dateOfBirth.month}
+              // value={personalData.dateOfBirth.month}
+              placeholder={personalData.dateOfBirth.month}
               className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-bold text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
-              readOnly
+              
             />
             <input
               type="text"
-              value={personalData.dateOfBirth.year}
+              // value={personalData.dateOfBirth.year}
+              placeholder={personalData.dateOfBirth.year}
+
               className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
-              readOnly
+              
             />
           </div>
         </div>
@@ -58,9 +65,10 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="text"
-            value={personalData.phone}
+            // value={personalData.phone}
+            placeholder={personalData.phone}
             className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909]/70 tracking-[-0.03em] backdrop-blur-[12.5px]"
-            readOnly
+            
           />
         </div>
 
@@ -71,9 +79,11 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="email"
-            value={personalData.email}
+            // value={personalData.email}
+              placeholder={personalData.email}
+
             className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
-            readOnly
+            
           />
         </div>
 
@@ -84,9 +94,11 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="password"
-            value={personalData.password}
+            // value={personalData.password}
+              placeholder={personalData.password}
+
             className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909]/70 tracking-[-0.03em] backdrop-blur-[12.5px]"
-            readOnly
+            
           />
         </div>
       </div>

@@ -4,7 +4,7 @@ import { X } from "lucide-react"
 
 export default function ProfileBanner({ isComplete, onToggleProfile }) {
   return (
-    <div className="relative w-full max-w-[1113px] mx-auto h-[125px] bg-[#8880FE] rounded-[20px] mt-[109px] overflow-hidden">
+    <div className="relative w-full  mx-auto h-[125px] bg-[#8880FE] rounded-[20px] mt-2 overflow-hidden">
       {/* Decorative Stars */}
       <div className="absolute w-20 h-20 bg-white/25 rounded-full top-[25px] left-[664px]"></div>
       <div className="absolute w-20 h-20 bg-white/10 rounded-full top-[73px] left-[734px]"></div>
