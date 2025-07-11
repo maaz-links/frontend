@@ -3,8 +3,8 @@ export default function ContactsSection({ contacts }) {
     return (
       <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 space-y-6 h-[135px]">
         <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">Contacts</h3>
-        <p className="text-base font-bold text-[#090909]/70 tracking-[-0.02em] leading-[23px]">
-          You don`t have any contacts. <span className="underline cursor-pointer">Search now</span>
+        <p className="text-base font-medium text-[#090909]/70 tracking-[-0.02em] leading-[23px]">
+          You don`t have any contacts. <span className="underline font-bold cursor-pointer">Search now</span>
         </p>
       </div>
     )
