@@ -5,12 +5,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useStateContext } from "/src/context/ContextProvider";
 
 function PaypalCancelPayment() {
   const navigate = useNavigate();
-
+  const {setGenericModalOpen,setGenericModalContent} = useStateContext();
   useEffect(() => {
-    toast.success('Payment not Success try again later');
+    // toast.success('Payment not Success try again later');
+    
+    setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Payment Failed</h1>
+                <p className=" my-4 ">
+                Payment was not Successful. Please try again later.
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
     navigate(`/shop`);
 
   }, [])

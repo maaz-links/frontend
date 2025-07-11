@@ -45,11 +45,23 @@ function VerifyEmail() {
         // //localStorage.setItem('ACCESS_TOKEN', response.data.token);
         // //localStorage.setItem('user', JSON.stringify(response.data.user));
         // alert('Email verified successfully!')
-        toast.success('Email verified successfully!',{
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        })
+        // toast.success('Email verified successfully!',{
+        //   hideProgressBar: true,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        // })
+        setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Email verified successfully!</h1>
+                {/* <p className=" my-4 ">
+                  {response.data.message}
+                </p> */}
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
         sessionStorage.setItem('hostess_otp_email', response.data.email);
         sessionStorage.setItem('hostess_otp_phone', response.data.phone);
         sessionStorage.setItem('hostess_otp_message', response.data.message);

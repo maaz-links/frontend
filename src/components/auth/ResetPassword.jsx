@@ -5,6 +5,7 @@ import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../context/ContextProvider";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import BackgroundGrad from "../common/BackgroundGrad";
 
 function ResetPassword() {
   //const emailRef = createRef()
@@ -14,6 +15,7 @@ function ResetPassword() {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const {setGenericModalOpen,setGenericModalContent} = useStateContext();
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -57,11 +59,23 @@ function ResetPassword() {
       // console.log(response);
       setErrors({});
       // alert(response.data.message)
-      toast.success(response.data.message,{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
+      // toast.success(response.data.message,{
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      // })
+      setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Password Reset Successfully</h1>
+                <p className=" my-4 ">
+                  {response.data.message}
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
       // setUser(response.data.user);
       // setToken(response.data.access_token);
       // console.log('here');
@@ -82,9 +96,8 @@ function ResetPassword() {
   return (
 <>
 <Header />
-
-
-    <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+<BackgroundGrad>
+    <div className="max-w-[700px]  bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
             <h1 className="text-center text-[38px] my-7"><strong>Reset Password</strong></h1>
             <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
     
@@ -139,6 +152,7 @@ function ResetPassword() {
     
             </div>
           </div>
+          </BackgroundGrad>
     <Footer />
     </>
   );

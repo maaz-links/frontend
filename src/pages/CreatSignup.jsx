@@ -15,11 +15,13 @@ import femaleIconWhite from "../assets/icons/female-symbol-white.svg";
 import maleIcon from "../assets/icons/male-symbol.svg";
 import maleIconWhite from "../assets/icons/male-symbol-white.svg";
 import BGsrc from "/src/assets/images/bg-grad.png"
+import BackgroundGrad from "@/components/common/BackgroundGrad";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
   const [myRole, setMyRole] = useState(null);
   const [next, setNext] = useState(null);
+  const {setGenericModalOpen,setGenericModalContent} = useStateContext();
   const handleSelect = (option) => {
     //setSelectedOption(option);
     setMyRole(option);
@@ -31,11 +33,23 @@ const SignUp = () => {
       setNext(1);
       //window.location.href = '/create-signup'
     } else {
-      toast.info('Please select an option before proceeding.',{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
+      // toast.info('Please select an option before proceeding.',{
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      // })
+      setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">No Option Selected</h1>
+                <p className=" my-4 ">
+                Please select an option before proceeding.
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
       // alert("Please select an option before proceeding.");
     }
   };
@@ -47,16 +61,8 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      {/* <BackgroundGrad/> */}
-      <div className="py-[170px]"
-      style={{
-        backgroundImage: `url(${BGsrc})`,
-        backgroundPosition: 'bottom',
-        backgroundColor: '#f3f2fd',
-        backgroundRepeat: 'no-repeat'
-        // backgroundColor: "black"
-      }}
-      >
+      <BackgroundGrad>
+      
       <div className="bg-white max-w-[700px] shadow-md mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px]">
       <h1 className="text-center text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
       <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Choose a Profile</h2>
@@ -111,7 +117,7 @@ const SignUp = () => {
         </div>
       </div>
       </div>
-      </div>
+      </BackgroundGrad>
       <Footer />
     </>
   );
@@ -231,17 +237,7 @@ const CreatSignup = ({myRole}) => {
   return (
     <>
       <Header />
-      {/* <BackgroundGrad className="h-[200vh]"/> */}
-      {/* <BackgroundGrad/> */}
-      <div className="py-[170px]"
-      style={{
-        backgroundImage: `url(${BGsrc})`,
-        backgroundPosition: 'bottom',
-        backgroundColor: '#f3f2fd',
-        backgroundRepeat: 'no-repeat'
-        // backgroundColor: "black"
-      }}
-      >
+      <BackgroundGrad>
       <div className="bg-white max-w-[700px] mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px] ">
         <h1 className="text-center text-[38px] my-7"><strong>Free Registration</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
@@ -396,7 +392,7 @@ const CreatSignup = ({myRole}) => {
 
         </div>
       </div>
-      </div>
+      </BackgroundGrad>
       <Footer />
     </>
 

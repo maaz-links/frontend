@@ -34,7 +34,7 @@ function Home() {
       <Faqs />
 
       {/* for Testying Only */}
-      <div className="w-full flex justify-center mb-10">
+      {/* <div className="w-full flex justify-center mb-10">
         <button
           // onClick={() => setGenericModalOpen(true)}
           onClick={() => {
@@ -55,7 +55,7 @@ function Home() {
         >
           Open POPUP (testing only)
         </button>
-      </div>
+      </div> */}
       {/* <PopUpModel isOpen={GenericModalOpen} onClose={() => setGenericModalOpen(false)}>
         <h1 className=" text-[45px] font-bold">Verify your email</h1>
 

@@ -6,7 +6,8 @@ import { useStateContext } from "../context/ContextProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
-import BGsrc from "/src/assets/images/bg-grad.png"
+import BackgroundGrad from "@/components/common/BackgroundGrad";
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -128,16 +129,7 @@ function Login() {
   return (
     <>
       <Header />
-      {/* <BackgroundGrad/> */}
-      <div className="py-[170px]"
-      style={{
-        backgroundImage: `url(${BGsrc})`,
-        backgroundPosition: 'bottom',
-        backgroundColor: '#f3f2fd',
-        backgroundRepeat: 'no-repeat'
-        // backgroundColor: "black"
-      }}
-      >
+      <BackgroundGrad>
 
       <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px] ">
         <h1 className="text-center text-[38px] my-7"><strong>Log In</strong></h1>
@@ -204,7 +196,7 @@ function Login() {
         </div>
       </div>
       
-      </div>
+      </BackgroundGrad>
       <Footer />
     </>
   );

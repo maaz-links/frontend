@@ -9,6 +9,7 @@ import { useStateContext } from "../context/ContextProvider";
 import { toast } from "react-toastify";
 import axiosClient from "../../axios-client";
 import { ClipLoader } from "react-spinners";
+import BackgroundGrad from "@/components/common/BackgroundGrad";
 
 const AddPhotoPart4 = () => {
   const [images, setImages] = useState([]);
@@ -116,7 +117,8 @@ const handleIconClick = () => {
           GO TO YOUR PROFILE 
         </button> */}
       {/* </div> */}
-      <div className="max-w-[700px] mx-auto rounded-4xl  px-[20px] md:px-[20px] py-[20px] my-[170px]">
+       <BackgroundGrad>
+      <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
   <h1 className="text-center text-[38px] my-7"><strong>Load Your Photo</strong></h1>
   <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
     <label className="block text-center text-[20px] mb-[20px]">A good photo is essential, select and upload your best shot! It is mandatory to activate the Profile</label>
@@ -154,6 +156,8 @@ const handleIconClick = () => {
     {/* </form> */}
   </div>
 </div>
+      
+      </BackgroundGrad>
       <Footer />
     </>
   );

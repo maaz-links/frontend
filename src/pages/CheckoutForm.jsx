@@ -125,7 +125,7 @@ const CheckoutForm = ({ clientSecret, shopId,paymentIntentId }) => {
       <button
         type="submit"
         disabled={!stripe || !clientSecret || isProcessing}
-        className="w-full py-3 bg-[#E91E63] text-white font-semibold rounded-md hover:bg-[#c2185b] focus:outline-none"
+        className="w-full py-3 bg-black hover:bg-[#8880fe] transition-colors text-white font-semibold rounded-md focus:outline-none"
       >
         {isProcessing ? "Processing..." : "Pay Now"}
       </button>

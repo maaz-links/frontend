@@ -6,6 +6,7 @@ import { useStateContext } from "../../context/ContextProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RecaptchaComponent, RecaptchaVerify } from "../../functions/RecaptchaVerify";
+import BackgroundGrad from "../common/BackgroundGrad";
 
 function ForgotPassword() {
   const emailRef = createRef()
@@ -20,6 +21,7 @@ function ForgotPassword() {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const {setGenericModalOpen,setGenericModalContent} = useStateContext();
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -45,22 +47,46 @@ function ForgotPassword() {
       const response = await axiosClient.post('/api/forgot-password', payload);
       // console.log(response);
       // alert(response.data.message);
-      toast.info(response.data.message,{
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                    })
+      // toast.info(response.data.message,{
+      //                 hideProgressBar: true,
+      //                 closeOnClick: true,
+      //                 pauseOnHover: true,
+      //               })
+      setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Password Reset Link Sent</h1>
+                <p className=" my-4 ">
+                  {response.data.message}
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
       setErrors({});
       // setUser(response.data.user);
       // setToken(response.data.access_token);
       // console.log('here');
       //navigate('/chat');
     } catch (err) {
-      toast.error("Error sending Link. Please wait before try again.",{
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      })
+      // toast.error("Error sending Link. Please wait before try again.",{
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      // })
+      setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">An Error occured</h1>
+                <p className=" my-4 ">
+                  Error sending Link. Please wait before try again.
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
       const response = err.response;
       // // console.log(response);
       if (response && response.status === 422) {
@@ -75,7 +101,8 @@ function ForgotPassword() {
   return (
 <>
 <Header />
-    <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
+<BackgroundGrad>
+    <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
             <h1 className="text-center text-[38px] my-7"><strong>Forgot Password</strong></h1>
             <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
     
@@ -116,6 +143,7 @@ function ForgotPassword() {
     
             </div>
           </div>
+          </BackgroundGrad>
     <Footer />
     </>
   );

@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import GlobeIcon from "/src/assets/icons/globe.svg";
+import BellIcon from "/src/assets/icons/bell.svg";
 import LogoutIcon from "/src/assets/icons/logout.svg";
 import { useState } from "react";
 
@@ -157,7 +157,7 @@ function Header() {
     // <div className="mb-24">
       <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50  shadow">
         <HeaderLogo />
-        <div className="flex items-center justify-between gap-2 md:gap-5 ">
+        <div className="flex items-center justify-between ">
           <div className=" space-x-6 hidden md:flex">
             {headerLinksLoggedIn.map((link, index) => (
               <NavLink
@@ -190,15 +190,15 @@ function Header() {
           <div className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] invisible hidden md:block">
             s
           </div>
-
+          {/* <img className="mx-2" src={BellIcon} alt="Bell Icon" /> */}
           {/* ONLY SHOW CREDITS TO MALE USERS */}
           {user?.role === ROLES.KING && (
-            <div className="relative start-4 bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
+            <div className="relative bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
               <strong>{user.profile.credits} <span className="hidden md:inline">Credits</span></strong>
             </div>
           )}
 
-          {/* <img className="mx-2" src={GlobeIcon} alt="Globe Icon" /> */}
+          
           <img
             className=" px-4"
             src={LogoutIcon}

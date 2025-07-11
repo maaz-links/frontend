@@ -70,7 +70,7 @@ const PaymentMethod = () => {
               <button
                 onClick={handleSubmit}
                 disabled={isProcessing}
-                className="mt-6 bg-[#E91E63] text-white py-3 px-6 rounded-md hover:bg-[#c2185b] focus:outline-none"
+                className="mt-6 bg-black  text-white py-3 px-6 rounded-md hover:bg-[#8880fe] transition-colors focus:outline-none"
               >
                 {isProcessing ? 'Processing...' : 'Proceed to Pay'}
               </button>
@@ -80,7 +80,7 @@ const PaymentMethod = () => {
               <button
                 onClick={handlePayPalPayment}
                 disabled={isProcessing}
-                className="mt-6 bg-[#E91E63] text-white py-3 px-6 rounded-md hover:bg-[#c2185b] focus:outline-none"
+                className="mt-6 bg-black  text-white py-3 px-6 rounded-md hover:bg-[#8880fe] transition-colors  focus:outline-none"
               >
                 {isProcessing ? 'Processing...' : `Pay $${data?.shop?.price}`}
               </button>
@@ -90,7 +90,7 @@ const PaymentMethod = () => {
                 to="/shop">
                 <button 
                 disabled={isProcessing}
-                className="mt-6 mx-2 bg-[#F8BBD0] text-black py-3 px-6 rounded-md focus:outline-none"
+                className="mt-6 mx-2 bg-white border-2  hover:bg-black transition-colors text-black hover:text-white py-3 px-6 rounded-md focus:outline-none"
                  >
                 {isProcessing ? 'Processing...' : `Back to Shop`}
                 </button>
@@ -99,24 +99,24 @@ const PaymentMethod = () => {
 
           {/* Order Summary */}
           <div className="max-w-[450px] bg-[#F5F5F5] p-6 rounded-md shadow-md">
-            <h1 className="text-[22px] font-bold mb-3">Item Details</h1>
+            <h1 className="text-[22px] mb-3">Item Details</h1>
             {data && data.shop && (
               <table className="w-full">
                 <tbody>
                   <tr className="border-b">
-                    <td className="font-semibold py-1"><strong>Title</strong></td>
-                    <td className="text-right"><strong>{data.shop.title}</strong></td>
+                    <td className="py-1"><strong>Title</strong></td>
+                    <td className="text-right">{data.shop.title}</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="font-semibold py-1"><strong>Price</strong></td>
-                    <td className="text-right"><strong>${data.shop.price}</strong></td>
+                    <td className="py-1"><strong>Price</strong></td>
+                    <td className="text-right">${data.shop.price}</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="font-semibold py-1"><strong>Credits</strong></td>
-                    <td className="text-right"><strong>{data.shop.credits}</strong></td>
+                    <td className="py-1"><strong>Credits</strong></td>
+                    <td className="text-right">{data.shop.credits}</td>
                   </tr>
                   <tr className="">
-                    <td className="font-semibold py-1"><p className="fw-bold text-[18px]"><strong>Total</strong></p></td>
+                    <td className="py-1"><p className="fw-bold text-[18px]"><strong>Total</strong></p></td>
                     <td className="text-right"><strong className="text-[18px]">${data.shop.price}</strong></td>
                   </tr>
                 </tbody>

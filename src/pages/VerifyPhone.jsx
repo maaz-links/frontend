@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { toast } from "react-toastify";
+import BackgroundGrad from "@/components/common/BackgroundGrad";
 
 function VerifyPhone() {
   // const [phone, setPhone] = useState("");
@@ -125,8 +126,9 @@ function VerifyPhone() {
   return (
     <>
       <Header />
-      <div className="max-w-[700px] mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px] my-[170px]">
-        <h1 className="text-center text-[38px]"><strong>Mobile Phone Verification</strong></h1>
+      <BackgroundGrad>
+      <div className="max-w-[700px]  bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
+        <h1 className="text-center text-[38px] my-7"><strong>Mobile Phone Verification</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 
@@ -221,6 +223,7 @@ function VerifyPhone() {
           </div> */}
         </div>
       </div>
+      </BackgroundGrad>
       <Footer />
     </>
   );

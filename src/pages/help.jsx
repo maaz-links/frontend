@@ -10,6 +10,7 @@ import {
   RecaptchaComponent,
   RecaptchaVerify,
 } from "../functions/RecaptchaVerify";
+import { useStateContext } from "@/context/ContextProvider";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ function ContactUs() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const navigate = useNavigate();
+  const {setGenericModalOpen,setGenericModalContent} = useStateContext();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -65,14 +67,26 @@ function ContactUs() {
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "", termsAccepted: false });
       setErrors({});
-      toast.success(
-        "Thank you! Your request has been submitted successfully.",
-        {
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        }
-      );
+      // toast.success(
+      //   "Thank you! Your request has been submitted successfully.",
+      //   {
+      //     hideProgressBar: true,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //   }
+      // );
+      setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Form Submitted</h1>
+                <p className=" my-4 ">
+                  Thank you! Your request has been submitted successfully.
+                </p>
+                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  OK
+                </button>
+                </>
+              )
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 422) {
