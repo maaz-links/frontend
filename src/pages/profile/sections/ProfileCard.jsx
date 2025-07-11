@@ -31,22 +31,21 @@ export default function ProfileCard({
   ];
 
   return (
-    <div className=" md:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-6">
+    <div className=" md:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] py-6 md:p-6">
       {/* More Button */}
 
       <div className="flex justify-end mb-6">
-        <DropdownMenu >
+        <DropdownMenu>
           <DropdownMenuTrigger>
             <MoreVertical className="w-6 h-6 text-[#090909]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent
-          className={"border-0 rounded-2xl p-2  font-bold leading-[100%] "}
+            className={"border-0 rounded-2xl p-2  font-bold leading-[100%] "}
           >
             <DropdownMenuItem>Edit Information</DropdownMenuItem>
-            <DropdownMenuItem
-            className={"text-red-600 text-[14px]"}
-            >Delete Profile</DropdownMenuItem>
-
+            <DropdownMenuItem className={"text-red-600 text-[14px]"}>
+              Delete Profile
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -147,7 +146,7 @@ export default function ProfileCard({
                   {profileData.interests.map((interest, index) => (
                     <span
                       key={index}
-                      className="bg-[#F3F3F5] rounded-full px-3 py-2 text-sm font-bold text-[#090909] tracking-[-0.03em]"
+                      className="bg-[#F3F3F5] hover:text-white hover:bg-black cursor-pointer rounded-full px-3 py-2 text-sm font-bold text-[#090909]  tracking-[-0.03em]"
                     >
                       {interest}
                     </span>
@@ -171,10 +170,8 @@ export default function ProfileCard({
       </div>
 
       {/* Bottom Button */}
-      <button className="mt-10 mb-5 text-[#090909] mx-auto w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center">
-        <span className="text-[#090909] text-[16px] font-bold tracking-[-0.03em] capitalize">
-          {isComplete ? "add Informations" : "fill out my profile"}
-        </span>
+      <button className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  md:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center">
+        {isComplete ? "add Informations" : "fill out my profile"}
       </button>
     </div>
   );

@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 
 export default function ProfileBanner({ isComplete, onToggleProfile }) {
   return (
-    <div className="relative w-full  mx-auto h-[125px] bg-[#8880FE] rounded-[20px] mt-2 overflow-hidden">
+    <div className="relative w-full  mx-auto h-44 md:h-[125px] bg-[#8880FE] rounded-[20px] mt-2 overflow-hidden">
       {/* Decorative Stars */}
       <div className="absolute w-20 h-20 bg-white/25 rounded-full top-[25px] left-[664px]"></div>
       <div className="absolute w-20 h-20 bg-white/10 rounded-full top-[73px] left-[734px]"></div>
@@ -30,7 +30,7 @@ export default function ProfileBanner({ isComplete, onToggleProfile }) {
         {/* Button */}
         <button
           onClick={onToggleProfile}
-          className="absolute right-[40px] hover:bg-[#8880FE] hover:border-white hover:border top-1/2 -translate-y-1/2 bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
+          className="absolute md:right-[40px] hover:bg-[#8880FE] hover:border-white hover:border md:top-1/2 md:-translate-y-1/2 bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
         >
           <span className="text-white  text-base font-normal tracking-[-0.03em] capitalize">
             {isComplete ? "Finish Your Profile" : "Fill Out My Profile"}

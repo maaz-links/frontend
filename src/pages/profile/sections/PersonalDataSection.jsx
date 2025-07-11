@@ -8,7 +8,7 @@ import {
 
 export default function PersonalDataSection({ personalData }) {
   return (
-    <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 space-y-6 relative">
+    <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)]  p-3 py-10 md:p-10 space-y-6 relative">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">
           Personal Data
@@ -35,35 +35,39 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="text"
-            // value={personalData.name}
+            value={personalData.name}
             placeholder={personalData.name}
-            className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
+            className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
+            readOnly
           />
         </div>
 
         {/* Date of Birth */}
-        <div className="space-y-3">
-          <label className="text-base font-bold text-[#090909] tracking-[-0.03em]">
+        <div className=" flex  flex-wrap  ">
+          <label className="text-base  font-bold text-[#090909] tracking-[-0.03em]">
             Date of birth
           </label>
           <div className="flex gap-[18px]">
             <input
               type="text"
-              // value={personalData.dateOfBirth.day}
+              value={personalData.dateOfBirth.day}
+              readOnly
               placeholder={personalData.dateOfBirth.day}
-              className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
+              className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
             />
             <input
               type="text"
-              // value={personalData.dateOfBirth.month}
+              value={personalData.dateOfBirth.month}
+              readOnly
               placeholder={personalData.dateOfBirth.month}
-              className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-bold text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
+              className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-bold text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
             />
             <input
               type="text"
-              // value={personalData.dateOfBirth.year}
+              value={personalData.dateOfBirth.year}
+              readOnly
               placeholder={personalData.dateOfBirth.year}
-              className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
+              className="w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
             />
           </div>
         </div>
@@ -88,9 +92,10 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="email"
-            // value={personalData.email}
+            value={personalData.email}
+            readOnly
             placeholder={personalData.email}
-            className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909] tracking-[-0.03em] backdrop-blur-[12.5px]"
+            className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
           />
         </div>
 
@@ -101,9 +106,10 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="password"
-            // value={personalData.password}
+            value={personalData.password}
+            readOnly
             placeholder={personalData.password}
-            className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909]/70 tracking-[-0.03em] backdrop-blur-[12.5px]"
+            className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
           />
         </div>
       </div>
