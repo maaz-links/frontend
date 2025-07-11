@@ -5,6 +5,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { useRef } from "react";
+
 export default function ProfileCard({
   profileData,
   isComplete,
@@ -16,19 +18,19 @@ export default function ProfileCard({
   const strokeDashoffset =
     circumference - (progressValue / 100) * circumference;
 
-  const menuItems = [
-    {
-      id: "edit",
-      label: "Edit Information",
-      onClick: () => console.log("Edit Information"),
-    },
-    {
-      id: "delete",
-      label: "Delete Profile",
-      onClick: () => console.log("Delete Profile"),
-      variant: "danger",
-    },
-  ];
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    inputRef.current?.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      console.log("Selected file:", file);
+      // handle upload or preview
+    }
+  };
 
   return (
     <div className=" lg:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] py-6 lg:p-6">
@@ -117,13 +119,24 @@ export default function ProfileCard({
             </div>
           )}
           {/* Plus Button */}
-          <button
-            className={`absolute bottom-0 ${
-              isComplete ? "-right-2" : "right-0"
-            } w-10 h-10 bg-[#090909] border-[6px] border-white rounded-full flex items-center justify-center`}
-          >
-            <Plus className="w-4 h-4 text-white" />
-          </button>
+          <>
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={handleClick}
+              className={`absolute bottom-0 ${
+                isComplete ? "-right-2" : "right-0"
+              } w-10 h-10 bg-[#090909] border-[6px] border-white rounded-full flex items-center justify-center`}
+            >
+              <Plus className="w-4 h-4 text-white" />
+            </button>
+          </>
         </div>
 
         {/* Profile Info */}
