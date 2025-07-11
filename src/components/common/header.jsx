@@ -84,8 +84,8 @@ function Header() {
   if (!token) {
     // IF USER IS NOT LOGGED IN
     return (
-      <div className="mb-24">
-        <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
+      // <div className="mb-24">
+        <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50  shadow">
           <HeaderLogo />
 
           <div className="flex items-center justify-between gap-2 md:gap-20 ">
@@ -148,14 +148,14 @@ function Header() {
             </div>
           )}
         </nav>
-      </div>
+      // </div>
     );
 
     // IF USER ISs LOGGED IN
   }
   return (
-    <div className="mb-24">
-      <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 fixed top-0 left-0 w-full z-50  shadow">
+    // <div className="mb-24">
+      <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50  shadow">
         <HeaderLogo />
         <div className="flex items-center justify-between gap-2 md:gap-5 ">
           <div className=" space-x-6 hidden md:flex">
@@ -249,7 +249,7 @@ function Header() {
           </div>
         )}
       </nav>
-    </div>
+    // </div>
   );
 }
 
