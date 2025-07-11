@@ -65,9 +65,9 @@ export default function ProfilePage() {
         />
 
         {/* Main Content */}
-        <div className="flex flex-col md:flex-row gap-8 my-8 ">
+        <div className="flex flex-col lg:flex-row gap-8 my-8 ">
           {/* Left Side - Profile Card */}
-          <div className="w-full md:w-[387px]">
+          <div className="w-full lg:w-[387px]">
             <ProfileCard
               profileData={profileData}
               isComplete={isProfileComplete}

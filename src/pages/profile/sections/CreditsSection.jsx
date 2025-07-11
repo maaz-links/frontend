@@ -1,22 +1,22 @@
 
 export default function CreditsSection({ credits }) {
   return (
-    <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between h-[149px]">
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">
+    <div className="w-full  lg:gap-96 flex-wrap  bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between lg:h-[149px]">
+      <div className="space-y-4   flex  flex-col items-center  lg:w-fit w-full ">
+        <h3 className="text-xl font-bold  text-[#090909] tracking-[-0.04em]">
           Your Credits
         </h3>
-        <div className="flex items-end gap-2">
+        <div className="flex items-center  text-center   gap-3">
           <span className="text-[45px] font-bold text-[#090909] tracking-[-0.06em] leading-[130%]">
             {credits}
           </span>
-          <span className="text-xs font-normal text-[#090909] leading-[18px]">
+          <span className="text-[12px] mt-5 font-normal text-[#090909] leading-[18px]">
             Credits
           </span>
         </div>
       </div>
 
-      <button className="bg-[#8880FE] rounded-xl px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
+      <button className="bg-[#8880FE] rounded-xl mx-auto px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
         <span className="text-white text-base font-bold tracking-[-0.03em] capitalize">
           top up the balance
         </span>

@@ -31,7 +31,7 @@ export default function ProfileCard({
   ];
 
   return (
-    <div className=" md:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] py-6 md:p-6">
+    <div className=" lg:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] py-6 lg:p-6">
       {/* More Button */}
 
       <div className="flex justify-end mb-6">
@@ -170,7 +170,7 @@ export default function ProfileCard({
       </div>
 
       {/* Bottom Button */}
-      <button className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  md:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center">
+      <button className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  lg:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center">
         {isComplete ? "add Informations" : "fill out my profile"}
       </button>
     </div>

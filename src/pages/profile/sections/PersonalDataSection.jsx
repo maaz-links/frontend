@@ -47,7 +47,7 @@ export default function PersonalDataSection({ personalData }) {
           <label className="text-base  font-bold text-[#090909] tracking-[-0.03em]">
             Date of birth
           </label>
-          <div className="flex gap-3 md:gap-[18px] flex-wrap ">
+          <div className="flex gap-3 md:gap-[18px] flex-wrap md:flex-nowrap">
             <input
               type="text"
               value={personalData.dateOfBirth.day}

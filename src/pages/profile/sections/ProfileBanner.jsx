@@ -4,10 +4,10 @@ import { X } from "lucide-react";
 
 export default function ProfileBanner({ isComplete, onToggleProfile }) {
   return (
-    <div className="  w-[98%]     mx-auto h-fit md:h-[125px] bg-[#8880FE] rounded-[20px] mt-2 ">
+    <div className="  w-[98%]     mx-auto h-fit lg:h-[125px] bg-[#8880FE] rounded-[20px] mt-2 ">
 
       {/* Content */}
-      <div className="flex flex-col md:flex-row justify-between px-4 gap-5 md:text-start text-center py-10 md:px-16 items-center h-full">
+      <div className="flex flex-col lg:flex-row justify-between px-4 gap-5 lg:text-start text-center py-10 lg:px-16 items-center h-full">
         <div className="  flex  flex-col gap-3">
           <h2 className="text-[24px] font-bold  text-white  leading-[24px]">
             {isComplete
@@ -24,7 +24,7 @@ export default function ProfileBanner({ isComplete, onToggleProfile }) {
         {/* Button */}
         <button
           onClick={onToggleProfile}
-          className=" md:right-[40px] hover:bg-[#8880FE] hover:border-white hover:border  bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
+          className=" lg:right-[40px] hover:bg-[#8880FE] hover:border-white hover:border  bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
         >
           <span className="text-white  text-base font-normal tracking-[-0.03em] capitalize">
             {isComplete ? "Finish Your Profile" : "Fill Out My Profile"}
