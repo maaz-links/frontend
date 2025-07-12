@@ -50,16 +50,16 @@ const EditProfileModal = ({ isOpen, onClose }) => {
           <div className="flex flex-col items-center gap-[26px]">
             {/* Title */}
             <div className="text-center">
-              <h2 className="text-[32px] leading-[128%] font-normal tracking-[-0.06em] text-[#090909] font-['Gotham_Pro']">
+              <h2 className="text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
                 Edit Information
               </h2>
             </div>
 
             {/* Form */}
-            <div className="w-full max-w-[420px] flex flex-col gap-[18px] overflow-y-auto">
+            <div className="w-full max-w-[420px] p-1 flex flex-col gap-[18px] overflow-y-auto">
               {/* Name Field */}
-              <div className="flex flex-col gap-3">
-                <label className="text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro']">
+              <div className="flex flex-col gap-3  ">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Name (or Nickname)
                 </label>
                 <div className="relative">
@@ -67,14 +67,14 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent"
+                    className="w-full h-[55px] px-[22px] py-[17px]  border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {/* Date of Birth */}
               <div className="flex flex-col gap-3">
-                <label className="text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro']">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Date of birth
                 </label>
                 <div className="flex gap-[18px]">
@@ -83,7 +83,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                       type="text"
                       value={formData.day}
                       onChange={(e) => handleInputChange("day", e.target.value)}
-                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent"
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     />
                   </div>
                   <div className="flex-1">
@@ -93,7 +93,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                       onChange={(e) =>
                         handleInputChange("month", e.target.value)
                       }
-                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent"
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     />
                   </div>
                   <div className="flex-1">
@@ -103,7 +103,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                       onChange={(e) =>
                         handleInputChange("year", e.target.value)
                       }
-                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent"
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -111,7 +111,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
 
               {/* Mobile Phone */}
               <div className="flex flex-col gap-3">
-                <label className="text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro']">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Mobile Phone
                 </label>
                 <div className="relative">
@@ -119,14 +119,14 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent"
+                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {/* Email */}
               <div className="flex flex-col gap-3">
-                <label className="text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro']">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Email
                 </label>
                 <div className="relative">
@@ -134,14 +134,14 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent"
+                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {/* Password */}
               <div className="flex flex-col gap-3">
-                <label className="text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro']">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Password
                 </label>
                 <div className="relative">
@@ -151,7 +151,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                     onChange={(e) =>
                       handleInputChange("password", e.target.value)
                     }
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-normal tracking-[-0.03em] text-[#090909] font-['Gotham_Pro'] opacity-70 focus:outline-none focus:ring-2 focus:ring-[#8880FE] focus:border-transparent focus:opacity-100"
+                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] opacity-70 focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent focus:opacity-100"
                   />
                 </div>
               </div>
@@ -160,7 +160,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
             {/* Save Button */}
             <button
               onClick={handleSave}
-              className="w-full max-w-[426px] h-[60px] bg-[#090909] rounded-xl flex items-center justify-center text-base font-normal tracking-[-0.03em] text-white font-['Gotham_Pro'] hover:bg-gray-800 transition-colors"
+              className="w-full max-w-[426px] h-[60px] bg-[#090909] hover:bg-[#8880FE] rounded-xl flex items-center justify-center text-base font-bold tracking-[-0.03em] text-white  transition-colors"
             >
               Save
             </button>
