@@ -26,7 +26,7 @@ export default function PhotoGallery() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-2 md:p-10  w-full ">
+    <div className="bg-white rounded-xl shadow-lg p-2 xl:p-10  w-full ">
       <h2 className="text-[20px] leading-[24px] font-bold mb-8">My Photos</h2>
       <div className="grid grid-cols-2  lg:grid-cols-3 xl-grid-col-4 xl:w-[90%] gap-4">
         {photos.map((photo, index) => (

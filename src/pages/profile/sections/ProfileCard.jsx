@@ -5,13 +5,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { useRef } from "react";
+import { useRef,useState } from "react";
+import EditProfileModal from "../models/edit-profile-modal";
 
 export default function ProfileCard({
   profileData,
   isComplete,
   progressValue,
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Calculate the stroke-dasharray and stroke-dashoffset for the progress ring
   const radius = 75; // Radius of the progress circle
   const circumference = 2 * Math.PI * radius;
@@ -44,7 +47,9 @@ export default function ProfileCard({
           <DropdownMenuContent
             className={"border-0 rounded-2xl p-2  font-bold leading-[100%] "}
           >
-            <DropdownMenuItem>Edit Information</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setIsModalOpen(true)}>
+              Edit Information
+            </DropdownMenuItem>
             <DropdownMenuItem className={"text-red-600 text-[14px]"}>
               Delete Profile
             </DropdownMenuItem>
@@ -233,6 +238,11 @@ export default function ProfileCard({
       <button className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  lg:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center">
         {isComplete ? "add Informations" : "fill out my profile"}
       </button>
+
+      <EditProfileModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

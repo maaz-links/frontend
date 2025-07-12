@@ -79,8 +79,9 @@ export default function PersonalDataSection({ personalData }) {
           </label>
           <input
             type="text"
-            // value={personalData.phone}
+            value={personalData.phone}
             placeholder={personalData.phone}
+            readOnly
             className="w-full h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-[#090909]/70 tracking-[-0.03em] backdrop-blur-[12.5px]"
           />
         </div>
