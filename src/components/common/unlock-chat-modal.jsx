@@ -104,14 +104,14 @@ const UnlockChatModal = ({
           {canAfford ? (
             <button
               onClick={onConfirm}
-              className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${"bg-black text-white hover:bg-gray-800 active:scale-95"}`}
+              className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
             >
               Confirm
             </button>
           ) : (
             <button
               onClick={() => navigate("/shop")}
-              className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${"bg-black text-white hover:bg-gray-800 active:scale-95"}`}
+              className={`w-1/2 py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
             >
               Top Up my Balance
             </button>
