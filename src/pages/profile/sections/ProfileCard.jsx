@@ -5,15 +5,17 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 import EditProfileModal from "../models/edit-profile-modal";
+import CompleteProfileModal from "../models/complete-profile-model";
 
 export default function ProfileCard({
   profileData,
   isComplete,
   progressValue,
 }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
 
   // Calculate the stroke-dasharray and stroke-dashoffset for the progress ring
   const radius = 75; // Radius of the progress circle
@@ -47,7 +49,7 @@ export default function ProfileCard({
           <DropdownMenuContent
             className={"border-0 rounded-2xl p-2  font-bold leading-[100%] "}
           >
-            <DropdownMenuItem onClick={() => setIsModalOpen(true)}>
+            <DropdownMenuItem onClick={() => setIsEditModalOpen(true)}>
               Edit Information
             </DropdownMenuItem>
             <DropdownMenuItem className={"text-red-600 text-[14px]"}>
@@ -235,13 +237,23 @@ export default function ProfileCard({
       </div>
 
       {/* Bottom Button */}
-      <button className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  lg:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center">
+      <button
+        onClick={() => {
+          if (!isComplete) setIsCompleteModalOpen(true);
+          return;
+        }}
+        className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  lg:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center"
+      >
         {isComplete ? "add Informations" : "fill out my profile"}
       </button>
 
       <EditProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+      />
+      <CompleteProfileModal
+        isOpen={isCompleteModalOpen}
+        onClose={() => setIsCompleteModalOpen(false)}
       />
     </div>
   );
