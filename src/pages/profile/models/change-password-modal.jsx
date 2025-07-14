@@ -73,21 +73,28 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur bg-black/40 border" />
+      <div className="absolute inset-0 shadow-2xl backdrop-blur bg-black/40" />
 
       {/* Modal */}
-      <ScrollArea className="relative top-5 xl:top-10 w-full max-w-[506px] mx-4 overflow-y-auto h-full">
-        <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 md:p-[50px_40px]">
+      <ScrollArea className="relative w-full max-w-[506px] mx-4 overflow-y-auto h-full scrollbar-hide">
+        <div className="bg-white relative rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] my-5 p-10 md:p-[50px_40px]">
           {/* Close Button */}
-          <button
+          {/* <button
             onClick={onClose}
             className="absolute top-6 right-6 w-6 h-6 flex items-center justify-center text-black hover:text-gray-600 transition-colors"
           >
             <X size={24} />
-          </button>
+          </button> */}
 
+<button
+            onClick={onClose}
+            className="absolute end-5 top-5 w-6 h-6 flex items-center justify-center text-black hover:text-gray-600 transition-colors"
+          >
+            <X size={24} />
+          </button>
           {/* Content */}
           <div className="flex flex-col items-center gap-[26px]">
+          
             {/* Title */}
             <div className="text-center">
               <h2 className="text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
