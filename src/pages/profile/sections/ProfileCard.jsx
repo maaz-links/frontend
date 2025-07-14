@@ -21,7 +21,7 @@ export default function ProfileCard({
   progressValue,
 }) {
 
-  const {user,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, countries,nationalitiesList,eyeColorList } = useStateContext();
+  const {user,refreshUser,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, countries,nationalitiesList,eyeColorList } = useStateContext();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
 
@@ -73,6 +73,40 @@ export default function ProfileCard({
     if (file) {
       console.log("Selected file:", file);
       // handle upload or preview
+    }
+  };
+
+  const handleImageUpload = async (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length === 0) return;
+
+    const formData = new FormData();
+    files.forEach(file => {
+      formData.append('images[]', file);
+      formData.append('set_profile_picture', 1);
+    });
+
+    try {
+      //setIsLoading(true);
+      await axiosClient.post('/api/attachments', formData);
+      refreshUser();
+    } catch (error) {
+      if (error.response.data.message) {
+        toast.error(error.response.data.message, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      } else {
+        toast.error("Error Uploading Image. Try Uploading image of smaller size.", {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
+      console.error('Error uploading images:', error);
+    } finally {
+      //setIsLoading(false);
     }
   };
 
@@ -170,7 +204,7 @@ export default function ProfileCard({
               ref={inputRef}
               type="file"
               accept="image/*"
-              onChange={handleFileChange}
+              onChange={handleImageUpload}
               className="hidden"
             />
             <button
@@ -195,26 +229,14 @@ export default function ProfileCard({
               <p className="text-base font-normal text-[#090909]/70 tracking-[-0.02em] leading-[23px]">
                 {user.profile.description}
               </p>
+              {user.role === ROLES.HOSTESS && (
+                <>
+              {(user.profile.personal_interests.length != 0) && <>
               <div className="w-full h-px bg-black/10"></div>
               {/* Interests */}
-              {/* <div className="space-y-4">
-                <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                  Personality and interests:
-                </p>
-                <div className="flex flex-wrap gap-1 justify-center">
-                  {profileData.interests.map((interest, index) => (
-                    <span
-                      key={index}
-                      className="bg-[#F3F3F5] hover:text-white hover:bg-black cursor-pointer rounded-full px-3 py-2 text-sm font-bold text-[#090909]  tracking-[-0.03em]"
-                    >
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-              </div> */}
               <div className="space-y-4">
                 <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                  Personality and interests:
+                  Personality and Interests:
                 </p>
                 <div className="flex flex-wrap gap-1 justify-center">
                   {optionsInterest
@@ -231,24 +253,11 @@ export default function ProfileCard({
                     ))}
                 </div>
               </div>
+              </>}
 
+              {(user.profile.available_services.length != 0) && <>
               <div className="w-full h-px bg-black/10"></div>
-              {/* <div className="space-y-4">
-                <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                  Available For
-                </p>
-                <div className="flex flex-wrap gap-1 justify-center">
-                  {profileData.available_for.map((available_for, index) => (
-                    <span
-                      key={index}
-                      className="bg-[#8880FE]  hover:bg-black cursor-pointer rounded-full px-3 py-2 text-sm font-bold text-white  tracking-[-0.03em]"
-                    >
-                      {available_for}
-                    </span>
-                  ))}
-                </div>
-              </div> */}
-              {user.role === ROLES.HOSTESS && (
+              
                 <div className="space-y-4">
                   <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
                     Available For
@@ -268,9 +277,11 @@ export default function ProfileCard({
                       ))}
                   </div>
                 </div>
+                </>}
+                </>
               )}
 
-              <div className="w-full h-px bg-black/10"></div>
+              {(user.profile.my_languages.length != 0) && <><div className="w-full h-px bg-black/10"></div>
               <div className="space-y-4">
                 <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
                   Languages
@@ -287,7 +298,7 @@ export default function ProfileCard({
                       </span>
                     ))}
                 </div>
-              </div>
+              </div></>}
 
 
               <div className="w-full h-px bg-black/10"></div>
@@ -299,10 +310,10 @@ export default function ProfileCard({
 
                 {profileData.information ? (
                   <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
-                    <li className="flex items-center justify-between">
+                    {/* <li className="flex items-center justify-between">
                       <span className="font-bold">Age</span>
                       <span>{getAge(user.dob)}</span>
-                    </li>
+                    </li> */}
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Province</span>
                       <span className="">

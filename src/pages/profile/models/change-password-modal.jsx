@@ -1,42 +1,82 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ErrorText } from "../../../functions/Common";
+import { toast } from "react-toastify";
+import { useStateContext } from "@/context/ContextProvider";
+import axiosClient from "../../../../axios-client";
+
 const ChangePasswordModal = ({ isOpen, onClose }) => {
+  const { user } = useStateContext();
   const [formData, setFormData] = useState({
-    name: "Tom Jard",
-    day: "13",
-    month: "April",
-    year: "1995",
-    phone: "+38099277892",
-    email: "tom@mail.com",
-    password: "tom tom",
+    current_password: '',
+    password: '',
+    password_confirmation: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [personalData, setPersonalData] = useState({
+    phone: '',
+    email: '',
+    dob: ''
   });
 
+  useEffect(() => {
+    if (user) {
+      setPersonalData({
+        phone: user.phone || '',
+        email: user.email || '',
+        dob: user.dob || ''
+      });
+    }
+  }, [user]);
+
   const handleInputChange = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    if (field in formData) {
+      setFormData(prev => ({
+        ...prev,
+        [field]: value
+      }));
+    } else {
+      setPersonalData(prev => ({
+        ...prev,
+        [field]: value
+      }));
+    }
   };
 
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving profile data:", formData);
-    onClose();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axiosClient.post('/api/change-password', formData);
+      if (response.data.success) {
+        toast.success("Password Changed Successfully", {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        setErrors({});
+        setFormData({
+          current_password: '',
+          password: '',
+          password_confirmation: ''
+        });
+        onClose();
+      }
+    } catch (error) {
+      setErrors(error.response?.data?.formError || {});
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed  inset-0 z-50 flex items-center justify-center ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 mt-2  shadow-2xl  backdrop-blur bg-black/40 border"
-        // onClick={onClose}
-      />
+      <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur bg-black/40 border" />
 
       {/* Modal */}
-      <ScrollArea className="relative top-5  xl:top-10 w-full max-w-[506px] mx-4 overflow-y-auto h-full">
+      <ScrollArea className="relative top-5 xl:top-10 w-full max-w-[506px] mx-4 overflow-y-auto h-full">
         <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 md:p-[50px_40px]">
           {/* Close Button */}
           <button
@@ -51,119 +91,76 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             {/* Title */}
             <div className="text-center">
               <h2 className="text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
-                Edit Information
+                Change Password
               </h2>
             </div>
 
             {/* Form */}
-            <div className="w-full max-w-[420px] p-1 flex flex-col gap-[18px] overflow-y-auto">
-              {/* Name Field */}
-              <div className="flex flex-col gap-3  ">
-                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Name (or Nickname)
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
-                    className="w-full h-[55px] px-[22px] py-[17px]  border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                  />
-                </div>
-              </div>
+            <form onSubmit={handleSubmit} className="w-full max-w-[420px] p-1 flex flex-col gap-[18px] overflow-y-auto">
 
-              {/* Date of Birth */}
-              <div className="flex flex-col gap-3">
-                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Date of birth
-                </label>
-                <div className="flex gap-[18px]">
-                  <div className="flex-1">
+              {/* Password Section */}
+              <div className="mt-6">
+                
+
+                {/* Current Password */}
+                <div className="flex flex-col gap-3 mb-4">
+                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                    Current Password
+                  </label>
+                  <div className="relative">
                     <input
-                      type="text"
-                      value={formData.day}
-                      onChange={(e) => handleInputChange("day", e.target.value)}
+                      type="password"
+                      name="current_password"
+                      value={formData.current_password}
+                      onChange={(e) => handleInputChange("current_password", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    />
+                    <ErrorText errors={errors} field="current_password" />
+                  </div>
+                </div>
+
+                {/* New Password */}
+                <div className="flex flex-col gap-3 mb-4">
+                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                    New Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={(e) => handleInputChange("password", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    />
+                    <ErrorText errors={errors} field="password" />
+                  </div>
+                </div>
+
+                {/* Confirm Password */}
+                <div className="flex flex-col gap-3">
+                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                    Confirm Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      name="password_confirmation"
+                      value={formData.password_confirmation}
+                      onChange={(e) => handleInputChange("password_confirmation", e.target.value)}
                       className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     />
                   </div>
-                  <div className="flex-1">
-                    <input
-                      type="text"
-                      value={formData.month}
-                      onChange={(e) =>
-                        handleInputChange("month", e.target.value)
-                      }
-                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <input
-                      type="text"
-                      value={formData.year}
-                      onChange={(e) =>
-                        handleInputChange("year", e.target.value)
-                      }
-                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                    />
-                  </div>
                 </div>
               </div>
 
-              {/* Mobile Phone */}
-              <div className="flex flex-col gap-3">
-                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Mobile Phone
-                </label>
-                <div className="relative">
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-3">
-                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Email
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
-              <div className="flex flex-col gap-3">
-                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    value={formData.password}
-                    onChange={(e) =>
-                      handleInputChange("password", e.target.value)
-                    }
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] opacity-70 focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent focus:opacity-100"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Save Button */}
-            <button
-              onClick={handleSave}
-              className="w-full max-w-[426px] h-[60px] bg-[#090909] hover:bg-[#8880FE] rounded-xl flex items-center justify-center text-base font-bold tracking-[-0.03em] text-white  transition-colors"
-            >
-              Save
-            </button>
+              {/* Save Button */}
+              <button
+                type="submit"
+                className="w-full max-w-[426px] h-[60px] bg-[#090909] hover:bg-[#8880FE] rounded-xl flex items-center justify-center text-base font-bold tracking-[-0.03em] text-white transition-colors mt-6"
+              >
+                Save Changes
+              </button>
+            </form>
           </div>
         </div>
       </ScrollArea>

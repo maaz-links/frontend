@@ -2,6 +2,8 @@ import { toast } from "react-toastify";
 import { useStateContext } from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../axios-client";
+import lockPic from "/src/assets/images/unlock-chat.png"
+import topUpPic from "/src/assets/images/top-up-balance.png"
 
 const UnlockChatModal = ({
   isOpen,
@@ -59,8 +61,8 @@ const UnlockChatModal = ({
         style={{
           backgroundImage: `url(${
             canAfford
-              ? "/src/assets/images/unlock-chat.png"
-              : "/src/assets/images/top-up-balance.png"
+              ? lockPic
+              : topUpPic
           })`,
         }}
       >
