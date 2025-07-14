@@ -15,6 +15,8 @@ import { ROLES } from "../../../constants";;
 export default function ProfilePage() {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
   const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions, countries,nationalitiesList,eyeColorList } = useStateContext();
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+  
   // Sample data for full profile
   const profileData = {
     name: "Tom Jard",
@@ -77,7 +79,8 @@ export default function ProfilePage() {
         {/* Profile Banner */}
         <ProfileBanner
           isComplete={isProfileComplete}
-          onToggleProfile={() => setIsProfileComplete(!isProfileComplete)}
+          isCompleteModalOpen={isCompleteModalOpen} setIsCompleteModalOpen={setIsCompleteModalOpen}
+          //onToggleProfile={() => setIsProfileComplete(!isProfileComplete)}
         />
 
         {/* Main Content */}
@@ -88,6 +91,7 @@ export default function ProfilePage() {
               profileData={profileData}
               isComplete={isProfileComplete}
               progressValue={50}
+              isCompleteModalOpen={isCompleteModalOpen} setIsCompleteModalOpen={setIsCompleteModalOpen}
             />
           </div>
           {/* Right Side - Credits, Contacts, Personal Data */}

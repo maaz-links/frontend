@@ -93,7 +93,7 @@ export default function PersonalDataSection({ personalData }) {
         {/* Mobile Phone */}
         <div className="space-y-3">
           <label className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-            Mobile Phone
+          Phone Number
           </label>
           <input
             type="text"

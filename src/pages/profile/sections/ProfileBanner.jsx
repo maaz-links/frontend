@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 
-export default function ProfileBanner({ isComplete, onToggleProfile }) {
+export default function ProfileBanner({ isComplete, isCompleteModalOpen, setIsCompleteModalOpen }) {
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
@@ -17,14 +17,14 @@ export default function ProfileBanner({ isComplete, onToggleProfile }) {
           </h2>
           <p className="text-[16px] font-normal text-white tracking-[-0.02em] leading-[23px]">
             {isComplete
-              ? "Complete it to unlock more contacts and increase your visibility."
+              ? "Complete it to increase your visibility and attract more attention!."
               : "Stand out and attract more attention!"}
           </p>
         </div>
 
         {/* Button */}
         <button
-          onClick={onToggleProfile}
+          onClick={() => setIsCompleteModalOpen(true)}
           className=" lg:right-[40px] hover:bg-[#8880FE] hover:border-white hover:border  bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
         >
           <span className="text-white  text-base font-normal tracking-[-0.03em] capitalize">

@@ -111,8 +111,8 @@ const router = createBrowserRouter([
                   </TimeProvider>
                 ),
               },
-              { path: "/profile", element: <Profile /> },
-              { path: "/profile-test", element: <ProfilePage /> },
+              { path: "/profile-old", element: <Profile /> },
+              { path: "/profile", element: <ProfilePage /> },
               
               { path: "/last-views", element: <LastViews /> },
               { path: "/reviews", element: <Reviews /> },

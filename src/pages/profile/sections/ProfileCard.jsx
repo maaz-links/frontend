@@ -19,11 +19,12 @@ export default function ProfileCard({
   profileData,
   isComplete,
   progressValue,
+  isCompleteModalOpen, setIsCompleteModalOpen
 }) {
 
   const {user,refreshUser,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, countries,nationalitiesList,eyeColorList } = useStateContext();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+  // const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
 
   const handleDelete = async () => {
       
@@ -308,7 +309,7 @@ export default function ProfileCard({
                   Informations
                 </p>
 
-                {profileData.information ? (
+                {true ? (
                   <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
                     {/* <li className="flex items-center justify-between">
                       <span className="font-bold">Age</span>
@@ -337,17 +338,17 @@ export default function ProfileCard({
                       <span>{user.profile.height}cm</span>
                     </li>
                     <li className="flex items-center justify-between">
-                      <span className="font-bold">Weight</span>
-                      <span>{user.profile.weight}kg</span>
-                    </li>
-                    <li className="flex items-center justify-between">
                       <span className="font-bold">Shoe Size</span>
                       <span>{user.profile.shoe_size}</span>
                     </li>
+                    {user.role === ROLES.HOSTESS && (
+                    <>
+              
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Dress Size</span>
                       <span>{dressSizeName(user.profile.dress_size)}</span>
                     </li>
+                    
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Available for travel</span>
                       <span>{user.profile.travel_available ? "Yes" : "No"}</span>
@@ -356,7 +357,8 @@ export default function ProfileCard({
                       <span className="font-bold">Telegram</span>
                       <span>{user.profile.telegram}</span>
                     </li>
-                    
+                    </>
+                    )}
                   </ul>
                 ) : (
                   <p className="text-sm font-normal text-[#090909]/40 tracking-[-0.02em] leading-[23px]">
