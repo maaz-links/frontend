@@ -290,7 +290,7 @@
 
 // ------------------ NEW CODE ------------------------------
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -303,11 +303,15 @@ import { ClipLoader } from "react-spinners";
 import { createChat } from "../functions/UnlockChat";
 import UnlockChatModal from "../components/common/unlock-chat-modal";
 
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
 function UserProfile() {
   const openModal = (user) => {
     setIsModalOpen(true);
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const {
     token,
@@ -345,6 +349,23 @@ function UserProfile() {
         setLoading(false);
       });
   }, []);
+
+  const [startSlideIndex, setStartSlideIndex] = useState(0);
+  // Define slides using useMemo to compute only when givenUser changes
+  const slides = useMemo(() => {
+    if (!givenUser) {
+      return [{ src: "/placeholder.svg" }]; // Fallback for when givenUser is null
+    }
+    return [
+      {
+        src:
+          getAttachmentURL(givenUser.profile_picture_id) || "/placeholder.svg",
+      },
+      ...(givenUser.other_pics || []).map((id) => ({
+        src: getAttachmentURL(id),
+      })),
+    ];
+  }, [givenUser]);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -403,11 +424,14 @@ function UserProfile() {
                 <img
                   src={
                     getAttachmentURL(givenUser.profile_picture_id) ||
-                    "/placeholder.svg" ||
                     "/placeholder.svg"
                   }
                   alt={givenUser.name}
-                  className="w-full h-60 sm:h-80 lg:h-60 xl:h-[526px] object-cover"
+                  className="w-full h-60 sm:h-80 lg:h-60 xl:h-[526px] object-cover cursor-pointer"
+                  onClick={() => {
+                    setStartSlideIndex(0);
+                    setIsLightboxOpen(true);
+                  }}
                 />
               </div>
 
@@ -417,7 +441,11 @@ function UserProfile() {
                     key={id ?? i}
                     src={getAttachmentURL(id)}
                     alt={`user-pic-${i + 1}`}
-                    className=" rounded-2xl md:h-60 w-full object-cover"
+                    className="rounded-2xl md:h-60 w-full object-cover cursor-pointer"
+                    onClick={() => {
+                      setStartSlideIndex(i + 1);
+                      setIsLightboxOpen(true);
+                    }}
                   />
                 ))}
               </div>
@@ -682,6 +710,13 @@ function UserProfile() {
               )} */}
             </div>
           </div>
+
+          <Lightbox
+            open={isLightboxOpen}
+            close={() => setIsLightboxOpen(false)}
+            slides={slides}
+            startSlideIndex={startSlideIndex}
+          />
         </div>
       </div>
       <Footer />
