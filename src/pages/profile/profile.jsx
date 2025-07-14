@@ -34,7 +34,7 @@ export default function ProfilePage() {
       shoeSize: 36,
     },
     credits: isProfileComplete ? 125 : 0,
-    contacts: isProfileComplete
+    contacts: true
       ? [
           {
             name: "Kate",
@@ -91,7 +91,7 @@ export default function ProfilePage() {
           {/* Right Side - Credits, Contacts, Personal Data */}
           <div className="flex-1 space-y-4">
             <CreditsSection credits={profileData.credits} />
-            {isProfileComplete && <PhotoGallery />}
+            <PhotoGallery />
 
             <ContactsSection contacts={profileData.contacts} />
             <PersonalDataSection personalData={profileData.personalData} />

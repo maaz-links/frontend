@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       // new pages
       { path: "/hostess", element: <Hostess /> },
       { path: "/contact", element: <ContactUs /> },
-      { path: "/profile-test", element: <ProfilePage /> },
+      
 
 
       // { path: "/new-home", element: <HomeN /> },
@@ -112,7 +112,8 @@ const router = createBrowserRouter([
                 ),
               },
               { path: "/profile", element: <Profile /> },
-
+              { path: "/profile-test", element: <ProfilePage /> },
+              
               { path: "/last-views", element: <LastViews /> },
               { path: "/reviews", element: <Reviews /> },
               {
