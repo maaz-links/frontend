@@ -47,8 +47,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center ">
       <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur border" />
 
-      <ScrollArea className="relative top-5 xl:top-10 w-full max-w-[506px] mx-4 overflow-y-auto h-full">
-        <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 md:p-[50px_40px]">
+      <ScrollArea className="relative top-5 xl:top-10 w-full max-w-[506px] md:mx-4 overflow-y-auto h-full">
+        <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-5 md:p-[50px_40px]">
           <button
             onClick={onClose}
             className="absolute top-6 right-6 w-6 h-6 flex items-center justify-center text-black hover:text-gray-600 transition-colors"
@@ -58,7 +58,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
           <div className="flex flex-col items-center gap-[26px]">
             <div className="text-center">
-              <h2 className="text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
+              <h2 className=" text-[28px] md:text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
                 Complete Your Profile
               </h2>
             </div>

@@ -37,7 +37,7 @@ const WelcomeModal = ({ isOpen, onClose }) => {
         </button> */}
 
         {/* Content */}
-        <div className="w-full md:w-[65%]  pb-16 pt-5 px-7 flex flex-col items-start ">
+        <div className="w-full md:w-[65%]  pb-16 pt-5 md:px-7 flex flex-col items-start  ">
           <h2 className="text-3xl font-bold text-black mb-6">
             Welcome to Hostess for You!
           </h2>
