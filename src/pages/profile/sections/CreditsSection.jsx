@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function CreditsSection({ credits }) {
   return (
@@ -16,7 +17,7 @@ export default function CreditsSection({ credits }) {
         </div>
       </div>
 
-      <button className="bg-[#8880FE] w-fit rounded-xl mx-auto px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
+      <Link to="/shop" className="bg-[#8880FE] w-fit rounded-xl mx-auto px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
         <span className="text-white text-base font-bold tracking-[-0.03em] capitalize">
           top up the balance
         </span>
@@ -34,7 +35,7 @@ export default function CreditsSection({ credits }) {
             fill="white"
           />
         </svg>
-      </button>
+      </Link>
     </div>
   );
 }

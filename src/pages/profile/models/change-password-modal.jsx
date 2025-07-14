@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-const EditProfileModal = ({ isOpen, onClose }) => {
+const ChangePasswordModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
     name: "Tom Jard",
     day: "13",
@@ -171,4 +171,4 @@ const EditProfileModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default EditProfileModal;
+export default ChangePasswordModal;

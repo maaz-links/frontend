@@ -5,8 +5,17 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { useStateContext } from "@/context/ContextProvider";
+import EditProfileModal from "../models/edit-profile-modal";
+import { useState } from "react";
+import ChangePasswordModal from "../models/change-password-modal";
 
 export default function PersonalDataSection({ personalData }) {
+
+  const {user} = useStateContext();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [changePassModalOpen, setChangePassModalOpen] = useState(false);
+
   return (
     <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)]  p-3 py-10 md:p-10 space-y-6 relative">
       <div className="flex items-center justify-between">
@@ -19,11 +28,13 @@ export default function PersonalDataSection({ personalData }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className={
-              "border-0  text-center  items-center  rounded-full font-bold  "
+              "border-0 rounded-2xl p-2  font-bold leading-[100%] "
             }
           >
-            <DropdownMenuItem className={" text-center"}>Edit</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setIsEditModalOpen(true)} className={" text-center"}>Edit Personal Info</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setChangePassModalOpen(true)} className={" text-center"}>Change Password</DropdownMenuItem>
           </DropdownMenuContent>
+          
         </DropdownMenu>
       </div>
 
@@ -114,6 +125,14 @@ export default function PersonalDataSection({ personalData }) {
           />
         </div>
       </div>
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+      />
+      <ChangePasswordModal
+        isOpen={changePassModalOpen}
+        onClose={() => setChangePassModalOpen(false)}
+      />
     </div>
   );
 }

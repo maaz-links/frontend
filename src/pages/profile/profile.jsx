@@ -9,10 +9,12 @@ import PhotoGallery from "./sections/Photos";
 
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
+import { useStateContext } from "@/context/ContextProvider";
+import { ROLES } from "../../../constants";;
 
 export default function ProfilePage() {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
-
+  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions, countries,nationalitiesList,eyeColorList } = useStateContext();
   // Sample data for full profile
   const profileData = {
     name: "Tom Jard",
@@ -90,7 +92,7 @@ export default function ProfilePage() {
           </div>
           {/* Right Side - Credits, Contacts, Personal Data */}
           <div className="flex-1 space-y-4">
-            <CreditsSection credits={profileData.credits} />
+            {user.role == ROLES.KING && <CreditsSection credits={user.profile.credits} />}
             <PhotoGallery />
 
             <ContactsSection contacts={profileData.contacts} />

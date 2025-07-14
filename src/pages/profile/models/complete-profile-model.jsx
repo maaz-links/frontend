@@ -1,51 +1,178 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useStateContext } from "@/context/ContextProvider";
+import axiosClient from "../../../../axios-client";
+import {ROLES} from "../../../../constants";
+import { toast } from "react-toastify";
 
 const CompleteProfileModal = ({ isOpen, onClose }) => {
+  const { setUser, user, refreshUser, optionsInterest, optionsAvailableFor, languageOptions, countries, nationalitiesList, eyeColorList } = useStateContext();
+
   const [formData, setFormData] = useState({
     about: "",
     nationality: "",
-    languages: "",
+    languages: [],
     height: "",
     shoeSize: "",
+    eyeColor: "",
+    dressSize: "",
+    weight: "",
+    telegram: "",
     interests: [],
-    availability: "",
+    availableFor: [],
+    travel: 0,
+    visibility: 0,
+    notification: 0,
+    country: "",
+    province: ""
   });
 
-  const handleInputChange = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  const [provinces, setProvinces] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+
+  // Initialize form data from user profile
+  useEffect(() => {
+    if (Object.keys(user).length !== 0) {
+      setFormData({
+        about: user.profile.description || '',
+        nationality: user.profile.nationality || '',
+        languages: user.profile.my_languages || [],
+        height: user.profile.height || '',
+        shoeSize: user.profile.shoe_size || '',
+        eyeColor: user.profile.eye_color || '',
+        dressSize: user.profile.dress_size || '',
+        weight: user.profile.weight || '',
+        telegram: user.profile.telegram || '',
+        interests: user.profile.personal_interests || [],
+        availableFor: user.profile.available_services || [],
+        travel: user.profile.travel_available || 0,
+        visibility: user.profile.visibility_status || 0,
+        notification: user.profile.notification_pref || 0,
+        country: user.profile.country_id || '',
+        province: user.profile.province_id || ''
+      });
+
+      // Set country and provinces if available
+      if (user.profile.country_id && countries.length > 0) {
+        setSelectedCountry(user.profile.country_id);
+        const userCountry = countries.find(c => c.id === user.profile.country_id);
+        if (userCountry) {
+          setProvinces(userCountry.provinces);
+          setSelectedProvince(user.profile.province_id || '');
+        }
+      }
+    }
+  }, [user, countries]);
+
+  const handleCountryChange = (countryId) => {
+    setSelectedCountry(countryId);
+    const selectedCountryData = countries.find(c => c.id == countryId);
+    if (selectedCountryData) {
+      setProvinces(selectedCountryData.provinces);
+      setSelectedProvince(selectedCountryData.provinces.length > 0 ? selectedCountryData.provinces[0].id : '');
+      setFormData(prev => ({
+        ...prev,
+        country: selectedCountryData.name,
+        province: selectedCountryData.provinces.length > 0 ? selectedCountryData.provinces[0].name : ''
+      }));
+    } else {
+      setProvinces([]);
+      setSelectedProvince('');
+    }
   };
 
-  const handleInterestChange = (interest) => {
-    setFormData((prev) => {
-      const interests = prev.interests.includes(interest)
-        ? prev.interests.filter((i) => i !== interest)
-        : [...prev.interests, interest];
+  const handleProvinceChange = (provinceId) => {
+    setSelectedProvince(provinceId);
+    const selectedProvinceData = provinces.find(p => p.id == provinceId);
+    if (selectedProvinceData) {
+      setFormData(prev => ({
+        ...prev,
+        province: selectedProvinceData.name
+      }));
+    }
+  };
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleInterestChange = (interestId) => {
+    setFormData(prev => {
+      const interests = prev.interests.includes(interestId)
+        ? prev.interests.filter(i => i !== interestId)
+        : [...prev.interests, interestId];
       return { ...prev, interests };
     });
   };
 
-  const handleAvailabilityChange = (value) => {
-    setFormData((prev) => ({
-      ...prev,
-      availability: value,
-    }));
+  const handleAvailableForChange = (serviceId) => {
+    setFormData(prev => {
+      const availableFor = prev.availableFor.includes(serviceId)
+        ? prev.availableFor.filter(i => i !== serviceId)
+        : [...prev.availableFor, serviceId];
+      return { ...prev, availableFor };
+    });
   };
 
-  const handleSave = () => {
-    console.log("Saving profile data:", formData);
-    onClose();
+  const handleLanguageChange = (languageId) => {
+    setFormData(prev => {
+      const languages = prev.languages.includes(languageId)
+        ? prev.languages.filter(i => i !== languageId)
+        : [...prev.languages, languageId];
+      return { ...prev, languages };
+    });
+  };
+
+  const handleSave = async () => {
+    const payload = {
+      description: formData.about,
+      option_ids: formData.interests,
+      option_available_for_ids: formData.availableFor,
+      option_language_ids: formData.languages,
+      other_data: {
+        height: formData.height,
+        shoeSize: formData.shoeSize,
+        eyeColor: formData.eyeColor,
+        dressSize: formData.dressSize,
+        weight: formData.weight,
+        telegram: formData.telegram,
+      },
+      travel_available: formData.travel,
+      notification_pref: formData.notification,
+      visibility_status: formData.visibility,
+      nationality: formData.nationality,
+      country: formData.country,
+      province: formData.province,
+      selectedCountry: selectedCountry,
+      selectedProvince: selectedProvince,
+    };
+
+    try {
+      await axiosClient.post('/api/update-profile', payload);
+      toast.success("Profile Updated", {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      refreshUser();
+      onClose();
+    } catch (err) {
+      toast.error("Error Updating Profile: Make sure all entered data is valid", {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      console.error(err.response);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center ">
-      <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur border" />
+      <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur bg-black/40 border" />
 
       <ScrollArea className="relative top-5 xl:top-10 w-full max-w-[506px] md:mx-4 overflow-y-auto h-full">
         <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-5 md:p-[50px_40px]">
@@ -58,7 +185,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
           <div className="flex flex-col items-center gap-[26px]">
             <div className="text-center">
-              <h2 className=" text-[28px] md:text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
+              <h2 className="text-[28px] md:text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
                 Complete Your Profile
               </h2>
             </div>
@@ -70,9 +197,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                 </label>
                 <textarea
                   value={formData.about}
-                  placeholder="Text"
+                  placeholder="Write about yourself..."
                   onChange={(e) => handleInputChange("about", e.target.value)}
                   className="w-full h-[117px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                  maxLength={1000}
                 ></textarea>
               </div>
 
@@ -80,108 +208,293 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Nationality
                 </label>
-                <input
-                  placeholder="Text"
-                  type="text"
+                <select
                   value={formData.nationality}
-                  onChange={(e) =>
-                    handleInputChange("nationality", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("nationality", e.target.value)}
                   className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                />
+                >
+                  {nationalitiesList.map((nationality) => (
+                    <option key={nationality} value={nationality}>
+                      {nationality}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Languages
+                  Country
                 </label>
-                <input
-                  placeholder="Text"
-                  type="text"
-                  value={formData.languages}
-                  onChange={(e) =>
-                    handleInputChange("languages", e.target.value)
-                  }
+                <select
+                  value={selectedCountry}
+                  onChange={(e) => handleCountryChange(e.target.value)}
                   className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                />
+                >
+                  {countries.map(country => (
+                    <option key={country.id} value={country.id}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div className="flex gap-2">
-                <div className="flex flex-col gap-3">
-                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    Height
-                  </label>
-                  <input
-                    placeholder="Text"
-                    type="text"
-                    value={formData.height}
-                    onChange={(e) =>
-                      handleInputChange("height", e.target.value)
-                    }
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                  />
-                </div>
 
-                <div className="flex flex-col gap-3">
-                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    Shoe size
-                  </label>
-                  <input
-                    placeholder="Text"
-                    type="text"
-                    value={formData.shoeSize}
-                    onChange={(e) =>
-                      handleInputChange("shoeSize", e.target.value)
-                    }
-                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                  />
-                </div>
-              </div>
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Personality and interests:
+                  Province
+                </label>
+                <select
+                  value={selectedProvince}
+                  onChange={(e) => handleProvinceChange(e.target.value)}
+                  disabled={!selectedCountry}
+                  className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                >
+                  {provinces.map(province => (
+                    <option key={province.id} value={province.id}>
+                      {province.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                  Spoken Languages
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {["Travel", "Books", "Cooking"].map((interest) => (
+                  {languageOptions.map(({ id, name }) => (
                     <button
-                      key={interest}
-                      onClick={() => handleInterestChange(interest)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium ${
-                        formData.interests.includes(interest)
-                          ? "bg-black text-white"
+                      key={id}
+                      type="button"
+                      onClick={() => handleLanguageChange(id)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                        formData.languages.includes(id)
+                          ? "bg-black border border-[rgba(12,16,56,0.22)]  text-white"
                           : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
                       }`}
                     >
-                      {interest}
+                      {name}
                     </button>
                   ))}
                 </div>
               </div>
+              
+              {user.role === ROLES.HOSTESS && (
+                <>
+              <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Personality and interests
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {optionsInterest.map(({ id, name }) => (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => handleInterestChange(id)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                            formData.interests.includes(id)
+                              ? "bg-black border border-[rgba(12,16,56,0.22)]  text-white"
+                              : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                          }`}
+                        >
+                          {name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Available for
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {optionsAvailableFor.map(({ id, name }) => (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => handleAvailableForChange(id)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                            formData.availableFor.includes(id)
+                              ? "bg-[#8880FE] border border-[#8880FE] text-white"
+                              : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                          }`}
+                        >
+                          {name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  </>
+                )}
+              <div className="flex justify-between gap-2">
+                <div className="flex w-full flex-col gap-3">
+                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                    Height (cm)
+                  </label>
+                  <select
+                    value={formData.height}
+                    onChange={(e) => handleInputChange("height", e.target.value)}
+                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                  >
+                    {[...Array(400)].map((_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex w-full flex-col gap-3">
+                  <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                    Shoe size
+                  </label>
+                  <select
+                    value={formData.shoeSize}
+                    onChange={(e) => handleInputChange("shoeSize", e.target.value)}
+                    className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                  >
+                    {[...Array(100)].map((_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {user.role === ROLES.HOSTESS && (
+                <>
+                  
+
+                  <div className="flex justify-between gap-2">
+                  <div className="flex w-full flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Dress Size
+                    </label>
+                    <select
+                      value={formData.dressSize}
+                      onChange={(e) => handleInputChange("dressSize", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    >
+                      <option value="M">Medium</option>
+                      <option value="L">Large</option>
+                      <option value="S">Small</option>
+                    </select>
+                  </div>
+
+                  <div className="flex w-full flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Weight (kg)
+                    </label>
+                    <select
+                      value={formData.weight}
+                      onChange={(e) => handleInputChange("weight", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    >
+                      {[...Array(400)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Eye Color
+                    </label>
+                    <select
+                      value={formData.eyeColor}
+                      onChange={(e) => handleInputChange("eyeColor", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    >
+                      {eyeColorList.map((color) => (
+                        <option key={color} value={color}>
+                          {color}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Telegram
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.telegram}
+                      onChange={(e) => handleInputChange("telegram", e.target.value)}
+                      maxLength={50}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Available to travel or tours
+                    </label>
+                    <div className="grid grid-cols-3 gap-4">
+                      {[
+                        { label: "Yes", value: 1 },
+                        { label: "No", value: 0 }
+                      ].map((option) => (
+                        <label key={option.value} className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            checked={formData.travel === option.value}
+                            onChange={() => handleInputChange("travel", option.value)}
+                          />
+                          <span>{option.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Available for
+                  Visibility of the profile
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-4">
                   {[
-                    "Model Photo",
-                    "Talk",
-                    "Dinners",
-                    "Fake Girlfriend",
-                    "Company",
-                    "Friendship",
-                    "Dating",
+                    { label: "Normal", value: 0 },
+                    { label: "Private", value: 1 },
+                    { label: "Pause / In Tour", value: 2 }
                   ].map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => handleAvailabilityChange(option)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium ${
-                        formData.availability === option
-                          ? "bg-[#8880FE] text-white"
-                          : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
-                      }`}
-                    >
-                      {option}
-                    </button>
+                    <label key={option.value} className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        checked={formData.visibility === option.value}
+                        onChange={() => handleInputChange("visibility", option.value)}
+                      />
+                      <span>{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-600">
+                  <strong>Private:</strong> Profile is visible to logged-in users only.<br />
+                  <strong>Tour:</strong> Profile is hidden except for users you already talked to.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                  Notification preferences
+                </label>
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { label: "Email", value: 0 },
+                    { label: "Email + SMS", value: 1 }
+                  ].map((option) => (
+                    <label key={option.value} className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        checked={formData.notification === option.value}
+                        onChange={() => handleInputChange("notification", option.value)}
+                      />
+                      <span>{option.label}</span>
+                    </label>
                   ))}
                 </div>
               </div>
