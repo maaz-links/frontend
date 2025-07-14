@@ -44,8 +44,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center ">
-      <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur border" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center  ">
+      <div className="absolute inset-0 mt-2 shadow-2xl backdrop-blur border   " />
 
       <ScrollArea className="relative top-5 xl:top-10 w-full max-w-[506px] md:mx-4 overflow-y-auto h-full">
         <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-5 md:p-[50px_40px]">
