@@ -716,6 +716,7 @@ function UserProfile() {
             close={() => setIsLightboxOpen(false)}
             slides={slides}
             startSlideIndex={startSlideIndex}
+            index={startSlideIndex}
           />
         </div>
       </div>
