@@ -92,7 +92,7 @@ function Models() {
         </div>
       </div>
 
-      <div className="hidden md:block mt-[35px] px-[25px] max-w-[1300px] m-auto ">
+      <div className="hidden md:block  mt-[35px] px-[25px] max-w-[1300px] m-auto ">
         <div className='h-[110vw] md:max-h-[300px] md:h-[23vw] p-15 md:p-10 lg:p-15 flex flex-wrap justify-between md:items-center'
 
           style={{
@@ -117,7 +117,7 @@ function Models() {
       </div>
 
           {/* FOR MOBILE */}
-      <div className=" md:hidden mt-[35px] px-[25px] max-w-[1300px] m-auto ">
+      <div className=" md:hidden mt-[35px]  max-w-[1300px] m-auto w-full ">
         <div className='h-[120vw] md:max-h-[300px] md:h-[23vw] p-[10vw] md:p-10 lg:p-15 flex flex-wrap justify-between items-center'
           style={{
             backgroundImage: `url(${mobileImage})`,

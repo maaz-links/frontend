@@ -82,18 +82,18 @@ const HowItWorks = () => {
 
   return (
     <section className="py-16 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[1127px] mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-[#0C1038] text-[32px]  leading-[128%] tracking-[-6%]  md:text-4xl font-bold  mb-4">
             How It Works?
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
           {steps.map((step, index) => (
-            <div key={index} className="text-center group">
+            <div key={index} className="text-center group px-10 md:px-0">
               <div className="flex justify-center mb-4">
-                <div className="flex gap-15 items-center">
+                <div className="flex  md:w-full justify-start gap-16 items-center ">
                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 group-hover:bg-purple-100 group-hover:text-purple-600 transition-colors duration-300">
                     {step.icon}
                   </div>
@@ -130,10 +130,10 @@ const HowItWorks = () => {
                   )}
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-[20px] leading-[24px] tracking-[-4%] font-bold text-[#090909] mb-2 md:text-start">
                 {step.title}
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-gray-600 text-sm leading-relaxed md:text-start">
                 {step.description}
               </p>
             </div>

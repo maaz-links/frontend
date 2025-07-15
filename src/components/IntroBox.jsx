@@ -15,40 +15,42 @@ function IntroBox() {
   return (
     <>
       <div
-        className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into pt-[56px] rounded-4xl py-[95px] px-8 md:px-[50px] lg:px-[100px]
-      bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center mx-2 sm:mx-auto 
+        className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into  rounded-4xl   lg:px-[100px]
+      bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center md:h-[646px] 
+
+      md:mx-auto mx-2 py-10 
       h-1/2 flex md:block justify-center"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="card-intro max-w-full md:max-w-1/2  text-center sm:text-start">
-          <h1 className="text-black mb-[15px]  text-[28px]  lg:text-[40px]">
+        <div className="card-intro max-w-full md:max-w-1/2  h-full flex flex-col  justify-center items-center md:items-start text-center md:text-start">
+          <h1 className="text-black mb-[15px] text-[32px] sm:text-[30px] lg:text-[40px]">
             <strong>
               More Than Just a<br /> Presence — A Real <br />
               Connection
             </strong>
           </h1>
-          <p className="text-black text-[16px]    ">
+          <p className="text-black text-[16px] md:text-[12px]  lg:text-[20px] md:max-w-[500px] max-w-[295px]">
             Discover a new way to connect:{" "}
             <strong>
               elegance, support, and meaningful companionship — on your terms
             </strong>
           </p>
-          <div className="intro-buttons flex items-center justify-between w-full  pt-[2em] gap-x-[40px]">
+          <div className="intro-buttons flex items-center justify-between pt-[2em] gap-x-[40px]">
             {!token && (
               <>
                 <Link
                   to="/sign-up"
-                  className="btn bg-black md:w-fit w-full text-center btn-grad hover:bg-[#8880FE] text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-bold leading-[130%]"
+                  className="btn bg-black btn-grad hover:bg-[#8880FE] text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
                 >
                   Get Started for Free{" "}
                 </Link>
               </>
             )}
           </div>
-          <div className="flex items-center md:gap-3 gap-2 mt-7 ">
+          <div className="flex items-center gap-1  md:gap-3 mt-7">
             <div className="flex gap-1">
               <img src={star} className="w-5" />
               <img src={star} className="w-5" />
@@ -56,12 +58,11 @@ function IntroBox() {
               <img src={star} className="w-5" />
               <img src={star} className="w-5" />
             </div>
-            <p className="text-black md:text-[14px] text-[12px] font-[400] md:max-w-[500px] ">
+            <p className="text-black text-[12px] md:text-[14px] font-[400] md:max-w-[500px] ">
               Trusted by about 300 users
             </p>
           </div>
         </div>
-
       </div>
 
       <section className="bg-white text-gray-800 py-16 px-8 mt-15 md:py-8 md:px-4">
