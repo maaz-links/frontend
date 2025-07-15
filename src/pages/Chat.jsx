@@ -1009,7 +1009,7 @@ const Chat = () => {
                 Loading chats...
               </div>
             ) : filteredChats.length === 0 ? (
-              <div className="p-4 text-center text-gray-500">
+              <div className="p-4 text-center text-gray-500 ">
                 No chats found
               </div>
             ) : (
@@ -1097,7 +1097,7 @@ const Chat = () => {
         </div>
 
         {/* Chat Area */}
-        <ScrollArea className="flex-1 flex flex-col w-full md:w-auto">
+        <div className="flex-1 flex flex-col w-full md:w-auto">
           {selectedChat ? (
             <>
               {/* Chat Header */}
@@ -1333,7 +1333,7 @@ const Chat = () => {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center bg-gray-50">
+            <div className="flex-1 flex items-center justify-center bg-gray-50 ">
               <div className="text-center px-4">
                 {/* Mobile menu button when no chat selected */}
                 <button
@@ -1342,14 +1342,14 @@ const Chat = () => {
                 >
                   <FaBars className="text-lg" />
                 </button>
-                <FaComments className="mx-auto text-4xl md:text-6xl text-gray-300 mb-4" />
-                <p className="text-lg md:text-xl text-gray-500">
+                <FaComments className="mx-auto text-4xl md:text-6xl text-gray-300 mb-4 " />
+                <p className="text-lg md:text-xl text-gray-500 ">
                   Select a chat to start messaging
                 </p>
               </div>
             </div>
           )}
-        </ScrollArea>
+        </div>
       </div>
       <Footer />
     </>
