@@ -530,8 +530,6 @@
 // };
 
 // export default Chat;
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import {
   FaSearch,
@@ -554,6 +552,8 @@ import { getEcho } from "../../echo";
 import RelativeTime from "../functions/RelativeTime";
 import ReportChatButton from "../components/ReportChatButton";
 import { createChat } from "../functions/UnlockChat";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Chat = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -933,7 +933,7 @@ const Chat = () => {
   return (
     <>
       <Header />
-      <div className="flex h-screen w-[98%] md:w-[90%] mx-auto my-4 md:my-10 relative">
+      <div className="flex h-screen md:w-[98%]  mx-auto  md:my-10 relative">
         {/* Mobile Sidebar Overlay */}
         {isMobileSidebarOpen && (
           <div
@@ -947,7 +947,7 @@ const Chat = () => {
           className={`
           ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0 fixed md:relative z-50 md:z-auto
-          w-80 md:w-80 h-full md:h-auto
+          w-full md:w-80 h-full md:h-auto
           border-r border-gray-200 bg-white flex flex-col
           transition-transform duration-300 ease-in-out
         `}
@@ -1003,7 +1003,7 @@ const Chat = () => {
             </div>
           </div>
           {/* Chat List */}
-          <div className="flex-1 overflow-y-auto">
+          <ScrollArea className="flex-1 overflow-y-auto">
             {loading ? (
               <div className="p-4 text-center text-gray-500">
                 Loading chats...
@@ -1093,11 +1093,11 @@ const Chat = () => {
                 ))}
               </div>
             )}
-          </div>
+          </ScrollArea>
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col w-full md:w-auto">
+        <ScrollArea className="flex-1 flex flex-col w-full md:w-auto">
           {selectedChat ? (
             <>
               {/* Chat Header */}
@@ -1349,7 +1349,7 @@ const Chat = () => {
               </div>
             </div>
           )}
-        </div>
+        </ScrollArea>
       </div>
       <Footer />
     </>
