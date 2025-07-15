@@ -65,18 +65,40 @@ function HeaderLogo() {
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { token, user, setUser, setToken, unreadCount } = useStateContext();
+  const { token, user, setUser, setToken, unreadCount,setGenericModalOpen,setGenericModalContent } = useStateContext();
   const navigate = useNavigate();
 
   const triggerLogout = (ev) => {
     ev.preventDefault();
 
-    axiosClient.post("/api/logout").then(() => {
-      console.log("we re out");
-      setUser(null);
-      setToken(null);
-      navigate("/login");
-    });
+    setGenericModalOpen(true);
+              setGenericModalContent(
+                <>
+                <h1 className=" text-[45px] font-bold">Log out</h1>
+                <p className=" my-4 ">
+                  You will be logged out. Are you sure?
+                </p>
+                <button onClick={() => 
+                  { setGenericModalOpen(false)
+                    axiosClient.post("/api/logout").then(() => {
+                      console.log("we re out");
+                      setUser(null);
+                      setToken(null);
+                      navigate("/login");
+                    });
+                  }
+                  } className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                  Log Out
+                </button>
+                </>
+              )
+
+    // axiosClient.post("/api/logout").then(() => {
+    //   console.log("we re out");
+    //   setUser(null);
+    //   setToken(null);
+    //   navigate("/login");
+    // });
   };
 
   const toggleMenu = () => {
@@ -202,7 +224,7 @@ function Header() {
 
           
           <img
-            className=" px-4"
+            className="cursor-pointer px-4"
             src={LogoutIcon}
             onClick={(e) => triggerLogout(e)}
             alt="Logout Icon"

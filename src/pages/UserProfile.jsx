@@ -686,14 +686,15 @@ function UserProfile() {
                 </div>
               </div>
 
-              <UnlockChatModal
+              {user && <UnlockChatModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 userName={givenUser.name}
                 userId={givenUser.id}
                 coinCost={givenUser.profile.unlock_cost}
                 userBalance={user?.profile?.credits || 0}
-              />
+                userRole={user?.role}
+              />}
 
               {/* Start chat section */}
               <div className="mb-6 sm:mb-8">

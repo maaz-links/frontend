@@ -36,9 +36,13 @@ function Shop() {
   return (
     <>
       <Header />
-      <h1 className="text-center text-[32px] font-[400] mt-[50px] md:mt-[121px]">
-        <strong>Shop</strong>
-      </h1>
+      <div className="text-center pt-6 pb-3 bg-white">
+        <h1 className="text-4xl md:text-[45px] font-bold text-gray-900  leading-tight max-w-4xl mx-auto px-4">
+          Top Up your Credit Amount
+          <br />
+          to unlock Chats
+        </h1>
+      </div>
 
       <div className="max-w-[1180px] mx-auto mt-[50px] px-[15px] mb-[50px] md:mb-[121px]">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-[15px] md:gap-x-[40px]">

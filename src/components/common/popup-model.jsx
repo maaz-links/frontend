@@ -2,23 +2,23 @@ import { useEffect } from "react";
 import desktopImage from '/src/assets/images/welcome-image-desktop.jpg';
 
 function PopUpModel({ isOpen, onClose, children }) {
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
-    };
+  // useEffect(() => {
+  //   const handleEscape = (e) => {
+  //     if (e.key === "Escape" && isOpen) {
+  //       onClose();
+  //     }
+  //   };
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
+  //   if (isOpen) {
+  //     document.addEventListener("keydown", handleEscape);
+  //     document.body.style.overflow = "hidden";
+  //   }
 
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, onClose]);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleEscape);
+  //     document.body.style.overflow = "unset";
+  //   };
+  // }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 

@@ -114,7 +114,7 @@ const router = createBrowserRouter([
               { path: "/profile-old", element: <Profile /> },
               { path: "/profile", element: <ProfilePage /> },
               
-              { path: "/last-views", element: <LastViews /> },
+              // { path: "/last-views", element: <LastViews /> },
               { path: "/reviews", element: <Reviews /> },
               {
                 path: "/",
