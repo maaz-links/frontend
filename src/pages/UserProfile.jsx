@@ -296,7 +296,7 @@ import Header from "../components/common/header";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../../axios-client";
-import { dressSizeName, getAttachmentURL } from "../functions/Common";
+import { dressSizeName, getAge, getAttachmentURL } from "../functions/Common";
 import { ROLES } from "../../constants";
 // import ReportUserButton from "../components/ReportUserButton";
 import { ClipLoader } from "react-spinners";
@@ -305,6 +305,7 @@ import UnlockChatModal from "../components/common/unlock-chat-modal";
 
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import ReportUserButton from "@/components/ReportUserButton";
 
 function UserProfile() {
   const openModal = (user) => {
@@ -396,6 +397,10 @@ function UserProfile() {
       <Header />
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
+
+          <div className="flex justify-between">
+
+
           {/* Back Button */}
           <button
             onClick={() => navigate(-1)}
@@ -417,6 +422,13 @@ function UserProfile() {
             Back
           </button>
 
+          {/* Report Button */}
+              {!canReport && (
+                // <div className="mt-6 sm:mt-8">
+                  <ReportUserButton userId={givenUser.id} />
+                // </div>
+              )}
+        </div>
           <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
             <div className="w-full lg:w-[45%] xl:w-[672px] flex-shrink-0">
@@ -472,12 +484,11 @@ function UserProfile() {
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-2 flex flex-col sm:flex-row sm:items-center">
                   <div className="flex items-center">
                     {givenUser.name}
-                    <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>
+                    {(givenUser.is_online == "online") ? <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>:<span className="w-2 h-2 bg-none rounded-full mx-2"></span>}
                   </div>
                   <span className="text-black text-[14px] sm:text-[16px] font-medium mt-1 sm:mt-0">
                     (
-                    {new Date().getFullYear() -
-                      new Date(givenUser.created_at).getFullYear()}
+                    {getAge(givenUser.dob)}
                     years)
                   </span>
                 </h1>
@@ -500,17 +511,20 @@ function UserProfile() {
               </div>
 
               {/* About Me */}
+              {givenUser.profile.description && (
               <div className="mb-6 sm:mb-8">
                 <h2 className="text-[18px] sm:text-[20px] font-medium text-black mb-3">
                   About Me
                 </h2>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  {givenUser.profile.description || "New User here."}
+                  {givenUser.profile.description}
                 </p>
               </div>
+              )}
 
+              {givenUser.role === ROLES.HOSTESS && <>
               {/* Available for */}
-              {givenUser.role === ROLES.HOSTESS && (
+              {givenUser.profile.available_services?.length > 0 && (
                 <div className="mb-6 sm:mb-8">
                   <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
                     Available for
@@ -533,131 +547,142 @@ function UserProfile() {
               )}
 
               {/* Personality and interests */}
-              <div className="mb-6 sm:mb-8">
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
-                  Personality and interests:
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {optionsInterest
-                    .filter((item) =>
-                      givenUser.profile.personal_interests.includes(item.id)
-                    )
-                    .map((item) => (
-                      <span
-                        key={item.id}
-                        className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs"
-                      >
-                        {item.name}
-                      </span>
-                    ))}
+              {givenUser.profile.personal_interests?.length > 0 && (
+                <div className="mb-6 sm:mb-8">
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
+                    Personality and interests:
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {optionsInterest
+                      .filter((item) =>
+                        givenUser.profile.personal_interests.includes(item.id)
+                      )
+                      .map((item) => (
+                        <span
+                          key={item.id}
+                          className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs"
+                        >
+                          {item.name}
+                        </span>
+                      ))}
+                  </div>
                 </div>
-              </div>
-
+              )}
+              </>}
               {/* Informations */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="text-[18px] sm:text-[20px] font-medium leading-[24px] text-gray-900 mb-4">
                   Informations
                 </h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                      Age
-                    </span>
-                    <span className="text-gray-900 text-[14px] sm:text-[16px]">
-                      {new Date().getFullYear() -
-                        new Date(givenUser.created_at).getFullYear()}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                      Eye Colour
-                    </span>
-                    <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                      {capitalizeFirstLetter(
-                        givenUser.profile.eye_color || "Blue"
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                      Nationality
-                    </span>
-                    <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                      {capitalizeFirstLetter(
-                        givenUser.profile.nationality || "Italian"
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                      Shoe Size
-                    </span>
-                    <span className="text-gray-900 text-[14px] sm:text-[16px]">
-                      {givenUser.profile.shoe_size || "45"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                      Languages
-                    </span>
-                    <span className="text-gray-900 text-[14px] sm:text-[16px] text-right">
-                      {languageOptions
-                        .filter((item) =>
-                          givenUser.profile.my_languages.includes(item.id)
-                        )
-                        .map((item) => item.name)
-                        .join(", ") || "Italian, English"}
-                    </span>
-                  </div>
-                  {givenUser.role === ROLES.HOSTESS && (
-                    <>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                          Weight
-                        </span>
-                        <span className="text-gray-900 text-[14px] sm:text-[16px]">
-                          {givenUser.profile.weight || "70"}kg
-                        </span>
-                      </div>
-                    </>
+                  
+                  {givenUser.profile.nationality && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Nationality
+                      </span>
+                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                        {capitalizeFirstLetter(givenUser.profile.nationality)}
+                      </span>
+                    </div>
                   )}
-                  <div className="flex justify-between text-sm">
-                    <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                      Height
-                    </span>
-                    <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                      {givenUser.profile.height || "170"}cm
-                    </span>
-                  </div>
-                  {givenUser.role === ROLES.HOSTESS && (
-                    <>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                          Dress size
-                        </span>
-                        <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                          {dressSizeName(givenUser.profile.dress_size) ||
-                            "Medium"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                          Available for Tours
-                        </span>
-                        <span className="text-gray-900 text-[14px] sm:text-[16px]">
-                          {givenUser.profile.travel_available ? "Yes" : "No"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                          Telegram
-                        </span>
-                        <span className="text-orange-500 text-[14px] sm:text-[16px]">
-                          {givenUser.profile.telegram || "N/A"}
-                        </span>
-                      </div>
-                    </>
+                  
+                  {givenUser.profile.shoe_size && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Shoe Size
+                      </span>
+                      <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                        {givenUser.profile.shoe_size}
+                      </span>
+                    </div>
                   )}
+                  
+                  {givenUser.profile.my_languages?.length > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Languages
+                      </span>
+                      <span className="text-gray-900 text-[14px] sm:text-[16px] text-right">
+                        {languageOptions
+                          .filter((item) =>
+                            givenUser.profile.my_languages.includes(item.id)
+                          )
+                          .map((item) => item.name)
+                          .join(", ")}
+                      </span>
+                    </div>
+                  )}
+                  {givenUser.profile.eye_color && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Eye Colour
+                      </span>
+                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                        {capitalizeFirstLetter(givenUser.profile.eye_color)}
+                      </span>
+                    </div>
+                  )}
+                                    
+                  
+                  {givenUser.profile.height && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Height
+                      </span>
+                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                        {givenUser.profile.height}cm
+                      </span>
+                    </div>
+                  )}
+
+                  {givenUser.role === ROLES.HOSTESS && <>
+
+                  {givenUser.profile.weight && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Weight
+                      </span>
+                      <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                        {givenUser.profile.weight}kg
+                      </span>
+                    </div>
+                  )}
+                  
+                  {givenUser.profile.dress_size && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Dress size
+                      </span>
+                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                        {dressSizeName(givenUser.profile.dress_size)}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {givenUser.profile.travel_available !== null && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Available for Tours
+                      </span>
+                      <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                        {givenUser.profile.travel_available ? "Yes" : "No"}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {givenUser.profile.telegram && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        Telegram
+                      </span>
+                      <span className="text-orange-500 text-[14px] sm:text-[16px]">
+                        {givenUser.profile.telegram}
+                      </span>
+                    </div>
+                  )}
+
+                  </>}
                 </div>
               </div>
 
@@ -702,12 +727,7 @@ function UserProfile() {
                 )}
               </div>
 
-              {/* Report Button
-              {canReport && (
-                <div className="mt-6 sm:mt-8">
-                  <ReportUserButton userId={givenUser.id} />
-                </div>
-              )} */}
+              
             </div>
           </div>
 

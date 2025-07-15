@@ -132,14 +132,14 @@ export default function PhotoGallery() {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-2 xl:p-10 w-full flex justify-center items-center h-64">
+      <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 w-full flex justify-center items-center h-64">
         <ClipLoader color="#E91E63" size={50} />
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-2 xl:p-10 w-full">
+    <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 w-full">
       <h2 className="text-[20px] leading-[24px] font-bold mb-8">My Photos</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 xl:w-[90%] gap-4">
         {photos.map((photo,i) => (
@@ -147,7 +147,7 @@ export default function PhotoGallery() {
             <img
               src={photo.url}
               alt={`Photo ${photo.id}`}
-              className="w-full h-60 object-cover rounded-2xl"
+              className="w-full h-[30vw] lg:h-[15vw] object-cover rounded-2xl"
               onClick={() => {
                 setStartSlideIndex(i);
                 setIsLightboxOpen(true);
@@ -180,7 +180,7 @@ export default function PhotoGallery() {
             </div>
           </div>
         ))}
-        <label className="flex items-center justify-center w-full h-60  border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
+        <label className="flex items-center justify-center w-full h-[30vw] lg:h-[15vw] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
           <PlusIcon className="text-gray-300" />
           <input
             type="file"

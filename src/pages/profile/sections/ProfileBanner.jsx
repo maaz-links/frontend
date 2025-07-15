@@ -1,8 +1,8 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 
-export default function ProfileBanner({ isComplete, isCompleteModalOpen, setIsCompleteModalOpen }) {
-  const [isVisible, setIsVisible] = useState(true);
+export default function ProfileBanner({progressValue = 0, isCompleteModalOpen, setIsCompleteModalOpen }) {
+  const [isVisible, setIsVisible] = useState((progressValue != 100));
 
   if (!isVisible) return null;
   return (
@@ -11,12 +11,12 @@ export default function ProfileBanner({ isComplete, isCompleteModalOpen, setIsCo
       <div className="flex flex-col lg:flex-row justify-between px-4 gap-5 lg:text-start text-center py-10 lg:px-16 items-center h-full">
         <div className="  flex  flex-col gap-3">
           <h2 className="text-[24px] font-bold  text-white  leading-[24px]">
-            {isComplete
-              ? "Your profile is 50% complete"
+            {true
+              ? `Your profile is ${progressValue}% complete`
               : "Complete Your Profile"}
           </h2>
           <p className="text-[16px] font-normal text-white tracking-[-0.02em] leading-[23px]">
-            {isComplete
+            {true
               ? "Complete it to increase your visibility and attract more attention!."
               : "Stand out and attract more attention!"}
           </p>
@@ -28,7 +28,7 @@ export default function ProfileBanner({ isComplete, isCompleteModalOpen, setIsCo
           className=" lg:right-[40px] hover:bg-[#8880FE] hover:border-white hover:border  bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
         >
           <span className="text-white  text-base font-normal tracking-[-0.03em] capitalize">
-            {isComplete ? "Finish Your Profile" : "Fill Out My Profile"}
+            {true ? "Finish Your Profile" : "Fill Out My Profile"}
           </span>
         </button>
       </div>

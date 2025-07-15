@@ -68,10 +68,10 @@ const ReportUserButton = ({ userId }) => {
   // Modal content styles
   const modalStyle = {
     backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '8px',
+    padding: '20px 30px',
+    borderRadius: '25px',
     width: '90%',
-    maxWidth: '500px',
+    maxWidth: '600px',
     maxHeight: '90vh',
     overflow: 'auto'
   };
@@ -102,90 +102,96 @@ const ReportUserButton = ({ userId }) => {
     cursor: 'pointer'
   };
 
-  const primaryButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: '#E91E63',
-    color: 'white'
-  };
+  // const primaryButtonStyle = {
+  //   ...buttonStyle,
+  //   backgroundColor: '#E91E63',
+  //   color: 'white'
+  // };
 
   const dangerButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#F8BBD0',
+    //backgroundColor: '#F8BBD0',
     color: 'black'
   };
 
+
   return (
     <>
-      <button 
+      {/* <button 
+        className="px-2 py-1 h-[35px] bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
         onClick={openModal}
-        style={dangerButtonStyle}
+        //style={dangerButtonStyle}
       >
         Report User
-      </button>
-
-      {isOpen && (
-        <div style={backdropStyle} onClick={closeModal}>
-          <div style={modalStyle} onClick={e => e.stopPropagation()}>
-            <h2 style={{ marginTop: 0 }}>Report User</h2>
-            
-            {success ? (
-              <div style={{ color: 'green', margin: '10px 0' }}>
-                Report submitted successfully!
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="reason">Reason for reporting*</label>
-                  <textarea
-                    id="reason"
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                    style={textareaStyle}
-                    placeholder="Please explain why you're reporting this user..."
-                    required
-                  />
-                </div>
-
-                {/* <div>
-                  <label htmlFor="additionalInfo">Additional information (optional)</label>
-                  <textarea
-                    id="additionalInfo"
-                    value={additionalInfo}
-                    onChange={(e) => setAdditionalInfo(e.target.value)}
-                    style={textareaStyle}
-                    placeholder="Any additional details that might help..."
-                  />
-                </div> */}
-
-                {error && (
-                  <div style={{ color: 'red', margin: '10px 0' }}>
-                    {error}
-                  </div>
-                )}
-
-                <div style={{ marginTop: '20px', textAlign: 'right' }}>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    style={buttonStyle}
-                    disabled={isSubmitting}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                  
-                    type="submit"
-                    style={primaryButtonStyle}
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Submitting...' : 'Submit Report'}
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
+      </button> */}
+      <button
+            onClick={openModal}
+            className="flex items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-black text-[16px] font-medium hover:text-gray-800 mb-4 sm:mb-8 text-sm"
+          >
+            Report User
+          </button>
+          {isOpen && (
+  <div style={backdropStyle} onClick={closeModal}>
+    <div style={modalStyle} onClick={e => e.stopPropagation()} className="p-6">
+      <h2 className='font-bold text-4xl text-center my-4'>Report User</h2>
+      
+      {success ? (
+        <div className="text-green-500 my-2">
+          Report submitted successfully!
         </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="reason" className="block mb-2">Reason for reporting*</label>
+            <textarea
+              id="reason"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8880FE]"
+              placeholder="Please explain why you're reporting this user..."
+              required
+            />
+          </div>
+
+          {/* <div className="mb-4">
+            <label htmlFor="additionalInfo" className="block mb-2">Additional information (optional)</label>
+            <textarea
+              id="additionalInfo"
+              value={additionalInfo}
+              onChange={(e) => setAdditionalInfo(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8880FE]"
+              placeholder="Any additional details that might help..."
+            />
+          </div> */}
+
+          {error && (
+            <div className="text-red-500 my-2">
+              {error}
+            </div>
+          )}
+
+          <div className="mt-5 text-right">
+            <button
+              type="button"
+              onClick={closeModal}
+              className='rounded-2xl px-4 py-2 m-3 bg-gray-100 hover:bg-gray-200 transition-colors'
+              disabled={isSubmitting}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className='rounded-2xl bg-black text-white px-4 py-2 hover:bg-[#8880FE] transition-colors'
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Report'}
+            </button>
+          </div>
+        </form>
       )}
+    </div>
+  </div>
+)}
     </>
   );
 };

@@ -10,7 +10,7 @@ function VerifyEmail() {
   const navigate = useNavigate();
   const [message, setMessage] = useState('Verifying your email...');
   const [error, setError] = useState(null);
-  const { setUser, setToken } = useStateContext()
+  const { setUser, setToken,setGenericModalOpen,setGenericModalContent } = useStateContext()
   useEffect(() => {
     const verifyEmail = async () => {
       try {

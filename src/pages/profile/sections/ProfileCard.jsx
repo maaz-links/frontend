@@ -16,8 +16,6 @@ import { toast } from "react-toastify";
 import axiosClient from "../../../../axios-client";
 
 export default function ProfileCard({
-  profileData,
-  isComplete,
   progressValue,
   isCompleteModalOpen, setIsCompleteModalOpen
 }) {
@@ -69,13 +67,16 @@ export default function ProfileCard({
     inputRef.current?.click();
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      console.log("Selected file:", file);
-      // handle upload or preview
-    }
-  };
+  const hasProfileInfo =
+  user.profile?.province_id ||
+  user.profile?.nationality ||
+  user.profile?.height ||
+  user.profile?.shoe_size ||
+  (user.role === ROLES.HOSTESS &&
+    (user.profile?.dress_size ||
+      user.profile?.weight ||
+     user.profile?.travel_available !== null ||
+     user.profile?.telegram));
 
   const handleImageUpload = async (event) => {
     const files = Array.from(event.target.files);
@@ -309,62 +310,72 @@ export default function ProfileCard({
                   Informations
                 </p>
 
-                {true ? (
-                  <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
-                    {/* <li className="flex items-center justify-between">
-                      <span className="font-bold">Age</span>
-                      <span>{getAge(user.dob)}</span>
-                    </li> */}
+              {hasProfileInfo ? (
+                <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
+                  {user.profile?.province_id && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Province</span>
-                      <span className="">
-                        {getProvinceName(user.profile.province_id)}
-                      </span>
+                      <span>{getProvinceName(user.profile.province_id)}</span>
                     </li>
+                  )}
+
+                  {user.profile?.nationality && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Nationality</span>
-                      <span className="">
-                        {user.profile.nationality}
-                      </span>
+                      <span>{user.profile.nationality}</span>
                     </li>
-                    {/* <li className="flex items-center justify-between">
-                      <span className="font-bold">Languages</span>
-                      <span>
-                        {profileData.information.languages.join(", ")}
-                      </span>
-                    </li> */}
+                  )}
+
+                  {user.profile?.height && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Height</span>
                       <span>{user.profile.height}cm</span>
                     </li>
+                  )}
+
+                  {user.profile?.shoe_size && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Shoe Size</span>
                       <span>{user.profile.shoe_size}</span>
                     </li>
-                    {user.role === ROLES.HOSTESS && (
+                  )}
+
+                  {user.role === ROLES.HOSTESS && (
                     <>
-              
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Dress Size</span>
-                      <span>{dressSizeName(user.profile.dress_size)}</span>
-                    </li>
-                    
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Available for travel</span>
-                      <span>{user.profile.travel_available ? "Yes" : "No"}</span>
-                    </li>
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Telegram</span>
-                      <span>{user.profile.telegram}</span>
-                    </li>
+                      {user.profile?.weight && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Weight</span>
+                          <span>{user.profile.weight}kg</span>
+                        </li>
+                      )}
+                      {user.profile?.dress_size && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Dress Size</span>
+                          <span>{dressSizeName(user.profile.dress_size)}</span>
+                        </li>
+                      )}
+
+                      {user.profile?.travel_available !== null && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Available for travel</span>
+                          <span>{user.profile.travel_available ? "Yes" : "No"}</span>
+                        </li>
+                      )}
+
+                      {user.profile?.telegram && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Telegram</span>
+                          <span>{user.profile.telegram}</span>
+                        </li>
+                      )}
                     </>
-                    )}
-                  </ul>
-                ) : (
-                  <p className="text-sm font-normal text-[#090909]/40 tracking-[-0.02em] leading-[23px]">
-                    No Informations
-                  </p>
-                )}
+                  )}
+                </ul>
+              ) : (
+                <p className="text-sm font-normal text-[#090909]/40 tracking-[-0.02em] leading-[23px]">
+                  No Informations
+                </p>
+              )}
               </div>
             </>
           )}

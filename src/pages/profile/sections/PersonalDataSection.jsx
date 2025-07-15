@@ -10,7 +10,7 @@ import EditProfileModal from "../models/edit-profile-modal";
 import { useState } from "react";
 import ChangePasswordModal from "../models/change-password-modal";
 
-export default function PersonalDataSection({ personalData }) {
+export default function PersonalDataSection() {
 
   const {user} = useStateContext();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

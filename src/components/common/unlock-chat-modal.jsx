@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../axios-client";
 import lockPic from "/src/assets/images/unlock-chat.png"
 import topUpPic from "/src/assets/images/top-up-balance.png"
+import { ROLES } from "../../../constants";
 
 const UnlockChatModal = ({
   isOpen,
@@ -12,6 +13,7 @@ const UnlockChatModal = ({
   coinCost,
   userBalance,
   userId,
+  userRole = ROLES.HOSTESS,
 }) => {
   if (!isOpen) return null;
   const canAfford = userBalance >= coinCost;
@@ -23,6 +25,7 @@ const UnlockChatModal = ({
       const response = await axiosClient.post("/api/chats/credits", {
         other_user_id: userId,
       });
+      onClose()
       // console.log('buychat',response);
       //alert(response.data.message);
       toast.success(response.data.message, {
@@ -33,6 +36,7 @@ const UnlockChatModal = ({
       refreshUser();
       navigate("/chat");
     } catch (error) {
+      onClose()
       console.log(error);
       //alert(error.response.data.message);
       toast.error(error.response.data.message, {
@@ -56,7 +60,7 @@ const UnlockChatModal = ({
       />
 
       {/* Modal */}
-      <div
+      {userRole == ROLES.KING ? <div
         className="relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${
@@ -120,6 +124,71 @@ const UnlockChatModal = ({
           )}
         </div>
       </div>
+      :
+      <div
+        className="relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
+        style={{
+          // backgroundImage: `url(${
+          //   canAfford
+          //     ? lockPic
+          //     : topUpPic
+          // })`,
+          backgroundColor: "white",
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-6 text-white hover:text-gray-200 transition-colors"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="w-full md:w-[100%] text-center pt-5 ">
+          <h2 className="text-3xl font-bold text-black mb-6">
+            Send Free Message to {userName}
+          </h2>
+
+          <p className="text-black text-opacity-90 mb-8 text-lg">
+            Are you sure you want to send free message to {userName}?
+          </p>
+
+          {/* <p className="text-black text-opacity-90 mb-8 text-lg">
+            Your balance:{" "}
+            <span className="font-semibold">{userBalance} coins</span>
+          </p> */}
+
+          {true ? (
+            <button
+              onClick={onConfirm}
+              className={`w-fit py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
+            >
+              Confirm
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/shop")}
+              className={`w-fit py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
+            >
+              Top Up my Balance
+            </button>
+          )}
+        </div>
+      </div>  
+    }
     </div>
   );
 };

@@ -78,9 +78,8 @@ export default function ProfilePage() {
       <div className="relative w-full max-w-[1440px] mx-auto px-4">
         {/* Profile Banner */}
         <ProfileBanner
-          isComplete={isProfileComplete}
+          progressValue={user.profile.profile_completion}
           isCompleteModalOpen={isCompleteModalOpen} setIsCompleteModalOpen={setIsCompleteModalOpen}
-          //onToggleProfile={() => setIsProfileComplete(!isProfileComplete)}
         />
 
         {/* Main Content */}
@@ -88,9 +87,7 @@ export default function ProfilePage() {
           {/* Left Side - Profile Card */}
           <div className="w-full lg:w-[387px]">
             <ProfileCard
-              profileData={profileData}
-              isComplete={isProfileComplete}
-              progressValue={50}
+              progressValue={user.profile.profile_completion}
               isCompleteModalOpen={isCompleteModalOpen} setIsCompleteModalOpen={setIsCompleteModalOpen}
             />
           </div>
@@ -99,8 +96,8 @@ export default function ProfilePage() {
             {user.role == ROLES.KING && <CreditsSection credits={user.profile.credits} />}
             <PhotoGallery />
 
-            <ContactsSection contacts={profileData.contacts} />
-            <PersonalDataSection personalData={profileData.personalData} />
+            <ContactsSection/>
+            <PersonalDataSection/>
           </div>
         </div>
       </div>

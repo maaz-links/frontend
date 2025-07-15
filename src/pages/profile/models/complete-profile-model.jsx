@@ -21,7 +21,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     telegram: "",
     interests: [],
     availableFor: [],
-    travel: 0,
+    travel: "",
     visibility: 0,
     notification: 0,
     country: "",
@@ -47,7 +47,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
         telegram: user.profile.telegram || '',
         interests: user.profile.personal_interests || [],
         availableFor: user.profile.available_services || [],
-        travel: user.profile.travel_available || 0,
+        //travel: user.profile.travel_available ,//|| '',
+        travel: (user.profile.travel_available !== null) ? user.profile.travel_available : '',
         visibility: user.profile.visibility_status || 0,
         notification: user.profile.notification_pref || 0,
         country: user.profile.country_id || '',
@@ -64,7 +65,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
         }
       }
     }
-  }, [user, countries]);
+  }, [user, countries,isOpen]);
 
   const handleCountryChange = (countryId) => {
     setSelectedCountry(countryId);
@@ -214,8 +215,11 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                 <select
                   value={formData.nationality}
                   onChange={(e) => handleInputChange("nationality", e.target.value)}
-                  className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                  className="w-full h-[55px] px-[22px]  py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                 >
+                  {!formData.nationality && <option value=''>
+                      Select Nationality
+                    </option>}
                   {nationalitiesList.map((nationality) => (
                     <option key={nationality} value={nationality}>
                       {nationality}
@@ -233,6 +237,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   onChange={(e) => handleCountryChange(e.target.value)}
                   className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                 >
+                  {!selectedCountry && <option value=''>
+                      Select Country
+                    </option>}
                   {countries.map(country => (
                     <option key={country.id} value={country.id}>
                       {country.name}
@@ -251,6 +258,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   disabled={!selectedCountry}
                   className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                 >
+                  {!selectedCountry && <option value=''>
+                      Select Province
+                    </option>}
                   {provinces.map(province => (
                     <option key={province.id} value={province.id}>
                       {province.name}
@@ -338,6 +348,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                     onChange={(e) => handleInputChange("height", e.target.value)}
                     className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                   >
+                    {!formData.height && <option value=''>
+                      N/A
+                    </option>}
                     {[...Array(400)].map((_, i) => (
                       <option key={i + 1} value={i + 1}>
                         {i + 1}
@@ -355,6 +368,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                     onChange={(e) => handleInputChange("shoeSize", e.target.value)}
                     className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                   >
+                    {!formData.shoeSize && <option value=''>
+                      N/A
+                    </option>}
                     {[...Array(100)].map((_, i) => (
                       <option key={i + 1} value={i + 1}>
                         {i + 1}
@@ -363,6 +379,26 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   </select>
                 </div>
               </div>
+
+              <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Eye Color
+                    </label>
+                    <select
+                      value={formData.eyeColor}
+                      onChange={(e) => handleInputChange("eyeColor", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    >
+                      {!formData.eyeColor && <option value=''>
+                      Not Selected
+                      </option>}
+                      {eyeColorList.map((color) => (
+                        <option key={color} value={color}>
+                          {color}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
               {user.role === ROLES.HOSTESS && (
                 <>
@@ -378,6 +414,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       onChange={(e) => handleInputChange("dressSize", e.target.value)}
                       className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     >
+                      {!formData.dressSize && <option value=''>
+                        N/A
+                      </option>}
                       <option value="M">Medium</option>
                       <option value="L">Large</option>
                       <option value="S">Small</option>
@@ -393,6 +432,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       onChange={(e) => handleInputChange("weight", e.target.value)}
                       className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     >
+                      {!formData.weight && <option value=''>
+                      N/A
+                      </option>}
                       {[...Array(400)].map((_, i) => (
                         <option key={i + 1} value={i + 1}>
                           {i + 1}
@@ -402,28 +444,13 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   </div>
                   </div>
 
-                  <div className="flex flex-col gap-3">
-                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      Eye Color
-                    </label>
-                    <select
-                      value={formData.eyeColor}
-                      onChange={(e) => handleInputChange("eyeColor", e.target.value)}
-                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                    >
-                      {eyeColorList.map((color) => (
-                        <option key={color} value={color}>
-                          {color}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
 
                   <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                       Telegram
                     </label>
                     <input
+                      placeholder="Enter telegram"
                       type="text"
                       value={formData.telegram}
                       onChange={(e) => handleInputChange("telegram", e.target.value)}
