@@ -25,7 +25,7 @@ function IntroBox() {
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="card-intro max-w-full md:max-w-1/2  h-full flex flex-col  justify-center items-center md:items-start text-center md:text-start">
+        <div className="card-intro max-w-full md:max-w-2/3 lg:max-w-1/2  h-full flex flex-col  justify-center items-center md:items-start text-center md:text-start">
           <h1 className="text-black mb-[15px] text-[32px] sm:text-[30px] lg:text-[40px]">
             <strong>
               More Than Just a<br /> Presence — A Real <br />

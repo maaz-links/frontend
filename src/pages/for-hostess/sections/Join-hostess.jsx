@@ -1,35 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HostessImage from "/src/assets/images/servic3.png";
-import WingWomanImage from "/src/assets/images/servic2.png";
-import SugarBabyImage from "/src/assets/images/servic1.png";
+// import HostessImage from "/src/assets/images/servic3.png";
+// import WingWomanImage from "/src/assets/images/servic2.png";
+// import SugarBabyImage from "/src/assets/images/servic1.png";
 import mobileImage from "/src/assets/images/joinnow-mobile.png";
 import desktopImage from "/src/assets/images/joinnow-desktop.png";
 
 function JoinHostess() {
-  const services = [
-    {
-      title: "Hostess",
-      description:
-        "Attend events, dinners, or private gatherings with a polished, professional presence.",
-      image: HostessImage,
-    },
-    {
-      title: "Wing Woman",
-      description:
-        "Navigate social environments with confidence and support; impress at business mixers or casual parties.",
-      image: WingWomanImage,
-    },
-    {
-      title: "Sugar Baby",
-      description:
-        "Engage in mutually beneficial relationships with clarity, honesty, and discretion.",
-      image: SugarBabyImage,
-    },
-  ];
+  // const services = [
+  //   {
+  //     title: "Hostess",
+  //     description:
+  //       "Attend events, dinners, or private gatherings with a polished, professional presence.",
+  //     image: HostessImage,
+  //   },
+  //   {
+  //     title: "Wing Woman",
+  //     description:
+  //       "Navigate social environments with confidence and support; impress at business mixers or casual parties.",
+  //     image: WingWomanImage,
+  //   },
+  //   {
+  //     title: "Sugar Baby",
+  //     description:
+  //       "Engage in mutually beneficial relationships with clarity, honesty, and discretion.",
+  //     image: SugarBabyImage,
+  //   },
+  // ];
 
   return (
-    <div className="mb-10 md:px-4 px-1">
+    <div className="mb-10 md:px-4 px-[1px]">
       {/* Desktop */}
       <div className="hidden md:block mt-9 px-6 max-w-[1300px] m-auto ">
         <div
@@ -51,10 +51,10 @@ function JoinHostess() {
               company in exchange for a fee agreed directly with them.
             </p>
           </div>
-          <div className="w-full md:w-1/3 flex justify-center md:justify-end mt-4 md:mt-0">
+          <div className="w-full md:w-fit flex justify-center md:justify-end mt-4 md:mt-0">
             <Link
               to="/sign-up"
-              className="btn bg-white hover:text-white hover:bg-black text-black px-10 py-5 rounded-2xl text-base font-[600] leading-[130%]"
+              className="btn bg-white hover:text-white  hover:bg-black text-black px-10 py-5  rounded-lg text-base font-[600] leading-[130%]"
             >
               Create your profile for free
             </Link>
@@ -65,7 +65,7 @@ function JoinHostess() {
       {/* Mobile */}
       <div className="md:hidden mt-9 max-w-[1300px] m-auto ">
         <div
-          className="min-h-[300px] p-8 flex flex-col items-center pt-16 rounded-3xl "
+          className="min-h-[300px] p-3 flex flex-col items-center pt-16 rounded-3xl "
           style={{
             backgroundImage: `url(${mobileImage})`,
             backgroundSize: "cover",

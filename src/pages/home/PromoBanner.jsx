@@ -28,14 +28,14 @@ const PromoBanner = () => {
       </style>
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="relative overflow-visible  rounded-[2rem] md:px-8 pt-12  md:py-16 flex flex-col md:flex-row items-center  promo-banner  md:h-fit "
+          className="relative overflow-visible  rounded-[2rem]    flex flex-col md:flex-row items-center  promo-banner  md:h-fit "
           style={{
             "--mobile-bg": `url(${mobileImage})`,
             "--desktop-bg": `url(${desktopImage})`,
           }}
         >
           {/* Left Text */}
-          <div className="w-full md:w-1/2 z-10 text-center md:text-left p-5  ">
+          <div className="w-full md:w-1/2 z-10 text-center md:text-left p-5   ">
             <h2 className="text-[32px] md:text-4xl font-bold text-black">
               Are You a Hostess or Model?
             </h2>
