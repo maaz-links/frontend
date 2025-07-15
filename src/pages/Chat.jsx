@@ -933,7 +933,7 @@ const Chat = () => {
   return (
     <>
       <Header />
-      <div className="flex h-screen md:w-[98%] md:w-[90%] mx-auto  md:my-10 relative">
+      <div className="flex h-screen md:w-[98%]  mx-auto  md:my-10 relative">
         {/* Mobile Sidebar Overlay */}
         {isMobileSidebarOpen && (
           <div

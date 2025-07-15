@@ -419,7 +419,7 @@ function UserProfile() {
 
           <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
-            <div className="w-full lg:w-60 xl:w-[672px] flex-shrink-0">
+            <div className="w-full lg:w-[45%] xl:w-[672px] flex-shrink-0">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
                 <img
                   src={
