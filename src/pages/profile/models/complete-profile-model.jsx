@@ -7,7 +7,7 @@ import {ROLES} from "../../../../constants";
 import { toast } from "react-toastify";
 
 const CompleteProfileModal = ({ isOpen, onClose }) => {
-  const { setUser, user, refreshUser, optionsInterest, optionsAvailableFor, languageOptions, countries, nationalitiesList, eyeColorList } = useStateContext();
+  const { setUser, user, refreshUser, optionsInterest, optionsAvailableFor, profileTypeList, languageOptions, countries, nationalitiesList, eyeColorList } = useStateContext();
 
   const [formData, setFormData] = useState({
     about: "",
@@ -19,6 +19,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     dressSize: "",
     weight: "",
     telegram: "",
+    profileType: [],
     interests: [],
     availableFor: [],
     travel: "",
@@ -45,6 +46,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
         dressSize: user.profile.dress_size || '',
         weight: user.profile.weight || '',
         telegram: user.profile.telegram || '',
+        profileType: user.profile.my_profile_types || [],
         interests: user.profile.personal_interests || [],
         availableFor: user.profile.available_services || [],
         //travel: user.profile.travel_available ,//|| '',
@@ -99,6 +101,16 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+
+  const handleProfileTypeChange = (typeId) => {
+    setFormData(prev => {
+      const profileType = prev.profileType.includes(typeId)
+        ? prev.profileType.filter(i => i !== typeId)
+        : [...prev.profileType, typeId];
+      return { ...prev, profileType };
+    });
+  };
+
   const handleInterestChange = (interestId) => {
     setFormData(prev => {
       const interests = prev.interests.includes(interestId)
@@ -129,6 +141,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
   const handleSave = async () => {
     const payload = {
       description: formData.about,
+      option_profile_types: formData.profileType,
       option_ids: formData.interests,
       option_available_for_ids: formData.availableFor,
       option_language_ids: formData.languages,
@@ -293,6 +306,28 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
               
               {user.role === ROLES.HOSTESS && (
                 <>
+                <div className="flex flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      I am a
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {profileTypeList.map(({ id, name }) => (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => handleProfileTypeChange(id)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                            formData.profileType.includes(id)
+                              ? "bg-black border border-[rgba(12,16,56,0.22)]  text-white"
+                              : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                          }`}
+                        >
+                          {name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
               <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                       Personality and interests

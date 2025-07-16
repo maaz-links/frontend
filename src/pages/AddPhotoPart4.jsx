@@ -33,7 +33,7 @@ const [isLoading, setIsLoading] = useState(false);
       setIsLoading(true);
       const response = await axiosClient.post('/api/attachments', formData);
       refreshUser();
-      navigate('/search')
+      navigate('/profile')
       
       //fetchImages();
     } catch (error) {

@@ -16,6 +16,7 @@ import maleIcon from "../assets/icons/male-symbol.svg";
 import maleIconWhite from "../assets/icons/male-symbol-white.svg";
 import BGsrc from "/src/assets/images/bg-grad.png"
 import BackgroundGrad from "@/components/common/BackgroundGrad";
+import DateOfBirthInput from "@/functions/DateOfBirthInput";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -81,10 +82,6 @@ const SignUp = () => {
               alt="Hostess Icon"
             />
             <p className="text-center text-[15px] sm:text-[22px]"><strong>I am an hostess or model</strong></p>
-            {/* <span
-              className={`absolute top-2 right-2 w-4 h-4 rounded-fulll
-            ${myRole === ROLES.HOSTESS ? "bg-[#E91E63]" : "bg-white"}`}
-            ></span> */}
           </div>
 
           {/* Option 2 */}
@@ -99,10 +96,6 @@ const SignUp = () => {
               alt="King Icon"
             />
             <p className="text-center text-[15px] sm:text-[22px]"><strong>I am looking for an hostess or model</strong></p>
-            {/* <span
-              className={`absolute top-2 right-2 w-4 h-4 rounded-fulll
-            ${myRole === ROLES.HOSTESS ? "bg-[#E91E63]" : "bg-white"}`}
-            ></span> */}
           </div>
         </div>
 
@@ -400,118 +393,3 @@ const CreatSignup = ({myRole}) => {
 };
 
 export default SignUp;
-
-const DateOfBirthInput = forwardRef((props, ref) => {
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
-  const [daysInMonth, setDaysInMonth] = useState(31);
-
-  // Months data
-  const months = [
-    { value: '01', name: 'January' },
-    { value: '02', name: 'February' },
-    { value: '03', name: 'March' },
-    { value: '04', name: 'April' },
-    { value: '05', name: 'May' },
-    { value: '06', name: 'June' },
-    { value: '07', name: 'July' },
-    { value: '08', name: 'August' },
-    { value: '09', name: 'September' },
-    { value: '10', name: 'October' },
-    { value: '11', name: 'November' },
-    { value: '12', name: 'December' },
-  ];
-
-  // Generate days based on current month and year
-  const days = Array.from({ length: daysInMonth }, (_, i) => {
-    const dayNum = i + 1;
-    return dayNum < 10 ? `0${dayNum}` : `${dayNum}`;
-  });
-
-  // Generate years (from current year - 100 to current year)
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 100 }, (_, i) => `${currentYear - i}`);
-
-  // Update days in month when month or year changes
-  useEffect(() => {
-    if (month && year) {
-      const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-      let days = 31;
-
-      if (month === '04' || month === '06' || month === '09' || month === '11') {
-        days = 30;
-      } else if (month === '02') {
-        days = isLeapYear ? 29 : 28;
-      }
-
-      setDaysInMonth(days);
-
-      // Reset day if it's now invalid for the new month
-      if (day && parseInt(day) > days) {
-        setDay('');
-      }
-    }
-  }, [month, year, day]);
-
-  // Expose the date value via ref
-  useImperativeHandle(ref, () => ({
-    getDate: () => {
-      if (day && month && year) {
-        return {
-          day,
-          month,
-          year,
-          formatted: `${year}-${month}-${day}`,
-          isValid: true
-        };
-      }
-      return {
-        day: '',
-        month: '',
-        year: '',
-        formatted: '',
-        isValid: false
-      };
-    }
-  }));
-
-  return (
-
-    <div className="flex space-x-2">
-      <select
-        value={day}
-        onChange={(e) => {setDay(e.target.value);}}
-        className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-      >
-        <option value="">Day</option>
-        {days.map((d) => (
-          <option key={d} value={d}>{d}</option>
-        ))}
-      </select>
-
-      <select
-        value={month}
-        onChange={(e) => setMonth(e.target.value)}
-        className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-      >
-        <option className="" value="">Month</option>
-        {months.map((m) => (
-          <option key={m.value} value={m.value}>{m.name}</option>
-        ))}
-      </select>
-
-      <select
-        value={year}
-        onChange={(e) => setYear(e.target.value)}
-        //className="w-1/3 p-2 bg-[#F5F5F5] focus:outline-0"
-        className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-      >
-        <option value="">Year</option>
-        {years.map((y) => (
-          <option key={y} value={y}>{y}</option>
-        ))}
-      </select>
-    </div>
-  );
-});

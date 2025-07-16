@@ -1,4 +1,12 @@
+import { Link } from "react-router-dom";
+import bgImageMale from "/src/assets/images/welcome-image-desktop-new.png"
+import bgImageFemale from "/src/assets/images/for-hostess-hero-desktop.png"
+import { useStateContext } from "@/context/ContextProvider";
+import { ROLES } from "../../../constants";
 const WelcomeModal = ({ isOpen, onClose }) => {
+
+  const {user} = useStateContext();
+
   if (!isOpen) return null;
 
   return (
@@ -13,7 +21,8 @@ const WelcomeModal = ({ isOpen, onClose }) => {
       <div
         className="relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url("/src/assets/images/welcom-model-bg.png")`,
+          backgroundImage: `url(${user?.role == ROLES.HOSTESS ? bgImageFemale : bgImageMale})`,
+          //backgroundColor: 'gray'
         }}
       >
         {/* Close button */}
@@ -43,15 +52,15 @@ const WelcomeModal = ({ isOpen, onClose }) => {
           </h2>
 
           <p className="text-black text-opacity-90 mb-3 text-lg">
-            Your email has been successfully verified. Finish setting up your
+            Finish setting up your
             profile and begin engaging with others.
           </p>
 
-          <button
+          <Link to="/profile" onClick={onClose}
             className={` py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${"bg-black text-white hover:bg-[#8880FE] active:scale-95"}`}
           >
-            fill out your profile
-          </button>
+            Fill out your profile
+          </Link>
         </div>
       </div>
     </div>

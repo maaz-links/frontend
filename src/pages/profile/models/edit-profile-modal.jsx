@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ErrorText } from "../../../functions/Common";
 import { toast } from "react-toastify";
 import { useStateContext } from "@/context/ContextProvider";
 import axiosClient from "../../../../axios-client";
+import DateOfBirthInput from "@/functions/DateOfBirthInput";
 
 const EditProfileModal = ({ isOpen, onClose }) => {
   const { user, refreshUser } = useStateContext();
+  const dobRef = useRef();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -36,7 +38,14 @@ const EditProfileModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     
     try {
-      const response = await axiosClient.post('/api/update-personal', formData);
+      const response = await axiosClient.post('/api/update-personal',
+        {
+          name: formData.name,
+          phone: formData.phone,
+          dob: dobRef.current.getDate().formatted,
+        }
+      
+      );
       // if (response.data.success) {
         
         refreshUser()
@@ -115,7 +124,8 @@ const EditProfileModal = ({ isOpen, onClose }) => {
               </div>
 
               {/* Date of Birth Field */}
-              <div className="flex flex-col gap-3 mb-4">
+              
+              {/* <div className="flex flex-col gap-3 mb-4">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                   Date of Birth
                 </label>
@@ -129,7 +139,16 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                   />
                   <ErrorText errors={errors} field="dob" />
                 </div>
-              </div>
+              </div> */}
+
+              <div className="flex flex-col gap-3 mb-4">
+                <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                  Date of Birth
+                </label>
+                <DateOfBirthInput ref={dobRef} initialValues={formData.dob} fieldClass="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent" />
+                  <ErrorText errors={errors} field="dob" />
+                </div>
+              
 
               {/* Phone Field */}
               <div className="flex flex-col gap-3 mb-4">

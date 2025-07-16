@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { initializeEcho } from "../../echo";
 import PopUpModel from "../components/common/popup-model";
+import WelcomeModal from "../components/common/welcome-model";
 
 const StateContext = createContext({
   user: null,
@@ -58,7 +59,8 @@ export const ContextProvider = ({ children }) => {
 
   const [GenericModalOpen, setGenericModalOpen] = useState(false);
   const [GenericModalContent, setGenericModalContent] = useState(<></>);
-  
+  const [isWelcomeModel, setIsWelcomeModel] = useState(false);
+
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
   //const [refreshUser, setRefreshUser] = useState([]);
@@ -191,12 +193,11 @@ export const ContextProvider = ({ children }) => {
       profileTypeList,
       // ... other values
       GenericModalOpen, setGenericModalOpen,
-      GenericModalContent, setGenericModalContent
+      GenericModalContent, setGenericModalContent,
+      isWelcomeModel,setIsWelcomeModel,
+
     }}>
       {children}
-      <PopUpModel isOpen={GenericModalOpen} onClose={() => setGenericModalOpen(false)}>
-        {GenericModalContent}
-      </PopUpModel>
     </StateContext.Provider>
   );
 };

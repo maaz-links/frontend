@@ -54,9 +54,9 @@ function VerifyEmail() {
               setGenericModalContent(
                 <>
                 <h1 className=" text-[45px] font-bold">Email verified successfully!</h1>
-                {/* <p className=" my-4 ">
-                  {response.data.message}
-                </p> */}
+                <p className=" my-4 ">
+                  Your email has been successfully verified.
+                </p>
                 <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
                   OK
                 </button>

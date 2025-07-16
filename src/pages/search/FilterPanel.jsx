@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react"
 import { useStateContext } from "../../context/ContextProvider"
 import { DualRangeSlider } from "@/components/common/DualRangeSlider"
+import { ROLES } from "../../../constants"
 
 function FilterPanel({ isOpen, onClose, filters, setFilters }) {
 
-  const {languageOptions} = useStateContext()
+  const {languageOptions,user} = useStateContext()
   const [localFilters, setLocalFilters] = useState(filters)
 
   const priceOptions = [
@@ -74,6 +75,9 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
           <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Type</h4>
             <div className="flex gap-2 flex-wrap">
+
+            {user?.role != ROLES.HOSTESS &&
+            <>
               <button
                 onClick={() => handleTypeToggle("hostess")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
@@ -98,6 +102,9 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
               >
                 Sugarbaby
               </button>
+            </>}
+
+              
               <button
                 onClick={() => handleTypeToggle("verified_profile")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
@@ -152,6 +159,8 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
             </select>
           </div> */}
 
+          {user?.role != ROLES.HOSTESS &&
+            <>
           {/* Unlock Price Section */}
           <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Unlock Price</h4>
@@ -167,6 +176,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
               ))}
             </select>
           </div>
+          </>}
 
           {/* Language Section */}
           <div className="mb-8">

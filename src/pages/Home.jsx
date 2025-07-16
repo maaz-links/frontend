@@ -3,7 +3,6 @@ import Header from "/src/components/common/header";
 import "/src/App.css";
 import IntroBox from "/src/components/IntroBox";
 import Models from "/src/components/Models";
-import How_To from "/src/components/How_To";
 import Faqs from "/src/components/Faqs";
 import Footer from "/src/components/common/footer";
 
@@ -11,18 +10,11 @@ import WalletIcon from "/src/assets/images/money-filled.svg";
 import MemberIcon from "/src/assets/images/question-cloud.svg";
 import worldMap from "/src/assets/images/worldmap.png";
 import { Link } from "react-router-dom";
-import PopUpModel from "../components/common/popup-model";
 
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
-import { useStateContext } from "../context/ContextProvider";
-import WelcomeModal from "@/components/common/welcome-model";
 
 function Home() {
-  // const [GenericModalOpen, setGenericModalOpen] = useState(false);
-  const [isWecomeModel, setIsWelcomModel] = useState(false);
-
-  const { setGenericModalOpen, setGenericModalContent } = useStateContext();
   return (
     <>
       <Header />
@@ -32,69 +24,8 @@ function Home() {
 
       <VerifiedPeopleOnly />
       <PromoBanner />
-
-      {/* <How_To /> */}
-      {/* <Blogs /> */}
       <Faqs />
 
-      {/* for Testying Only */}
-      <div className="w-full flex justify-center mb-10">
-        <button
-          // onClick={() => setGenericModalOpen(true)}
-          onClick={() => {
-            setGenericModalOpen(true);
-            setGenericModalContent(
-              <>
-                <h1 className=" text-[45px] font-bold">Verify your email</h1>
-                <p className=" my-4 ">
-                  Check your mailbox, follow the instructions, and confirm
-                  account!
-                </p>
-                <button
-                  onClick={() => setGenericModalOpen(false)}
-                  className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full"
-                >
-                  Got It
-                </button>
-              </>
-            );
-          }}
-          className="mt-6 px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition  w-fit"
-        >
-          Open POPUP (testing only)
-        </button>
-      </div>
-      {/* <PopUpModel
-        isOpen={GenericModalOpen}
-        onClose={() => setGenericModalOpen(false)}
-      >
-        <h1 className=" text-[45px] font-bold">Verify your email</h1>
-
-        <p className=" my-4 ">
-          Check your mailbox, follow the instructions, and confirm account!
-        </p>
-        <button
-          onClick={() => setGenericModalOpen(false)}
-          className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full"
-        >
-          Got It
-        </button>
-      </PopUpModel> */}
-
-      {/* for testing  */}
-      <div className="w-full flex justify-center items-center mb-10">
-        <button
-          onClick={() => setIsWelcomModel(true)}
-          className="bg-black text-white  mx-auto rounded-xl px-6 py-3 hover:bg-gray-800 transition w-fit"
-        >
-          Open Welcome model(testing only)
-        </button>
-
-        <WelcomeModal
-          isOpen={isWecomeModel}
-          onClose={() => setIsWelcomModel(false)}
-        />
-      </div>
       <Footer />
     </>
   );

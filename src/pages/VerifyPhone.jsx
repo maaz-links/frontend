@@ -9,7 +9,7 @@ import BackgroundGrad from "@/components/common/BackgroundGrad";
 
 function VerifyPhone() {
   // const [phone, setPhone] = useState("");
-  const { token, user, setToken, setUser } = useStateContext();
+  const { token, user, setToken, setUser, setIsWelcomeModel } = useStateContext();
 
   const [otp, setOtp] = useState("");
   const [errors, setErrors] = useState({});
@@ -54,6 +54,7 @@ function VerifyPhone() {
         pauseOnHover: true,
       })
       setToken(response.data.access_token);
+      if(response.data.welcome_new_user){setIsWelcomeModel(true)}
       sessionStorage.removeItem('hostess_otp_email');
       sessionStorage.removeItem('hostess_otp_phone');
       sessionStorage.removeItem('hostess_otp_message');

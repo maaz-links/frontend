@@ -133,7 +133,7 @@ export default function PhotoGallery() {
   if (isLoading) {
     return (
       <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 w-full flex justify-center items-center h-64">
-        <ClipLoader color="#E91E63" size={50} />
+        <ClipLoader color="black" size={50} />
       </div>
     );
   }
@@ -173,7 +173,7 @@ export default function PhotoGallery() {
               </div>
               {/* <button
                 onClick={() => removePhoto(photo.id)}
-                className="text-[#E91E63] p-1"
+                className="text-black p-1"
               >
                 <FaTrash className="text-sm" />
               </button> */}

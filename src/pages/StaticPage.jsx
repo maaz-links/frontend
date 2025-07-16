@@ -51,9 +51,6 @@ function StaticPage({slug}) {
   <div className='terms-text text-[15px] mt-[20px]'>
   <div dangerouslySetInnerHTML={{ __html: text }} />
   </div>
-  {/* <div className='text-center mt-[110px]'>
-<Link to='/contact' className='bg-[#E91E63] text-[20px] text-[#fff] p-[10px] px-[70px] hover:bg-[#F8BBD0] '>HELP & CONTACT</Link>
-</div> */}
     </div>
     <Footer />
     </>

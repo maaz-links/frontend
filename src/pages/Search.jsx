@@ -418,7 +418,7 @@ function Search() {
         <div className="search-results relative">
           {initialLoad && (
             <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
-              <ClipLoader color="#E91E63" size={50} />
+              <ClipLoader color="black" size={50} />
             </div>
           )}
 
@@ -505,7 +505,7 @@ function Search() {
 
           {loading && !initialLoad && (
             <div className="flex justify-center my-8">
-              <ClipLoader color="#E91E63" size={30} />
+              <ClipLoader color="black" size={30} />
             </div>
           )}
         </div>
