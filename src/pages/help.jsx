@@ -103,8 +103,8 @@ function ContactUs() {
     <div>
       <Header />
       <div
-        className=" flex items-center mt-2 mb-8  
-bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px] m-auto"
+        className=" flex items-center mt-5 mb-12  
+bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300px] m-auto"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
@@ -112,10 +112,10 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
       >
         <div className="text-white  w-full md:p-10 font-[400]  flex flex-col md:flex-row md:items-center justify-around ">
           <div className="p-5 w-[295px] md:w-[486px]">
-            <h1 className="text-[32px] md:text-[58px] font-bold mb-4 leading-[60px]">
+            <h1 className="text-[32px] leading-[128%] md:text-[58px] font-bold mb-4 md:leading-[60px]">
               Do You Have Any Question?
             </h1>
-            <p className="text-[20px] font-[400] leading-[30px] text-[#FFFFFF] mb-6">
+            <p className=" text-[16px] w-[310px] tracking-[-5%] leading-[23px] md:text-[20px] font-[400] md:leading-[30px] text-[#FFFFFF] md:mb-6">
               Discover a new way to connect:{" "}
               <strong>
                 {" "}
@@ -176,15 +176,15 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
                   <p className="text-red-500 text-sm">{errors.message}</p>
                 )}
               </div>
-              <div className="flex items-center  text-white  py-2 rounded-xl">
+              <div className="flex items-center w-full   text-white  py-2 rounded-xl">
                 <input
                   type="checkbox"
                   name="termsAccepted"
                   checked={formData.termsAccepted}
                   onChange={handleChange}
-                  className="mr-2 w-5 h-5 appearance-none border-2 border-white rounded focus:outline-none checked:bg-transparent checked:border-white"
+                  className="mr-2 w-[25px] h-[25px] md:h-[22px] md:w-[22px] appearance-none border-2 border-white rounded focus:outline-none checked:bg-transparent checked:border-white"
                 />
-                <label className="text-sm">
+                <label className="text-[12px] leading-[18px] w-full">
                   I accept the Privacy Policy and the Terms & Conditions
                 </label>
               </div>
@@ -195,7 +195,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl bg-gray-200  max-w-[1300px]
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`md:py-5 w-full md:w-60 hover:text-white hover:bg-black bg-white text-black text-[16px]  p-2 rounded-xl font-[400]  ${
+                className={`py-5 w-full md:w-60 hover:text-white hover:bg-black bg-white text-black text-[16px]  p-2 rounded-xl font-bold  ${
                   isSubmitting ? "opacity-50" : ""
                 }`}
               >
