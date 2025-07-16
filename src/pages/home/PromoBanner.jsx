@@ -28,14 +28,14 @@ const PromoBanner = () => {
       </style>
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="relative overflow-visible  rounded-[2rem]    flex flex-col md:flex-row items-center  promo-banner  md:h-fit "
+          className="relative  rounded-[2rem]  lg:py-14 pt-12   lg:px-24  flex gap-20 flex-col md:flex-row items-center  promo-banner  md:h-fit "
           style={{
             "--mobile-bg": `url(${mobileImage})`,
             "--desktop-bg": `url(${desktopImage})`,
           }}
         >
           {/* Left Text */}
-          <div className="w-full md:w-1/2 z-10 text-center md:text-left p-5   ">
+          <div className="w-full md:w-1/2 z-10 text-center md:text-left   ">
             <h2 className="text-[32px] md:text-4xl font-bold text-black">
               Are You a Hostess or Model?
             </h2>
@@ -45,7 +45,7 @@ const PromoBanner = () => {
               sophistication and charm, attending elite events, forming genuine
               connections, and embracing a lifestyle beyond the ordinary.
             </p>
-            <button onClick={() => navigate('/sign-up')} className="mt-6 px-6 py-5 bg-black text-white rounded-md shadow-md hover:bg-[#FFFFFF] hover:text-black hover:border transition">
+            <button onClick={() => navigate('/sign-up')} className="mt-6 px-6 py-5 bg-black text-white rounded-md shadow-md hover:bg-[#8880FE]  ">
               Create your profile for free
             </button>
           </div>
@@ -55,7 +55,7 @@ const PromoBanner = () => {
             <img
               src={HostessImg}
               alt="Hostess or Model"
-              className="md:absolute md:bottom-[-12rem]  mx-auto  lg:right-[5rem] h-[365px]  md:h-[476px] w-[331px] md:w-[409.8077697753906px]  object-cover z-20"
+              className="md:absolute md:bottom-[-12rem]  mx-auto   h-[365px]  md:h-[476px] w-[331px] md:w-[409.8077697753906px]  object-cover z-20"
             />
           </div>
         </div>
