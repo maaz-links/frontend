@@ -94,7 +94,7 @@ const HowItWorks = () => {
             <div key={index} className="text-center group px-10 md:px-0">
               <div className="flex justify-center mb-4">
                 <div className="flex  md:w-full justify-start gap-16 items-center ">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 group-hover:bg-purple-100 group-hover:text-purple-600 transition-colors duration-300">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 transition-colors duration-300">
                     {step.icon}
                   </div>
                   {index < steps.length-1 && (

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
+import GetStartedBanner from "./home/GetStartedBanner";
 
 function Home() {
   return (
@@ -20,6 +21,7 @@ function Home() {
       <Header />
       <IntroBox />
       <Models />
+      <GetStartedBanner/>
       <HowItWorks />
 
       <VerifiedPeopleOnly />
@@ -100,7 +102,7 @@ function VerifiedPeopleOnly() {
               <div className="flex flex-1 gap-5 justify-center md:justify-start items-start mb-2">
                 <Link
                   to="/search"
-                  className="btn bg-black btn-grad hover:bg-[#8880FE] mt-[55px] text-white px-[140px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
+                  className="btn bg-black btn-grad hover:bg-[#8880FE] mt-[55px] transition-colors text-white px-[140px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
                 >
                   Search
                 </Link>

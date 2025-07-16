@@ -128,16 +128,16 @@ function Header() {
                 </NavLink>
               ))}
             </div>
+            
+            </div>
             <div className="flex items-center gap-5">
               {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
                 to="/sign-up"
-                className="border-2 hover:bg-[#090909] hover:text-white text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
                 Sign Up Now
               </NavLink>
-            </div>
-
             <button
               onClick={toggleMenu}
               className="md:hidden focus:outline-none ml-2"
@@ -150,7 +150,7 @@ function Header() {
               <div className="flex flex-col items-center p-4 space-y-4">
                 <NavLink
                   to="/sign-up"
-                  className="border-2 text-[14px] hover:bg-[#090909] hover:text-white font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
+                  className="border-2 text-[14px] hover:bg-[#090909] hover:text-white transition-colors font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
                 >
                   Sign Up Now
                 </NavLink>
@@ -199,7 +199,7 @@ function Header() {
             {/* Unread Message Badge */}
             {unreadCount > 0 && (
               <Link to="/chat">
-                <div className="relative -start-4 bg-black text-sm text-center text-white rounded-full w-7 h-7 aspect-square px-1.5 py-1">
+                <div className="relative -start-4 bg-red-500 text-sm text-center text-white rounded-full w-7 h-7 aspect-square px-1.5 py-1">
                   <strong>{unreadCount > 9 ? "9+" : unreadCount}</strong>
                 </div>
               </Link>
@@ -211,7 +211,11 @@ function Header() {
           >
             S
           </NavLink> */}
-          <div className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] invisible hidden md:block">
+          
+        
+        </div>
+        <div className="flex items-center justify-between ">
+        <div className="border-2 text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] invisible hidden md:block">
             s
           </div>
           {/* <img className="mx-2" src={BellIcon} alt="Bell Icon" /> */}
@@ -237,6 +241,7 @@ function Header() {
             <img src={!isMenuOpen ? MenuIcon : CrossIcon} alt="Menu" />
           </button>
         </div>
+
         {isMenuOpen && (
           <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
             <div className="flex flex-col items-center p-4 space-y-4">
@@ -262,7 +267,7 @@ function Header() {
                   {/* Unread Message Badge */}
                   {unreadCount > 0 && link.link == "/chat" && (
                     <Link to="/chat">
-                      <div className="relative start-4 bg-black text-sm text-center text-white rounded-full w-6.5 h-6.5 aspect-square px-1.5 py-1">
+                      <div className="relative start-4  bg-red-500 text-sm text-center text-white rounded-full w-6.5 h-6.5 aspect-square px-1.5 py-1">
                         <strong>{unreadCount > 9 ? "9+" : unreadCount}</strong>
                       </div>
                     </Link>

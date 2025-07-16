@@ -132,7 +132,7 @@ function WhyUsSection() {
           {whyUsData.map((item, index) => (
             <div
               key={index}
-              className={`flex  gap-[20px] ${index < 2 && "border-b "} p-5`}
+              className={`flex  gap-[20px] ${index < 2 && "border-b border-gray-100"} p-5`}
             >
               <span
               className="w-[60px] md:w-[70px] h-[60px] md:h-[70px]"

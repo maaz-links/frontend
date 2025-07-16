@@ -15,7 +15,7 @@ function IntroBox() {
   return (
     <>
       <div
-        className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into  rounded-4xl   lg:px-[100px]
+        className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into  rounded-4xl  md:px-[50px] lg:px-[100px]
       bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center md:h-[646px] 
 
       md:mx-auto mx-2 py-10 
@@ -43,7 +43,7 @@ function IntroBox() {
               <>
                 <Link
                   to="/sign-up"
-                  className="btn bg-black btn-grad hover:bg-[#8880FE] text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
+                  className="btn bg-black btn-grad hover:bg-[#8880FE] transition-colors text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
                 >
                   Get Started for Free{" "}
                 </Link>
