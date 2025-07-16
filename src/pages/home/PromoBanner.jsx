@@ -35,7 +35,7 @@ const PromoBanner = () => {
           }}
         >
           {/* Left Text */}
-          <div className="w-full md:w-1/2 z-10 text-center md:text-left   ">
+          <div className="w-full md:w-[60%] z-10 text-center md:text-left   ">
             <h2 className="text-[32px] md:text-4xl font-bold text-black">
               Are You a Hostess or Model?
             </h2>
@@ -51,7 +51,7 @@ const PromoBanner = () => {
           </div>
 
           {/* Right Image — Overflowing */}
-          <div className="w-full mx-auto md:w-1/2 relative     ">
+          <div className="w-full mx-auto md:w-[40%] relative     ">
             <img
               src={HostessImg}
               alt="Hostess or Model"
