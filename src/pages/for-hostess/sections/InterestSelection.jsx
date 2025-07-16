@@ -8,7 +8,7 @@ function InterestSelectionSection() {
       { name: "Photo Model", selected: true },
       { name: "Parlare", selected: true },
       { name: "Glamour Photo", selected: true },
-      { name: "Event", selected: true },
+      { name: "Business Event", selected: true },
     ],
     [
       { name: "Fashion Photo", selected: true },
@@ -28,12 +28,14 @@ function InterestSelectionSection() {
 
   return (
     <div className="interest-section bg-white m-auto p-5 lg:p-10 flex flex-col items-center">
-      <h2 className="text-[#1A2E5A] mb-4 font-bold text-2xl lg:text-[32px] leading-[38px] tracking-[-0.64px] text-center">
+      <div className="md:p-[8px] flex flex-col items-center md:max-w-[731px]">
+      <h2 className="text-[#090909] mb-4 font-bold text-[32px] lg:text-[45px] lg:leading-[130%] leading-[38px] tracking-[-6%] text-center px-4">
         You Can Choose the Areas that Interest you Most
       </h2>
       <p className="text-[#4A4A4A] text-sm leading-[20px] font-[400] text-center mb-7 lg:max-w-[600px]">
         When filling out your profile, select what interests you most and receive offers based on your preferences.
       </p>
+      </div>
       <div className="flex flex-col items-center w-full md:max-w-[90%] ">
         {interestAreas.map((row, rowIndex) => (
           <div
