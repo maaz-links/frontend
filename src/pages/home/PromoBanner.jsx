@@ -28,7 +28,7 @@ const PromoBanner = () => {
       </style>
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="relative  rounded-[2rem]  lg:py-14 pt-12   lg:px-24  flex gap-20 flex-col md:flex-row items-center  promo-banner  md:h-fit "
+          className="relative  rounded-[2rem]  md:py-14 pt-12  md:px-6 lg:px-24  flex gap-20 flex-col md:flex-row items-center  promo-banner  md:h-fit "
           style={{
             "--mobile-bg": `url(${mobileImage})`,
             "--desktop-bg": `url(${desktopImage})`,
@@ -55,7 +55,7 @@ const PromoBanner = () => {
             <img
               src={HostessImg}
               alt="Hostess or Model"
-              className="md:absolute md:bottom-[-12rem]  mx-auto   h-[365px]  md:h-[476px] w-[331px] md:w-[409.8077697753906px]  object-cover z-20"
+              className="md:absolute  md:bottom-[-12rem] xl:bottom-[-10rem]  mx-auto   h-[365px]  md:h-[476px] w-[331px] md:w-[409.8077697753906px]  object-cover z-20"
             />
           </div>
         </div>
