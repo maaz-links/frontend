@@ -323,11 +323,14 @@ function UserProfile() {
     getProvinceName,
     refreshUser,
     profileCosts,
+    SocialLinks,
   } = useStateContext();
   const [givenUser, setGivenUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [unlockChat, setUnlockChat] = useState(false);
   const [canReport, setCanReport] = useState(false);
+  const [showSocial, setShowSocial] = useState(false);
+  
   const { username } = useParams();
   const navigate = useNavigate();
 
@@ -340,7 +343,8 @@ function UserProfile() {
       .then((response) => {
         setGivenUser(response.data.user);
         setUnlockChat(response.data.unlockChat);
-        // setCanReport(response.data.canReport);
+        setCanReport(response.data.canReport);
+        setShowSocial(response.data.showSocial);
         console.log(url, response);
       })
       .catch((error) => {
@@ -423,7 +427,7 @@ function UserProfile() {
           </button>
 
           {/* Report Button */}
-              {!canReport && (
+              {canReport && (
                 // <div className="mt-6 sm:mt-8">
                   <ReportUserButton userId={givenUser.id} />
                 // </div>
@@ -581,7 +585,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Nationality
                       </span>
-                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {capitalizeFirstLetter(givenUser.profile.nationality)}
                       </span>
                     </div>
@@ -592,7 +596,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Shoe Size
                       </span>
-                      <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {givenUser.profile.shoe_size}
                       </span>
                     </div>
@@ -603,7 +607,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Languages
                       </span>
-                      <span className="text-gray-900 text-[14px] sm:text-[16px] text-right">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px] text-right">
                         {languageOptions
                           .filter((item) =>
                             givenUser.profile.my_languages.includes(item.id)
@@ -618,7 +622,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Eye Colour
                       </span>
-                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {capitalizeFirstLetter(givenUser.profile.eye_color)}
                       </span>
                     </div>
@@ -630,7 +634,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Height
                       </span>
-                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {givenUser.profile.height}cm
                       </span>
                     </div>
@@ -643,7 +647,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Weight
                       </span>
-                      <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {givenUser.profile.weight}kg
                       </span>
                     </div>
@@ -654,7 +658,7 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Dress size
                       </span>
-                      <span className="text-[#090909] text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {givenUser.profile.dress_size}
                       </span>
                     </div>
@@ -665,23 +669,41 @@ function UserProfile() {
                       <span className="text-black text-[14px] sm:text-[16px] font-medium">
                         Available for Tours
                       </span>
-                      <span className="text-gray-900 text-[14px] sm:text-[16px]">
+                      <span className="text-gray-900 truncate max-w-[50%] text-[14px] sm:text-[16px]">
                         {givenUser.profile.travel_available ? "Yes" : "No"}
                       </span>
                     </div>
                   )}
                   
-                  {givenUser.profile.telegram && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                        Telegram
-                      </span>
-                      <span className="text-orange-500 text-[14px] sm:text-[16px]">
-                        {givenUser.profile.telegram}
-                      </span>
-                    </div>
-                  )}
+                  {showSocial && <>
+                  
+                    {/* {givenUser.profile.telegram && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                          Telegram
+                        </span>
+                        <span className="text-orange-500 text-[14px] sm:text-[16px]">
+                          {givenUser.profile.telegram}
+                        </span>
+                      </div>
+                    )} */}
+                    {SocialLinks.map((key) => {
+                      const label = key
+                      const value = givenUser.profile?.[key];
 
+                      return value ? (
+                        <div key={key} className="flex justify-between text-sm">
+                          <span className="text-black capitalize text-[14px] sm:text-[16px] font-medium">
+                            {label}
+                          </span>
+                          <span className="text-orange-500 truncate max-w-[50%] text-[14px] sm:text-[16px]">
+                            {value.replace('_', ' ')}
+                          </span>
+                        </div>
+                      ) : null;
+                    })}
+
+                  </>}
                   </>}
                 </div>
               </div>

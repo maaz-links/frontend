@@ -34,7 +34,7 @@ const UnlockChatModal = ({
         pauseOnHover: true,
       });
       refreshUser();
-      navigate("/chat");
+      navigate(`/chat?chat=${userName}`);
     } catch (error) {
       onClose()
       console.log(error);

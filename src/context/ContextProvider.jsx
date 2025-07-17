@@ -61,6 +61,16 @@ export const ContextProvider = ({ children }) => {
   const [GenericModalContent, setGenericModalContent] = useState(<></>);
   const [isWelcomeModel, setIsWelcomeModel] = useState(false);
 
+  const SocialLinks = [
+    'whatsapp',
+    'facebook',
+    'instagram',
+    'telegram',
+    'tiktok',
+    'onlyfans',
+    'personal_website'
+  ];
+
   // const [countryOptions, setCountryOptions] = useState([]);
   // const [provinceOptions, setProvinceOptions] = useState([]);
   //const [refreshUser, setRefreshUser] = useState([]);
@@ -195,6 +205,7 @@ export const ContextProvider = ({ children }) => {
       GenericModalOpen, setGenericModalOpen,
       GenericModalContent, setGenericModalContent,
       isWelcomeModel,setIsWelcomeModel,
+      SocialLinks,
 
     }}>
       {children}

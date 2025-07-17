@@ -554,6 +554,7 @@ import ReportChatButton from "../components/ReportChatButton";
 import { createChat } from "../functions/UnlockChat";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
+import UnlockChatModal from "@/components/common/unlock-chat-modal";
 
 const Chat = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -567,6 +568,7 @@ const Chat = () => {
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     user,
@@ -594,22 +596,37 @@ const Chat = () => {
   const fetchChats = async () => {
     try {
       const response = await axiosClient.get(`/api/chats?type=${activeTab}`);
-      //console.log(response.data);
-
-      //QUICKSELECT WHEN NEW PAGE
-      if(chats.length < 1){
-        QuickSelect(response.data);
-      }
-
-      setChats(response.data);
+      const newChats = response.data;
+  
       
-      if (selectedChat && selectedChat.id) {
-        const matchedChat = response.data.find(chat => chat.id === selectedChat.id);
-        // Do something with matchedChat if needed
-        console.log('Matched chat:', matchedChat);
-        setSelectedChatOnline(matchedChat.other_user.is_online);
-      }
+      // QuickSelect logic (runs only if URL has a "chat" param)
 
+      //console.log(searchParams.get("chat"));
+      const quickSelectParam = searchParams.get("chat");
+      if (quickSelectParam && newChats.length > 0) {
+        const foundChat = newChats.find(chat => 
+          chat.other_user?.name === quickSelectParam // Optional chaining for safety
+        );
+        if (foundChat) {
+          handleSelectChat(foundChat);
+        } else {
+          console.log(`No chat found for user: ${quickSelectParam}`);
+        }
+        // Clear params after processing (even if no match was found)
+        searchParams.delete("chat");
+        setSearchParams(searchParams);
+      }
+  
+      setChats(newChats);
+      
+      // Update selected chat's online status if applicable
+      if (selectedChat?.id) {
+        const matchedChat = newChats.find(chat => chat.id === selectedChat.id);
+        if (matchedChat) {
+          setSelectedChatOnline(matchedChat.other_user?.is_online ?? false);
+        }
+      }
+  
       setLoading(false);
     } catch (err) {
       console.error("Error fetching chats:", err);
@@ -922,25 +939,6 @@ const Chat = () => {
 
   }, [activeTab]);
 
-  //QUICKSELECT LOGIC
-  function QuickSelect(chats){
-    if (chats.length > 0) {
-      const quickSelect = searchParams.get("chat") || null;
-      if (quickSelect) {
-        // Find the chat where other_user.name matches quickSelect
-        const foundChat = chats.find(chat => 
-          chat.other_user && chat.other_user.name == quickSelect
-        );
-        if (foundChat) {
-          //console.log('Found matching chat:', foundChat);
-          handleSelectChat(foundChat)
-        } else {
-          //console.log(`No chat found with name: ${quickSelect}`);
-        }
-      }
-    }
-    setSearchParams({});
-  }
 
   // Auto-scroll when messages change
   useEffect(() => {
@@ -1338,18 +1336,28 @@ const Chat = () => {
                       <div className="flex-1">
                         <button
                           onClick={() =>
-                            createChat(
-                              selectedChat.other_user.id,
-                              navigate,
-                              refreshUser,
-                              user.role,
-                              selectedChat.other_user.name
-                            )
+                            // createChat(
+                            //   selectedChat.other_user.id,
+                            //   navigate,
+                            //   refreshUser,
+                            //   user.role,
+                            //   selectedChat.other_user.name
+                            // )
+                            setIsModalOpen(true)
                           }
                           className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 md:py-4 px-4 md:px-6 rounded-xl transition-colors uppercase text-sm md:text-lg"
                         >
                           {`UNLOCK CHAT FOR ${selectedChat.other_user.unlock_cost} CREDITS`}
                         </button>
+                        <UnlockChatModal
+                                isOpen={isModalOpen}
+                                onClose={() => setIsModalOpen(false)}
+                                userName={selectedChat.other_user.name}
+                                userId={selectedChat.other_user.id}
+                                coinCost={selectedChat.other_user.unlock_cost}
+                                userBalance={user?.profile?.credits || 0}
+                                userRole={user?.role}
+                        />
                       </div>
                     ) : (
                       <div className="flex-1 p-3 md:p-4 bg-gray-100 rounded-xl text-gray-600 text-center text-sm md:text-base">

@@ -5,7 +5,7 @@ import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
+// import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
 import BackgroundGrad from "@/components/common/BackgroundGrad";
 
 
@@ -17,7 +17,7 @@ function Login() {
   const { setUser, setToken, refreshUser, setGenericModalContent, setGenericModalOpen } = useStateContext()
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  //const [recaptchaToken, setRecaptchaToken] = useState(null);
   const ErrorText = ({ field }) => {
     return (
       <>
@@ -38,9 +38,9 @@ function Login() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-    if(!RecaptchaVerify(recaptchaToken)){
-      return;
-    }
+    // if(!RecaptchaVerify(recaptchaToken)){
+    //   return;
+    // }
     setSubmitting(true);
     const payload = {
       email: emailRef.current.value,

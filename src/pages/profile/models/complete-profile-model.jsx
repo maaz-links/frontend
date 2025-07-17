@@ -7,9 +7,9 @@ import {ROLES} from "../../../../constants";
 import { toast } from "react-toastify";
 
 const CompleteProfileModal = ({ isOpen, onClose }) => {
-  const { setUser, user, refreshUser, optionsInterest, optionsAvailableFor, profileTypeList, languageOptions, countries, nationalitiesList, eyeColorList } = useStateContext();
+  const { setUser, user, refreshUser, optionsInterest, optionsAvailableFor, profileTypeList, languageOptions, countries, nationalitiesList, eyeColorList, SocialLinks } = useStateContext();
 
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     about: "",
     nationality: "",
     languages: [],
@@ -18,7 +18,6 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     eyeColor: "",
     dressSize: "",
     weight: "",
-    telegram: "",
     profileType: [],
     interests: [],
     availableFor: [],
@@ -26,8 +25,11 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     visibility: 0,
     notification: 0,
     country: "",
-    province: ""
-  });
+    province: "",
+    ...Object.fromEntries(SocialLinks.map((key) => [key, ""])) // ✅ Add social fields
+  };
+  
+  const [formData, setFormData] = useState(initialFormData);
 
   const [provinces, setProvinces] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
@@ -45,7 +47,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
         eyeColor: user.profile.eye_color || '',
         dressSize: user.profile.dress_size || '',
         weight: user.profile.weight || '',
-        telegram: user.profile.telegram || '',
+        
         profileType: user.profile.my_profile_types || [],
         interests: user.profile.personal_interests || [],
         availableFor: user.profile.available_services || [],
@@ -54,7 +56,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
         visibility: user.profile.visibility_status || 0,
         notification: user.profile.notification_pref || 0,
         country: user.profile.country_id || '',
-        province: user.profile.province_id || ''
+        province: user.profile.province_id || '',
+        ...Object.fromEntries(
+          SocialLinks.map((key) => [key, user.profile[key] || '']))
       });
 
       // Set country and provinces if available
@@ -145,14 +149,15 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
       option_ids: formData.interests,
       option_available_for_ids: formData.availableFor,
       option_language_ids: formData.languages,
-      other_data: {
-        height: formData.height,
-        shoeSize: formData.shoeSize,
-        eyeColor: formData.eyeColor,
-        dressSize: formData.dressSize,
-        weight: formData.weight,
-        telegram: formData.telegram,
-      },
+      //other_data: {
+      height: formData.height,
+      shoeSize: formData.shoeSize,
+      eyeColor: formData.eyeColor,
+      dressSize: formData.dressSize,
+      weight: formData.weight,
+      //telegram: formData.telegram,
+      
+      //},
       travel_available: formData.travel,
       notification_pref: formData.notification,
       visibility_status: formData.visibility,
@@ -161,6 +166,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
       province: formData.province,
       selectedCountry: selectedCountry,
       selectedProvince: selectedProvince,
+      ...Object.fromEntries(
+        SocialLinks.map((key) => [key, formData[key] || '']))
     };
 
     try {
@@ -507,7 +514,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   </div>
 
 
-                  <div className="flex flex-col gap-3">
+                  {/* <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                       Telegram
                     </label>
@@ -519,7 +526,28 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       maxLength={50}
                       className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     />
-                  </div>
+                  </div> */}
+                  {SocialLinks.map((field) => {
+                    const label = field
+                      .replace(/_/g, ' ')         // Replace underscores with space
+                      .replace(/\b\w/g, c => c.toUpperCase()); // Capitalize each word
+
+                    return (
+                      <div key={field} className="flex flex-col gap-3">
+                        <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                          {label}
+                        </label>
+                        <input
+                          placeholder={`Enter ${label}`}
+                          type="text"
+                          value={formData[field] || ''}
+                          onChange={(e) => handleInputChange(field, e.target.value)}
+                          maxLength={50}
+                          className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                        />
+                      </div>
+                    );
+                  })}
 
                   <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">

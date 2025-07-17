@@ -20,7 +20,7 @@ export default function ProfileCard({
   isCompleteModalOpen, setIsCompleteModalOpen
 }) {
 
-  const {user,refreshUser,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, countries,nationalitiesList,eyeColorList } = useStateContext();
+  const {user,refreshUser,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, SocialLinks} = useStateContext();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   // const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
 
@@ -76,7 +76,8 @@ export default function ProfileCard({
     (user.profile?.dress_size ||
       user.profile?.weight ||
      user.profile?.travel_available !== null ||
-     user.profile?.telegram));
+     SocialLinks.some((key) => !!user.profile?.[key]))
+  );
 
   const handleImageUpload = async (event) => {
     const files = Array.from(event.target.files);
@@ -315,28 +316,28 @@ export default function ProfileCard({
                   {user.profile?.province_id && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Province</span>
-                      <span>{getProvinceName(user.profile.province_id)}</span>
+                      <span className="truncate max-w-[50%]">{getProvinceName(user.profile.province_id)}</span>
                     </li>
                   )}
 
                   {user.profile?.nationality && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Nationality</span>
-                      <span>{user.profile.nationality}</span>
+                      <span className="truncate max-w-[50%]">{user.profile.nationality}</span>
                     </li>
                   )}
 
                   {user.profile?.height && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Height</span>
-                      <span>{user.profile.height}cm</span>
+                      <span className="truncate max-w-[50%]">{user.profile.height}cm</span>
                     </li>
                   )}
 
                   {user.profile?.shoe_size && (
                     <li className="flex items-center justify-between">
                       <span className="font-bold">Shoe Size</span>
-                      <span>{user.profile.shoe_size}</span>
+                      <span className="truncate max-w-[50%]">{user.profile.shoe_size}</span>
                     </li>
                   )}
 
@@ -345,29 +346,39 @@ export default function ProfileCard({
                       {user.profile?.weight && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Weight</span>
-                          <span>{user.profile.weight}kg</span>
+                          <span className="truncate max-w-[50%]">{user.profile.weight}kg</span>
                         </li>
                       )}
                       {user.profile?.dress_size && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Dress Size</span>
-                          <span>{user.profile.dress_size}</span>
+                          <span className="truncate max-w-[50%]">{user.profile.dress_size}</span>
                         </li>
                       )}
 
                       {user.profile?.travel_available !== null && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Available for travel</span>
-                          <span>{user.profile.travel_available ? "Yes" : "No"}</span>
+                          <span className="truncate max-w-[50%]">{user.profile.travel_available ? "Yes" : "No"}</span>
                         </li>
                       )}
 
-                      {user.profile?.telegram && (
+                      {/* {user.profile?.telegram && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Telegram</span>
-                          <span>{user.profile.telegram}</span>
+                          <span className="truncate max-w-[50%]">{user.profile.telegram}</span>
                         </li>
-                      )}
+                      )} */}
+                      {SocialLinks.map((platform) => {
+                        const value = user.profile?.[platform];
+
+                        return value ? (
+                          <li key={platform} className="flex items-center justify-between">
+                            <span className="font-bold capitalize">{platform.replace('_', ' ')}</span>
+                            <span className="truncate max-w-[50%]">{value}</span>
+                          </li>
+                        ) : null;
+                      })}
                     </>
                   )}
                 </ul>
