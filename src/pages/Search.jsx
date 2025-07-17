@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState, useCallback } from "react";
 import Header from "/src/components/common/header";
 import Footer from "/src/components/common/footer";

@@ -17,8 +17,8 @@ export default function CreditsSection({ credits }) {
         </div>
       </div>
 
-      <Link to="/shop" className="bg-[#8880FE] w-fit rounded-xl mx-auto px-10 py-3 h-[60px] flex items-center gap-3 hover:bg-black">
-        <span className="text-white text-base font-bold tracking-[-0.03em] capitalize">
+      <Link to="/shop" className="bg-[#8880FE] w-fit rounded-xl mx-auto px-2 md:px-10 py-3 h-[60px]  flex items-center gap-1 md:gap-3 hover:bg-black">
+        <span className="text-white text-base font-bold tracking-[-0.03em] capitalize  ">
           top up the balance
         </span>
         <svg

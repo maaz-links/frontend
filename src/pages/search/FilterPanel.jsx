@@ -1,57 +1,56 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useStateContext } from "../../context/ContextProvider"
-import { DualRangeSlider } from "@/components/common/DualRangeSlider"
-import { ROLES } from "../../../constants"
+import { useEffect, useState } from "react";
+import { useStateContext } from "../../context/ContextProvider";
+import { DualRangeSlider } from "@/components/common/DualRangeSlider";
+import { ROLES } from "../../../constants";
 
 function FilterPanel({ isOpen, onClose, filters, setFilters }) {
-
-  const {languageOptions,user} = useStateContext()
-  const [localFilters, setLocalFilters] = useState(filters)
+  const { languageOptions, user } = useStateContext();
+  const [localFilters, setLocalFilters] = useState(filters);
 
   const priceOptions = [
     { label: "Up to 50 coins", value: 50 },
     { label: "Up to 100 coins", value: 100 },
     { label: "Up to 200 coins", value: 200 },
-    { label: "Any price", value: "" }
-  ]
+    { label: "Any price", value: "" },
+  ];
 
   const handlePriceChange = (e) => {
-    const value = e.target.value === "" ? "" : parseInt(e.target.value, 10)
-    setLocalFilters(prev => ({
+    const value = e.target.value === "" ? "" : parseInt(e.target.value, 10);
+    setLocalFilters((prev) => ({
       ...prev,
-      cost: value
-    }))
-  }
+      cost: value,
+    }));
+  };
 
   const handleApplyFilters = () => {
-    setFilters(localFilters)
-    onClose()
-  }
+    setFilters(localFilters);
+    onClose();
+  };
 
   const handleTypeToggle = (type) => {
     setLocalFilters((prev) => ({
       ...prev,
       [type]: !prev[type],
-    }))
-  }
+    }));
+  };
 
   const handleAgeChange = (values) => {
     setLocalFilters((prev) => ({
       ...prev,
       minage: values[0],
-      maxage: values[1]
+      maxage: values[1],
     }));
-  }
+  };
 
   const handleLanguageChange = (e) => {
-    const selectedLanguageId = e.target.value
+    const selectedLanguageId = e.target.value;
     setLocalFilters((prev) => ({
       ...prev,
       language: selectedLanguageId === "" ? "" : selectedLanguageId,
-    }))
-  }
+    }));
+  };
 
   useEffect(() => {
     setLocalFilters(filters);
@@ -60,55 +59,84 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
   return (
     <>
       {/* Backdrop */}
-      {isOpen && <div className="fixed inset-0 bg-black/80 bg-opacity-50 z-50  transition-opacity" onClick={onClose} />}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/80 bg-opacity-50 z-50  transition-opacity"
+          onClick={onClose}
+        />
+      )}
 
       {/* Filter Panel */}
       <div
-        className={`fixed top-0 right-0 h-full rounded-3xl p-2 md:p-4 xl:p-8 w-[80%] md:w-[484px] bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full md:rounded-3xl p-2 md:p-4 xl:p-8 w-full md:w-[484px] bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="25"
+          viewBox="0 0 24 25"
+          fill="none"
+          className="fixed right-6 top-6 md:hidden"
+          onClick={onClose}
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M20.5627 4.72344C20.6371 4.64906 20.6961 4.56076 20.7364 4.46358C20.7766 4.36639 20.7973 4.26223 20.7973 4.15704C20.7973 4.05185 20.7766 3.94769 20.7364 3.85051C20.6961 3.75333 20.6371 3.66502 20.5627 3.59064C20.4883 3.51626 20.4 3.45726 20.3029 3.41701C20.2057 3.37675 20.1015 3.35603 19.9963 3.35603C19.8911 3.35603 19.787 3.37675 19.6898 3.41701C19.5926 3.45726 19.5043 3.51626 19.4299 3.59064L11.9963 11.0258L4.56272 3.59064C4.48834 3.51626 4.40004 3.45726 4.30286 3.41701C4.20567 3.37675 4.10151 3.35603 3.99632 3.35603C3.89113 3.35603 3.78697 3.37675 3.68979 3.41701C3.59261 3.45726 3.5043 3.51626 3.42992 3.59064C3.35554 3.66502 3.29654 3.75333 3.25629 3.85051C3.21603 3.94769 3.19531 4.05185 3.19531 4.15704C3.19531 4.26223 3.21603 4.36639 3.25629 4.46358C3.29654 4.56076 3.35554 4.64906 3.42992 4.72344L10.8651 12.157L3.42992 19.5906C3.2797 19.7409 3.19531 19.9446 3.19531 20.157C3.19531 20.3695 3.2797 20.5732 3.42992 20.7234C3.58014 20.8737 3.78388 20.9581 3.99632 20.9581C4.20876 20.9581 4.4125 20.8737 4.56272 20.7234L11.9963 13.2882L19.4299 20.7234C19.5801 20.8737 19.7839 20.9581 19.9963 20.9581C20.2088 20.9581 20.4125 20.8737 20.5627 20.7234C20.7129 20.5732 20.7973 20.3695 20.7973 20.157C20.7973 19.9446 20.7129 19.7409 20.5627 19.5906L13.1275 12.157L20.5627 4.72344Z"
+            fill="#090909"
+          />
+        </svg>
+
         <div className="p-6 h-full overflow-y-auto">
-          <h3 className="text-[45px] font-[400]  text-gray-900 mb-6">Filter</h3>
+          <h3 className="text-[45px] font-bold  text-black mb-6">Filter</h3>
 
           {/* Type Section */}
           <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Type</h4>
+            <h4 className="text-sm font-bold text-black mb-3">Type</h4>
             <div className="flex gap-2 flex-wrap">
+              {user?.role != ROLES.HOSTESS && (
+                <>
+                  <button
+                    onClick={() => handleTypeToggle("hostess")}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      localFilters.hostess
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-black hover:bg-gray-200"
+                    }`}
+                  >
+                    Hostess
+                  </button>
+                  <button
+                    onClick={() => handleTypeToggle("wingwoman")}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      localFilters.wingwoman
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-black hover:bg-gray-200"
+                    }`}
+                  >
+                    Wingwoman
+                  </button>
+                  <button
+                    onClick={() => handleTypeToggle("sugarbaby")}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      localFilters.sugarbaby
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-black hover:bg-gray-200"
+                    }`}
+                  >
+                    Sugarbaby
+                  </button>
+                </>
+              )}
 
-            {user?.role != ROLES.HOSTESS &&
-            <>
-              <button
-                onClick={() => handleTypeToggle("hostess")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  localFilters.hostess ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Hostess
-              </button>
-              <button
-                onClick={() => handleTypeToggle("wingwoman")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  localFilters.wingwoman ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Wingwoman
-              </button>
-              <button
-                onClick={() => handleTypeToggle("sugarbaby")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  localFilters.sugarbaby ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Sugarbaby
-              </button>
-            </>}
-
-              
               <button
                 onClick={() => handleTypeToggle("verified_profile")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  localFilters.verified_profile ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  localFilters.verified_profile
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-black hover:bg-gray-200"
                 }`}
               >
                 Verified Profile
@@ -116,20 +144,21 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
               <button
                 onClick={() => handleTypeToggle("top_profile")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  localFilters.top_profile ? "bg-black text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  localFilters.top_profile
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-black hover:bg-gray-200"
                 }`}
               >
                 Top Profile
               </button>
-              
             </div>
           </div>
 
-           {/* Age Section */}
-           <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Age</h4>
+          {/* Age Section */}
+          <div className="mb-6">
+            <h4 className="text-sm font-bold text-black mb-3">Age</h4>
             <div className="px-2">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
+              <div className="flex justify-between text-sm font-bold text-black mb-2">
                 <span>18</span>
                 <span>45</span>
               </div>
@@ -150,8 +179,8 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
 
           {/* Sort by Section */}
           {/* <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Sort by</h4>
-            <select className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <h4 className="text-sm font-medium text-black mb-3">Sort by</h4>
+            <select className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option>Popular</option>
               <option>Newest</option>
               <option>Rating</option>
@@ -159,32 +188,38 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
             </select>
           </div> */}
 
-          {user?.role != ROLES.HOSTESS &&
+          {user?.role != ROLES.HOSTESS && (
             <>
-          {/* Unlock Price Section */}
-          <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Unlock Price</h4>
-            <select
-              value={localFilters.cost ?? ""}
-              onChange={handlePriceChange}
-              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {priceOptions.map((option) => (
-                <option key={option.value ?? "any"} value={option.value ?? ""}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          </>}
+              {/* Unlock Price Section */}
+              <div className="mb-6">
+                <h4 className="text-sm font-medium text-black mb-3">
+                  Unlock Price
+                </h4>
+                <select
+                  value={localFilters.cost ?? ""}
+                  onChange={handlePriceChange}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {priceOptions.map((option) => (
+                    <option
+                      key={option.value ?? "any"}
+                      value={option.value ?? ""}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </>
+          )}
 
           {/* Language Section */}
           <div className="mb-8">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Language</h4>
+            <h4 className="text-sm font-medium text-black mb-3">Language</h4>
             <select
               value={localFilters.language || ""}
               onChange={handleLanguageChange}
-              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Any language</option>
               {languageOptions?.map((language) => (
@@ -225,7 +260,7 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
         }
       `}</style>
     </>
-  )
+  );
 }
 
-export default FilterPanel
+export default FilterPanel;
