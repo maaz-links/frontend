@@ -9,7 +9,7 @@ import { useRef, useState } from "react";
 import EditProfileModal from "../models/edit-profile-modal";
 import CompleteProfileModal from "../models/complete-profile-model";
 import { useStateContext } from "@/context/ContextProvider";
-import { dressSizeName, getAge, getAttachmentURL } from "@/functions/Common";
+import { getAttachmentURL } from "@/functions/Common";
 import { ROLES } from "../../../../constants";
 
 import { toast } from "react-toastify";
@@ -351,7 +351,7 @@ export default function ProfileCard({
                       {user.profile?.dress_size && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Dress Size</span>
-                          <span>{dressSizeName(user.profile.dress_size)}</span>
+                          <span>{user.profile.dress_size}</span>
                         </li>
                       )}
 

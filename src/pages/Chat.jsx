@@ -544,7 +544,7 @@ import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { getAge, getAttachmentURL} from "../functions/Common";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import { ROLES } from "../../constants";
 import { toast } from "react-toastify";
@@ -566,6 +566,8 @@ const Chat = () => {
   const [loading, setLoading] = useState(true); //loading for chat sidebar
   const [pollingInterval, setPollingInterval] = useState(null); //???
   const messagesEndRef = useRef(null); //Controls scrolling
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const {
     user,
     refreshUser,
@@ -593,8 +595,14 @@ const Chat = () => {
     try {
       const response = await axiosClient.get(`/api/chats?type=${activeTab}`);
       //console.log(response.data);
-      setChats(response.data);
 
+      //QUICKSELECT WHEN NEW PAGE
+      if(chats.length < 1){
+        QuickSelect(response.data);
+      }
+
+      setChats(response.data);
+      
       if (selectedChat && selectedChat.id) {
         const matchedChat = response.data.find(chat => chat.id === selectedChat.id);
         // Do something with matchedChat if needed
@@ -914,6 +922,26 @@ const Chat = () => {
 
   }, [activeTab]);
 
+  //QUICKSELECT LOGIC
+  function QuickSelect(chats){
+    if (chats.length > 0) {
+      const quickSelect = searchParams.get("chat") || null;
+      if (quickSelect) {
+        // Find the chat where other_user.name matches quickSelect
+        const foundChat = chats.find(chat => 
+          chat.other_user && chat.other_user.name == quickSelect
+        );
+        if (foundChat) {
+          //console.log('Found matching chat:', foundChat);
+          handleSelectChat(foundChat)
+        } else {
+          //console.log(`No chat found with name: ${quickSelect}`);
+        }
+      }
+    }
+    setSearchParams({});
+  }
+
   // Auto-scroll when messages change
   useEffect(() => {
     scrollToBottom();
@@ -1142,36 +1170,36 @@ const Chat = () => {
                           </>
                         )
                       }
-                        {selectedChat.other_user.dob && (
+                        {/* {selectedChat.other_user.dob && (
                           <>
-                            <span className="hidden sm:inline">•</span>
-                            <span className="hidden sm:inline">
+                            <span className="hidden lg:inline">•</span>
+                            <span className="hidden lg:inline">
                               {getAge(selectedChat.other_user.dob)} years old
                             </span>
                           </>
                         )}
                         {selectedChat.other_user.province_id && (
                           <>
-                            <span className="hidden md:inline">•</span>
-                            <span className="hidden md:inline">
+                            <span className="hidden lg:inline">•</span>
+                            <span className="hidden lg:inline">
                               {getProvinceName(
                                 selectedChat.other_user.province_id
                               )}
                             </span>
                           </>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-1 md:space-x-3">
                     <Link
                       to={`/user-profile/${selectedChat.other_user.name}`}
-                      className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium transition-colors"
+                      className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs lg:text-sm font-medium transition-colors"
                     >
                       Profile
                     </Link>
                     <button
-                      className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
+                      className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs lg:text-sm font-medium transition-colors"
                       onClick={() =>
                         toggleArchive(
                           selectedChat.id,
@@ -1180,9 +1208,9 @@ const Chat = () => {
                       }
                     >
                       {/* <FaArchive className="text-xs md:text-sm" /> */}
-                      <span className="hidden sm:inline">
+                      {/* <span className="hidden sm:inline"> */}
                         {selectedChat.is_archived ? "Unarchive" : "Archive"}
-                      </span>
+                      {/* </span> */}
                     </button>
                     {selectedChat.unlocked ? <ReportChatButton chatId={selectedChat.id} /> : <></>}
                   </div>
@@ -1351,7 +1379,9 @@ const Chat = () => {
           )}
         </div>
       </div>
+      <div className="hidden md:block">
       <Footer />
+      </div>
     </>
   );
 };

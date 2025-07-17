@@ -270,6 +270,19 @@ function Search() {
           </div>
         </div>
         <div className="flex justify-center w-full flex-wrap  gap-2">
+          {filters.province_id && (
+            <FilterDisplay
+              name="City"
+              value={getProvinceName(filters.province_id)}
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  province_id: false,
+                }))
+              }
+            />
+          )}
+          
           {filters.verified_profile && (
             <FilterDisplay
               name="Verified Profile"
@@ -384,7 +397,8 @@ function Search() {
             />
           )}
 
-          {(filters.verified_profile ||
+          {(filters.province_id ||
+            filters.verified_profile ||
             filters.top_profile ||
             filters.minage ||
             filters.maxage ||

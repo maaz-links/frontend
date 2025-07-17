@@ -296,7 +296,7 @@ import Header from "../components/common/header";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../../axios-client";
-import { dressSizeName, getAge, getAttachmentURL } from "../functions/Common";
+import { getAge, getAttachmentURL } from "../functions/Common";
 import { ROLES } from "../../constants";
 // import ReportUserButton from "../components/ReportUserButton";
 import { ClipLoader } from "react-spinners";
@@ -655,7 +655,7 @@ function UserProfile() {
                         Dress size
                       </span>
                       <span className="text-[#090909] text-[14px] sm:text-[16px]">
-                        {dressSizeName(givenUser.profile.dress_size)}
+                        {givenUser.profile.dress_size}
                       </span>
                     </div>
                   )}
@@ -720,7 +720,7 @@ function UserProfile() {
                   </button>
                 ) : (
                   <Link
-                    to="/chat"
+                    to={`/chat?chat=${givenUser.name}`}
                     className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium text-center hover:bg-[#8880FE] transition-colors"
                   >
                     Go to the Chat

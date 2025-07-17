@@ -59,7 +59,7 @@ function ForgotPassword() {
                 <p className=" my-4 ">
                   {response.data.message}
                 </p>
-                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                <button onClick={() => {setGenericModalOpen(false);navigate('/')}} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
                   OK
                 </button>
                 </>
@@ -124,7 +124,9 @@ function ForgotPassword() {
                     <ErrorText field='email' />
     
                   </div>
-    
+                    <div className="mb-7 flex justify-center">
+                                    <RecaptchaComponent TokenSetter={setRecaptchaToken} />
+                    </div>
                   <div className="text-center mx-auto">
     
                     <button type='submit'

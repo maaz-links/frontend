@@ -386,9 +386,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                     {!formData.height && <option value=''>
                       N/A
                     </option>}
-                    {[...Array(400)].map((_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1}
+                    {/* 140 to 200 */}
+                    {[...Array(200-140+1)].map((_, i) => (
+                      <option key={i + 140} value={i + 140}>
+                        {i + 140}
                       </option>
                     ))}
                   </select>
@@ -406,9 +407,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                     {!formData.shoeSize && <option value=''>
                       N/A
                     </option>}
-                    {[...Array(100)].map((_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1}
+                     {/* 32 to 44 */}
+                    {[...Array(44-32+1)].map((_, i) => (
+                      <option key={i + 32} value={i + 32}>
+                        {i + 32}
                       </option>
                     ))}
                   </select>
@@ -440,7 +442,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   
 
                   <div className="flex justify-between gap-2">
-                  <div className="flex w-full flex-col gap-3">
+                  {/* <div className="flex w-full flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                       Dress Size
                     </label>
@@ -456,12 +458,37 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       <option value="L">Large</option>
                       <option value="S">Small</option>
                     </select>
+                  </div> */}
+                  <div className="flex w-full flex-col gap-3">
+                    <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                      Dress size
+                    </label>
+                    <select
+                      value={formData.dressSize}
+                      onChange={(e) => handleInputChange("dressSize", e.target.value)}
+                      className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                    >
+                      {!formData.dressSize && <option value=''>
+                        N/A
+                      </option>}
+                      {/* 32 to 54 even numbers */}
+                      
+                      {Array.from({ length: (54 - 32) / 2 + 1 }, (_, i) => {
+                        const val = 32 + i * 2;
+                        return (
+                          <option key={val} value={val}>
+                            {val}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </div>
 
                   <div className="flex w-full flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
                       Weight (kg)
                     </label>
+                    {/* 50 to 120 */}
                     <select
                       value={formData.weight}
                       onChange={(e) => handleInputChange("weight", e.target.value)}
@@ -470,9 +497,9 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       {!formData.weight && <option value=''>
                       N/A
                       </option>}
-                      {[...Array(400)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          {i + 1}
+                      {[...Array(120-50+1)].map((_, i) => (
+                        <option key={i + 50} value={i + 50}>
+                          {i + 50}
                         </option>
                       ))}
                     </select>

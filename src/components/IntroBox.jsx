@@ -16,16 +16,16 @@ function IntroBox() {
     <>
       <div
         className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into  rounded-4xl  md:px-[50px] lg:px-[100px]
-      bg-white max-w-[1300px] m-auto mt-[28px] bg-cover bg-center md:h-[646px] 
+      bg-white max-w-[1300px] mx-[25px] mt-[28px] bg-cover bg-center md:h-[646px] 
 
-      md:mx-auto mx-2 py-10 
+       py-10 
       h-1/2 flex md:block justify-center"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
         }}
       >
-        <div className="card-intro max-w-full md:max-w-2/3 lg:max-w-1/2  h-full flex flex-col  justify-center items-center md:items-start text-center md:text-start">
+        <div className="card-intro max-w-full md:max-w-2/3 lg:max-w-1/2  h-full flex flex-col justify-center items-center md:items-start text-center md:text-start">
           <h1 className="text-black mb-[15px] text-[32px] sm:text-[30px] lg:text-[40px]">
             <strong>
               More Than Just a<br /> Presence — A Real <br />

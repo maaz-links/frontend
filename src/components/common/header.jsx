@@ -138,6 +138,12 @@ function Header() {
               >
                 Sign Up Now
               </NavLink>
+              <NavLink
+                to="/login"
+                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+              >
+                Log In
+              </NavLink>
             <button
               onClick={toggleMenu}
               className="md:hidden focus:outline-none ml-2"
@@ -154,6 +160,12 @@ function Header() {
                 >
                   Sign Up Now
                 </NavLink>
+                <NavLink
+                to="/login"
+                className="border-2 text-[14px] hover:bg-[#090909] hover:text-white transition-colors font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
+              >
+                Log In
+              </NavLink>
                 {headerLinks.map((link, index) => (
                   <NavLink
                     key={index}

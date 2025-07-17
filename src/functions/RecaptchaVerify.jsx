@@ -1,9 +1,9 @@
-import ReCAPTCHA from "react-google-recaptcha";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { toast } from "react-toastify";
 
 export const RecaptchaVerify = (recaptchaToken) => {
 
-    if(import.meta.env.VITE_RECAPTCHA_MODE){
+    if(import.meta.env.VITE_NOBOTVERIFY_MODE){
         if(!recaptchaToken){
             toast.error('Please verify you are not a robot with reCAPTCHA',{
                 hideProgressBar: true,
@@ -18,11 +18,15 @@ export const RecaptchaVerify = (recaptchaToken) => {
 
 export const RecaptchaComponent = ({TokenSetter}) => {
     return <>
-    {import.meta.env.VITE_RECAPTCHA_MODE &&
-        <ReCAPTCHA
-                className={`mt-[25px] `}
-                sitekey={import.meta.env.VITE_RECAPTCHA_SITEKEY} // Replace with your key
-                onChange={(recaptchaToken) => {TokenSetter(recaptchaToken)}}
+    {import.meta.env.VITE_NOBOTVERIFY_MODE &&
+        // <ReCAPTCHA
+        //         className={`mt-[25px] `}
+        //         sitekey={import.meta.env.VITE_RECAPTCHA_SITEKEY} // Replace with your key
+        //         onChange={(recaptchaToken) => {TokenSetter(recaptchaToken)}}
+        // />
+        <HCaptcha
+          sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY}
+          onVerify={(token) => {TokenSetter(token)}}
         />
         }
         </>;

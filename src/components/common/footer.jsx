@@ -20,7 +20,7 @@ function Footer() {
           {/* Footer Menu Section */}
           <div className="footer-menu md:mt-[0px] flex justify-center gap-5 md:gap-10 md:h-[100px] items-center"
           >
-            <FooterLink link="/terms">About Us</FooterLink>
+            <FooterLink link="/">About Us</FooterLink>
             <FooterLink link="/hostess">For Hostess/Model</FooterLink>
             <FooterLink link="/contact">Help</FooterLink>
           </div>

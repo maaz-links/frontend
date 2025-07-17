@@ -117,11 +117,11 @@ const ReportChatButton = ({ chatId }) => {
   return (
     <>
       <button 
-        className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs md:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
+        className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 text-nowrap rounded-lg text-xs lg:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
         onClick={openModal}
         //style={dangerButtonStyle}
       >
-        Report Chat
+        Report
       </button>
 
       {isOpen && (

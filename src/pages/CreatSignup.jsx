@@ -336,11 +336,11 @@ const CreatSignup = ({myRole}) => {
                 
               <div className="text-center mx-auto">
 
-                <div className="text-center my-8">
+                <div className="text-center my-8 text-sm sm:text-base">
                 Hostessforyou.com won't share your private information like phone number or email address with anyone
                 </div>
                 <div className="text-center my-8">
-                  <div className="inline-flex items-center ">
+                  <div className="inline-flex items-center text-sm sm:text-base">
                     <input type="checkbox" name="termsAccepted" required className="mr-2 w-[25px] aspect-square appearance-none bg-gray-300 rounded focus:outline-none" />
                     <span className="ml-2">I accept the <Link to="/terms"><strong>Terms & Conditions</strong></Link> and <Link to="/privacy"><strong>Privacy Policy</strong></Link></span>
                   </div>
@@ -354,6 +354,10 @@ const CreatSignup = ({myRole}) => {
                     <strong>{'Forgot Password?'}</strong>
                   </button>
                 </div> */}
+                <div className="mb-7 flex justify-center">
+                <RecaptchaComponent TokenSetter={setRecaptchaToken} />
+                </div>
+                
                 <button type='submit'
                   disabled={submitting}
                   className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}

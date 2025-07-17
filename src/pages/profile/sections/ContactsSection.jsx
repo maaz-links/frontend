@@ -71,7 +71,7 @@ export default function ContactsSection() {
               </div>
 
               <Link
-                to="/chat"
+                to={`/chat?chat=${contact.other_user.name}`}
                 className={`${
                   false
                     ? "bg-[#8880FE] text-white px-2 py-1 text-[8px] rounded-lg"
