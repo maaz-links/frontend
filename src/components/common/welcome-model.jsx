@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import bgImageMale from "/src/assets/images/welcome-image-desktop-new.png"
 import bgImageFemale from "/src/assets/images/for-hostess-hero-desktop.png"
+import bgImageMaleMobile from "/src/assets/images/welcome-image-mobile-new.png"
+import bgImageFemaleMobile from "/src/assets/images/for-hostess-hero-mobile.png"
 import { useStateContext } from "@/context/ContextProvider";
 import { ROLES } from "../../../constants";
 const WelcomeModal = ({ isOpen, onClose }) => {
@@ -19,11 +21,16 @@ const WelcomeModal = ({ isOpen, onClose }) => {
 
       {/* Modal */}
       <div
-        className="relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
+        className="welcome-modal relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
+        // style={{
+        //   backgroundImage: `url(${user?.role == ROLES.HOSTESS ? bgImageFemale : bgImageMale})`,
+          
+        //   //backgroundColor: 'gray'
+        // }}
         style={{
-          backgroundImage: `url(${user?.role == ROLES.HOSTESS ? bgImageFemale : bgImageMale})`,
-          //backgroundColor: 'gray'
-        }}
+                  "--mobile-bg": `url(${user?.role == ROLES.HOSTESS ? bgImageFemaleMobile : bgImageMaleMobile})`,
+                  "--desktop-bg": `url(${user?.role == ROLES.HOSTESS ? bgImageFemale : bgImageMale})`,
+                }}
       >
         {/* Close button */}
         {/* <button
@@ -57,7 +64,7 @@ const WelcomeModal = ({ isOpen, onClose }) => {
           </p>
 
           <Link to="/profile" onClick={onClose}
-            className={` py-4 px-8 rounded-2xl font-semibold text-lg transition-all ${"bg-black text-white hover:bg-[#8880FE] active:scale-95"}`}
+            className={` py-4 px-8 rounded-2xl font-semibold text-md sm:text-lg transition-all ${"bg-black text-white hover:bg-[#8880FE] active:scale-95"}`}
           >
             Fill out your profile
           </Link>

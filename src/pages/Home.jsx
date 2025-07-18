@@ -14,8 +14,11 @@ import { Link } from "react-router-dom";
 import HowItWorks from "./home/how-it-works";
 import PromoBanner from "./home/PromoBanner";
 import GetStartedBanner from "./home/GetStartedBanner";
+import { useStateContext } from "@/context/ContextProvider";
 
 function Home() {
+
+  const {setIsWelcomeModel} = useStateContext();
   return (
     <>
       <Header />
@@ -28,6 +31,9 @@ function Home() {
       <PromoBanner />
       <Faqs />
 
+<button onClick={()=>setIsWelcomeModel(true)}>
+ open sesame 
+</button>
       <Footer />
     </>
   );
