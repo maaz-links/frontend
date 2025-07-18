@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import axiosClient from "../../axios-client";
 import { ClipLoader } from "react-spinners";
 import BackgroundGrad from "@/components/common/BackgroundGrad";
+import { ImageErrorMessages, ImageSuccessMessages } from "./profile/sections/Photos";
 
 const AddPhotoPart4 = () => {
   const [images, setImages] = useState([]);
@@ -26,32 +27,19 @@ const [isLoading, setIsLoading] = useState(false);
     const formData = new FormData();
     files.forEach(file => {
       formData.append('images[]', file);
-      formData.append('profile_picture', true);
+      formData.append('set_profile_picture', 1);
     });
     
     try {
       setIsLoading(true);
       const response = await axiosClient.post('/api/attachments', formData);
+      ImageSuccessMessages(response,toast)
       refreshUser();
       navigate('/profile')
       
       //fetchImages();
     } catch (error) {
-      if(error.response?.data?.message){
-          toast.error(error.response.data.message,{
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-          })
-      }
-      else{
-        toast.error("Error Uploading Image. Try Uploading image of smaller size.",{
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        })
-      }
-      console.error('Error uploading images:', error);
+      ImageErrorMessages(error,toast)
     } finally {
       setIsLoading(false);
     }

@@ -25,7 +25,7 @@ export default function ProfileBanner({progressValue = 0, isCompleteModalOpen, s
         {/* Button */}
         <button
           onClick={() => setIsCompleteModalOpen(true)}
-          className=" lg:right-[40px] hover:bg-[#8880FE] hover:border-white hover:border  bg-[#090909] rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
+          className=" lg:right-[40px] hover:bg-[#8880FE] hover:border-white border border-[#090909]  bg-[#090909] transition-colors rounded-xl px-7 py-3 h-[60px] flex items-center justify-center"
         >
           <span className="text-white  text-base font-normal tracking-[-0.03em] capitalize">
             {true ? "Finish Your Profile" : "Fill Out My Profile"}

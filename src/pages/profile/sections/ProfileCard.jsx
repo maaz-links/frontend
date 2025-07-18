@@ -14,6 +14,7 @@ import { ROLES } from "../../../../constants";
 import { toast } from "react-toastify";
 import axiosClient from "../../../../axios-client";
 import { Avatar } from "@/functions/Avatar";
+import { ImageErrorMessages, ImageSuccessMessages } from "./Photos";
 export default function ProfileCard({
   progressValue,
   isCompleteModalOpen, setIsCompleteModalOpen
@@ -90,23 +91,11 @@ export default function ProfileCard({
 
     try {
       //setIsLoading(true);
-      await axiosClient.post('/api/attachments', formData);
+      const response = await axiosClient.post('/api/attachments', formData);
       refreshUser();
+      ImageSuccessMessages(response,toast)
     } catch (error) {
-      if (error.response.data.message) {
-        toast.error(error.response.data.message, {
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-      } else {
-        toast.error("Error Uploading Image. Try Uploading image of smaller size.", {
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-      }
-      console.error('Error uploading images:', error);
+      ImageErrorMessages(error,toast)
     } finally {
       //setIsLoading(false);
     }
@@ -138,7 +127,7 @@ export default function ProfileCard({
         {/* Avatar */}
         <Avatar 
           hasProfilePicture={true}
-          profilePictureUrl={getAttachmentURL(user.profile_picture_id)}
+          profilePictureId={user.profile_picture_id}
           showProgressRing={true}
           progressValue={progressValue}
           showUploadButton={true}

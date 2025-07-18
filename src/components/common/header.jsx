@@ -10,7 +10,7 @@ import HeaderLogoImage from "/src/assets/images/h4ulogoheader.png";
 import { ROLES } from "../../../constants";
 import { useStateContext } from "../../context/ContextProvider";
 import axiosClient from "../../../axios-client";
-import { Avatar } from "@/pages/profile/sections/ProfileCard";
+import { Avatar } from "@/functions/Avatar";
 import { getAttachmentURL } from "@/functions/Common";
 const headerLinks = [
   {
@@ -234,8 +234,8 @@ function Header() {
           </div>
           {/* <img className="mx-2" src={BellIcon} alt="Bell Icon" /> */}
           {/* ONLY SHOW CREDITS TO MALE USERS */}
-          {user?.role === ROLES.KING && (
-            <div className="relative bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
+          {user?.role === ROLES.KING && !isMenuOpen &&  (
+            <div className="relative bg-black text-sm text-center  text-white rounded-full h-6.5 mx-4 px-2 py-1">
               <strong>{user.profile.credits} <span className="">Credits</span></strong>
             </div>
           )}
@@ -265,17 +265,37 @@ function Header() {
               >
                 Sign Up Now
               </NavLink> */}
-              <div>
-              <Avatar 
-                        hasProfilePicture={true}
-                        profilePictureUrl={getAttachmentURL(user.profile_picture_id)}
-                        showProgressRing={true}
-                        progressValue={user.profile.profile_completion}
-                      />
-                      </div>
-              {headerLinksLoggedIn.map((link, index) => (
-                <NavLink
-                  key={index}
+            <div className="flex items-center gap-7 justify-center ">
+              <Avatar
+                hasProfilePicture={true}
+                profilePictureId={user.profile_picture_id}
+                showProgressRing={true}
+                progressValue={user.profile.profile_completion}
+                smallMode={true}
+              />
+              <div className="space-y-3">
+                <div className="text-center flex"><strong>{user.name}</strong>
+                <img
+                  className="cursor-pointer px-6"
+                  src={LogoutIcon}
+                  onClick={(e) => triggerLogout(e)}
+                  alt="Logout Icon"
+                />
+                </div>
+                {user?.role === ROLES.KING && (
+                  <div className="relative bg-black text-sm text-center text-white rounded-full w-[110px] h-6.5 px-2 py-1">
+                    <strong>{user.profile.credits} <span className="">Credits</span></strong>
+                  </div>
+                )}
+              </div>
+              
+            </div>
+            <div className="w-full pb-5 border-b-2 border-gray-100">
+
+            </div>
+            {headerLinksLoggedIn.map((link, index) => (
+              <NavLink
+                key={index}
                   to={link.link}
                   onClick={toggleMenu}
                   className={({ isActive }) =>

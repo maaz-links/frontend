@@ -53,37 +53,14 @@ export default function PhotoGallery() {
     fetchImages();
   }, []);
 
-  const handleImageUpload = async (event) => {
-    const files = Array.from(event.target.files);
-    if (files.length === 0) return;
-
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('images[]', file);
-    });
-
-    try {
-      setIsLoading(true);
-      await axiosClient.post('/api/attachments', formData);
-      fetchImages();
-    } catch (error) {
-      if (error.response.data.message) {
-        toast.error(error.response.data.message, {
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-      } else {
-        toast.error("Error Uploading Image. Try Uploading image of smaller size.", {
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-      }
-      console.error('Error uploading images:', error);
-    } finally {
-      setIsLoading(false);
-    }
+  const onFileChange = (event) => {
+    handleImageUpload(
+      event,
+      setIsLoading,
+      fetchImages,
+      axiosClient,
+      toast
+    );
   };
 
   const handleProfileSelect = async (imageId) => {
@@ -185,7 +162,8 @@ export default function PhotoGallery() {
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageUpload}
+            multiple
+            onChange={onFileChange}
             className="hidden"
             disabled={isLoading}
           />
@@ -200,4 +178,124 @@ export default function PhotoGallery() {
           />
     </div>
   );
+}
+
+/**
+ * Handles image upload with proper error handling and toast notifications
+ * @param {Event} event - File input change event
+ * @param {Function} setIsLoading - State setter for loading state
+ * @param {Function} fetchImages - Callback to refresh images after upload
+ * @param {Object} axiosClient - Configured axios instance
+ * @param {Function} toast - Toast notification function
+ * @returns {Promise<void>}
+ */
+const handleImageUpload = async (
+  event,
+  setIsLoading,
+  fetchImages,
+  axiosClient,
+  toast,
+  setAsProfilePicture = false,
+) => {
+  const files = Array.from(event.target.files);
+  if (files.length === 0) return;
+
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append('images[]', file);
+  });
+
+  // Add profile picture flag if needed
+  if (setAsProfilePicture) {
+      formData.append('set_profile_picture', true);
+  }
+
+  try {
+    setIsLoading(true);
+    const response = await axiosClient.post('/api/attachments', formData);
+
+    // Handle successful uploads
+    if (response.data.uploaded_images?.length > 0) {
+      fetchImages();
+    }
+    ImageSuccessMessages(response,toast)
+  } catch (error) {
+    
+    ImageErrorMessages(error,toast)
+
+  } finally {
+    setIsLoading(false);
+    event.target.value = ''; // Reset file input
+  }
+};
+
+export function ImageSuccessMessages(response,toast){
+  
+  if (response.data.uploaded_images?.length > 0) {
+    const successCount = response.data.uploaded_images.length;
+    toast.success(`Successfully uploaded ${successCount} image(s)`, {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+    });
+
+    // If any images were set as profile picture
+    if (response.data.set_profile_picture) {
+        toast.success("Profile picture updated successfully", {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+        });
+    }
+
+  }
+  // Handle failed uploads
+  if (response.data.failed_uploads?.length > 0) {
+    response.data.failed_uploads.forEach((upload) => {
+      toast.error(`Failed to upload ${upload.name}: ${upload.errors.join(', ')}`, {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        autoClose: 5000, // Show for 5 seconds
+      });
+    });
+  }
+
+  // Show remaining quota if available
+  // if (response.data.remaining_quota !== undefined) {
+  //     toast.info(`You can upload ${response.data.remaining_quota} more image(s)`, {
+  //         hideProgressBar: true,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         autoClose: 3000
+  //     });
+  // }
+}
+
+export function ImageErrorMessages(error,toast){
+  if (error.response?.data?.message) {
+    toast.error(error.response.data.message, {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+    });
+  } else if (error.response?.data?.errors) {
+    // Handle validation errors from phase 1
+    Object.values(error.response.data.errors).forEach((messages) => {
+      messages.forEach((message) => {
+        toast.error(message, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      });
+    });
+  } else {
+    toast.error('Error uploading images. Please try again.', {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+    });
+  }
+  console.error('Error uploading images:', error);
 }

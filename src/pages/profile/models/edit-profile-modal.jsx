@@ -6,8 +6,15 @@ import { toast } from "react-toastify";
 import { useStateContext } from "@/context/ContextProvider";
 import axiosClient from "../../../../axios-client";
 import DateOfBirthInput from "@/functions/DateOfBirthInput";
+import PhoneNumberInput from "@/functions/PhoneNumberInput";
+import { allCountries } from 'country-telephone-data';
 
 const EditProfileModal = ({ isOpen, onClose }) => {
+
+  
+  const [countryCode, setCountryCode] = useState("+1");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  
   const { user, refreshUser } = useStateContext();
   const dobRef = useRef();
   const [formData, setFormData] = useState({
@@ -19,6 +26,20 @@ const EditProfileModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (user) {
+      const fullPhone = user.phone || '';
+
+      // Try to match the country dial code (remove `+` before comparing)
+      const matchedCountry = allCountries.find(({ dialCode }) =>
+        fullPhone.startsWith(`+${dialCode}`)
+      );
+
+      const code = matchedCountry?.dialCode || '1'; // fallback to '1'
+      const number = fullPhone.replace(`+${code}`, ''); // remove the dial code
+
+      setCountryCode(code);
+      setPhoneNumber(number);
+      console.log(code,number);
+
       setFormData({
         name: user.name || '',
         phone: user.phone || '',
@@ -36,12 +57,12 @@ const EditProfileModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const fullNumber = `+${countryCode}${phoneNumber}`;
     try {
       const response = await axiosClient.post('/api/update-personal',
         {
           name: formData.name,
-          phone: formData.phone,
+          phone: fullNumber,
           dob: dobRef.current.getDate().formatted,
         }
       
@@ -156,12 +177,19 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                   Phone Number
                 </label>
                 <div className="relative">
-                  <input
+                  {/* <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
                     className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                  /> */}
+                  <PhoneNumberInput
+                      countryCode={countryCode}
+                      setCountryCode={setCountryCode}
+                      phoneNumber={phoneNumber}
+                      setPhoneNumber={setPhoneNumber}
+                      fieldClass={`h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent`}
                   />
                   <ErrorText errors={errors} field="phone" />
                 </div>

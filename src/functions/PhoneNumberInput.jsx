@@ -6,6 +6,8 @@ const PhoneNumberInput = ({
   setCountryCode,
   phoneNumber,
   setPhoneNumber,
+  bodyClass = "flex gap-2", 
+    fieldClass = "h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl" ,
   errorField = <></>
 }) => {
 
@@ -15,12 +17,13 @@ const PhoneNumberInput = ({
       
   return (
     
-      <div className="flex gap-2">
+      <div className={bodyClass}>
         <select
           value={countryCode}
           onChange={(e) => setCountryCode(e.target.value)}
-          className="w-2/5 h-15 text-sm px-3 sm:text-xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+          className={`w-2/5 ${fieldClass}`}
         >
+          <option value=''>Country Code</option>
           {allCountries.map((country) => (
             <option key={country.iso2} value={country.dialCode}>
               {getCountryDisplayName(country.name)} (+{country.dialCode})
@@ -31,7 +34,7 @@ const PhoneNumberInput = ({
           type="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="w-3/5 h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
+          className={`w-3/5 ${fieldClass}`}
           placeholder="Enter Phone Number"
         />
       </div>

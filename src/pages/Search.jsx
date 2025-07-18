@@ -454,7 +454,7 @@ function Search() {
             </div>
           ) : (
             <div className="mt-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-8 ">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 mt-8 ">
                 {entities.map((entity, index) => (
                   <Link
                     to={`/user-profile/${entity.name}`}
@@ -482,7 +482,7 @@ function Search() {
                           entity.profile.profile_types.map((type) => (
                             <span
                               key={type.id}
-                              className="bg-black hover:bg-[#8880FE] backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium"
+                              className="bg-black hover:bg-[#8880FE] backdrop-blur-sm text-white text-[10px] sm:text-xs px-2 py-1 rounded-full font-medium"
                             >
                               {type.name}
                             </span>
@@ -491,13 +491,13 @@ function Search() {
                       {/* Content - Bottom */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
                         <div className="flex items-center gap-1 mb-1">
-                          <h3 className="font-semibold text-lg">
+                          <h3 className="font-semibold text-sm sm:text-lg">
                             {entity.name}
                           </h3>
                           {entity.is_online == "online" && (
                             <span className="text-[#76FF5B] text-xl">•</span>
                           )}
-                          <span className="text-sm opacity-90">
+                          <span className="text-xs sm:text-sm opacity-90">
                             ({getAge(entity.dob)} years)
                           </span>
                         </div>
@@ -514,7 +514,7 @@ function Search() {
                               fill="white"
                             />
                           </svg>
-                          <span>
+                          <span className="text-xs sm:text-lg">
                             {getProvinceName(entity?.profile?.province_id)}
                           </span>
                         </div>

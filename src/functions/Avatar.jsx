@@ -1,21 +1,25 @@
 import { Plus } from "lucide-react";
 import { useRef } from "react";
+import { getAttachmentURL } from "./Common";
 
 export const Avatar = ({
   radius = 75,
   progressValue = 0,
-  hasProfilePicture = false,
-  profilePictureUrl = '',
+  hasProfilePicture = true,
+  profilePictureId = null,
   showProgressRing = false,
   showUploadButton = false,
   onImageUpload = () => {},
-  avatarSize = 'large', // or 'small', 'large'
+  avatarSize = 'medium', // or 'small', 'large'
+  smallMode=false,
   borderColor = '#CCCCCC4D',
   placeholderOpacity = 0.1,
   uploadButtonPosition = 'bottom-right', // or 'bottom-left', 'top-right', etc.
 }) => {
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progressValue / 100) * circumference;
+
+  const prog = profilePictureId ? progressValue : 0;
+  const strokeDashoffset = circumference - (prog / 100) * circumference;
   const inputRef = useRef(null);
 
   const handleClick = () => {
@@ -56,7 +60,7 @@ export const Avatar = ({
           {showProgressRing && (
             <div className="absolute -inset-3">
               <svg
-                className="w-[162px] h-[162px] transform -rotate-90"
+                className={`${smallMode? "w-[105px] h-[105px]":"w-[162px] h-[162px]" } transform -rotate-90`}
                 viewBox="0 0 162 162"
               >
                 <circle
@@ -83,13 +87,29 @@ export const Avatar = ({
               </svg>
             </div>
           )}
-          <div className="relative w-[140px] h-[140px] bg-white rounded-full overflow-hidden">
-            <div className="absolute inset-[16px] bg-white rounded-full overflow-hidden">
-              <img
-                src={profilePictureUrl}
+          <div className={`relative ${smallMode? "w-[80px] h-[80px]":"w-[140px] h-[140px]" } bg-white rounded-full overflow-hidden`}>
+            <div className={`absolute ${smallMode ? "inset-[1px]" : "inset-[16px]"} bg-white rounded-full overflow-hidden`}>
+              {profilePictureId ? <img
+                src={getAttachmentURL(profilePictureId)}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
+                :
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={sizeClasses[avatarSize].icon.split(' ')[0]}
+                  height={sizeClasses[avatarSize].icon.split(' ')[1]}
+                  viewBox="0 0 55 54"
+                  fill="none"
+                >
+                  <g opacity={placeholderOpacity}>
+                    <path
+                      d="M33.4921 24.6019C38.0372 25.9307 42.0293 28.6966 44.8702 32.4852C47.711 36.2738 49.2476 40.881 49.2496 45.6163H5.44141C5.44236 40.8807 6.97852 36.273 9.81951 32.4842C12.6605 28.6954 16.6532 25.9297 21.1989 24.6019L27.3455 33.8218L33.4921 24.6019ZM38.2976 12.7602C38.2976 15.6648 37.1437 18.4505 35.0898 20.5044C33.0359 22.5583 30.2502 23.7122 27.3455 23.7122C24.4409 23.7122 21.6552 22.5583 19.6012 20.5044C17.5473 18.4505 16.3935 15.6648 16.3935 12.7602C16.3935 9.85549 17.5473 7.0698 19.6012 5.01589C21.6552 2.96198 24.4409 1.80811 27.3455 1.80811C30.2502 1.80811 33.0359 2.96198 35.0898 5.01589C37.1437 7.0698 38.2976 9.85549 38.2976 12.7602Z"
+                      fill="black"
+                    />
+                  </g>
+                </svg>
+              }
             </div>
           </div>
         </>
