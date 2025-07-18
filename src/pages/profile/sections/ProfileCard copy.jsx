@@ -11,9 +11,10 @@ import CompleteProfileModal from "../models/complete-profile-model";
 import { useStateContext } from "@/context/ContextProvider";
 import { getAttachmentURL } from "@/functions/Common";
 import { ROLES } from "../../../../constants";
+
 import { toast } from "react-toastify";
 import axiosClient from "../../../../axios-client";
-import { Avatar } from "@/functions/Avatar";
+
 export default function ProfileCard({
   progressValue,
   isCompleteModalOpen, setIsCompleteModalOpen
@@ -136,14 +137,90 @@ export default function ProfileCard({
       {/* Profile Section */}
       <div className="flex flex-col items-center gap-6">
         {/* Avatar */}
-        <Avatar 
-          hasProfilePicture={true}
-          profilePictureUrl={getAttachmentURL(user.profile_picture_id)}
-          showProgressRing={true}
-          progressValue={progressValue}
-          showUploadButton={true}
-          onImageUpload={handleImageUpload}
-        />
+        <div className="relative">
+          {true ? (
+            <>
+              {/* Progress Ring */}
+              <div className="absolute -inset-3">
+                <svg
+                  className="w-[162px] h-[162px] transform -rotate-90"
+                  viewBox="0 0 162 162"
+                >
+                  {/* Background circle */}
+                  <circle
+                    cx="81"
+                    cy="81"
+                    r={radius}
+                    stroke="#E5E7EB"
+                    strokeWidth="6"
+                    fill="transparent"
+                    className="opacity-30"
+                  />
+                  {/* Progress circle */}
+                  <circle
+                    cx="81"
+                    cy="81"
+                    r={radius}
+                    stroke="#8880FE"
+                    strokeWidth="12"
+                    fill="transparent"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    strokeLinecap="round"
+                    className="transition-all duration-500 ease-in-out"
+                  />
+                </svg>
+              </div>
+              <div className="relative w-[140px] h-[140px] bg-white rounded-full overflow-hidden">
+                <div className="absolute inset-[16px] bg-white rounded-full overflow-hidden">
+                  <img
+                    src={getAttachmentURL(user.profile_picture_id)}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="w-[150px] h-[150px] border-12 border-[#CCCCCC4D] rounded-full flex items-center justify-center relative">
+              <div className="w-28 h-28 bg-[#F3F3F5] rounded-full flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="55"
+                  height="54"
+                  viewBox="0 0 55 54"
+                  fill="none"
+                >
+                  <g opacity="0.1">
+                    <path
+                      d="M33.4921 24.6019C38.0372 25.9307 42.0293 28.6966 44.8702 32.4852C47.711 36.2738 49.2476 40.881 49.2496 45.6163H5.44141C5.44236 40.8807 6.97852 36.273 9.81951 32.4842C12.6605 28.6954 16.6532 25.9297 21.1989 24.6019L27.3455 33.8218L33.4921 24.6019ZM38.2976 12.7602C38.2976 15.6648 37.1437 18.4505 35.0898 20.5044C33.0359 22.5583 30.2502 23.7122 27.3455 23.7122C24.4409 23.7122 21.6552 22.5583 19.6012 20.5044C17.5473 18.4505 16.3935 15.6648 16.3935 12.7602C16.3935 9.85549 17.5473 7.0698 19.6012 5.01589C21.6552 2.96198 24.4409 1.80811 27.3455 1.80811C30.2502 1.80811 33.0359 2.96198 35.0898 5.01589C37.1437 7.0698 38.2976 9.85549 38.2976 12.7602Z"
+                      fill="black"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          )}
+          {/* Plus Button */}
+          <>
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={handleClick}
+              className={`absolute bottom-0 ${
+                "-right-2"
+              } w-10 h-10 bg-[#090909] border-[6px] border-white rounded-full flex items-center justify-center`}
+            >
+              <Plus className="w-4 h-4 text-white" />
+            </button>
+          </>
+        </div>
 
         {/* Profile Info */}
         <div className="text-center space-y-6 w-full">

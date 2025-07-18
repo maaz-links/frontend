@@ -10,6 +10,8 @@ import HeaderLogoImage from "/src/assets/images/h4ulogoheader.png";
 import { ROLES } from "../../../constants";
 import { useStateContext } from "../../context/ContextProvider";
 import axiosClient from "../../../axios-client";
+import { Avatar } from "@/pages/profile/sections/ProfileCard";
+import { getAttachmentURL } from "@/functions/Common";
 const headerLinks = [
   {
     link: "/",
@@ -57,7 +59,7 @@ function HeaderLogo() {
           FOR YOU
         </div>
       </div> */}
-      <img src={HeaderLogoImage} alt="" />
+      <img src={HeaderLogoImage} className="w-[120px] sm:w-[150px]" alt="" />
     </Link>
   );
 }
@@ -172,7 +174,7 @@ function Header() {
                     to={link.link}
                     onClick={toggleMenu}
                     className={({ isActive }) =>
-                      `text-gray-700 hover:text-black font-[400] text-center w-full py-2 ${
+                      `text-gray-700 hover:text-black font-[600] text-center w-full py-2 ${
                         isActive ? "text-black font-[600]" : ""
                       }`
                     }
@@ -233,14 +235,14 @@ function Header() {
           {/* <img className="mx-2" src={BellIcon} alt="Bell Icon" /> */}
           {/* ONLY SHOW CREDITS TO MALE USERS */}
           {user?.role === ROLES.KING && (
-            <div className="relative hidden sm:block bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
+            <div className="relative bg-black text-sm text-center hover:bg-[#8880FE]  text-white rounded-full h-6.5 mx-4 px-2 py-1">
               <strong>{user.profile.credits} <span className="">Credits</span></strong>
             </div>
           )}
 
           
           <img
-            className="cursor-pointer px-4"
+            className="cursor-pointer hidden md:block px-4"
             src={LogoutIcon}
             onClick={(e) => triggerLogout(e)}
             alt="Logout Icon"
@@ -263,13 +265,21 @@ function Header() {
               >
                 Sign Up Now
               </NavLink> */}
+              <div>
+              <Avatar 
+                        hasProfilePicture={true}
+                        profilePictureUrl={getAttachmentURL(user.profile_picture_id)}
+                        showProgressRing={true}
+                        progressValue={user.profile.profile_completion}
+                      />
+                      </div>
               {headerLinksLoggedIn.map((link, index) => (
                 <NavLink
                   key={index}
                   to={link.link}
                   onClick={toggleMenu}
                   className={({ isActive }) =>
-                    `text-gray-700 flex justify-center hover:text-black font-[400] text-center w-full py-2 ${
+                    `text-gray-700 flex justify-center hover:text-black font-[600] text-center w-full py-2 ${
                       isActive ? "text-black font-[600]" : ""
                     }`
                   }
@@ -279,7 +289,7 @@ function Header() {
                   {/* Unread Message Badge */}
                   {unreadCount > 0 && link.link == "/chat" && (
                     <Link to="/chat">
-                      <div className="relative start-4  bg-red-500 text-sm text-center text-white rounded-full w-6.5 h-6.5 aspect-square px-1.5 py-1">
+                      <div className="relative  text-red-500 ml-3">
                         <strong>{unreadCount > 9 ? "9+" : unreadCount}</strong>
                       </div>
                     </Link>

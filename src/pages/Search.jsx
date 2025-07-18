@@ -13,21 +13,31 @@ export function FilterDisplay({
   name = "Name",
   value = "Value",
   onCross = () => console.log("empty"),
+  clear = false,
 }) {
   return (
-    <div className="rounded-4xl flex items-center text-nowrap bg-gray-200 px-4 py-2 text-[15px]">
-      <svg
+    <div className={`rounded-4xl flex font-bold  items-center text-nowrap ${clear?"text-gray-500":"text-gray-700 bg-gray-200"} px-4 py-2 text-[15px]`}>
+      {!clear && <svg
         xmlns="http://www.w3.org/2000/svg"
         width="23"
         height="23"
         fill="currentColor"
         viewBox="0 0 16 16"
-        className="inline rounded-full p-1  hover:bg-gray-300 me-3"
+        className="cursor-pointer inline rounded-full p-1  hover:bg-gray-300 me-3"
         onClick={onCross}
       >
         <path d="M2.146 2.146a.5.5 0 0 1 .708 0L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854a.5.5 0 0 1 0-.708z" />
-      </svg>
+      </svg>}
+      {clear ?
+      <div className="cursor-pointer " onClick={onCross}>
+      Clear All
+      </div>
+      :
+      <>
       {name}: {value}
+      </>
+      }
+      
     </div>
   );
 }
@@ -406,8 +416,8 @@ function Search() {
             filters.hostess ||
             filters.sugarbaby) && (
             <FilterDisplay
-              name="Clear"
-              value="All"
+              // name="Clear"
+              // value="All"
               onCross={() =>
                 setFilters((prev) => ({
                   ...prev,
@@ -423,6 +433,7 @@ function Search() {
                   cost: "",
                 }))
               }
+              clear = {true}
             />
           )}
         </div>

@@ -5,7 +5,7 @@ export const RecaptchaVerify = (recaptchaToken) => {
 
     if(import.meta.env.VITE_NOBOTVERIFY_MODE){
         if(!recaptchaToken){
-            toast.error('Please verify you are not a robot with reCAPTCHA',{
+            toast.error('Please verify you are not a robot with hCapctha',{
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -27,6 +27,7 @@ export const RecaptchaComponent = ({TokenSetter}) => {
         <HCaptcha
           sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY}
           onVerify={(token) => {TokenSetter(token)}}
+          onExpire={()=>{TokenSetter(null)}}
         />
         }
         </>;

@@ -3,7 +3,7 @@ import BGsrc from "/src/assets/images/bg-grad.png"
 export default function BackgroundGrad({children}){
     return (
         <>
-        <div className="py-[170px]"
+        <div className="py-[70px] px-[5px] md:py-[170px]"
               style={{
                 backgroundImage: `url(${BGsrc})`,
                 backgroundPosition: 'bottom',

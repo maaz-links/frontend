@@ -1,22 +1,19 @@
 import React, { createRef, useRef, useState } from "react";
 
-import { useEffect, forwardRef, useImperativeHandle } from 'react';
-
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { ROLES } from "../../constants";
-import { toast } from "react-toastify";
 import { RecaptchaComponent, RecaptchaVerify } from "../functions/RecaptchaVerify";
 import femaleIcon from "../assets/icons/female-symbol.svg";
 import femaleIconWhite from "../assets/icons/female-symbol-white.svg";
 import maleIcon from "../assets/icons/male-symbol.svg";
 import maleIconWhite from "../assets/icons/male-symbol-white.svg";
-import BGsrc from "/src/assets/images/bg-grad.png"
 import BackgroundGrad from "@/components/common/BackgroundGrad";
 import DateOfBirthInput from "@/functions/DateOfBirthInput";
+import PhoneNumberInput from "@/functions/PhoneNumberInput";
 
 const SignUp = () => {
   //const [selectedOption, setSelectedOption] = useState(null);
@@ -65,11 +62,11 @@ const SignUp = () => {
       <BackgroundGrad>
       
       <div className="bg-white max-w-[700px] shadow-md mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-      <h1 className="text-center text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
+      <h1 className="text-center text-[30px] md:text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
       <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Choose a Profile</h2>
       <div className="max-w-[971px] mx-auto px-[15px] mb-[50px]">
         {/* Selection Options */}
-        <div className="flex flex-col md:flex-row gap-[30px] mb-6">
+        <div className="flex flex-row gap-[30px] mb-6">
           {/* Option 1 */}
           <div
             className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-5 flex flex-wrap items-center justify-center cursor-pointer 
@@ -81,7 +78,7 @@ const SignUp = () => {
               src={myRole === ROLES.HOSTESS ? femaleIconWhite : femaleIcon}
               alt="Hostess Icon"
             />
-            <p className="text-center text-[15px] sm:text-[22px]"><strong>I am an hostess or model</strong></p>
+            <p className="text-center text-[3vw] sm:text-[22px]"><strong>I am an hostess or model</strong></p>
           </div>
 
           {/* Option 2 */}
@@ -95,7 +92,7 @@ const SignUp = () => {
               src={myRole === ROLES.KING ? maleIconWhite : maleIcon}
               alt="King Icon"
             />
-            <p className="text-center text-[15px] sm:text-[22px]"><strong>I am looking for an hostess or model</strong></p>
+            <p className="text-center text-[3vw] sm:text-[22px]"><strong>I am looking for a Hostess/Model</strong></p>
           </div>
         </div>
 
@@ -141,6 +138,9 @@ const CreatSignup = ({myRole}) => {
   const modelRef = createRef();
   const newsletterRef = createRef();
 
+  const [countryCode, setCountryCode] = useState("+1");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -167,6 +167,7 @@ const CreatSignup = ({myRole}) => {
     //const date_of_birth = dobRef.current.getDate();
     //const date_of_birth = `${yearRef.current.value || '2000'}-${monthRef.current.value.padStart(2, '0') || '01'}-${dayRef.current.value.padStart(2, '0') || '01'}`;
     const isModel = modelRef?.current?.querySelector('input[name="isModel"]:checked')?.value === '1' ? true : false;
+    const fullNumber = `+${countryCode}${phoneNumber}`;
     const payload = {
       name: usernameRef.current.value,
       email: emailRef.current.value,
@@ -174,7 +175,8 @@ const CreatSignup = ({myRole}) => {
       password_confirmation: confirmPasswordRef.current.value, // Assuming password_confirmation is the same as password
       dob: dobRef.current.getDate().formatted,
       //phone: (CCodeRef.current.value + phoneRef.current.value),
-      phone: phoneRef.current.value,
+      //phone: phoneRef.current.value,
+      phone: fullNumber,
       role: myRole,
       isModel: isModel,
       profileTypes: selectedIds,
@@ -232,7 +234,7 @@ const CreatSignup = ({myRole}) => {
       <Header />
       <BackgroundGrad>
       <div className="bg-white max-w-[700px] mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px] ">
-        <h1 className="text-center text-[38px] my-7"><strong>Free Registration</strong></h1>
+        <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Free Registration</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 
@@ -272,9 +274,9 @@ const CreatSignup = ({myRole}) => {
                 <ErrorText field='email' />
               
               </div>
-              <div className="mb-7">
+              {/* <div className="mb-7">
                 <div className="block text-[20px] mb-[20px]"><strong>Mobile Phone</strong></div>
-                {/* Phone Field */}
+                
                 <input
                   type="phone"
                   ref={phoneRef}
@@ -285,7 +287,19 @@ const CreatSignup = ({myRole}) => {
                 />
                 <ErrorText field='phone' />
 
-              </div>
+              </div> */}
+               <div className="mb-7">
+                <div className="block text-[20px] mb-[20px]">
+                  <strong>Mobile Phone</strong>
+                </div>
+                  <PhoneNumberInput
+                    countryCode={countryCode}
+                    setCountryCode={setCountryCode}
+                    phoneNumber={phoneNumber}
+                    setPhoneNumber={setPhoneNumber}
+                  />
+                <ErrorText field='phone' />
+                </div>
               <div className="mb-7">
                 <div className="block text-[20px] mb-[20px]"><strong>Password</strong></div>
                 {/* Password Field */}

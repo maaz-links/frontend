@@ -119,7 +119,7 @@ const handleIconClick = () => {
       {/* </div> */}
        <BackgroundGrad>
       <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-  <h1 className="text-center text-[38px] my-7"><strong>Load Your Photo</strong></h1>
+  <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Load Your Photo</strong></h1>
   <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
     <label className="block text-center text-[20px] mb-[20px]">A good photo is essential, select and upload your best shot! It is mandatory to activate the Profile</label>
     {/* <form> */}

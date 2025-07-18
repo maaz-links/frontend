@@ -15,8 +15,8 @@ function IntroBox() {
   return (
     <>
       <div
-        className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into  rounded-4xl  md:px-[50px] lg:px-[100px]
-      bg-white max-w-[1300px] mx-[25px] mt-[28px] bg-cover bg-center md:h-[646px] 
+        className="introduction bg-intro-mobile md:bg-intro-desktop card-box-into  rounded-[35px]  md:px-[50px] lg:px-[100px]
+      bg-white mx-auto max-w-[1300px] mt-[28px] bg-cover bg-center md:h-[646px] 
 
        py-10 
       h-1/2 flex md:block justify-center"
