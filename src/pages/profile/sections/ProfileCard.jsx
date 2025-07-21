@@ -76,7 +76,7 @@ export default function ProfileCard({
     (user.profile?.dress_size ||
       user.profile?.weight ||
      user.profile?.travel_available !== null ||
-     SocialLinks.some((key) => !!user.profile?.[key]))
+     SocialLinks.some((platform) => !!user.profile?.[platform.name]))
   );
 
   const handleImageUpload = async (event) => {
@@ -102,7 +102,7 @@ export default function ProfileCard({
   };
 
   return (
-    <div className=" lg:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] py-6 lg:p-6">
+    <div className="lg:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-6">
       {/* More Button */}
 
       <div className="flex justify-end mb-6">
@@ -282,11 +282,11 @@ export default function ProfileCard({
                         </li>
                       )} */}
                       {SocialLinks.map((platform) => {
-                        const value = user.profile?.[platform];
+                        const value = user.profile?.[platform.name];
 
                         return value ? (
-                          <li key={platform} className="flex items-center justify-between">
-                            <span className="font-bold capitalize">{platform.replace('_', ' ')}</span>
+                          <li key={platform.name} className="flex items-center justify-between">
+                            <span className="font-bold capitalize">{platform.label}</span>
                             <span className="truncate max-w-[50%]">{value}</span>
                           </li>
                         ) : null;

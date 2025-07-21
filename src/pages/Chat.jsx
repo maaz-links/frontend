@@ -561,7 +561,7 @@ const Chat = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [chats, setChats] = useState([]); //list of chats to show sidebar
   const [selectedChat, setSelectedChat] = useState(null); //duh
-  const [selectedChatOnline, setSelectedChatOnline] = useState(""); //duh
+  //const [selectedChatOnline, setSelectedChatOnline] = useState("");
 
   const [messages, setMessages] = useState([]); //list of msgs to show on dashboard
   const [newMessage, setNewMessage] = useState(""); //text field where you'll type new text
@@ -581,6 +581,7 @@ const Chat = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isRead, setReadStatus] = useState(2);
   const messagesRef = useRef(messages);
+  const activeTabRef = useRef(activeTab);
   const messagesContainerRef = useRef(null);
   const [isTimeout, setIsTimeout] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(true);
@@ -596,7 +597,7 @@ const Chat = () => {
   // Fetch chats based on active tab (either 'all' or 'archived')
   const fetchChats = async () => {
     try {
-      const response = await axiosClient.get(`/api/chats?type=${activeTab}`);
+      const response = await axiosClient.get(`/api/chats?type=${activeTabRef.current}`);
       const newChats = response.data;
   
       
@@ -621,12 +622,12 @@ const Chat = () => {
       setChats(newChats);
       
       // Update selected chat's online status if applicable
-      if (selectedChat?.id) {
-        const matchedChat = newChats.find(chat => chat.id === selectedChat.id);
-        if (matchedChat) {
-          setSelectedChatOnline(matchedChat.other_user?.is_online ?? false);
-        }
-      }
+      // if (selectedChat?.id) {
+      //   const matchedChat = newChats.find(chat => chat.id === selectedChat.id);
+      //   if (matchedChat) {
+      //     setSelectedChatOnline(matchedChat.other_user?.is_online ?? false);
+      //   }
+      // }
   
       setLoading(false);
     } catch (err) {
@@ -660,6 +661,13 @@ const Chat = () => {
       console.error("Error fetching messages:", err);
     }
   };
+
+  function unselectChat(){
+    setIsMobileSidebarOpen(true)
+    setSelectedChat(null);
+    setMessages([]);
+    setReadStatus(2);
+  }
 
   // Start polling for new messages
   const startPolling = (chatId) => {
@@ -790,7 +798,7 @@ const Chat = () => {
     setSelectedChat(chat);
     //setSelectedChat({...chat, unread_count: 0}); // Also update the unread_count in the selected chat
 
-    setSelectedChatOnline(chat.other_user.is_online);
+    // setSelectedChatOnline(chat.other_user.is_online);
     setIsMobileSidebarOpen(false); // Close mobile sidebar when chat is selected
     // console.log('chatter',chat);
     fetchMessages(chat.id);
@@ -927,19 +935,75 @@ const Chat = () => {
 
   // Initialize
   useEffect(() => {
+    activeTabRef.current = activeTab;
     fetchChats();
     checkUnreadMessages();
 
+  }, [activeTab]);
+
+  useEffect(() => {
     // return () => {
     //   if (pollingInterval) {
     //     clearInterval(pollingInterval);
     //   }
     // };
-    const intervalId = setInterval(fetchChats, 5000);
+    const intervalId = setInterval(checkActivity, 120000); //120 seconds
     return () => clearInterval(intervalId);
 
-  }, [activeTab]);
+  }, []);
 
+  const checkActivity = async () => {
+    try {
+      const response = await axiosClient.get(`/api/chats-activity`);
+      const activityData = response.data;
+      setChats(prevChats => 
+        prevChats.map(chat => {
+          // Find matching activity data for this chat
+          const activity = activityData.find(a => a.chat_id == chat.id);
+          
+          if (activity) {
+            //console.log('gotcha');
+            // If found, update last_seen and is_online
+            var updated =
+             {
+              ...chat,
+              other_user: {
+                ...chat.other_user,
+                last_seen: activity.other_user.last_seen,
+                is_online: activity.other_user.is_online
+              }
+            
+            };
+            //console.log(updated);
+            return updated;
+          }
+          // If no matching activity data found, return the chat unchanged
+          return chat;
+        })
+      );
+
+      // Update selectedChat state if it exists and matches any activity data
+      setSelectedChat(prevSelected => {
+        if (!prevSelected) return prevSelected; // if no selected chat, return as is
+        
+        const activity = activityData.find(a => a.chat_id == prevSelected.id);
+        if (activity) {
+          return {
+            ...prevSelected,
+            other_user: {
+              ...prevSelected.other_user,
+              last_seen: activity.other_user.last_seen,
+              is_online: activity.other_user.is_online
+            }
+          };
+        }
+        return prevSelected;
+      });
+
+    } catch (err) {
+      console.error("Error fetching chats:", err);
+    }
+  };
 
   // Auto-scroll when messages change
   useEffect(() => {
@@ -959,8 +1023,10 @@ const Chat = () => {
 
   return (
     <>
-      <Header />
-      <div className="flex h-screen md:w-[98%]  mx-auto  md:my-10 relative">
+    {/* Do not wrap <Header> in div */}
+    <Header headerClass={`${isMobileSidebarOpen ? "":"hidden md:flex"}`} />
+   
+      <div className="flex h-[100vh] md:h-[120vh] md:w-[98%]  mx-auto  md:my-5 relative">
         {/* Mobile Sidebar Overlay */}
         {isMobileSidebarOpen && (
           <div
@@ -1134,7 +1200,7 @@ const Chat = () => {
                     {/* Mobile menu button */}
                     <button
                       className="md:hidden p-2 text-gray-500 hover:text-gray-700"
-                      onClick={() => setIsMobileSidebarOpen(true)}
+                      onClick={unselectChat}
                     >
                       {/* <FaBars className="text-lg" /> */}
                       <svg
@@ -1168,7 +1234,7 @@ const Chat = () => {
                       <div className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600">
                         {/* <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         <span>Online</span> */}
-                        {(selectedChatOnline == "online") ? (
+                        {(selectedChat.other_user.is_online == "online") ? (
                           <>
                             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                             <span>Online</span>
@@ -1265,7 +1331,7 @@ const Chat = () => {
                             ) || "/placeholder.svg"
                           }
                           alt={selectedChat.other_user.name}
-                          className="w-6 md:w-8 h-6 md:h-8 rounded-lg object-cover mr-2 md:mr-3 mt-1 flex-shrink-0"
+                          className="w-9 h-9 rounded-lg object-cover mr-2 md:mr-3 md:mt-1 flex-shrink-0"
                         />
                       )}
                       <div className="flex flex-col max-w-[75%] sm:max-w-xs lg:max-w-md">
@@ -1295,7 +1361,7 @@ const Chat = () => {
                             "/placeholder.svg"
                           }
                           alt="You"
-                          className="w-6 md:w-8 h-6 md:h-8 rounded-lg object-cover ml-2 md:ml-3 mt-1 flex-shrink-0"
+                          className="w-9 h-9 rounded-lg object-cover ml-2 md:ml-3 md:mt-1 flex-shrink-0"
                         />
                       )}
                     </div>

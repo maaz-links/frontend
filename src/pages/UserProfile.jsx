@@ -752,20 +752,19 @@ function UserProfile() {
                         </span>
                       </div>
                     )} */}
-                          {SocialLinks.map((key) => {
-                            const label = key;
-                            const value = givenUser.profile?.[key];
+                          {SocialLinks.map(({ name, label }) => {
+                            const value = givenUser.profile?.[name];
 
                             return value ? (
                               <div
-                                key={key}
+                                key={name}
                                 className="flex justify-between text-sm"
                               >
                                 <span className="text-black capitalize text-[14px] sm:text-[16px] font-bold">
                                   {label}
                                 </span>
                                 <span className="text-orange-500 truncate max-w-[50%] text-[14px] sm:text-[16px]">
-                                  {value.replace("_", " ")}
+                                  {value.replace(/_/g, " ")}
                                 </span>
                               </div>
                             ) : null;

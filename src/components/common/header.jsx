@@ -64,7 +64,7 @@ function HeaderLogo() {
   );
 }
 
-function Header() {
+function Header({headerClass=''}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { token, user, setUser, setToken, unreadCount,setGenericModalOpen,setGenericModalContent } = useStateContext();
@@ -111,7 +111,7 @@ function Header() {
     // IF USER IS NOT LOGGED IN
     return (
       // <div className="mb-24">
-        <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50  shadow">
+        <nav className={`bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 shadow ${headerClass}`}>
           <HeaderLogo />
 
           <div className="flex items-center justify-between gap-2 md:gap-20 ">
@@ -193,7 +193,7 @@ function Header() {
   }
   return (
     // <div className="mb-24">
-      <nav className="bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50  shadow">
+    <nav className={`bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 shadow ${headerClass}`}>
         <HeaderLogo />
         <div className="flex items-center justify-between ">
           <div className=" space-x-6 hidden md:flex">

@@ -26,7 +26,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
     notification: 0,
     country: "",
     province: "",
-    ...Object.fromEntries(SocialLinks.map((key) => [key, ""])) // ✅ Add social fields
+    ...Object.fromEntries(SocialLinks.map(({ name }) => [name, ""])) // ✅ Add social fields
   };
   
   const [formData, setFormData] = useState(initialFormData);
@@ -57,8 +57,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
         notification: user.profile.notification_pref || 0,
         country: user.profile.country_id || '',
         province: user.profile.province_id || '',
-        ...Object.fromEntries(
-          SocialLinks.map((key) => [key, user.profile[key] || '']))
+        ...Object.fromEntries(SocialLinks.map(({ name }) => [name, user.profile?.[name] || '']))
       });
 
       // Set country and provinces if available
@@ -166,8 +165,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
       province: formData.province,
       selectedCountry: selectedCountry,
       selectedProvince: selectedProvince,
-      ...Object.fromEntries(
-        SocialLinks.map((key) => [key, formData[key] || '']))
+      ...Object.fromEntries(SocialLinks.map(({ name }) => [name, formData?.[name] || '']))
     };
 
     try {
@@ -527,27 +525,21 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                     />
                   </div> */}
-                  {SocialLinks.map((field) => {
-                    const label = field
-                      .replace(/_/g, ' ')         // Replace underscores with space
-                      .replace(/\b\w/g, c => c.toUpperCase()); // Capitalize each word
-
-                    return (
-                      <div key={field} className="flex flex-col gap-3">
-                        <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                          {label}
-                        </label>
-                        <input
-                          placeholder={`Enter ${label}`}
-                          type="text"
-                          value={formData[field] || ''}
-                          onChange={(e) => handleInputChange(field, e.target.value)}
-                          maxLength={50}
-                          className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
-                        />
-                      </div>
-                    );
-                  })}
+                  {SocialLinks.map(({ name, label }) => (
+                    <div key={name} className="flex flex-col gap-3">
+                      <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
+                        {label}
+                      </label>
+                      <input
+                        placeholder={`Enter ${label}`}
+                        type="text"
+                        value={formData[name] || ''}
+                        onChange={(e) => handleInputChange(name, e.target.value)}
+                        maxLength={50}
+                        className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
+                      />
+                    </div>
+                  ))}
 
                   <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
