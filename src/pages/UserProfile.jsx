@@ -205,7 +205,7 @@
 // {(givenUser.role === ROLES.HOSTESS) &&
 // <>
 
-// <h3 className="mt-[24px] font-medium text-[26px] border-b">Available for:</h3>
+// <h3 className="mt-[24px] font-bold text-[26px] border-b">Available for:</h3>
 
 //               <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 
@@ -222,7 +222,7 @@
 //                 }
 
 //         </div>
-//         <h3 className="mt-[24px] font-medium text-[26px] border-b">Personality and Hobbies</h3>
+//         <h3 className="mt-[24px] font-bold text-[26px] border-b">Personality and Hobbies</h3>
 //         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 //         {optionsInterest
 //                   .filter(item => givenUser.profile.personal_interests.includes(item.id))
@@ -238,7 +238,7 @@
 //         </div>
 // </>}
 //         {/* Languages */}
-//         <h3 className="mt-[24px] md:mt-[56px] font-medium text-[26px] border-b">Spoken Languages</h3>
+//         <h3 className="mt-[24px] md:mt-[56px] font-bold text-[26px] border-b">Spoken Languages</h3>
 
 //         <div className="grid grid-cols-2 md:grid-cols-4 gap-[11px] mt-[24px]  max-w-[600px]">
 //         {languageOptions
@@ -290,7 +290,7 @@
 
 // ------------------ NEW CODE ------------------------------
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -302,7 +302,7 @@ import { ROLES } from "../../constants";
 import { ClipLoader } from "react-spinners";
 import { createChat } from "../functions/UnlockChat";
 import UnlockChatModal from "../components/common/unlock-chat-modal";
-
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import ReportUserButton from "@/components/ReportUserButton";
@@ -330,7 +330,8 @@ function UserProfile() {
   const [unlockChat, setUnlockChat] = useState(false);
   const [canReport, setCanReport] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
-  
+  const scrollRef = useRef(null);
+
   const { username } = useParams();
   const navigate = useNavigate();
 
@@ -401,38 +402,40 @@ function UserProfile() {
       <Header />
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
-
           <div className="flex justify-between">
-
-
-          {/* Back Button */}
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center text-black text-[16px] font-medium hover:text-gray-800 mb-4 sm:mb-8 text-sm"
-          >
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            {/* Back Button */}
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center text-black text-[16px] font-bold hover:text-gray-800 mb-4 sm:mb-8 text-sm"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back
-          </button>
-
-          {/* Report Button */}
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Back
+            </button>
+            <div className="flex flex-col items-center  ">
+              {/* Report Button */}
               {canReport && (
                 // <div className="mt-6 sm:mt-8">
-                  <ReportUserButton userId={givenUser.id} />
+                <ReportUserButton userId={givenUser.id} />
+
                 // </div>
               )}
-        </div>
+              <div className=" text-xs sm:text-sm text-gray-400">
+                User ID: {givenUser.id}
+              </div>
+            </div>
+          </div>
           <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
             <div className="w-full lg:w-[45%] xl:w-[672px] flex-shrink-0">
@@ -451,7 +454,7 @@ function UserProfile() {
                 />
               </div>
 
-              <div className="w-full grid grid-cols-2 gap-1 md:gap-5 mt-3 ">
+              <div className="w-full hidden lg:grid grid-cols-2 gap-1 md:gap-5 mt-3 ">
                 {givenUser.other_pics.map((id, i) => (
                   <img
                     key={id ?? i}
@@ -465,6 +468,53 @@ function UserProfile() {
                   />
                 ))}
               </div>
+
+              <div className="relative block lg:hidden mt-3">
+                {/* Scroll container */}
+                <div
+                  ref={scrollRef}
+                  className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-2 sm:px-10"
+                >
+                  {givenUser.other_pics.map((id, i) => (
+                    <img
+                      key={id ?? i}
+                      src={getAttachmentURL(id)}
+                      alt={`user-pic-${i + 1}`}
+                      className="rounded-2xl h-20 w-24 sm:h-32 sm:w-36 flex-shrink-0 object-cover cursor-pointer"
+                      onClick={() => {
+                        setStartSlideIndex(i + 1);
+                        setIsLightboxOpen(true);
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Left arrow */}
+                <button
+                  onClick={() =>
+                    scrollRef.current.scrollBy({
+                      left: -100,
+                      behavior: "smooth",
+                    })
+                  }
+                  className="absolute left-0 top-1/2 -translate-y-1/2   rounded-full p-1 z-10"
+                >
+                  <ChevronLeftIcon className="w-8 h-8" />
+                </button>
+
+                {/* Right arrow */}
+                <button
+                  onClick={() =>
+                    scrollRef.current.scrollBy({
+                      left: 100,
+                      behavior: "smooth",
+                    })
+                  }
+                  className="absolute right-0 top-1/2 -translate-y-1/2   rounded-full p-1 z-10"
+                >
+                  <ChevronRightIcon className="w-8 h-8" />
+                </button>
+              </div>
             </div>
 
             {/* Profile Information */}
@@ -472,117 +522,133 @@ function UserProfile() {
               {/* Credit Badge - Top Left */}
 
               {token && user?.role === ROLES.KING && (
-                <div className="absolute top-0 left-0">
-                  <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-1 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
+                <div className="absolute top-0 left-0 hidden lg:block">
+                  <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-1 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
                     <strong>{user.profile.credits} Credits</strong>
                   </div>
                 </div>
               )}
-              {/* User ID - Top Right */}
-              <div className="absolute top-0 right-0 text-xs sm:text-sm text-gray-400">
-                User ID: {givenUser.id}
-              </div>
 
               <div className="my-3">
                 {/* Name with Green Dot and Age */}
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-2 flex flex-col sm:flex-row sm:items-center">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-2 flex  t items-center">
                   <div className="flex items-center">
                     {givenUser.name}
-                    {(givenUser.is_online == "online") ? <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>:<span className="w-2 h-2 bg-none rounded-full mx-2"></span>}
+                    {givenUser.is_online == "online" ? (
+                      <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>
+                    ) : (
+                      <span className="w-2 h-2 bg-none rounded-full mx-2"></span>
+                    )}
                   </div>
-                  <span className="text-black text-[14px] sm:text-[19px] font-medium mt-1 sm:mt-0">
-                    (
-                    {getAge(givenUser.dob)}
+                  <span className="text-black text-[20px] sm:text-[19px] font-medium mt-1 sm:mt-0">
+                    ({getAge(givenUser.dob)}
                     years)
                   </span>
                 </h1>
 
                 {/* Location */}
-                <div className="flex items-center text-black text-[14px] sm:text-[16px] font-medium mb-4 sm:mb-6">
-                  <svg
-                    className="w-4 h-4 mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  {getProvinceName(givenUser.profile.province_id)}
+
+                <div className="flex flex-row gap-5">
+                  {token && user?.role === ROLES.KING && (
+                    <div className="w-fit  lg:hidden">
+                      <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-2 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
+                        <strong>{user.profile.credits} Credits</strong>
+                      </div>
+                    </div>
+                  )}
+
+
+                  <div className="flex items-center flex-row text-black text-[14px] sm:text-[16px] font-[400] mb-4 sm:mb-6">
+                    <svg
+                      className="w-6 h-6 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {getProvinceName(givenUser.profile.province_id)}
+                  </div>
                 </div>
               </div>
 
               {/* About Me */}
               {givenUser.profile.description && (
-              <div className="mb-6 sm:mb-8">
-                <h2 className="text-[18px] sm:text-[20px] font-medium text-black mb-3">
-                  About Me
-                </h2>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  {givenUser.profile.description}
-                </p>
-              </div>
-              )}
-
-              {givenUser.role === ROLES.HOSTESS && <>
-              {/* Available for */}
-              {givenUser.profile.available_services?.length > 0 && (
                 <div className="mb-6 sm:mb-8">
-                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
-                    Available for
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {optionsAvailableFor
-                      .filter((item) =>
-                        givenUser.profile.available_services.includes(item.id)
-                      )
-                      .map((item) => (
-                        <span
-                          key={item.id}
-                          className="bg-[#8880FE] hover:bg-black text-white px-3 py-2 font-medium rounded-full text-[12px] sm:text-[14px]"
-                        >
-                          {item.name}
-                        </span>
-                      ))}
-                  </div>
+                  <h2 className="text-[18px] sm:text-[20px] font-bold text-black mb-3">
+                    About Me
+                  </h2>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    {givenUser.profile.description}
+                  </p>
                 </div>
               )}
 
-              {/* Personality and interests */}
-              {givenUser.profile.personal_interests?.length > 0 && (
-                <div className="mb-6 sm:mb-8">
-                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">
-                    Personality and interests:
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {optionsInterest
-                      .filter((item) =>
-                        givenUser.profile.personal_interests.includes(item.id)
-                      )
-                      .map((item) => (
-                        <span
-                          key={item.id}
-                          className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs"
-                        >
-                          {item.name}
-                        </span>
-                      ))}
-                  </div>
-                </div>
+              {givenUser.role === ROLES.HOSTESS && (
+                <>
+                  {/* Available for */}
+                  {givenUser.profile.available_services?.length > 0 && (
+                    <div className="mb-6 sm:mb-8">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3">
+                        Available for
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {optionsAvailableFor
+                          .filter((item) =>
+                            givenUser.profile.available_services.includes(
+                              item.id
+                            )
+                          )
+                          .map((item) => (
+                            <span
+                              key={item.id}
+                              className="bg-[#8880FE] hover:bg-black text-white px-3 py-2 font-bold rounded-full text-[12px] sm:text-[14px]"
+                            >
+                              {item.name}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Personality and interests */}
+                  {givenUser.profile.personal_interests?.length > 0 && (
+                    <div className="mb-6 sm:mb-8">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3">
+                        Personality and interests:
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {optionsInterest
+                          .filter((item) =>
+                            givenUser.profile.personal_interests.includes(
+                              item.id
+                            )
+                          )
+                          .map((item) => (
+                            <span
+                              key={item.id}
+                              className="bg-[#F3F3F5] text-black px-3 py-2 rounded-full text-xs"
+                            >
+                              {item.name}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
-              </>}
               {/* Informations */}
               <div className="mb-6 sm:mb-8">
-                <h3 className="text-[18px] sm:text-[20px] font-medium leading-[24px] text-gray-900 mb-4">
+                <h3 className="text-[18px] sm:text-[20px] font-bold leading-[24px] text-gray-900 mb-4">
                   Informations
                 </h3>
                 <div className="space-y-3">
-                  
                   {givenUser.profile.nationality && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                      <span className="text-black text-[14px] sm:text-[16px] font-bold">
                         Nationality
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
@@ -590,10 +656,10 @@ function UserProfile() {
                       </span>
                     </div>
                   )}
-                  
+
                   {givenUser.profile.shoe_size && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                      <span className="text-black text-[14px] sm:text-[16px] font-bold">
                         Shoe Size
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
@@ -601,10 +667,10 @@ function UserProfile() {
                       </span>
                     </div>
                   )}
-                  
+
                   {givenUser.profile.my_languages?.length > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                      <span className="text-black text-[14px] sm:text-[16px] font-bold">
                         Languages
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px] text-right">
@@ -619,7 +685,7 @@ function UserProfile() {
                   )}
                   {givenUser.profile.eye_color && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                      <span className="text-black text-[14px] sm:text-[16px] font-bold">
                         Eye Colour
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
@@ -627,11 +693,10 @@ function UserProfile() {
                       </span>
                     </div>
                   )}
-                                    
-                  
+
                   {givenUser.profile.height && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                      <span className="text-black text-[14px] sm:text-[16px] font-bold">
                         Height
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
@@ -640,46 +705,46 @@ function UserProfile() {
                     </div>
                   )}
 
-                  {givenUser.role === ROLES.HOSTESS && <>
+                  {givenUser.role === ROLES.HOSTESS && (
+                    <>
+                      {givenUser.profile.weight && (
+                        <div className="flex justify-between text-sm">
+                          <span className="text-black text-[14px] sm:text-[16px] font-bold">
+                            Weight
+                          </span>
+                          <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
+                            {givenUser.profile.weight}kg
+                          </span>
+                        </div>
+                      )}
 
-                  {givenUser.profile.weight && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                        Weight
-                      </span>
-                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
-                        {givenUser.profile.weight}kg
-                      </span>
-                    </div>
-                  )}
-                  
-                  {givenUser.profile.dress_size && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                        Dress size
-                      </span>
-                      <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
-                        {givenUser.profile.dress_size}
-                      </span>
-                    </div>
-                  )}
-                  
-                  {givenUser.profile.travel_available !== null && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-black text-[14px] sm:text-[16px] font-medium">
-                        Available for Tours
-                      </span>
-                      <span className="text-gray-900 truncate max-w-[50%] text-[14px] sm:text-[16px]">
-                        {givenUser.profile.travel_available ? "Yes" : "No"}
-                      </span>
-                    </div>
-                  )}
-                  
-                  {showSocial && <>
-                  
-                    {/* {givenUser.profile.telegram && (
+                      {givenUser.profile.dress_size && (
+                        <div className="flex justify-between text-sm">
+                          <span className="text-black text-[14px] sm:text-[16px] font-bold">
+                            Dress size
+                          </span>
+                          <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
+                            {givenUser.profile.dress_size}
+                          </span>
+                        </div>
+                      )}
+
+                      {givenUser.profile.travel_available !== null && (
+                        <div className="flex justify-between text-sm">
+                          <span className="text-black text-[14px] sm:text-[16px] font-bold">
+                            Available for Tours
+                          </span>
+                          <span className="text-gray-900 truncate max-w-[50%] text-[14px] sm:text-[16px]">
+                            {givenUser.profile.travel_available ? "Yes" : "No"}
+                          </span>
+                        </div>
+                      )}
+
+                      {showSocial && (
+                        <>
+                          {/* {givenUser.profile.telegram && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-black text-[14px] sm:text-[16px] font-medium">
+                        <span className="text-black text-[14px] sm:text-[16px] font-bold">
                           Telegram
                         </span>
                         <span className="text-orange-500 text-[14px] sm:text-[16px]">
@@ -687,49 +752,55 @@ function UserProfile() {
                         </span>
                       </div>
                     )} */}
-                    {SocialLinks.map((key) => {
-                      const label = key
-                      const value = givenUser.profile?.[key];
+                          {SocialLinks.map((key) => {
+                            const label = key;
+                            const value = givenUser.profile?.[key];
 
-                      return value ? (
-                        <div key={key} className="flex justify-between text-sm">
-                          <span className="text-black capitalize text-[14px] sm:text-[16px] font-medium">
-                            {label}
-                          </span>
-                          <span className="text-orange-500 truncate max-w-[50%] text-[14px] sm:text-[16px]">
-                            {value.replace('_', ' ')}
-                          </span>
-                        </div>
-                      ) : null;
-                    })}
-
-                  </>}
-                  </>}
+                            return value ? (
+                              <div
+                                key={key}
+                                className="flex justify-between text-sm"
+                              >
+                                <span className="text-black capitalize text-[14px] sm:text-[16px] font-bold">
+                                  {label}
+                                </span>
+                                <span className="text-orange-500 truncate max-w-[50%] text-[14px] sm:text-[16px]">
+                                  {value.replace("_", " ")}
+                                </span>
+                              </div>
+                            ) : null;
+                          })}
+                        </>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
 
-              {user && <UnlockChatModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                userName={givenUser.name}
-                userId={givenUser.id}
-                coinCost={givenUser.profile.unlock_cost}
-                userBalance={user?.profile?.credits || 0}
-                userRole={user?.role}
-              />}
+              {user && (
+                <UnlockChatModal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  userName={givenUser.name}
+                  userId={givenUser.id}
+                  coinCost={givenUser.profile.unlock_cost}
+                  userBalance={user?.profile?.credits || 0}
+                  userRole={user?.role}
+                />
+              )}
 
               {/* Start chat section */}
               <div className="mb-6 sm:mb-8">
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4">
                   Start chat with {givenUser.name}
                 </h3>
                 {unlockChat ? (
                   <button
                     onClick={() => openModal(givenUser)}
-                    className="w-full bg-black  text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium  transition-colors"
+                    className="w-full bg-black  text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-bold  transition-colors"
                   >
                     {user?.role == ROLES.KING ? (
-                      <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-medium">
+                      <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-bold">
                         {" "}
                         Unlock Chat for
                         <div className="text-[#8880FE] ">
@@ -743,14 +814,12 @@ function UserProfile() {
                 ) : (
                   <Link
                     to={`/chat?chat=${givenUser.name}`}
-                    className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-medium text-center hover:bg-[#8880FE] transition-colors"
+                    className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-bold text-center hover:bg-[#8880FE] transition-colors"
                   >
                     Go to the Chat
                   </Link>
                 )}
               </div>
-
-              
             </div>
           </div>
 
