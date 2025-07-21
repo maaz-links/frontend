@@ -436,9 +436,9 @@ function UserProfile() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
+          <div className="flex flex-col md:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
-            <div className="w-full lg:w-[45%] xl:w-[672px] flex-shrink-0">
+            <div className="w-full md:w-[45%] xl:w-[672px] flex-shrink-0">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
                 <img
                   src={
@@ -454,7 +454,7 @@ function UserProfile() {
                 />
               </div>
 
-              <div className="w-full hidden lg:grid grid-cols-2 gap-1 md:gap-5 mt-3 ">
+              <div className="w-full hidden md:grid grid-cols-2 gap-1 md:gap-5 mt-3 ">
                 {givenUser.other_pics.map((id, i) => (
                   <img
                     key={id ?? i}
@@ -469,7 +469,7 @@ function UserProfile() {
                 ))}
               </div>
 
-              <div className="relative block lg:hidden mt-3">
+              <div className="relative block md:hidden mt-3">
                 {/* Scroll container */}
                 <div
                   ref={scrollRef}

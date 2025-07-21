@@ -935,7 +935,7 @@ const Chat = () => {
     //     clearInterval(pollingInterval);
     //   }
     // };
-    const intervalId = setInterval(fetchChats, 120000);
+    const intervalId = setInterval(fetchChats, 5000);
     return () => clearInterval(intervalId);
 
   }, [activeTab]);
@@ -981,17 +981,17 @@ const Chat = () => {
         >
           <div className="p-4 md:p-6 flex-shrink-0">
             {/* Mobile close button */}
-            {selectedChat !== null && (
+            {true && (
               <div className="flex items-center justify-between mb-4 md:mb-0">
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
                   Your Chat
                 </h1>
-                <button
+                {/* {selectedChat && <button
                   className="md:hidden p-2 text-gray-500 hover:text-gray-700"
                   onClick={() => setIsMobileSidebarOpen(false)}
                 >
                   <FaTimes className="text-lg" />
-                </button>
+                </button>} */}
               </div>
             )}
             {/* Search */}

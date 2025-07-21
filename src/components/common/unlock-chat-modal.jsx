@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../axios-client";
 import lockPic from "/src/assets/images/unlock-chat.png"
 import topUpPic from "/src/assets/images/top-up-balance.png"
+import lockPicMob from "/src/assets/images/unlock-chat-mobile.png"
+import topUpPicMob from "/src/assets/images/top-up-balance-mobile.png"
 import { ROLES } from "../../../constants";
 
 const UnlockChatModal = ({
@@ -61,14 +63,18 @@ const UnlockChatModal = ({
 
       {/* Modal */}
       {userRole == ROLES.KING ? <div
-        className="relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${
-            canAfford
-              ? lockPic
-              : topUpPic
-          })`,
-        }}
+        className="welcome-modal relative rounded-3xl p-12 max-w-[96%] md:max-w-[900px] w-full  bg-cover bg-center bg-no-repeat"
+        // style={{
+        //   backgroundImage: `url(${
+        //     canAfford
+        //       ? lockPic
+        //       : topUpPic
+        //   })`,
+        // }}
+         style={{
+          "--mobile-bg": `url(${canAfford ? lockPicMob : topUpPicMob})`,
+          "--desktop-bg": `url(${canAfford ? lockPic : topUpPic})`,
+          }}
       >
         {/* Close button */}
         <button
