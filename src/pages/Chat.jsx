@@ -380,8 +380,8 @@
 //                   className={`flex items-center space-x-2 p-2 py-[7px] border-b mb-[0px] cursor-pointer ${selectedChat?.id === chat.id ? 'bg-[#F8BBD0]' : ''}`}
 //                   onClick={() => handleSelectChat(chat)}
 //                 >
-//                   <div className="w-8 h-8 bg-[#F5F5F5] rounded-full">
-//                   <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(chat.other_user.profile_picture_id)}></img>
+//                   <div className="w-8 h-8 bg-[#F5F5F5] rounded-lg">
+//                   <img className={`w-full h-full object-cover rounded-lg`} src={getAttachmentURL(chat.other_user.profile_picture_id)}></img>
 //                   </div>
 //                   <div className="flex-1 min-w-0">
 //                     <p className="text-[16px] font-bold truncate">{chat.other_user.name}</p>
@@ -415,8 +415,8 @@
 //               {/* Header */}
 //               <div className="flex justify-between p-[40px] pt-[34px] pb-[34px] border-b items-center">
 //                 <div className="flex items-center space-x-4">
-//                   <div className="w-12 h-12 bg-[#F5F5F5] rounded-full">
-//                   <img className={`w-full h-full object-cover rounded-full`} src={getAttachmentURL(selectedChat.other_user.profile_picture_id)}></img>
+//                   <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg">
+//                   <img className={`w-full h-full object-cover rounded-lg`} src={getAttachmentURL(selectedChat.other_user.profile_picture_id)}></img>
 //                   </div>
 //                   <div>
 //                     <p className="text-[20px] font-bold">{selectedChat.other_user.name}</p>
@@ -539,6 +539,7 @@ import {
   FaPaperclip,
   FaBars,
   FaTimes,
+  FaUser,
 } from "react-icons/fa";
 import Footer from "../components/common/footer";
 import Header from "../components/common/header";
@@ -1058,7 +1059,7 @@ const Chat = () => {
                           ) || "/placeholder.svg"
                         }
                         alt={chat.other_user.name}
-                        className="w-10 md:w-12 h-10 md:h-12 rounded-full object-cover"
+                        className="w-10 md:w-12 h-10 md:h-12 rounded-lg object-cover"
                       />
                       {/* Online indicator - you can add online status logic here */}
                       {(chat.other_user.is_online == 'online') && <div className="absolute bottom-0 right-0 w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full border-2 border-white"></div>}
@@ -1135,7 +1136,20 @@ const Chat = () => {
                       className="md:hidden p-2 text-gray-500 hover:text-gray-700"
                       onClick={() => setIsMobileSidebarOpen(true)}
                     >
-                      <FaBars className="text-lg" />
+                      {/* <FaBars className="text-lg" /> */}
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
                     </button>
 
                     <img
@@ -1145,7 +1159,7 @@ const Chat = () => {
                         ) || "/placeholder.svg"
                       }
                       alt={selectedChat.other_user.name}
-                      className="w-10 md:w-12 h-10 md:h-12 rounded-full object-cover"
+                      className="w-10 md:w-12 h-10 md:h-12 rounded-lg object-cover"
                     />
                     <div>
                       <h2 className="text-lg md:text-xl font-semibold text-gray-900">
@@ -1190,12 +1204,15 @@ const Chat = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-1 md:space-x-3">
-                    <Link
+                    {/* <Link
                       to={`/user-profile/${selectedChat.other_user.name}`}
                       className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs lg:text-sm font-medium transition-colors"
                     >
-                      Profile
-                    </Link>
+                      <FaUser className="inline sm:hidden text-xs md:text-sm" />
+                      <span className="hidden sm:inline">
+                        {selectedChat.is_archived ? "Unarchive" : "Archive"}
+                      </span>
+                    </Link> */}
                     <button
                       className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs lg:text-sm font-medium transition-colors"
                       onClick={() =>
@@ -1205,10 +1222,10 @@ const Chat = () => {
                         )
                       }
                     >
-                      {/* <FaArchive className="text-xs md:text-sm" /> */}
-                      {/* <span className="hidden sm:inline"> */}
+                      <FaArchive className="inline sm:hidden text-xs md:text-sm" />
+                      <span className="hidden sm:inline">
                         {selectedChat.is_archived ? "Unarchive" : "Archive"}
-                      {/* </span> */}
+                      </span>
                     </button>
                     {selectedChat.unlocked ? <ReportChatButton chatId={selectedChat.id} /> : <></>}
                   </div>
@@ -1248,7 +1265,7 @@ const Chat = () => {
                             ) || "/placeholder.svg"
                           }
                           alt={selectedChat.other_user.name}
-                          className="w-6 md:w-8 h-6 md:h-8 rounded-full object-cover mr-2 md:mr-3 mt-1 flex-shrink-0"
+                          className="w-6 md:w-8 h-6 md:h-8 rounded-lg object-cover mr-2 md:mr-3 mt-1 flex-shrink-0"
                         />
                       )}
                       <div className="flex flex-col max-w-[75%] sm:max-w-xs lg:max-w-md">
@@ -1278,7 +1295,7 @@ const Chat = () => {
                             "/placeholder.svg"
                           }
                           alt="You"
-                          className="w-6 md:w-8 h-6 md:h-8 rounded-full object-cover ml-2 md:ml-3 mt-1 flex-shrink-0"
+                          className="w-6 md:w-8 h-6 md:h-8 rounded-lg object-cover ml-2 md:ml-3 mt-1 flex-shrink-0"
                         />
                       )}
                     </div>

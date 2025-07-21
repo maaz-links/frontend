@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axiosClient from '../../axios-client';
+import { FaExclamationCircle } from 'react-icons/fa';
 
 const ReportChatButton = ({ chatId }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -121,7 +122,10 @@ const ReportChatButton = ({ chatId }) => {
         onClick={openModal}
         //style={dangerButtonStyle}
       >
-        Report
+        <FaExclamationCircle className="inline sm:hidden text-xs md:text-sm" />
+                              <span className="hidden sm:inline">
+                                Report
+                              </span>
       </button>
 
       {isOpen && (

@@ -31,9 +31,6 @@ function Home() {
       <PromoBanner />
       <Faqs />
 
-<button onClick={()=>setIsWelcomeModel(true)}>
- open sesame 
-</button>
       <Footer />
     </>
   );

@@ -473,7 +473,7 @@ function UserProfile() {
 
               {token && user?.role === ROLES.KING && (
                 <div className="absolute top-0 left-0">
-                  <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
+                  <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-1 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
                     <strong>{user.profile.credits} Credits</strong>
                   </div>
                 </div>
@@ -490,7 +490,7 @@ function UserProfile() {
                     {givenUser.name}
                     {(givenUser.is_online == "online") ? <span className="w-2 h-2 bg-green-500 rounded-full mx-2"></span>:<span className="w-2 h-2 bg-none rounded-full mx-2"></span>}
                   </div>
-                  <span className="text-black text-[14px] sm:text-[16px] font-medium mt-1 sm:mt-0">
+                  <span className="text-black text-[14px] sm:text-[19px] font-medium mt-1 sm:mt-0">
                     (
                     {getAge(givenUser.dob)}
                     years)
