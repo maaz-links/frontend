@@ -571,7 +571,7 @@ function UserProfile() {
                     </div>
                   )}
 
-                  <div className="flex items-center flex-row text-black text-[14px] sm:text-[16px] font-[400] mb-4 sm:mb-6">
+                  <div className="flex items-center flex-row text-black text-[14px] sm:text-[16px] font-[400]">
                     <svg
                       className="w-6 h-6 mr-1"
                       fill="currentColor"

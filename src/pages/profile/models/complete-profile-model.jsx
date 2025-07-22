@@ -321,10 +321,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                           key={id}
                           type="button"
                           onClick={() => handleProfileTypeChange(id)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                          className={`px-2 py-2 md:px-4 rounded-full text-xs md:text-sm font-medium transition-colors ${
                             formData.profileType.includes(id)
-                              ? "bg-black border border-[rgba(12,16,56,0.22)]  text-white"
-                              : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                             ? "bg-black  text-white"
+                              : "bg-[#F3F3F5]   text-[#090909]"
                           }`}
                         >
                           {name}
@@ -343,10 +343,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                           key={id}
                           type="button"
                           onClick={() => handleInterestChange(id)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                          className={`px-2 py-2 md:px-4 rounded-full text-xs md:text-sm font-medium transition-colors ${
                             formData.interests.includes(id)
-                              ? "bg-black border border-[rgba(12,16,56,0.22)]  text-white"
-                              : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                              ? "bg-black  text-white"
+                              : "bg-[#F3F3F5]   text-[#090909]"
                           }`}
                         >
                           {name}
@@ -365,10 +365,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                           key={id}
                           type="button"
                           onClick={() => handleAvailableForChange(id)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                          className={`px-2 py-2 md:px-4 rounded-full text-xs md:text-sm font-medium transition-colors ${
                             formData.availableFor.includes(id)
-                              ? "bg-[#8880FE] border border-[#8880FE] text-white"
-                              : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                               ? "bg-[#8880FE]  text-white"
+                              : "bg-[#F3F3F5]   text-[#090909]"
                           }`}
                         >
                           {name}
@@ -596,10 +596,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                 </label>
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { label: "Email", value: 0 },
-                    { label: "Email + SMS", value: 1 }
+                    { label: "Email", value: 0, gridspan:"" },
+                    { label: "Email + SMS", value: 1, gridspan:"col-span-2" }
                   ].map((option) => (
-                    <label key={option.value} className="flex items-center gap-2">
+                    <label key={option.value} className={`flex items-center gap-2 ${option.gridspan}`}>
                       <input
                         type="radio"
                         checked={formData.notification === option.value}
