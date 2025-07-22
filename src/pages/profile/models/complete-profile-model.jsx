@@ -194,8 +194,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
       <div className="absolute inset-0 shadow-2xl backdrop-blur bg-black/40" />
 
       {/* Modal */}
-      <ScrollArea className="relative w-full max-w-[506px] mx-4 overflow-y-auto h-full scrollbar-hide">
-        <div className="bg-white relative rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] my-5 p-10 md:p-[50px_40px]">
+      <ScrollArea className="relative w-full max-w-[506px] mx-2 overflow-y-auto h-full scrollbar-hide">
+        <div className="bg-white relative rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] my-5 px-4 py-10 md:p-[50px_40px]">
           {/* Close Button */}
 <button
             onClick={onClose}
@@ -207,7 +207,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
           <div className="flex flex-col items-center gap-[26px]">
           
             <div className="text-center">
-              <h2 className="text-[28px] md:text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
+              <h2 className="text-[32px] px-2 md:text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
                 Complete Your Profile
               </h2>
             </div>
@@ -297,10 +297,10 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       key={id}
                       type="button"
                       onClick={() => handleLanguageChange(id)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      className={`px-2 py-2 md:px-4 rounded-full text-xs md:text-sm font-medium transition-colors ${
                         formData.languages.includes(id)
-                          ? "bg-black border border-[rgba(12,16,56,0.22)]  text-white"
-                          : "bg-white border border-[rgba(12,16,56,0.22)] text-[#090909]"
+                          ? "bg-black  text-white"
+                          : "bg-[#F3F3F5]   text-[#090909]"
                       }`}
                     >
                       {name}

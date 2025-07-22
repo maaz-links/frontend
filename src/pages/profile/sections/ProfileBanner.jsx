@@ -8,9 +8,9 @@ export default function ProfileBanner({progressValue = 0, isCompleteModalOpen, s
   return (
     <div className="  w-[98%]     mx-auto h-fit md:h-[125px] bg-[#8880FE] rounded-[20px] mt-2 ">
       {/* Content */}
-      <div className="flex flex-col md:flex-row justify-between px-4 gap-5 md:text-start text-center py-10 md:px-16 items-center h-full">
+      <div className="flex flex-col items-start md:flex-row md:justify-between px-4 gap-5 md:text-start text-center py-10 md:px-16 md:items-center h-full">
         <div className="  flex  flex-col gap-3">
-          <h2 className="text-[24px] font-bold  text-white  leading-[24px]">
+          <h2 className="text-[20px]  md:text-[24px] font-bold  text-white  leading-[24px]">
             {true
               ? `Your profile is ${progressValue}% complete`
               : "Complete Your Profile"}

@@ -92,8 +92,8 @@ const EditProfileModal = ({ isOpen, onClose }) => {
       <div className="absolute inset-0 shadow-2xl backdrop-blur bg-black/40" />
 
       {/* Modal */}
-      <ScrollArea className="relative w-full max-w-[506px] mx-4 overflow-y-auto h-full scrollbar-hide">
-        <div className="bg-white relative rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] my-5 p-10 md:p-[50px_40px]">
+      <ScrollArea className="relative w-full max-w-[506px] mx-2 overflow-y-auto h-full scrollbar-hide">
+        <div className="bg-white relative rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] my-5 px-4 py-10 md:p-[50px_40px]">
           <button
             onClick={onClose}
             className="absolute end-5 top-5 w-6 h-6 flex items-center justify-center text-black hover:text-gray-600 transition-colors"

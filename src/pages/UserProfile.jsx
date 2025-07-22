@@ -400,10 +400,12 @@ function UserProfile() {
   return (
     <>
       <Header />
-      <div className="bg-gray-50 min-h-screen">
+      <div className="bg-gray-50 min-h-screen px-2">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center ">
             {/* Back Button */}
+       
+       
             <button
               onClick={() => navigate(-1)}
               className="flex items-center text-black text-[16px] font-bold hover:text-gray-800 mb-4 sm:mb-8 text-sm"
@@ -423,7 +425,10 @@ function UserProfile() {
               </svg>
               Back
             </button>
-            <div className="flex flex-col items-center  ">
+
+
+            <div className="flex flex-col items-center py-2 ">
+              <div>
               {/* Report Button */}
               {canReport && (
                 // <div className="mt-6 sm:mt-8">
@@ -431,10 +436,13 @@ function UserProfile() {
 
                 // </div>
               )}
+              </div>
               <div className=" text-xs sm:text-sm text-gray-400">
                 User ID: {givenUser.id}
               </div>
             </div>
+
+
           </div>
           <div className="flex flex-col md:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
@@ -446,7 +454,7 @@ function UserProfile() {
                     "/placeholder.svg"
                   }
                   alt={givenUser.name}
-                  className="w-full h-60 sm:h-80 lg:h-60 xl:h-[526px] object-cover cursor-pointer"
+                  className="w-full h-72 sm:h-80 md:h-60 xl:h-[526px] object-cover cursor-pointer"
                   onClick={() => {
                     setStartSlideIndex(0);
                     setIsLightboxOpen(true);
@@ -473,14 +481,14 @@ function UserProfile() {
                 {/* Scroll container */}
                 <div
                   ref={scrollRef}
-                  className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-2 sm:px-10"
+                  className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth "
                 >
                   {givenUser.other_pics.map((id, i) => (
                     <img
                       key={id ?? i}
                       src={getAttachmentURL(id)}
                       alt={`user-pic-${i + 1}`}
-                      className="rounded-2xl h-20 w-24 sm:h-32 sm:w-36 flex-shrink-0 object-cover cursor-pointer"
+                      className="rounded-lg h-20 sm:h-24 w-[25%] flex-shrink-0 object-cover cursor-pointer"
                       onClick={() => {
                         setStartSlideIndex(i + 1);
                         setIsLightboxOpen(true);
@@ -489,31 +497,37 @@ function UserProfile() {
                   ))}
                 </div>
 
-                {/* Left arrow */}
-                <button
-                  onClick={() =>
-                    scrollRef.current.scrollBy({
-                      left: -100,
-                      behavior: "smooth",
-                    })
-                  }
-                  className="absolute left-0 top-1/2 -translate-y-1/2   rounded-full p-1 z-10"
+                <span
+                  className={`${
+                    (givenUser.other_pics.length < 4 && "hidden"+ " md:hidden")
+                  }`}
                 >
-                  <ChevronLeftIcon className="w-8 h-8" />
-                </button>
+                  {/* Left arrow */}
+                  <button
+                    onClick={() =>
+                      scrollRef.current.scrollBy({
+                        left: -100,
+                        behavior: "smooth",
+                      })
+                    }
+                    className="absolute -left-8 top-1/2 -translate-y-1/2   rounded-full p-1 z-10"
+                  >
+                    <ChevronLeftIcon className="w-8 h-8" />
+                  </button>
 
-                {/* Right arrow */}
-                <button
-                  onClick={() =>
-                    scrollRef.current.scrollBy({
-                      left: 100,
-                      behavior: "smooth",
-                    })
-                  }
-                  className="absolute right-0 top-1/2 -translate-y-1/2   rounded-full p-1 z-10"
-                >
-                  <ChevronRightIcon className="w-8 h-8" />
-                </button>
+                  {/* Right arrow */}
+                  <button
+                    onClick={() =>
+                      scrollRef.current.scrollBy({
+                        left: 100,
+                        behavior: "smooth",
+                      })
+                    }
+                    className="absolute -right-8 top-1/2 -translate-y-1/2   rounded-full p-1 z-10"
+                  >
+                    <ChevronRightIcon className="w-8 h-8" />
+                  </button>
+                </span>
               </div>
             </div>
 
@@ -522,7 +536,7 @@ function UserProfile() {
               {/* Credit Badge - Top Left */}
 
               {token && user?.role === ROLES.KING && (
-                <div className="absolute top-0 left-0 hidden lg:block">
+                <div className="absolute top-0 left-0 hidden md:block">
                   <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-1 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
                     <strong>{user.profile.credits} Credits</strong>
                   </div>
@@ -531,7 +545,7 @@ function UserProfile() {
 
               <div className="my-3">
                 {/* Name with Green Dot and Age */}
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-2 flex  t items-center">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-2 flex   items-center">
                   <div className="flex items-center">
                     {givenUser.name}
                     {givenUser.is_online == "online" ? (
@@ -540,7 +554,7 @@ function UserProfile() {
                       <span className="w-2 h-2 bg-none rounded-full mx-2"></span>
                     )}
                   </div>
-                  <span className="text-black text-[20px] sm:text-[19px] font-medium mt-1 sm:mt-0">
+                  <span className="text-black text-[20px]  font-medium md:mt-1 sm:mt-0">
                     ({getAge(givenUser.dob)}
                     years)
                   </span>
@@ -548,15 +562,14 @@ function UserProfile() {
 
                 {/* Location */}
 
-                <div className="flex flex-row gap-5">
+                <div className="flex flex-row   gap-5">
                   {token && user?.role === ROLES.KING && (
-                    <div className="w-fit  lg:hidden">
+                    <div className="w-fit  md:hidden">
                       <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-2 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
                         <strong>{user.profile.credits} Credits</strong>
                       </div>
                     </div>
                   )}
-
 
                   <div className="flex items-center flex-row text-black text-[14px] sm:text-[16px] font-[400] mb-4 sm:mb-6">
                     <svg
@@ -572,6 +585,7 @@ function UserProfile() {
                     </svg>
                     {getProvinceName(givenUser.profile.province_id)}
                   </div>
+
                 </div>
               </div>
 
