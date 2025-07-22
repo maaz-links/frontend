@@ -82,7 +82,7 @@ export default function PersonalDataSection() {
               className="w-24 md:w-[133px] h-[55px] border border-[rgba(12,16,56,0.22)] rounded-xl px-6 py-4 text-base font-medium text-black/80 tracking-[-0.03em] backdrop-blur-[12.5px]"
             />
           </div> */}
-          <DateOfBirthInput isReadOnly={true} initialValues={user.dob} fieldClass="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent" />
+          <DateOfBirthInput isReadOnly={true} initialValues={user.dob} fieldClass="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent text-black/80" />
         </div>
 
         {/* Mobile Phone */}

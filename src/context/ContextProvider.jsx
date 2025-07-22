@@ -62,13 +62,13 @@ export const ContextProvider = ({ children }) => {
   const [isWelcomeModel, setIsWelcomeModel] = useState(false);
 
   const SocialLinks = [
-    { label: 'Whatsapp', name: 'whatsapp', link: '' },
-    { label: 'Facebook', name: 'facebook', link: '' },
-    { label: 'Instagram', name: 'instagram', link: '' },
-    { label: 'Telegram', name: 'telegram', link: '' },
-    { label: 'Tiktok', name: 'tiktok', link: '' },
-    { label: 'Onlyfans', name: 'onlyfans', link: '' },
-    { label: 'Personal Website', name: 'personal_website', link: '' },
+    { label: 'Whatsapp', name: 'whatsapp', baseUrl: 'https://wa.me/' },
+    { label: 'Facebook', name: 'facebook', baseUrl: 'https://facebook.com/' },
+    { label: 'Instagram', name: 'instagram', baseUrl: 'https://instagram.com/' },
+    { label: 'Telegram', name: 'telegram', baseUrl: 'https://t.me/' },
+    { label: 'Tiktok', name: 'tiktok', baseUrl: 'https://tiktok.com/@' },
+    { label: 'Onlyfans', name: 'onlyfans', baseUrl: 'https://onlyfans.com/' },
+    { label: 'Personal Website', name: 'personal_website', baseUrl: '' },
   ];
 
   // const [countryOptions, setCountryOptions] = useState([]);

@@ -69,7 +69,7 @@ const SignUp = () => {
         <div className="flex flex-row gap-[30px] mb-6">
           {/* Option 1 */}
           <div
-            className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-5 flex flex-wrap items-center justify-center cursor-pointer 
+            className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-4 flex flex-wrap items-center justify-center cursor-pointer 
           ${myRole === ROLES.HOSTESS ? "bg-[#8880FE] text-white" : "bg-[#F3F3F5] text-black"}`}
             onClick={() => handleSelect(ROLES.HOSTESS)}
           >
@@ -83,7 +83,7 @@ const SignUp = () => {
 
           {/* Option 2 */}
           <div
-            className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-5 flex flex-wrap items-center justify-center cursor-pointer 
+            className={`relative mx-auto rounded-4xl w-[50%] aspect-square p-4 flex flex-wrap items-center justify-center cursor-pointer 
           ${myRole === ROLES.KING ? "bg-[#8880FE] text-white" : "bg-[#F3F3F5] text-black"}`}
             onClick={() => handleSelect(ROLES.KING)}
           >

@@ -102,7 +102,7 @@ export default function ProfileCard({
   };
 
   return (
-    <div className="lg:w-[387px] bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-6">
+    <div className=" bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-6">
       {/* More Button */}
 
       <div className="flex justify-end mb-6">

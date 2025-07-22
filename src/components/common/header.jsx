@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import BellIcon from "/src/assets/icons/bell.svg";
 import LogoutIcon from "/src/assets/icons/logout.svg";
 import { useState } from "react";
@@ -11,7 +11,6 @@ import { ROLES } from "../../../constants";
 import { useStateContext } from "../../context/ContextProvider";
 import axiosClient from "../../../axios-client";
 import { Avatar } from "@/functions/Avatar";
-import { getAttachmentURL } from "@/functions/Common";
 const headerLinks = [
   {
     link: "/",
@@ -66,7 +65,11 @@ function HeaderLogo() {
 
 function Header({headerClass=''}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
+  const checkURL = (url) => {
+    return location.pathname == url;
+  }
   const { token, user, setUser, setToken, unreadCount,setGenericModalOpen,setGenericModalContent } = useStateContext();
   const navigate = useNavigate();
 
@@ -111,7 +114,7 @@ function Header({headerClass=''}) {
     // IF USER IS NOT LOGGED IN
     return (
       // <div className="mb-24">
-        <nav className={`bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 shadow ${headerClass}`}>
+        <nav className={`${false ? "bg-gray-300 ":"bg-white shadow"} flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 ${headerClass}`}>
           <HeaderLogo />
 
           <div className="flex items-center justify-between gap-2 md:gap-20 ">
@@ -121,7 +124,7 @@ function Header({headerClass=''}) {
                   key={index}
                   to={link.link}
                   className={({ isActive }) =>
-                    `text-gray-700 hover:text-gray-950 hover:font-medium font-[400] ${
+                    `text-gray-700 hover:text-gray-950 hover:font-medium font-[400] text-[14px] lg:text-base ${
                       isActive ? "text-gray-950 font-medium" : ""
                     }`
                   }
@@ -136,13 +139,13 @@ function Header({headerClass=''}) {
               {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
                 to="/sign-up"
-                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[12px] lg:text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
                 Sign Up Now
               </NavLink>
               <NavLink
                 to="/login"
-                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[12px] lg:text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
                 Log In
               </NavLink>
@@ -202,7 +205,7 @@ function Header({headerClass=''}) {
                 key={index}
                 to={link.link}
                 className={({ isActive }) =>
-                  `text-gray-700 hover:text-gray-950 hover:font-medium font-[400] flex items-center ${
+                  `text-gray-700 hover:text-gray-950 hover:font-medium text-[14px] lg:text-base font-[400] flex items-center ${
                     isActive ? "text-gray-950 font-medium" : ""
                   }`
                 }

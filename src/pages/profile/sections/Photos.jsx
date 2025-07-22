@@ -124,7 +124,7 @@ export default function PhotoGallery() {
             <img
               src={photo.url}
               alt={`Photo ${photo.id}`}
-              className="w-full h-[30vw] lg:h-[15vw] object-cover rounded-2xl"
+              className="w-full h-[30vw] md:h-[15vw] object-cover rounded-2xl"
               onClick={() => {
                 setStartSlideIndex(i);
                 setIsLightboxOpen(true);
@@ -137,7 +137,7 @@ export default function PhotoGallery() {
             >
               <XIcon />
             </button>
-            <div className="absolute bottom-2 left-2 right-2 flex justify-between items-center bg-white/50 w-[50%] p-1 rounded">
+            {/* <div className="absolute bottom-2 left-2 right-2 flex justify-between items-center bg-white/50 w-[50%] p-1 rounded">
               <div className="flex items-center">
                 <input
                   type="radio"
@@ -148,16 +148,11 @@ export default function PhotoGallery() {
                 />
                 <span className="text-xs">Profile Picture</span>
               </div>
-              {/* <button
-                onClick={() => removePhoto(photo.id)}
-                className="text-black p-1"
-              >
-                <FaTrash className="text-sm" />
-              </button> */}
-            </div>
+            
+            </div> */}
           </div>
         ))}
-        <label className="flex items-center justify-center w-full h-[30vw] lg:h-[15vw] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
+        <label className="flex items-center justify-center w-full h-[30vw] md:h-[15vw] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
           <PlusIcon className="text-gray-300" />
           <input
             type="file"

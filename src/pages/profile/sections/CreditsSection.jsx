@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function CreditsSection({ credits }) {
   return (
-    <div className="w-full  gap-4 flex-col md:flex-row  bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between md:h-[149px]">
-      <div className="space-y-4   flex  flex-col items-start md:w-[60%] w-full ">
+    <div className="w-full  gap-4 flex-col lg:flex-row  bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between lg:h-[149px]">
+      <div className="space-y-4   flex  flex-col items-start lg:w-[60%] w-full ">
         <h3 className="text-xl font-bold  text-[#090909] tracking-[-0.04em]">
           Your Credits
         </h3>
@@ -17,8 +17,8 @@ export default function CreditsSection({ credits }) {
         </div>
       </div>
 
-      <div className="w-full flex md:justify-end">
-      <Link to="/shop" className="bg-[#8880FE] w-full md:w-fit  rounded-xl px-2 md:px-10 py-3 h-[60px]  justify-center flex items-center gap-1 md:gap-3 hover:bg-black">
+      <div className="w-full flex lg:justify-end">
+      <Link to="/shop" className="bg-[#8880FE] w-full lg:w-fit  rounded-xl px-2 md:px-5 py-3 h-[60px]  justify-center flex items-center gap-1 md:gap-3 hover:bg-black">
         <span className="text-white text-base font-bold text-center tracking-[-0.03em] capitalize text-nowrap  ">
           top up the balance
         </span>
