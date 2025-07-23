@@ -25,7 +25,7 @@ const [isLoading, setIsLoading] = useState(false);
     if (files.length === 0) return;
 
     const formData = new FormData();
-    files.forEach(file => {
+    files.slice(0, 1).forEach(file => {
       formData.append('images[]', file);
       formData.append('set_profile_picture', 1);
     });

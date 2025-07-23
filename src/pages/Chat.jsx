@@ -24,7 +24,7 @@
 //   const [loading, setLoading] = useState(true); //loading for chat sidebar
 //   const [pollingInterval, setPollingInterval] = useState(null); //???
 //   const messagesEndRef = useRef(null); //Controls scrolling
-//   const {user,refreshUser,getProvinceName,profileCosts,checkUnreadMessages} = useStateContext();
+//   const {user,refreshUser,getProvinceName,checkUnreadMessages} = useStateContext();
 
 //   const [isRead, setReadStatus] = useState(2);
 
@@ -504,7 +504,7 @@
 //                     ()=>createChat(selectedChat.other_user.id,navigate,refreshUser, user.role, selectedChat.other_user.name)}
 //                     className="cursor-pointer w-full bg-[#E91E63] block uppercase text-[20px] p-[12px]  hover:bg-[#F8BBD0] text-[#FFFFFF]">
 //                     {/* UNLOCK CHAT */}
-//                     {`UNLOCK CHAT FOR ${getUserCost(selectedChat.other_user.top_profile,selectedChat.other_user.verified_profile,profileCosts)} CREDITS`}
+//                     {`UNLOCK CHAT FOR ${getUserCost(selectedChat.other_user.top_profile,selectedChat.other_user.verified_profile)} CREDITS`}
 //                   </button>
 //                 </div>
 //               :
@@ -573,10 +573,8 @@ const Chat = () => {
 
   const {
     user,
-    refreshUser,
-    getProvinceName,
-    profileCosts,
     checkUnreadMessages,
+    fetchChatTrigger,
   } = useStateContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [isRead, setReadStatus] = useState(2);
@@ -898,48 +896,50 @@ const Chat = () => {
     }
   };
 
-  useEffect(() => {
-    const echo = getEcho();
-    echo.connector.pusher.connection.bind("connected", () => {
-      // console.log('✅ WebSocket CONNECTED');
-    });
-    echo.connector.pusher.connection.bind("failed", () => {
-      // console.log('❌ WebSocket FAILED');
-    });
-    echo.connector.pusher.connection.bind("error", (err) => {
-      console.error("WebSocket ERROR:", err);
-    });
-    //const channel = echo.channel('chat');
-    const channel = echo.private(`App.Models.User.${user.id}`);
-    // Proper event listening with dot prefix
-    channel.listen(".NewMessage", (data) => {
-      //Because chat list is reset when user sends msg, there's no need to reset chat list again when we receive broadcat of our own message.
-      if ((data.sender_id === user.id) == false) {
-        fetchChats();
-      }
-      //(prev => [...prev, data.message]);
-    });
-    channel.listen(".NewMessageAfterMod", (data) => {
-      fetchChats();
-    });
-    // Connection debugging
-    echo.connector.pusher.connection.bind("connected", () => {
-      // console.log('Connected to WebSocket!');
-    });
-    return () => {
-      channel.stopListening(".NewMessage");
-      channel.stopListening(".NewMessageAfterMod");
-      echo.leave(`App.Models.User.${user.id}`);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const echo = getEcho();
+  //   echo.connector.pusher.connection.bind("connected", () => {
+  //     // console.log('✅ WebSocket CONNECTED');
+  //   });
+  //   echo.connector.pusher.connection.bind("failed", () => {
+  //     // console.log('❌ WebSocket FAILED');
+  //   });
+  //   echo.connector.pusher.connection.bind("error", (err) => {
+  //     console.error("WebSocket ERROR:", err);
+  //   });
+  //   //const channel = echo.channel('chat');
+  //   const channel = echo.private(`App.Models.User.${user.id}`);
+  //   // Proper event listening with dot prefix
+  //   channel.listen(".NewMessage", (data) => {
+  //     //Because chat list is reset when user sends msg, there's no need to reset chat list again when we receive broadcat of our own message.
+  //     if ((data.sender_id === user.id) == false) {
+  //       fetchChats();
+  //       checkUnreadMessages();
+  //     }
+  //     //(prev => [...prev, data.message]);
+  //   });
+  //   channel.listen(".NewMessageAfterMod", (data) => {
+  //     fetchChats();
+  //     checkUnreadMessages();
+  //   });
+  //   // Connection debugging
+  //   echo.connector.pusher.connection.bind("connected", () => {
+  //     // console.log('Connected to WebSocket!');
+  //   });
+  //   return () => {
+  //     channel.stopListening(".NewMessage");
+  //     channel.stopListening(".NewMessageAfterMod");
+  //     echo.leave(`App.Models.User.${user.id}`);
+  //   };
+  // }, []);
 
   // Initialize
   useEffect(() => {
     activeTabRef.current = activeTab;
     fetchChats();
-    checkUnreadMessages();
+    // checkUnreadMessages();
 
-  }, [activeTab]);
+  }, [activeTab,fetchChatTrigger]);
 
   useEffect(() => {
     // return () => {
@@ -1026,7 +1026,7 @@ const Chat = () => {
     {/* Do not wrap <Header> in div */}
     <Header headerClass={`${isMobileSidebarOpen ? "":"hidden md:flex"}`} />
    
-      <div className="flex h-[100vh] md:h-[120vh] md:w-[98%]  mx-auto  md:my-5 relative">
+      <div className="flex h-[calc(100vh-50px)] md:h-[120vh] md:w-[98%]  mx-auto  md:my-5 relative">
         {/* Mobile Sidebar Overlay */}
         {isMobileSidebarOpen && (
           <div
@@ -1039,17 +1039,17 @@ const Chat = () => {
         <div
           className={`
           ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0 fixed md:relative z-50 md:z-auto
+          md:translate-x-0 fixed md:relative z-45 md:z-auto
           w-full md:w-80 h-full md:h-auto
           border-r border-gray-200 bg-white flex flex-col
           transition-transform duration-300 ease-in-out
         `}
         >
-          <div className="p-4 md:p-6 flex-shrink-0">
+          <div className="py-2 md:py-6 px-4 flex-shrink-0">
             {/* Mobile close button */}
             {true && (
               <div className="flex items-center justify-between mb-4 md:mb-0">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 md:mb-6">
                   Your Chat
                 </h1>
                 {/* {selectedChat && <button
@@ -1072,7 +1072,7 @@ const Chat = () => {
               />
             </div> */}
             {/* Tab Buttons */}
-            <div className="flex gap-2 mb-4">
+            <div className="flex gap-2">
               <button
                 className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
                   activeTab === "all"
@@ -1217,7 +1217,8 @@ const Chat = () => {
                         />
                       </svg>
                     </button>
-
+                    <Link
+                      to={`/user-profile/${selectedChat.other_user.name}`}>
                     <img
                       src={
                         getAttachmentURL(
@@ -1227,6 +1228,7 @@ const Chat = () => {
                       alt={selectedChat.other_user.name}
                       className="w-10 md:w-12 h-10 md:h-12 rounded-lg object-cover"
                     />
+                    </Link>
                     <div>
                       <h2 className="text-lg md:text-xl font-semibold text-gray-900">
                         {selectedChat.other_user.name}

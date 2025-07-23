@@ -13,7 +13,10 @@ import { getAttachmentURL } from "@/functions/Common";
 export default function PhotoGallery() {
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { user, refreshUser } = useStateContext();
+  const { user, refreshUser, backendConfigs } = useStateContext();
+
+  const canUpload = (backendConfigs.image_limit_per_user - photos.length > 0);
+
   const location = useLocation();
   const navigate = useNavigate();
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -59,7 +62,9 @@ export default function PhotoGallery() {
       setIsLoading,
       fetchImages,
       axiosClient,
-      toast
+      toast,
+      photos.length,
+      backendConfigs.image_limit_per_user,
     );
   };
 
@@ -117,14 +122,20 @@ export default function PhotoGallery() {
 
   return (
     <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 w-full">
-      <h2 className="text-[20px] leading-[24px] font-bold mb-8">My Photos</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:w-[90%] gap-4">
+      <div className="flex justify-between mb-8 gap-1 flex-wrap">
+      <h2 className="text-[20px] leading-[24px] font-bold w-[200px]">My Photos</h2>
+      <h3 className="leading-[24px] text-gray-500 text-[14px] ">
+        {canUpload?`You can upload upto ${backendConfigs.image_limit_per_user} photos.`:`You have reached the maximum limit of ${backendConfigs.image_limit_per_user} photos.`}
+      </h3>
+      </div>
+      
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:w-[100%] gap-4">
         {photos.map((photo,i) => (
           <div key={photo.id} className="relative">
             <img
               src={photo.url}
               alt={`Photo ${photo.id}`}
-              className="w-full h-[30vw] md:h-[15vw] object-cover rounded-2xl"
+              className="w-full h-[30vw] md:h-[18vw] object-cover rounded-2xl"
               onClick={() => {
                 setStartSlideIndex(i);
                 setIsLightboxOpen(true);
@@ -152,7 +163,7 @@ export default function PhotoGallery() {
             </div> */}
           </div>
         ))}
-        <label className="flex items-center justify-center w-full h-[30vw] md:h-[15vw] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
+        {canUpload && <label className="flex items-center justify-center w-full h-[30vw] md:h-[18vw] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
           <PlusIcon className="text-gray-300" />
           <input
             type="file"
@@ -162,7 +173,7 @@ export default function PhotoGallery() {
             className="hidden"
             disabled={isLoading}
           />
-        </label>
+        </label>}
       </div>
       <Lightbox
             open={isLightboxOpen}
@@ -190,13 +201,39 @@ const handleImageUpload = async (
   fetchImages,
   axiosClient,
   toast,
+  numberOfExistingPhotos = 0,
+  totalLimit = 10,
   setAsProfilePicture = false,
 ) => {
   const files = Array.from(event.target.files);
   if (files.length === 0) return;
 
+  const maxSelectable = totalLimit - numberOfExistingPhotos;
+
+  if (maxSelectable <= 0 || files.length === 0) {
+    toast.error(`You have reached the maximum limit of ${totalLimit} images.`,
+      {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      }
+    );
+    return;
+  }
+  const filesToUpload = files.slice(0, maxSelectable);
+  if (filesToUpload.length === 0) {
+    toast.error(`You can only upload ${maxSelectable} more image(s).`,
+      {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      }
+    );
+    return;
+  }
+
   const formData = new FormData();
-  files.forEach((file) => {
+  filesToUpload.forEach((file) => {
     formData.append('images[]', file);
   });
 

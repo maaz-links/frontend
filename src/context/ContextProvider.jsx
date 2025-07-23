@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
-import { initializeEcho } from "../../echo";
-import PopUpModel from "../components/common/popup-model";
-import WelcomeModal from "../components/common/welcome-model";
+import { getEcho, initializeEcho } from "../../echo";
 
 const StateContext = createContext({
   user: null,
@@ -52,7 +50,7 @@ export const ContextProvider = ({ children }) => {
   const [optionsAvailableFor, setOptionsAvailableFor] = useState([]);
   const [languageOptions, setLanguageOptions] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [profileCosts, setProfileCosts] = useState([]);
+  const [backendConfigs,setBackendConfigs] = useState([]);
   const [nationalitiesList, setNationalitiesList] = useState([]);
   const [eyeColorList, setEyeColorList] = useState([]);
   const [profileTypeList, setProfileTypeList] = useState([]);
@@ -81,7 +79,7 @@ export const ContextProvider = ({ children }) => {
     setOptionsInterest(response2.data.interests);
     setOptionsAvailableFor(response2.data.available_for);
     setLanguageOptions(response2.data.spoken_languages);
-    setProfileCosts(response2.data.profile_costs);
+    setBackendConfigs(response2.data.backend_configs)
     setNationalitiesList(response2.data.nationalities);
     //console.log(response2.data.nationalities);
     setEyeColorList(response2.data.eye_colors);
@@ -183,6 +181,57 @@ export const ContextProvider = ({ children }) => {
 
   }
 
+
+  const [fetchChatTrigger, setFetchChatTrigger] = useState(false)
+  useEffect(() => {
+    if(user){
+      const echo = getEcho();
+      console.log('helo');
+      echo.connector.pusher.connection.bind('connected', () => {
+          console.log('✅ WebSocket CONNECTED');
+      });
+      echo.connector.pusher.connection.bind('failed', () => {
+          console.log('❌ WebSocket FAILED');
+      });
+      echo.connector.pusher.connection.bind('error', (err) => {
+          console.error('WebSocket ERROR:', err);
+      });
+      //const channel = echo.channel('chat');
+      const channel = echo.private(`App.Models.User.${user.id}`);
+      // Proper event listening with dot prefix
+      channel.listen('.NewMessage', (data) => {
+          
+        //Because chat list is reset when user sends msg, there's no need to reset chat list again when we receive broadcat of our own message.
+          if((data.sender_id === user.id) == false){
+            setFetchChatTrigger(prev => !prev);
+            console.log('fetchChatTrigger:',fetchChatTrigger+1)
+            checkUnreadMessages();
+            //fetchChats();
+          }
+  
+          //(prev => [...prev, data.message]);
+      });
+  
+      channel.listen('.NewMessageAfterMod', (data) => {
+        setFetchChatTrigger(prev => !prev);
+            //fetchChats();
+         
+      });
+  
+      // Connection debugging
+      echo.connector.pusher.connection.bind('connected', () => {
+          // console.log('Connected to WebSocket!');
+      });
+  
+      return () => {
+          channel.stopListening('.NewMessage');
+          channel.stopListening('.NewMessageAfterMod');
+          echo.leave(`App.Models.User.${user.id}`);
+      };
+      
+    }
+  }, [user]);
+
   return (
     <StateContext.Provider value={{
       user,
@@ -198,7 +247,7 @@ export const ContextProvider = ({ children }) => {
       refreshUser,// setRefreshUser,
       countries,
       getProvinceName,
-      profileCosts,
+      backendConfigs,
       unreadCount,checkUnreadMessages,
       profileTypeList,
       // ... other values
@@ -206,6 +255,7 @@ export const ContextProvider = ({ children }) => {
       GenericModalContent, setGenericModalContent,
       isWelcomeModel,setIsWelcomeModel,
       SocialLinks,
+      fetchChatTrigger
 
     }}>
       {children}

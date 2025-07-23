@@ -14,7 +14,7 @@
 
 // function UserProfile() {
 
-//   const {token, user, optionsInterest,optionsAvailableFor,languageOptions, getProvinceName ,refreshUser, profileCosts} = useStateContext();
+//   const {token, user, optionsInterest,optionsAvailableFor,languageOptions, getProvinceName ,refreshUser} = useStateContext();
 //   const [givenUser, setGivenUser] = useState(null);
 //   const [loading, setLoading] = useState(true);
 //   const [unlockChat,setUnlockChat] = useState(false);
@@ -321,8 +321,6 @@ function UserProfile() {
     optionsAvailableFor,
     languageOptions,
     getProvinceName,
-    refreshUser,
-    profileCosts,
     SocialLinks,
   } = useStateContext();
   const [givenUser, setGivenUser] = useState(null);
