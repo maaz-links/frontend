@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
 import { Link } from "react-router-dom";
-import { getAttachmentURL } from "@/functions/Common";
+import { getAttachmentURL, getOnlineStatus } from "@/functions/Common";
 
 export default function ContactsSection() {
 
@@ -64,9 +64,9 @@ export default function ContactsSection() {
                 <p className="text-sm font-bold text-[#090909] tracking-[-0.03em]">{contact.other_user.name}</p>
                 <p className="text-xs font-bold text-[#5F5F5F] leading-[18px]">
                 <>
-                    {(contact.other_user.is_online == "online") && false && <div className="inline-block mr-1 w-2 h-2 bg-green-500 rounded-full"></div>}
+                    {getOnlineStatus(contact.other_user) && <div className="inline-block mr-1 w-2 h-2 bg-green-500 rounded-full"></div>}
                 </>
-                  {(contact.other_user.is_online == "online") ? "Online" : "Away"}
+                    {getOnlineStatus(contact.other_user) ? "Online" : "Away"}
                   </p>
               </div>
 

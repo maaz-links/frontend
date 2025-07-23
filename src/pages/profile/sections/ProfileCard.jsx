@@ -70,10 +70,12 @@ export default function ProfileCard({
   const hasProfileInfo =
   user.profile?.province_id ||
   user.profile?.nationality ||
-  user.profile?.height ||
-  user.profile?.shoe_size ||
+  
   (user.role === ROLES.HOSTESS &&
     (user.profile?.dress_size ||
+      user.profile?.height ||
+      user.profile?.shoe_size ||
+      user.profile?.eye_color ||
       user.profile?.weight ||
      user.profile?.travel_available !== null ||
      SocialLinks.some((platform) => !!user.profile?.[platform.name]))
@@ -239,22 +241,28 @@ export default function ProfileCard({
                     </li>
                   )}
 
-                  {user.profile?.height && (
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Height</span>
-                      <span className="truncate max-w-[50%]">{user.profile.height}cm</span>
-                    </li>
-                  )}
-
-                  {user.profile?.shoe_size && (
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Shoe Size</span>
-                      <span className="truncate max-w-[50%]">{user.profile.shoe_size}</span>
-                    </li>
-                  )}
+                  
 
                   {user.role === ROLES.HOSTESS && (
                     <>
+                      {user.profile?.shoe_size && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Shoe Size</span>
+                          <span className="truncate max-w-[50%]">{user.profile.shoe_size}</span>
+                        </li>
+                      )}
+                      {user.profile?.eye_color && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Eye Colour</span>
+                          <span className="truncate max-w-[50%]">{user.profile.eye_color}</span>
+                        </li>
+                      )}
+                      {user.profile?.height && (
+                        <li className="flex items-center justify-between">
+                          <span className="font-bold">Height</span>
+                          <span className="truncate max-w-[50%]">{user.profile.height}cm</span>
+                        </li>
+                      )}
                       {user.profile?.weight && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Weight</span>

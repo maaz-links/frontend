@@ -376,8 +376,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                       ))}
                     </div>
                   </div>
-                  </>
-                )}
+                  {/* </>
+                )} */}
               <div className="flex justify-between gap-2">
                 <div className="flex w-full flex-col gap-3">
                   <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
@@ -442,8 +442,8 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                     </select>
                   </div>
 
-              {user.role === ROLES.HOSTESS && (
-                <>
+              {/* {user.role === ROLES.HOSTESS && (
+                <> */}
                   
 
                   <div className="flex justify-between gap-2">

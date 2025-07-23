@@ -3,7 +3,7 @@ import Header from "/src/components/common/header";
 import Footer from "/src/components/common/footer";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../../axios-client";
-import { getAge, getAttachmentURL } from "../functions/Common";
+import { getAge, getAttachmentURL, getOnlineStatus } from "../functions/Common";
 import { ClipLoader } from "react-spinners"; // Import spinner
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FilterPanel from "./search/FilterPanel";
@@ -494,7 +494,7 @@ function Search() {
                           <h3 className="font-semibold text-sm sm:text-lg">
                             {entity.name}
                           </h3>
-                          {entity.is_online == "online" && (
+                          {getOnlineStatus(entity) && (
                             <span className="text-[#76FF5B] text-xl">•</span>
                           )}
                           <span className="text-xs sm:text-sm opacity-90">

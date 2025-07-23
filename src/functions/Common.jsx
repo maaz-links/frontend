@@ -64,6 +64,10 @@ export function getAge(dob) {
   return age;
 }
 
+export function getOnlineStatus(user){
+   return user?.is_online == "online";
+}
+
 export function getUserCost(top_profile,verified_profile, profileValues) {
   //const { verified_profile, top_profile } = user.profile;
 
