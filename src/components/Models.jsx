@@ -66,11 +66,12 @@ function Models() {
 
   return (
     <>
-      <div className="mt-[35px] px-[15px]">
-        <h1 className="text-center text-[32px] font-bold">Our Core Offerings</h1>
+      <div className="mt-[35px] px-[15px] max-w-[700px] mx-auto">
+        <h1 className="text-center text-[32px] font-bold">Libertà e personalizzazione</h1>
         <p className="text-center text-[14px] font-[400] mt-[18px]">
-          Each role is customizable to the needs and comfort of both parties.<br />
-          You’re always in control.
+        Ogni profilo è pensato per adattarsi alle preferenze personali e al comfort di chi
+        partecipa all’incontro. Sei tu a stabilire i tuoi limiti, le modalità e le condizioni: la
+        libertà è sempre nelle tue mani.
         </p>
       </div>
 
@@ -82,7 +83,7 @@ function Models() {
                 <img src={service.image} className="w-full h-full object-cover" alt={service.title} />
                 <div className="absolute bottom-5 left-0 mx-4 z-20 text-black">
                   <h3 className="text-xl font-semibold">{service.title}</h3>
-                  <p className="text-lg">{service.description}</p>
+                  <p className="text-sm">{service.description}</p>
                 </div>
               </div>
             </div>

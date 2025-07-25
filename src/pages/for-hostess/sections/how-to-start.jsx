@@ -17,9 +17,9 @@ const HowToStart = () => {
           />
         </svg>
       ),
-      title: "Create your free profile",
+      title: "Crea il tuo profilo gratuito",
       description:
-        "Set up your portfolio, add your best photos, and tell the world who you are — it only takes a few minutes.",
+        "Aggiunti il tuo portfolio, scegli le foto migliori e descrivi al mondo chi sei",
     },
     {
       icon: (
@@ -36,9 +36,9 @@ const HowToStart = () => {
           />
         </svg>
       ),
-      title: "Get opportunities",
+      title: "Esplora opportunità",
       description:
-        "Receive offers to join events, promo gigs, and castings happening right in your area.",
+        "Sfoglia profili interessanti vicino a te, contatta o attendi di essere contattata.",
     },
     {
       icon: (
@@ -55,9 +55,9 @@ const HowToStart = () => {
           />
         </svg>
       ),
-      title: "Choose what fits you",
+      title: "Scegli il meglio",
       description:
-        "Review invitations, chat with organizers, and confirm jobs that match your vibe.",
+        "Scegli le proposte che fanno per te e condividi la tua disponibilità",
     },
     {
       icon: (
@@ -74,9 +74,9 @@ const HowToStart = () => {
           />
         </svg>
       ),
-      title: "Shine and Enjoy ",
+      title: "Divertiti!",
       description:
-        "Meet new people & enjoy the moment. Make real connections and have fun doing what you love.",
+        "E' il momento! Ora tocca a te: goditi gli eventi e incontra nuove persone",
     },
   ];
 
@@ -85,7 +85,7 @@ const HowToStart = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            How to Start?
+          Come iniziare?
           </h2>
         </div>
 
@@ -131,7 +131,7 @@ const HowToStart = () => {
                   )}
                 </div>
               </div>
-              <h3 className="text-[20px] leading-[24px] tracking-[-4%] font-bold text-[#090909] mb-2 md:text-start">
+              <h3 className="text-[18px] leading-[24px] tracking-[-4%] font-bold text-[#090909] mb-2 md:text-start">
                 {step.title}
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed md:text-start">

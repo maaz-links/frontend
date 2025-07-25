@@ -37,16 +37,13 @@ const PromoBanner = () => {
           {/* Left Text */}
           <div className="w-full md:w-[60%] z-10 text-center md:text-left   ">
             <h2 className="text-[32px] md:text-4xl font-bold text-black">
-              Are You a Hostess or Model?
+            Crea il tuo profilo da hostess, wing woman o sugarbaby
             </h2>
             <p className="mt-4 text-base md:text-lg text-gray-700">
-              HostessForYou invites you into a world of elegance, freedom, and
-              meaningful encounters. As a hostess or companion, you embody
-              sophistication and charm, attending elite events, forming genuine
-              connections, and embracing a lifestyle beyond the ordinary.
+            Iscriviti gratuitamente e mostra il tuo profilo a uomini selezionati. Incontri eleganti, libertà di scelta e massima riservatezza. Nessuna intermediazione, tutto sotto il tuo controllo.
             </p>
             <button onClick={() => navigate('/sign-up')} className="mt-6 px-6 py-5 bg-black text-white rounded-md shadow-md hover:bg-[#8880FE] transition-colors ">
-              Create your profile for free
+              Inizia ora, è gratis
             </button>
           </div>
 

@@ -45,16 +45,16 @@ function ContactUs() {
 
     // Client-side validation
     let newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.name) newErrors.name = "Il nome è obbligatorio";
     if (!formData.email) {
-      newErrors.email = "Email is required";
+      newErrors.email = "L'email è obbligatoria";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Enter a valid email";
+      newErrors.email = "Inserisci un'email valida";
     }
-    if (!formData.message) newErrors.message = "Message is required";
+    if (!formData.message) newErrors.message = "Il messaggio è obbligatorio";
     if (!formData.termsAccepted)
       newErrors.termsAccepted =
-        "You must accept Privacy Policy and the Terms & Conditions";
+        "Devi accettare l'Informativa sulla privacy e i Termini e condizioni";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -68,7 +68,7 @@ function ContactUs() {
       setFormData({ name: "", email: "", message: "", termsAccepted: false });
       setErrors({});
       // toast.success(
-      //   "Thank you! Your request has been submitted successfully.",
+      //   "Grazie! La tua richiesta è stata inviata con successo.",
       //   {
       //     hideProgressBar: true,
       //     closeOnClick: true,
@@ -78,9 +78,9 @@ function ContactUs() {
       setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">Form Submitted</h1>
+                <h1 className=" text-[45px] font-bold">Modulo inviato</h1>
                 <p className=" my-4 ">
-                  Thank you! Your request has been submitted successfully.
+                  Grazie! La tua richiesta è stata inviata con successo.
                 </p>
                 <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
                   OK
@@ -92,7 +92,7 @@ function ContactUs() {
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors);
       } else {
-        setErrors({ submit: "Failed to submit form. Please try again later." });
+        setErrors({ submit: "Invio del modulo non riuscito. Riprova più tardi." });
       }
     } finally {
       setIsSubmitting(false);
@@ -103,8 +103,7 @@ function ContactUs() {
     <div>
       <Header />
       <div
-        className=" flex items-center mt-5 mb-12  
-bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300px] m-auto"
+        className=" flex items-center mt-5 mb-12 bg-image justify-center md:mx-auto mx-2 rounded-4xl   bg-gray-200  max-w-[1300px] m-auto"
         style={{
           "--mobile-bg": `url(${mobileImage})`,
           "--desktop-bg": `url(${desktopImage})`,
@@ -113,20 +112,20 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300p
         <div className="text-white  w-full md:p-10 font-[400]  flex flex-col md:flex-row md:items-center justify-around ">
           <div className="p-5 w-[295px] md:w-[486px]">
             <h1 className="text-[32px] leading-[128%] md:text-[58px] font-bold mb-4 md:leading-[60px]">
-              Do You Have Any Question?
+            Hai domande?
             </h1>
             <p className=" text-[16px] w-[310px] tracking-[-5%] leading-[23px] md:text-[20px] font-[400] md:leading-[30px] text-[#FFFFFF] md:mb-6">
-              Discover a new way to connect:{" "}
+              Scopri un nuovo modo di entrare in contatto:{" "}
               <strong>
                 {" "}
-                elegance, support, and meaningful companionship - on your terms
+                eleganza, complicità e relazioni autentiche, nel pieno rispetto dei tuoi tempi e delle tue scelte.
               </strong>
             </p>
           </div>
           <div className="md:w-1/2 p-5 ">
             {submitSuccess && (
               <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
-                Thank you! Your request has been submitted successfully.
+                Grazie! La tua richiesta è stata inviata con successo.
               </div>
             )}
             {errors.submit && (
@@ -136,13 +135,13 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300p
             )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Name</label>
+                <label className="block text-sm font-medium mb-1">Nome</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter Name"
+                  placeholder="Entra Nome"
                   className="w-full p-4 rounded-xl border border-white text-white placeholder-gray-300"
                 />
                 {errors.name && (
@@ -150,13 +149,13 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300p
                 )}
               </div>
               <div>
-                <label className="block text-sm  font-medium mb-1">Email</label>
+                <label className="block text-sm  font-medium mb-1">E-mail</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter Email"
+                  placeholder="Entra E-mail"
                   className="w-full p-4 rounded-xl border border-white text-white placeholder-gray-300"
                 />
                 {errors.email && (
@@ -164,12 +163,12 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300p
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Request</label>
+                <label className="block text-sm font-medium mb-1">La tua richiesta</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Enter Request"
+                  placeholder="Entra Richiesta"
                   className="w-full p-4 rounded-xl border border-white text-white placeholder-gray-300 h-24"
                 ></textarea>
                 {errors.message && (
@@ -185,7 +184,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300p
                   className="mr-2 w-[25px] h-[25px] md:h-[22px] md:w-[22px] appearance-none border-2 border-white rounded focus:outline-none checked:bg-transparent checked:border-white"
                 />
                 <label className="text-[12px] leading-[18px] w-full">
-                  I accept the Privacy Policy and the Terms & Conditions
+                Accetto i Termini e le Condizioni del servizio. Accetto la Privacy Policy
                 </label>
               </div>
               {errors.termsAccepted && (
@@ -199,7 +198,7 @@ bg-image justify-center 2xl:mx-auto mx-2 rounded-2xl   bg-gray-200  max-w-[1300p
                   isSubmitting ? "opacity-50" : ""
                 }`}
               >
-                {isSubmitting ? "Submitting..." : "Send"}
+                {isSubmitting ? "Invio in corso..." : "Invia"}
               </button>
             </form>
           </div>

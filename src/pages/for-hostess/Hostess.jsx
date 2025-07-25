@@ -18,9 +18,9 @@ function Hostess() {
       <HowToStart />
       <div className="mb-15">
       <GetStartedBanner 
-      heading="Join HostessForYou"
-      content="A job you can do in your free time that allows you to meet new people and visit new places. Accompany clients and offer your company in exchange for a fee agreed directly with them."
-      btnText="Create Your Profile For Free"
+      heading="Iscriviti a HostessForYou"
+      content="Un’opportunità pensata per chi desidera valorizzare il proprio tempo, creare connessioni e vivere esperienze nuove, con libertà, stile e pieno controllo sulle condizioni."
+      btnText="Crea il tuo profilo: è gratis!"
       />
       </div>
       {/* <JoinHostess /> */}

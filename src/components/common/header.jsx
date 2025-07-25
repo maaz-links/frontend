@@ -14,34 +14,34 @@ import { Avatar } from "@/functions/Avatar";
 const headerLinks = [
   {
     link: "/",
-    text: "About Us",
+    text: "Chi siamo",
   },
   {
     link: "/search",
-    text: "Search",
+    text: "Cerca",
   },
   {
     link: "/hostess",
-    text: "For Hostess/Models",
+    text: "Per Hostess/Models",
   },
   {
-    link: "/contact",
-    text: "Help",
+    link: "/help",
+    text: "Aiuto",
   },
 ];
 
 const headerLinksLoggedIn = [
   {
     link: "/search",
-    text: "Search",
+    text: "Cerca",
   },
   {
     link: "/profile",
-    text: "My Profile",
+    text: "Il mio profilo",
   },
   {
     link: "/chat",
-    text: "Chat",
+    text: "Messaggi",
   },
 ];
 
@@ -98,9 +98,9 @@ function Header({headerClass=''}) {
     setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">Log out</h1>
+                <h1 className=" text-[45px] font-bold">Termina sessione</h1>
                 <p className=" my-4 ">
-                  You will be logged out. Are you sure?
+                  La sessione verrà terminata. Vuoi continuare?
                 </p>
                 <button onClick={() => 
                   { setGenericModalOpen(false)
@@ -112,7 +112,7 @@ function Header({headerClass=''}) {
                     });
                   }
                   } className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-                  Log Out
+                  Termina sessione
                 </button>
                 </>
               )
@@ -133,7 +133,7 @@ function Header({headerClass=''}) {
     // IF USER IS NOT LOGGED IN
     return (
       // <div className="mb-24">
-        <nav className={`${false ? "bg-gray-300 ":"bg-white shadow"} flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 ${headerClass}`}>
+        <nav ref={menuRef} className={`${false ? "bg-gray-300 ":"bg-white shadow"} flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 ${headerClass}`}>
           <HeaderLogo />
 
           <div className="flex items-center justify-between gap-2 md:gap-20 ">
@@ -158,7 +158,7 @@ function Header({headerClass=''}) {
               {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
                 to="/login"
-                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[12px] lg:text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
+                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[12px] lg:text-[14px] font-[600] px-15 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
                 Log In
               </NavLink>
@@ -170,7 +170,7 @@ function Header({headerClass=''}) {
             </button>
           </div>
           {isMenuOpen && (
-            <div ref={menuRef} className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
+            <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
               <div className="flex flex-col items-center p-4 space-y-4">
                 <NavLink
                 to="/login"
@@ -203,7 +203,7 @@ function Header({headerClass=''}) {
   }
   return (
     // <div className="mb-24">
-    <nav className={`bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 shadow ${headerClass}`}>
+    <nav ref={menuRef} className={`bg-white flex items-center justify-between md:px-2 px-8 lg:px-10 py-5 sticky top-0 left-0 w-full z-50 shadow ${headerClass}`}>
         <HeaderLogo />
         <div className="flex items-center justify-between ">
           <div className=" space-x-6 hidden md:flex">
@@ -246,7 +246,7 @@ function Header({headerClass=''}) {
           {/* ONLY SHOW CREDITS TO MALE USERS */}
           {user?.role === ROLES.KING && !isMenuOpen &&  (
             <div className="relative bg-black text-sm text-center  text-white rounded-full h-6.5 mx-4 px-2 py-1">
-              <strong>{user.profile.credits} <span className="">Credits</span></strong>
+              <strong>{user.profile.credits} <span className="">Crediti</span></strong>
             </div>
           )}
 
@@ -267,7 +267,7 @@ function Header({headerClass=''}) {
         </div>
 
         {isMenuOpen && (
-          <div ref={menuRef} className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
+          <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
             <div className="flex flex-col items-center p-4 space-y-4">
               {/* <NavLink
                 to="/sign-up"
@@ -294,7 +294,7 @@ function Header({headerClass=''}) {
                 </div>
                 {user?.role === ROLES.KING && (
                   <div className="relative bg-black text-sm text-center text-white rounded-full w-[110px] h-6.5 px-2 py-1">
-                    <strong>{user.profile.credits} <span className="">Credits</span></strong>
+                    <strong>{user.profile.credits} <span className="">Crediti</span></strong>
                   </div>
                 )}
               </div>

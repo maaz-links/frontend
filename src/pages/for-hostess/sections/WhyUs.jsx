@@ -34,9 +34,9 @@ const whyUsData = [
         </defs>
       </svg>
     ),
-    title: "Exclusive Opportunities",
+    title: "Solo Esperienze Sicure e Raffinate",
     description:
-      "You’re always in control — choose who you meet, when, and under what conditions. We only work with verified, respectful clients.",
+      "Tu decidi come vivere ogni incontro. Ogni cliente è verificato e selezionato per garantire un ambiente protetto, esclusivo e rispettoso.",
   },
 
   {
@@ -69,9 +69,9 @@ const whyUsData = [
         </defs>
       </svg>
     ),
-    title: "Tailored to You",
+    title: "Esperienze uniche, proprio Come te",
     description:
-      "Whether you prefer high-profile events or luxurious getaways, we customize your experience to fit your lifestyle and preferences.",
+      "Eventi, viaggi o momenti unici: qualunque sia la tua visione, ti aiutiamo a viverla secondo le tue regole.",
   },
 
   {
@@ -92,9 +92,9 @@ const whyUsData = [
         />
       </svg>
     ),
-    title: "Professional Support",
+    title: "Non sei mai sola",
     description:
-      "Our team is here for you 24/7 — to guide, assist, and support you whenever needed.",
+      "Un team attento e discreto è sempre disponibile per offrirti supporto, consigli e assistenza, ogni volta che ne hai bisogno.",
   },
 
   {
@@ -113,9 +113,9 @@ const whyUsData = [
         />
       </svg>
     ),
-    title: "Privacy & Respect First",
+    title: "Discrezione garantita, relazioni consapevoli",
     description:
-      "Every connection is based on mutual understanding, clear boundaries, and absolute discretion.",
+      "Crediamo nelle connessioni autentiche fondate sul rispetto reciproco, la chiarezza e una gestione attenta della privacy.",
   },
 ];
 
@@ -126,7 +126,7 @@ function WhyUsSection() {
     <div className="  max-w-[1300px] m-auto  mt-[40px]  flex flex-col md:flex-row justify-between p-[22px]">
       <div className="flex flex-col items-center w-full ">
         <h2 className="text-[#0C1038] mb-[40px] font-bold text-[32px] leading-[38px] tracking-[-0.64px] text-center">
-          Why Us?
+          Perchè HostessForYou?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-[30px] gap-x-[60px] w-full ">
           {whyUsData.map((item, index) => (

@@ -31,7 +31,7 @@ const AccordionItem = ({ header, ...rest }) => (
         </div>
       </>
     )}
-    className={({ isEnter }) => `border-[2px] rounded-[35px] p-[5%] mb-[15px] md:mb-[30px] text-[18px] md:text-[24px] ${
+    className={({ isEnter }) => `border-[2px] rounded-[35px] p-[5%] mb-[15px] md:mb-[30px] text-[18px] md:text-[20px] ${
       isEnter ? "border-black" : "border-gray-200"
     } transition-colors duration-200`}
     buttonProps={{
@@ -41,7 +41,7 @@ const AccordionItem = ({ header, ...rest }) => (
         }`
     }}
     contentProps={{
-      className: "transition-height mt-5 duration-200 ease-out"
+      className: "transition-height mt-5 duration-200 ease-out text-[16px]"
     }}
     panelProps={{ className: "flex text-gray-400 w-full items-center text-left" }}
   />
@@ -89,8 +89,8 @@ export default function Faqs() {
   return (
     <section className="py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 className="text-center text-3xl md:text-4xl font-medium uppercase mb-12 md:mb-16">
-          FAQs
+        <h2 className="text-center text-3xl md:text-4xl font-medium mb-12 md:mb-16">
+        <strong>Ecco alcune domande ricorrenti</strong>
         </h2>
         
         <div className="max-w-4xl mx-auto">

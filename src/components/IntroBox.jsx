@@ -28,14 +28,13 @@ function IntroBox() {
         <div className="card-intro max-w-full md:max-w-2/3 lg:max-w-1/2  h-full flex flex-col justify-center items-center md:items-start text-center md:text-start">
           <h1 className="text-black mb-[15px] text-[32px] sm:text-[30px] lg:text-[40px]">
             <strong>
-              More Than Just a<br /> Presence — A Real <br />
-              Connection
+            Eleganza, stile,<br/> complicità: a te la scelta!
             </strong>
           </h1>
           <p className="text-black text-[16px] md:text-[12px]  lg:text-[20px] md:max-w-[500px] max-w-[295px]">
-            Discover a new way to connect:{" "}
+          Scopri profili verificati per eventi, incontri privati o esperienze personali. {" "}
             <strong>
-              elegance, support, and meaningful companionship — on your terms
+              Libertà di scelta, massima riservatezza e zero intermediazione.
             </strong>
           </p>
           <div className="intro-buttons flex items-center justify-between pt-[2em] gap-x-[40px]">
@@ -45,12 +44,12 @@ function IntroBox() {
                   to="/sign-up"
                   className="btn bg-black btn-grad hover:bg-[#8880FE] transition-colors text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
                 >
-                  Get Started for Free{" "}
+                  Inizia ora, gratis e in totale libertà{" "}
                 </Link>
               </>
             )}
           </div>
-          <div className="flex items-center gap-1  md:gap-3 mt-7">
+          <div className="flex items-center flex-wrap justify-center  gap-1  md:gap-3 mt-7">
             <div className="flex gap-1">
               <img src={star} className="w-5" />
               <img src={star} className="w-5" />
@@ -58,8 +57,8 @@ function IntroBox() {
               <img src={star} className="w-5" />
               <img src={star} className="w-5" />
             </div>
-            <p className="text-black text-[12px] md:text-[14px] font-[400] md:max-w-[500px] ">
-              Trusted by about 300 users
+            <p className="text-black  text-[12px] md:text-[14px] font-[400] md:max-w-[500px] ">
+            Powered by Clixer - we build next community
             </p>
           </div>
         </div>
@@ -69,16 +68,14 @@ function IntroBox() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
           <div className="w-full flex justify-center md:block">
             <div className="w-[400px] md:w-auto">
-              <div className="text-5xl mb-8 text-gray-800 md:mb-6 font-bold">
-                <h1 className="text-center md:text-left">What Is</h1>
-                <h1 className="text-center md:text-left">Hostess For You?</h1>
+              <div className="text-4xl w-full md:w-[70%] mb-8  mx-auto md:mx-0 text-gray-800 md:mb-6 font-bold">
+                <h1 className="text-center md:text-left">Cos’è HostessForYou?</h1>
               </div>
 
-              <p className="text-lg leading-relaxed mb-12 text-center max-w-4xl mx-auto md:text-base md:mb-8 md:text-left">
-                HostessForYou is an elite platform connecting affluent clients
-                with refined companions for events, social outings, or discreet
-                personal arrangements. Each connection is built on mutual
-                respect, clear boundaries, and seamless communication.
+              <p className="text-lg md:w-[70%] leading-relaxed mb-12 text-center max-w-4xl  mx-auto md:mx-0 md:text-base md:mb-8 md:text-left">
+              HostessForYou è il portale dedicato a hostess, wing woman e sugarbabies che desiderano incontrare uomini eleganti e generosi, interessati a esperienze autentiche e raffinate.
+              <br/><br/>
+              Che si tratti di eventi esclusivi, cene, weekend privati o relazioni discrete, ogni incontro si basa su rispetto, libertà di scelta e chiarezza.
               </p>
             </div>
           </div>
@@ -90,11 +87,11 @@ function IntroBox() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-2">
-                  Exclusive Companionship
+                Compagnia selezionata 
+                per uomini selezionati
                 </h2>
                 <p className="text-lg leading-relaxed">
-                  We connect you with refined, elegant companions who embody
-                  charm, discretion, and sophistication.
+                Scopri hostess, sugarbabies e wing woman eleganti, discrete e intelligenti, ideali per eventi, incontri riservati o momenti di compagnia esclusiva.
                 </p>
               </div>
             </div>
@@ -107,11 +104,10 @@ function IntroBox() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-2">
-                  Tailored Experiences
+                Esperienze personalizzate
                 </h2>
                 <p className="text-lg leading-relaxed">
-                  From corporate events to personal getaways, each encounter is
-                  customized to fit your unique needs and lifestyle.
+                Ogni incontro è organizzato in base alle tue preferenze. Cena elegante, viaggio privato o evento speciale: scegli la compagnia giusta per il tuo stile di vita.
                 </p>
               </div>
             </div>
@@ -124,11 +120,10 @@ function IntroBox() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-2">
-                  Trusted Privacy and Respect
+                Privacy garantita e rispetto assoluto
                 </h2>
                 <p className="text-lg leading-relaxed">
-                  Every connection is based on clear boundaries, mutual
-                  understanding, and the highest level of confidentiality.
+                Hostess, sugarbabies e wing woman incontrano clienti selezionati in un ambiente sicuro e riservato, dove ogni interazione si basa su discrezione, consenso e massima tutela della privacy.
                 </p>
               </div>
             </div>

@@ -3,26 +3,39 @@ import { useStateContext } from "../../../context/ContextProvider";
 function InterestSelectionSection() {
   const { token } = useStateContext();
 
+  // const interestAreas = [
+  //   [
+  //     { name: "Photo Model", selected: true },
+  //     { name: "Parlare", selected: true },
+  //     { name: "Glamour Photo", selected: true },
+  //     { name: "Business Event", selected: true },
+  //   ],
+  //   [
+  //     { name: "Fashion Photo", selected: true },
+  //     { name: "Wingwoman", selected: false },
+  //     { name: "Yacht Crew", selected: false },
+  //     { name: "Hostess Fiere", selected: false },
+  //     { name: "Wingwoman", selected: false },
+
+  //   ],
+  //   [
+  //     { name: "Yacht Crew", selected: false },
+  //     { name: "Hostess Fiere", selected: false },
+  //     { name: "Hostess Fiere", selected: false },
+  //     { name: "Private Event", selected: false },
+  //   ],
+  // ];
+
   const interestAreas = [
     [
-      { name: "Photo Model", selected: true },
-      { name: "Parlare", selected: true },
-      { name: "Glamour Photo", selected: true },
-      { name: "Business Event", selected: true },
+      { name: "Cene e serate", selected: true },
+      { name: "Viaggi", selected: true },
+      { name: "Intrattenimento", selected: true },
+      { name: "Guida turistica", selected: true },
     ],
     [
-      { name: "Fashion Photo", selected: true },
-      { name: "Wingwoman", selected: false },
-      { name: "Yacht Crew", selected: false },
-      { name: "Hostess Fiere", selected: false },
-      { name: "Wingwoman", selected: false },
-
-    ],
-    [
-      { name: "Yacht Crew", selected: false },
-      { name: "Hostess Fiere", selected: false },
-      { name: "Hostess Fiere", selected: false },
-      { name: "Private Event", selected: false },
+      { name: "Personal shopper", selected: true },
+      { name: "Finta fidanzata", selected: false },
     ],
   ];
 
@@ -30,10 +43,10 @@ function InterestSelectionSection() {
     <div className="interest-section bg-white m-auto p-5 lg:p-10 flex flex-col items-center">
       <div className="md:p-[8px] flex flex-col items-center md:max-w-[731px]">
       <h2 className="text-[#090909] mb-4 font-bold text-[32px] lg:text-[45px] lg:leading-[130%] leading-[38px] tracking-[-6%] text-center px-4">
-        You Can Choose the Areas that Interest you Most
+      Scegli tu le aree che ti interessano di più
       </h2>
       <p className="text-[#4A4A4A] text-sm leading-[20px] font-[400] text-center mb-7 lg:max-w-[600px]">
-        When filling out your profile, select what interests you most and receive offers based on your preferences.
+      Durante la compilazione del profilo, scegli ciò che ti interessa: riceverai solo proposte in linea con le tue preferenze.
       </p>
       </div>
       <div className="flex flex-col items-center w-full md:max-w-[90%] ">

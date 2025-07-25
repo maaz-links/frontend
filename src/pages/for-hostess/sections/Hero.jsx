@@ -21,21 +21,15 @@ function Hero() {
         }}
       >
         <div className="card-intro max-w-full md:max-w-2/3 lg:max-w-1/2 flex flex-col items-center md:items-start text-center md:text-start">
-          <h1 className="text-black mb-[15px] font-bold text-[32px] sm:text-[30px] lg:text-[50px]">
-            Join HostessForYou
+          <h1 className="text-black mb-[15px] font-bold text-[32px] sm:text-[30px] lg:text-[45px]">
+            Iscriviti a HostessForYou
           </h1>
           <p className="text-black text-[16px]   lg:text-[20px] font-[400] md:max-w-[500px]">
-            Step into a world of{" "}
-            <strong> elegance, respect, and freedom — </strong>
-            on your own terms.
+            <strong> Entra in un mondo di eleganza, rispetto e libertà secondo le tue regole. </strong>
           </p>
 
           <p className="py-3 text-[14px] md:text-[16px]">
-            HostessForYou is an elite international platform connecting
-            confident, sophisticated women with high-end clients for exclusive
-            events, social experiences, or personal engagements. We’re looking
-            for smart, poised, and polished individuals ready to work in a safe,
-            respectful, and empowering environment.
+          Scopri la piattaforma dedicata a hostess, accompagnatrici e donne indipendenti in cerca di esperienze esclusive, eleganti e su misura. HostessForYou è il punto d’incontro tra donne sofisticate, sicure di sé e professionali e clienti selezionati che desiderano compagnia per eventi di alto profilo, cene private o viaggi personalizzati.
           </p>
 
           <div className="intro-buttons flex items-center justify-between pt-[2em] gap-x-[40px]">
@@ -45,12 +39,12 @@ function Hero() {
                   to="/sign-up"
                   className="btn hover:bg-[#8880FE] transition-colors bg-black btn-grad text-white block px-[40px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
                 >
-                  Create your profile for free
+                  Crea il tuo profilo: è gratis!
                 </Link>
               </>
             )}
           </div>
-          <div className="flex items-center gap-1  md:gap-3 mt-7">
+          <div className="flex items-center gap-1 flex-wrap justify-center md:gap-3 mt-7">
             <div className="flex gap-1">
               <img src={star} className="w-5" />
               <img src={star} className="w-5" />
@@ -59,7 +53,7 @@ function Hero() {
               <img src={star} className="w-5" />
             </div>
             <p className="text-black text-[12px] md:text-[14px] font-[400] md:max-w-[500px] ">
-              Trusted by about 300 users
+              Powered by Clixer - we build next community
             </p>
           </div>
         </div>

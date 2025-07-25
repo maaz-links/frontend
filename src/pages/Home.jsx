@@ -48,12 +48,11 @@ function VerifiedPeopleOnly() {
       <div className="md:my-[100px]">
         <div className="mt-[35px] px-[15px] max-w-[700px] mx-auto">
           <h1 className="text-center text-[32px] font-bold">
-            Verified profiles – real people only
+            Profili verificati – solo persone reali
           </h1>
           <p className="text-center text-[14px] font-[400] mt-[18px]">
-            We ensure that every profile on our platform belongs to a genuine
-            user. All accounts are carefully reviewed and confirmed by our
-            moderation team.
+          Verifichiamo ogni account per garantire che la piattaforma sia composta esclusivamente da
+          persone autentiche. Il nostro team controlla con cura ogni profilo prima della pubblicazione.
           </p>
           <img
             src={worldMap}
@@ -76,12 +75,11 @@ function VerifiedPeopleOnly() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold mb-2">
-                    No reply? We've got your back
+                  Rimborso garantito in caso 
+                  di mancata risposta
                   </h2>
                   <p className="text-lg leading-relaxed">
-                    If your message goes unanswered for more than 72 hours,
-                    you’ll receive an automatic refund. You can also reach out
-                    to us for further review.
+                  Se non ricevi risposta entro 72 ore dall’invio del messaggio, attiviamo automaticamente il rimborso del credito utilizzato.
                   </p>
                 </div>
               </div>
@@ -94,11 +92,10 @@ function VerifiedPeopleOnly() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold mb-2">
-                    Always here to help – 24/7
+                  Cerca
                   </h2>
                   <p className="text-lg leading-relaxed">
-                    Our support team is available around the clock. No matter
-                    when you need us, we’re ready to assist.
+                  Hai sempre la possibilità di contattare il nostro team per assistenza o ulteriori verifiche.
                   </p>
                 </div>
               </div>
@@ -107,7 +104,7 @@ function VerifiedPeopleOnly() {
                   to="/search"
                   className="btn bg-black btn-grad hover:bg-[#8880FE] mt-[55px] transition-colors text-white px-[140px] py-[20px] rounded-2xl text-[15px] md:text-[20px] font-[400] leading-[130%]"
                 >
-                  Search
+                  Cerca
                 </Link>
               </div>
             </div>

@@ -3,18 +3,21 @@ import Header from '/src/components/common/header'
 import Footer from '/src/components/common/footer'
 import { Outlet, Link } from "react-router-dom";
 import axiosClient from '../../axios-client';
+import { ClipLoader } from 'react-spinners';
 
 function StaticPage({slug}) {
   
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
+  const [initialLoad, setInitialLoad] = useState(false);
   useEffect(() => {
       const fetchPageData = async () => {
           try {
+            setInitialLoad(true)
               var url = '';
               if (slug == 'terms') {
                   url = 'my-terms'
-                  setTitle('Terms and Conditions')
+                  setTitle('Termini e Condizioni')
               } 
               else if(slug == 'privacy'){
                   url = 'my-privacy'
@@ -22,11 +25,11 @@ function StaticPage({slug}) {
               } 
               else if(slug == 'cookies'){
                 url = 'my-cookies'
-                setTitle('Cookies Info')
+                setTitle('Informazioni sui Cookie')
               } 
               else if(slug == 'payments'){
                 url = 'my-credits'
-                setTitle('Credits And Payment')
+                setTitle('Crediti e Pagamenti')
               } 
               else {
                   return
@@ -37,6 +40,8 @@ function StaticPage({slug}) {
           } catch (error) {
               console.error('Error fetching data:', error);
               // Optionally, handle the error state
+          } finally {
+            setInitialLoad(false); // Always stop loading
           }
       };
 
@@ -47,10 +52,15 @@ function StaticPage({slug}) {
     <>
     <Header />
     <div className='max-w-[1200px] m-auto mt-[50px] mb-[50px] md:mt-[126px] md:mb-[144px] px-[25px]'>
+    {initialLoad && (
+      <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
+        <ClipLoader color="black" size={50} />
+      </div>
+    )}
     <h1 className="text-[36px]"><strong>{title}</strong></h1>
-  <div className='terms-text text-[15px] mt-[20px]'>
-  <div dangerouslySetInnerHTML={{ __html: text }} />
-  </div>
+    {text && !initialLoad && <div className='terms-text text-[15px] mt-[20px]'>
+      <div dangerouslySetInnerHTML={{ __html: text }} />
+    </div>}
     </div>
     <Footer />
     </>

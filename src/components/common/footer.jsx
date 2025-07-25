@@ -20,15 +20,16 @@ function Footer() {
           {/* Footer Menu Section */}
           <div className="footer-menu md:mt-[0px] flex justify-center gap-5 md:gap-10 md:h-[100px] items-center"
           >
-            <FooterLink link="/">About Us</FooterLink>
-            <FooterLink link="/hostess">For Hostess/Model</FooterLink>
-            <FooterLink link="/contact">Help</FooterLink>
+            <FooterLink link="/">Chi siamo</FooterLink>
+            <FooterLink link="/search">Cerca</FooterLink>
+            <FooterLink link="/hostess">Per Hostess/Models</FooterLink>
+            <FooterLink link="/help">Aiuto</FooterLink>
           </div>
         </div>
         <div className="md:flex flex-row-reverse max-w-[1300px] m-auto justify-between px-[15px] text-gray-500 ">
           <div className="footer-menu md:mt-[0px] flex justify-center gap-4"
           >
-            <FooterLink link="/terms">Terms of Services</FooterLink>
+            <FooterLink link="/terms">Termini e Condizioni</FooterLink>
             <FooterLink link="/privacy">Privacy Policy</FooterLink>
           </div>
 

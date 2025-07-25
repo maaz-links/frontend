@@ -34,7 +34,7 @@ export function FilterDisplay({
       </div>
       :
       <>
-      {name}: {value}
+      {name} {value}
       </>
       }
       
@@ -231,9 +231,9 @@ function Search() {
       {/* Hero Section */}
       <div className="text-center pt-6 pb-3 bg-white">
         <h1 className="text-4xl md:text-[45px] font-bold text-gray-900  leading-tight max-w-4xl mx-auto px-4">
-          Find your hostess, wingwoman
+        Cerca hostess, wing woman e 
           <br />
-          or sugarbaby near you
+          sugarbabies vicino a te
         </h1>
       </div>
 
@@ -246,7 +246,7 @@ function Search() {
               value={filters.province_id}
               onChange={handleProvinceChange}
             >
-              <option value="">City/Province</option>
+              <option value="">Città/Provincia</option>
               {provinces.map((province) => (
                 <option key={province.id} value={province.id}>
                   {province.name}
@@ -276,14 +276,14 @@ function Search() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Filter
+              Filtro
             </button>
           </div>
         </div>
         <div className="flex justify-center w-full flex-wrap  gap-2">
           {filters.province_id && (
             <FilterDisplay
-              name="City"
+              name="Città:"
               value={getProvinceName(filters.province_id)}
               onCross={() =>
                 setFilters((prev) => ({
@@ -296,8 +296,8 @@ function Search() {
           
           {filters.verified_profile && (
             <FilterDisplay
-              name="Verified Profile"
-              value="True"
+              name="Verified"
+              value=""
               onCross={() =>
                 setFilters((prev) => ({
                   ...prev,
@@ -309,8 +309,8 @@ function Search() {
 
           {filters.top_profile && (
             <FilterDisplay
-              name="Top Profile"
-              value="True"
+              name="Top"
+              value=""
               onCross={() =>
                 setFilters((prev) => ({
                   ...prev,
@@ -323,7 +323,7 @@ function Search() {
           {filters.hostess && (
             <FilterDisplay
               name="Hostess"
-              value="True"
+              value=""
               onCross={() =>
                 setFilters((prev) => ({
                   ...prev,
@@ -335,7 +335,7 @@ function Search() {
           {filters.wingwoman && (
             <FilterDisplay
               name="Wingwoman"
-              value="True"
+              value=""
               onCross={() =>
                 setFilters((prev) => ({
                   ...prev,
@@ -347,7 +347,7 @@ function Search() {
           {filters.sugarbaby && (
             <FilterDisplay
               name="Sugarbaby"
-              value="True"
+              value=""
               onCross={() =>
                 setFilters((prev) => ({
                   ...prev,
@@ -359,7 +359,7 @@ function Search() {
 
           {filters.minage && (
             <FilterDisplay
-              name="Min Age"
+              name="Min Age:"//"Età minima:"
               value={filters.minage}
               onCross={() =>
                 setFilters((prev) => ({
@@ -372,7 +372,7 @@ function Search() {
 
           {filters.maxage && (
             <FilterDisplay
-              name="Max Age"
+              name="Max Age:"//"Età massima:"
               value={filters.maxage}
               onCross={() =>
                 setFilters((prev) => ({
@@ -385,7 +385,7 @@ function Search() {
 
           {filters.language && (
             <FilterDisplay
-              name="Language"
+              name="Language:"//"Lingua:"
               value={getLanguageNameById(filters.language)}
               onCross={() =>
                 setFilters((prev) => ({
@@ -397,7 +397,7 @@ function Search() {
           )}
           {filters.cost && (
             <FilterDisplay
-              name="Cost"
+              name="Cost:"
               value={`${filters.cost} credits`}
               onCross={() =>
                 setFilters((prev) => ({
@@ -409,7 +409,7 @@ function Search() {
           )}
           {filters.sort && (
             <FilterDisplay
-              name="Sort By"
+              name="Sort by:"
               value={`${filters.sort[0].toUpperCase()}${filters.sort.slice(1)}`}
               onCross={() =>
                 setFilters((prev) => ({
@@ -515,7 +515,7 @@ function Search() {
                             <span className="text-[#76FF5B] text-xl">•</span>
                           )}
                           <span className="text-xs sm:text-sm opacity-90">
-                            ({getAge(entity.dob)} years)
+                            ({getAge(entity.dob)} anni)
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-sm opacity-90">

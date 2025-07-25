@@ -17,9 +17,9 @@ const HowItWorks = () => {
           />
         </svg>
       ),
-      title: "Create a Free Account",
+      title: "Crea il tuo profilo gratuito",
       description:
-        "Sign up in seconds and get access to our full hostess catalog.",
+        "Registrati in pochi minuti come hostess, wing woman o sugarbaby. Personalizza la tua presentazione e scegli le tue preferenze.",
     },
     {
       icon: (
@@ -36,9 +36,9 @@ const HowItWorks = () => {
           />
         </svg>
       ),
-      title: "Browse Model Near You",
+      title: "Esplora i profili disponibili",
       description:
-        "Use filters to find the right professionals in your city or country.",
+        "Consulta utenti verificati in cerca di compagnia per eventi, esperienze private o relazioni esclusive.",
     },
     {
       icon: (
@@ -55,9 +55,9 @@ const HowItWorks = () => {
           />
         </svg>
       ),
-      title: "Submit Booking Request",
+      title: "Gestisci i contatti in autonomia",
       description:
-        "Choose your event type, date, and preferences. We'll match you with top talent.",
+        "Invia o ricevi proposte, avvia conversazioni private e decidi liberamente con chi entrare in contatto.",
     },
     {
       icon: (
@@ -74,9 +74,9 @@ const HowItWorks = () => {
           />
         </svg>
       ),
-      title: "Relax and Enjoy Your Event",
+      title: "Incontra solo chi scegli tu",
       description:
-        "Our hostesses/models will take care of the rest, ensuring your guests are welcomed and impressed.",
+        "Nessuna intermediazione: sei tu a decidere tempi, modalità e persone. Tutto avviene in un ambiente riservato e sicuro.",
     },
   ];
 
@@ -85,7 +85,7 @@ const HowItWorks = () => {
       <div className="max-w-[1127px] mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-[#0C1038] text-[32px]  leading-[128%] tracking-[-6%]  md:text-4xl font-bold  mb-4">
-            How It Works?
+            Come funziona?
           </h2>
         </div>
 

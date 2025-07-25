@@ -3,7 +3,6 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Contact from "./pages/Contact";
 import HowTo from "./pages/HowTo";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
@@ -62,12 +61,9 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       // new pages
       { path: "/hostess", element: <Hostess /> },
-      { path: "/contact", element: <ContactUs /> },
+      { path: "/help", element: <ContactUs /> },
       
 
-
-      // { path: "/new-home", element: <HomeN /> },
-      // { path: "/contact", element: <Contact /> },
 
       { path: "/cookies", element: <StaticPage slug="cookies" /> },
       { path: "/terms", element: <StaticPage slug="terms" /> },
