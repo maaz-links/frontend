@@ -132,10 +132,10 @@ export const ContextProvider = ({ children }) => {
       }
       
       // Call immediately
-      heartbeatCall();
+      //heartbeatCall();
       
       // Set up interval
-      heartbeatInterval.current = setInterval(heartbeatCall, 90000); // 90 seconds
+      heartbeatInterval.current = setInterval(heartbeatCall, 60000); // 60 seconds
     };
 
     const stopHeartbeat = () => {

@@ -16,6 +16,13 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
     { label: "Any price", value: "" },
   ];
 
+  const sortOptions = [
+    { label: "Default", value: "" },
+    { label: "Popular", value: "popular" },
+    { label: "Newest", value: "newest" },
+    { label: "Rating", value: "rating" },
+  ]
+
   const handlePriceChange = (e) => {
     const value = e.target.value === "" ? "" : parseInt(e.target.value, 10);
     setLocalFilters((prev) => ({
@@ -23,6 +30,14 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
       cost: value,
     }));
   };
+
+  const handleSortChange = (e) => {
+    setLocalFilters(prev => ({
+      ...prev,
+      sort: e.target.value
+    }))
+  }
+
 
   const handleApplyFilters = () => {
     setFilters(localFilters);
@@ -178,15 +193,20 @@ function FilterPanel({ isOpen, onClose, filters, setFilters }) {
           </div>
 
           {/* Sort by Section */}
-          {/* <div className="mb-6">
-            <h4 className="text-sm font-medium text-black mb-3">Sort by</h4>
-            <select className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Popular</option>
-              <option>Newest</option>
-              <option>Rating</option>
-              <option>Price</option>
-            </select>
-          </div> */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-700 mb-3">Sort by</h4>
+        <select
+          value={localFilters.sort ?? ""}
+          onChange={handleSortChange}
+          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {sortOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
           {user?.role != ROLES.HOSTESS && (
             <>

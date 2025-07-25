@@ -10,12 +10,12 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { getAttachmentURL } from "@/functions/Common";
 
-export default function PhotoGallery() {
-  const [photos, setPhotos] = useState([]);
+export default function PhotoGallery({photos, setPhotos, canUpload}) {
+  //const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user, refreshUser, backendConfigs } = useStateContext();
 
-  const canUpload = (backendConfigs.image_limit_per_user - photos.length > 0);
+  //const canUpload = (backendConfigs.image_limit_per_user - photos.length > 0);
 
   const location = useLocation();
   const navigate = useNavigate();

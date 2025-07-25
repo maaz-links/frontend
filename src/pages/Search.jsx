@@ -68,7 +68,7 @@ function Search() {
     hostess: searchParams.get("hostess") === "true",
     sugarbaby: searchParams.get("sugarbaby") === "true",
     wingwoman: searchParams.get("wingwoman") === "true",
-
+    sort: searchParams.get("sort") || "",
     minage: searchParams.get("minage") || "",
     maxage: searchParams.get("maxage") || "",
     language: searchParams.get("language") || "",
@@ -90,6 +90,7 @@ function Search() {
           hostess: filters.hostess || undefined,
           sugarbaby: filters.sugarbaby || undefined,
           wingwoman: filters.wingwoman || undefined,
+          sort: filters.sort || undefined,
 
           minage: filters.minage || undefined,
           maxage: filters.maxage || undefined,
@@ -126,6 +127,7 @@ function Search() {
     if (filters.hostess) params.hostess = "true";
     if (filters.sugarbaby) params.sugarbaby = "true";
     if (filters.wingwoman) params.wingwoman = "true";
+    if (filters.sort) params.sort = filters.sort;
 
     if (filters.maxage) params.maxage = filters.maxage;
     if (filters.minage) params.minage = filters.minage;
@@ -166,6 +168,7 @@ function Search() {
         hostess: filters.hostess || undefined,
         sugarbaby: filters.sugarbaby || undefined,
         wingwoman: filters.wingwoman || undefined,
+        sort: filters.sort || undefined,
 
         minage: filters.minage || undefined,
         maxage: filters.maxage || undefined,
@@ -404,6 +407,18 @@ function Search() {
               }
             />
           )}
+          {filters.sort && (
+            <FilterDisplay
+              name="Sort By"
+              value={`${filters.sort[0].toUpperCase()}${filters.sort.slice(1)}`}
+              onCross={() =>
+                setFilters((prev) => ({
+                  ...prev,
+                  sort: "",
+                }))
+              }
+            />
+          )}
 
           {(filters.province_id ||
             filters.verified_profile ||
@@ -412,6 +427,7 @@ function Search() {
             filters.maxage ||
             filters.language ||
             filters.cost ||
+            filters.sort ||
             filters.wingwoman ||
             filters.hostess ||
             filters.sugarbaby) && (
@@ -427,6 +443,7 @@ function Search() {
                   wingwoman: false,
                   hostess: false,
                   sugarbaby: false,
+                  sort: "",
                   minage: "",
                   maxage: "",
                   language: "",

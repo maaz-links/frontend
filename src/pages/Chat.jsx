@@ -716,8 +716,8 @@ const Chat = () => {
                         :
                         (
                           <>
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                            <span>Away</span>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                            <span>Offline</span>
                           </>
                         )
                       }

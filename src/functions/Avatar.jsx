@@ -87,8 +87,8 @@ export const Avatar = ({
               </svg>
             </div>
           )}
-          <div className={`relative ${smallMode? "w-[80px] h-[80px]":"w-[140px] h-[140px]" } bg-white rounded-full overflow-hidden`}>
-            <div className={`absolute ${smallMode ? "inset-[1px]" : "inset-[16px]"} bg-white rounded-full overflow-hidden`}>
+          <div className={`relative ${smallMode? "w-[81px] h-[81px]":"w-[140px] h-[140px]" } bg-white rounded-full overflow-hidden`}>
+            <div className={`absolute ${smallMode ? "inset-[5px]" : "inset-[16px]"} bg-white rounded-full overflow-hidden`}>
               {profilePictureId ? <img
                 src={getAttachmentURL(profilePictureId)}
                 alt="Profile"

@@ -16,13 +16,11 @@ import axiosClient from "../../../../axios-client";
 import { Avatar } from "@/functions/Avatar";
 import { ImageErrorMessages, ImageSuccessMessages } from "./Photos";
 export default function ProfileCard({
-  progressValue,
+  progressValue, canUpload,
   isCompleteModalOpen, setIsCompleteModalOpen
 }) {
 
-  const {user,refreshUser,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, SocialLinks} = useStateContext();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  // const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+  const {user,refreshUser,optionsInterest,optionsAvailableFor,languageOptions,getProvinceName, SocialLinks , backendConfigs} = useStateContext();
 
   const handleDelete = async () => {
       
@@ -132,7 +130,7 @@ export default function ProfileCard({
           profilePictureId={user.profile_picture_id}
           showProgressRing={true}
           progressValue={progressValue}
-          showUploadButton={true}
+          showUploadButton={canUpload}
           onImageUpload={handleImageUpload}
         />
 

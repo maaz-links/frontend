@@ -1,7 +1,7 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import BellIcon from "/src/assets/icons/bell.svg";
 import LogoutIcon from "/src/assets/icons/logout.svg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import MenuIcon from "/src/assets/icons/menu.svg";
 import CrossIcon from "/src/assets/icons/cross.svg";
@@ -73,6 +73,25 @@ function Header({headerClass=''}) {
   const { token, user, setUser, setToken, unreadCount,setGenericModalOpen,setGenericModalContent } = useStateContext();
   const navigate = useNavigate();
 
+  const menuRef = useRef(null);
+
+  // Close menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false); // Assuming you already have this state
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
   const triggerLogout = (ev) => {
     ev.preventDefault();
 
@@ -138,12 +157,6 @@ function Header({headerClass=''}) {
             <div className="flex items-center gap-5">
               {/* <img src={GlobeIcon} alt="Globe Icon" /> */}
               <NavLink
-                to="/sign-up"
-                className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[12px] lg:text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
-              >
-                Sign Up Now
-              </NavLink>
-              <NavLink
                 to="/login"
                 className="border-2 hover:bg-[#090909] hover:text-white transition-colors text-[12px] lg:text-[14px] font-[600] px-4 py-4 rounded-2xl leading-[100%] hidden md:block"
               >
@@ -157,14 +170,8 @@ function Header({headerClass=''}) {
             </button>
           </div>
           {isMenuOpen && (
-            <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
+            <div ref={menuRef} className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
               <div className="flex flex-col items-center p-4 space-y-4">
-                <NavLink
-                  to="/sign-up"
-                  className="border-2 text-[14px] hover:bg-[#090909] hover:text-white transition-colors font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
-                >
-                  Sign Up Now
-                </NavLink>
                 <NavLink
                 to="/login"
                 className="border-2 text-[14px] hover:bg-[#090909] hover:text-white transition-colors font-[600] px-4 py-4 rounded-2xl leading-[100%] md:hidden w-full text-center "
@@ -260,7 +267,7 @@ function Header({headerClass=''}) {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
+          <div ref={menuRef} className="md:hidden fixed top-16 left-1 w-[98%] bg-white shadow-lg z-40 rounded-2xl  ">
             <div className="flex flex-col items-center p-4 space-y-4">
               {/* <NavLink
                 to="/sign-up"

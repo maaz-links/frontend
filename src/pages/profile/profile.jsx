@@ -13,63 +13,11 @@ import { useStateContext } from "@/context/ContextProvider";
 import { ROLES } from "../../../constants";;
 
 export default function ProfilePage() {
-  const [isProfileComplete, setIsProfileComplete] = useState(false);
-  const { setUser,user, refreshUser, optionsInterest,optionsAvailableFor,languageOptions, countries,nationalitiesList,eyeColorList } = useStateContext();
-  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+  const { user, backendConfigs } = useStateContext();
   
-  // Sample data for full profile
-  const profileData = {
-    name: "Tom Jard",
-    description:
-      "Ciao, sono una giovane ragazza di 28 anni. Amo il mondo artistico, sono solare e passionale. Amo viaggiare",
-    interests: ["Travel", "Books", "Books", "Cooking"],
-    available_for: [
-      "Model Photo",
-      "Talk",
-      "Dinners",
-      "Fake Girlfriend",
-      "Company",
-    ],
-    information: {
-      age: 30,
-      nationality: "Italian",
-      languages: ["Italian", "English"],
-      height: "160cm",
-      shoeSize: 36,
-    },
-    credits: isProfileComplete ? 125 : 0,
-    contacts: true
-      ? [
-          {
-            name: "Kate",
-            status: "Online 5 minutes ago",
-            avatar: "/placeholder.svg?height=34&width=34",
-          },
-          {
-            name: "Anna",
-            status: "Online 5 minutes ago",
-            avatar: "/placeholder.svg?height=34&width=34",
-          },
-          {
-            name: "Melogy",
-            status: "Online 5 minutes ago",
-            avatar: "/placeholder.svg?height=34&width=34",
-          },
-          {
-            name: "Luna",
-            status: "Online 5 minutes ago",
-            avatar: "/placeholder.svg?height=34&width=34",
-          },
-        ]
-      : [],
-    personalData: {
-      name: "Tom Jard",
-      dateOfBirth: { day: "13", month: "April", year: "1995" },
-      phone: "+38099277892",
-      email: "tom@mail.com",
-      password: "tom tom",
-    },
-  };
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  const canUpload = (backendConfigs.image_limit_per_user - photos.length > 0);
 
   return (
     <>
@@ -88,13 +36,14 @@ export default function ProfilePage() {
           <div className="w-full md:min-w-[287px] md:w-[287px] lg:w-[387px]">
             <ProfileCard
               progressValue={user.profile.profile_completion}
+              canUpload={canUpload}
               isCompleteModalOpen={isCompleteModalOpen} setIsCompleteModalOpen={setIsCompleteModalOpen}
             />
           </div>
           {/* Right Side - Credits, Contacts, Personal Data */}
           <div className="flex-1 space-y-4">
             {user.role == ROLES.KING && <CreditsSection credits={user.profile.credits} />}
-            <PhotoGallery />
+            <PhotoGallery photos={photos} setPhotos={setPhotos} canUpload={canUpload} />
 
             <ContactsSection/>
             <PersonalDataSection/>

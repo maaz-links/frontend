@@ -66,7 +66,7 @@ export default function ContactsSection() {
                 <>
                     {getOnlineStatus(contact.other_user) && <div className="inline-block mr-1 w-2 h-2 bg-green-500 rounded-full"></div>}
                 </>
-                    {getOnlineStatus(contact.other_user) ? "Online" : "Away"}
+                    {getOnlineStatus(contact.other_user) ? "Online" : "Offline"}
                   </p>
               </div>
 
