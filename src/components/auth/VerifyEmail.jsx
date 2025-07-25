@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 function VerifyEmail() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [message, setMessage] = useState('Verifying your email...');
+  const [message, setMessage] = useState("Verifica della tua E-mail in corso...");
   const [error, setError] = useState(null);
   const { setUser, setToken,setGenericModalOpen,setGenericModalContent } = useStateContext()
   useEffect(() => {
@@ -51,28 +51,31 @@ function VerifyEmail() {
         //   pauseOnHover: true,
         // })
         setGenericModalOpen(true);
-              setGenericModalContent(
-                <>
-                <h1 className=" text-[45px] font-bold">Email verified successfully!</h1>
-                <p className=" my-4 ">
-                  Your email has been successfully verified.
-                </p>
-                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-                  OK
-                </button>
-                </>
-              )
+        setGenericModalContent(
+          <>
+            <h1 className="text-[45px] font-bold">Email verificata con successo!</h1>
+            <p className="my-4">
+              La tua email è stata verificata con successo.
+            </p>
+            <button
+              onClick={() => setGenericModalOpen(false)}
+              className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full"
+            >
+              OK
+            </button>
+          </>
+        );
         sessionStorage.setItem('hostess_otp_email', response.data.email);
         sessionStorage.setItem('hostess_otp_phone', response.data.phone);
         sessionStorage.setItem('hostess_otp_message', response.data.message);
         //setToken(response.data.access_token);
         
-        setMessage('Email verified successfully! Redirecting...');
+        setMessage('E-mail verificata con successo! Reindirizzamento in corso...');
         navigate('/verify-phone');
         //navigate('/dashboard'); // Redirect to your desired page
       } catch (err) {
         console.log(err)
-        setError(err.response?.data?.message || 'Verification failed');
+        setError(err.response?.data?.message || 'Verifica fallita');
       }
     };
 

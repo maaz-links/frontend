@@ -35,9 +35,9 @@ export default function ContactsSection() {
   if (contacts.length === 0) {
     return (
       <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 space-y-6 h-[135px]">
-        <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">Contacts</h3>
+        <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">I tuoi contatti</h3>
         <p className="text-base font-medium text-[#090909]/70 tracking-[-0.02em] leading-[23px]">
-          You don`t have any contacts. <Link to="/search" className="underline font-bold cursor-pointer">Search now</Link>
+        Non hai contatti attivi. <Link to="/search" className="underline font-bold cursor-pointer">Cerca ora!</Link>
         </p>
       </div>
     )
@@ -45,7 +45,7 @@ export default function ContactsSection() {
 
   return (
     <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-2 py-6 lg:p-10 space-y-6">
-      <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">Contacts</h3>
+      <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">I tuoi contatti</h3>
 
       <div className="space-y-4">
         {contacts.map((contact, index) => (

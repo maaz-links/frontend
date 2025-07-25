@@ -3,7 +3,6 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
-import HowTo from "./pages/HowTo";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
 import VerifyPhone from "./pages/VerifyPhone";
@@ -56,7 +55,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/secret-login", element: <SecretLogin /> },
-      { path: "/how-to", element: <HowTo /> },
 
       { path: "/", element: <Home /> },
       // new pages

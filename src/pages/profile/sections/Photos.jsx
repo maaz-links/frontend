@@ -41,11 +41,6 @@ export default function PhotoGallery({photos, setPhotos, canUpload}) {
       }));
       setPhotos(fetchedImages);
     } catch (error) {
-      toast.error("Error fetching images", {
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
       console.error('Error fetching images:', error);
     } finally {
       setIsLoading(false);
@@ -68,31 +63,31 @@ export default function PhotoGallery({photos, setPhotos, canUpload}) {
     );
   };
 
-  const handleProfileSelect = async (imageId) => {
-    try {
-      await axiosClient.post(`/api/attachments/${imageId}/set-profile-picture`, {});
-      toast.success("Profile Picture Updated", {
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-      if (location.pathname == '/addphoto-signup') {
-        navigate('/profile');
-      }
-      refreshUser();
-    } catch (error) {
-      toast.error("Error Setting Profile Picture", {
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-      console.error('Error setting profile picture:', error);
-    }
-  };
+  // const handleProfileSelect = async (imageId) => {
+  //   try {
+  //     await axiosClient.post(`/api/attachments/${imageId}/set-profile-picture`, {});
+  //     toast.success("Profile Picture Updated", {
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //     });
+  //     if (location.pathname == '/addphoto-signup') {
+  //       navigate('/profile');
+  //     }
+  //     refreshUser();
+  //   } catch (error) {
+  //     toast.error("Error Setting Profile Picture", {
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //     });
+  //     console.error('Error setting profile picture:', error);
+  //   }
+  // };
 
   const removePhoto = async (imageId) => {
     if (user.profile_picture_id == imageId) {
-      toast.error("Cannot Delete Profile Picture", {
+      toast.error("Impossibile eliminare la foto profilo", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -103,7 +98,7 @@ export default function PhotoGallery({photos, setPhotos, canUpload}) {
       await axiosClient.delete(`/api/attachments/${imageId}`);
       fetchImages();
     } catch (error) {
-      toast.error("Error deleting image.", {
+      toast.error("Errore durante l'eliminazione dell'immagine.", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -123,9 +118,11 @@ export default function PhotoGallery({photos, setPhotos, canUpload}) {
   return (
     <div className="bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 w-full">
       <div className="flex justify-between mb-8 gap-1 flex-wrap">
-      <h2 className="text-[20px] leading-[24px] font-bold w-[200px]">My Photos</h2>
+      <h2 className="text-[20px] leading-[24px] font-bold w-[200px]">Le mie foto</h2>
       <h3 className="leading-[24px] text-gray-500 text-[14px] ">
-        {canUpload?`You can upload upto ${backendConfigs.image_limit_per_user} photos.`:`You have reached the maximum limit of ${backendConfigs.image_limit_per_user} photos.`}
+        {canUpload
+          ? `Puoi caricare fino a ${backendConfigs.image_limit_per_user} foto.`
+          : `Hai raggiunto il limite massimo di ${backendConfigs.image_limit_per_user} foto.`}
       </h3>
       </div>
       
@@ -211,7 +208,7 @@ const handleImageUpload = async (
   const maxSelectable = totalLimit - numberOfExistingPhotos;
 
   if (maxSelectable <= 0 || files.length === 0) {
-    toast.error(`You have reached the maximum limit of ${totalLimit} images.`,
+    toast.error(`Hai raggiunto il limite massimo di ${totalLimit} foto.`,
       {
         hideProgressBar: true,
         closeOnClick: true,
@@ -222,7 +219,7 @@ const handleImageUpload = async (
   }
   const filesToUpload = files.slice(0, maxSelectable);
   if (filesToUpload.length === 0) {
-    toast.error(`You can only upload ${maxSelectable} more image(s).`,
+    toast.error(`Puoi caricare solo altre ${maxSelectable} immagine/i.`,
       {
         hideProgressBar: true,
         closeOnClick: true,
@@ -265,7 +262,7 @@ export function ImageSuccessMessages(response,toast){
   
   if (response.data.uploaded_images?.length > 0) {
     const successCount = response.data.uploaded_images.length;
-    toast.success(`Successfully uploaded ${successCount} image(s)`, {
+    toast.success(`Caricate con successo ${successCount} immagine/i`, {
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -273,7 +270,7 @@ export function ImageSuccessMessages(response,toast){
 
     // If any images were set as profile picture
     if (response.data.set_profile_picture) {
-        toast.success("Profile picture updated successfully", {
+        toast.success("Foto profilo aggiornata con successo", {
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
@@ -284,7 +281,7 @@ export function ImageSuccessMessages(response,toast){
   // Handle failed uploads
   if (response.data.failed_uploads?.length > 0) {
     response.data.failed_uploads.forEach((upload) => {
-      toast.error(`Failed to upload ${upload.name}: ${upload.errors.join(', ')}`, {
+      toast.error(`Caricamento fallito per ${upload.name}: ${upload.errors.join(', ')}`, {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -323,7 +320,7 @@ export function ImageErrorMessages(error,toast){
       });
     });
   } else {
-    toast.error('Error uploading images. Please try again.', {
+    toast.error('Errore durante il caricamento delle immagini. Riprova.', {
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,

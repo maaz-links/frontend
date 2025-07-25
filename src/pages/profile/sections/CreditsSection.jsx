@@ -5,14 +5,14 @@ export default function CreditsSection({ credits }) {
     <div className="w-full  gap-4 flex-col lg:flex-row  bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)] p-10 flex items-center justify-between lg:h-[149px]">
       <div className="space-y-4   flex  flex-col items-start lg:w-[60%] w-full ">
         <h3 className="text-xl font-bold  text-[#090909] tracking-[-0.04em]">
-          Your Credits
+        I tuoi crediti
         </h3>
         <div className="flex items-center  text-center   gap-3">
           <span className="text-[45px] font-bold text-[#090909] tracking-[-0.06em] leading-[130%]">
             {credits}
           </span>
           <span className="text-[12px] mt-5 font-normal text-[#090909] leading-[18px]">
-            Credits
+            Crediti
           </span>
         </div>
       </div>
@@ -20,7 +20,7 @@ export default function CreditsSection({ credits }) {
       <div className="w-full flex lg:justify-end">
       <Link to="/shop" className="bg-[#8880FE] w-full lg:w-fit  rounded-xl px-2 md:px-5 py-3 h-[60px]  justify-center flex items-center gap-1 md:gap-3 hover:bg-black">
         <span className="text-white text-base font-bold text-center tracking-[-0.03em] capitalize text-nowrap  ">
-          top up the balance
+          Acquista crediti
         </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -27,7 +27,7 @@ const ReportChatButton = ({ chatId }) => {
     e.preventDefault();
     
     if (!reason.trim()) {
-      setError('Please provide a reason for reporting');
+      setError('Per favore, fornisci un motivo per la segnalazione');
       return;
     }
 
@@ -46,7 +46,7 @@ const ReportChatButton = ({ chatId }) => {
         closeModal();
       }, 1500);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to submit report');
+      setError(err.response?.data?.message || 'Invio della segnalazione non riuscito');
     } finally {
       setIsSubmitting(false);
     }
@@ -120,72 +120,68 @@ const ReportChatButton = ({ chatId }) => {
       <button 
         className="px-2 md:px-4 py-1 md:py-2 bg-gray-100 hover:bg-gray-200 text-nowrap rounded-lg text-xs lg:text-sm font-medium flex items-center space-x-1 md:space-x-2 transition-colors"
         onClick={openModal}
-        //style={dangerButtonStyle}
       >
         <FaExclamationCircle className="inline sm:hidden text-xs md:text-sm" />
-                              <span className="hidden sm:inline">
-                                Report
-                              </span>
+        <span className="hidden sm:inline">
+          Segnala
+        </span>
       </button>
-
+  
       {isOpen && (
         <div style={backdropStyle} onClick={closeModal}>
           <div style={modalStyle} onClick={e => e.stopPropagation()}>
-            <h2 className='font-bold text-4xl text-center my-4'>Report Chat</h2>
+            <h2 className='font-bold text-4xl text-center my-4'>Segnala chat</h2>
             
             {success ? (
               <div style={{ color: 'green', margin: '10px 0' }}>
-                Report submitted successfully!
+                Segnalazione inviata con successo!
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="reason">Reason for reporting*</label>
+                  <label htmlFor="reason">Motivo della segnalazione*</label>
                   <textarea
                     id="reason"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     style={textareaStyle}
-                    placeholder="Please explain why you're reporting this chat..."
+                    placeholder="Spiega il motivo per cui stai segnalando questa chat..."
                     required
                   />
                 </div>
-
+  
                 {/* <div>
-                  <label htmlFor="additionalInfo">Additional information (optional)</label>
+                  <label htmlFor="additionalInfo">Informazioni aggiuntive (facoltative)</label>
                   <textarea
                     id="additionalInfo"
                     value={additionalInfo}
                     onChange={(e) => setAdditionalInfo(e.target.value)}
                     style={textareaStyle}
-                    placeholder="Any additional details that might help..."
+                    placeholder="Altri dettagli che potrebbero essere utili..."
                   />
                 </div> */}
-
+  
                 {error && (
                   <div style={{ color: 'red', margin: '10px 0' }}>
                     {error}
                   </div>
                 )}
-
+  
                 <div style={{ marginTop: '20px', textAlign: 'right' }}>
                   <button
                     type="button"
                     onClick={closeModal}
-                    // style={buttonStyle}
                     className='rounded-2xl px-4 py-2 m-3 bg-gray-100 hover:bg-gray-200 transition-colors'
                     disabled={isSubmitting}
                   >
-                    Cancel
+                    Annulla
                   </button>
                   <button
-                  
                     type="submit"
-                    // style={primaryButtonStyle}
                     className='rounded-2xl bg-black text-white px-4 py-2 hover:bg-[#8880FE] transition-colors'
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Submit Report'}
+                    {isSubmitting ? 'Invio in corso...' : 'Invia segnalazione'}
                   </button>
                 </div>
               </form>

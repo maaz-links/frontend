@@ -24,34 +24,23 @@ export default function ProfileCard({
 
   const handleDelete = async () => {
       
-      try {
-        const response = await axiosClient.post('/api/send-cancellation-request')
-        if (response.data?.message) {
-          toast.success(response.data.message,{
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-          })
-          // Optionally redirect or update UI
-          // console.log('we re out')
-                  // setUser(null)
-                  // setToken(null)
-                  // navigate('/login');
-        } else {
-          toast.info("Cancellation Request Sent",{
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-          })
-        }
-      } catch (error) {
-        console.error('Error cancelling account:', error);
-        toast.error("Error Sending Request. Try again later.",{
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-        })
-      }
+    try {
+      const response = await axiosClient.post('/api/send-cancellation-request');
+    
+      toast.info("Richiesta di cancellazione inviata", {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    
+    } catch (error) {
+      console.error('Errore durante la cancellazione dell’account:', error);
+      toast.error("Errore nell'invio della richiesta. Riprova più tardi.", {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
   }
   // Calculate the stroke-dasharray and stroke-dashoffset for the progress ring
   const radius = 75; // Radius of the progress circle
@@ -114,10 +103,10 @@ export default function ProfileCard({
             className={"border-0 rounded-2xl p-2  font-bold leading-[100%] "}
           >
             <DropdownMenuItem onClick={() => setIsCompleteModalOpen(true)}>
-              Edit Information
+              Modifica informazioni
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleDelete} className={"text-red-600 text-[14px]"}>
-              Send Cancellation Request
+              Richiedi eliminazione profilo
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -151,7 +140,7 @@ export default function ProfileCard({
               {/* Interests */}
               <div className="space-y-4">
                 <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                  Personality and Interests:
+                Personalità e interessi:
                 </p>
                 <div className="flex flex-wrap gap-1 justify-center">
                   {optionsInterest
@@ -175,7 +164,7 @@ export default function ProfileCard({
               
                 <div className="space-y-4">
                   <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                    Available For
+                    Disponibile per
                   </p>
                   <div className="flex flex-wrap gap-1 justify-center">
                     {optionsAvailableFor
@@ -199,7 +188,7 @@ export default function ProfileCard({
               {(user.profile.my_languages.length != 0) && <><div className="w-full h-px bg-black/10"></div>
               <div className="space-y-4">
                 <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                  Languages
+                  Lingue
                 </p>
                 <div className="flex flex-wrap gap-1 justify-center">
                   {languageOptions
@@ -216,96 +205,94 @@ export default function ProfileCard({
               </div></>}
 
 
-              <div className="w-full h-px bg-black/10"></div>
-              {/* Informations */}
-              <div className="space-y-4">
-                <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-                  Informations
-                </p>
+              {hasProfileInfo && <>  
+                <div className="w-full h-px bg-black/10"></div>
+                {/* Informations */}
+                <div className="space-y-4">
+                  <p className="text-base font-bold text-[#090909] tracking-[-0.03em]">
+                    Descrizione
+                  </p>
 
-              {hasProfileInfo ? (
-                <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
-                  {user.profile?.province_id && (
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Province</span>
-                      <span className="truncate max-w-[50%]">{getProvinceName(user.profile.province_id)}</span>
-                    </li>
-                  )}
+                  {/* {hasProfileInfo ? ( */}
+                  <ul className="space-y-1 text-sm px-10 text-[#090909] tracking-[-0.02em] leading-[23px]">
+                    {user.profile?.province_id && (
+                      <li className="flex items-center justify-between">
+                        <span className="font-bold">Città</span>
+                        <span className="truncate max-w-[50%]">{getProvinceName(user.profile.province_id)}</span>
+                      </li>
+                    )}
 
-                  {user.profile?.nationality && (
-                    <li className="flex items-center justify-between">
-                      <span className="font-bold">Nationality</span>
-                      <span className="truncate max-w-[50%]">{user.profile.nationality}</span>
-                    </li>
-                  )}
+                    {user.profile?.nationality && (
+                      <li className="flex items-center justify-between">
+                        <span className="font-bold">Nazionalità</span>
+                        <span className="truncate max-w-[50%]">{user.profile.nationality}</span>
+                      </li>
+                    )}
 
-                  
 
-                  {user.role === ROLES.HOSTESS && (
-                    <>
-                      {user.profile?.shoe_size && (
-                        <li className="flex items-center justify-between">
-                          <span className="font-bold">Shoe Size</span>
-                          <span className="truncate max-w-[50%]">{user.profile.shoe_size}</span>
-                        </li>
-                      )}
-                      {user.profile?.eye_color && (
-                        <li className="flex items-center justify-between">
-                          <span className="font-bold">Eye Colour</span>
-                          <span className="truncate max-w-[50%]">{user.profile.eye_color}</span>
-                        </li>
-                      )}
-                      {user.profile?.height && (
-                        <li className="flex items-center justify-between">
-                          <span className="font-bold">Height</span>
-                          <span className="truncate max-w-[50%]">{user.profile.height}cm</span>
-                        </li>
-                      )}
-                      {user.profile?.weight && (
-                        <li className="flex items-center justify-between">
-                          <span className="font-bold">Weight</span>
-                          <span className="truncate max-w-[50%]">{user.profile.weight}kg</span>
-                        </li>
-                      )}
-                      {user.profile?.dress_size && (
-                        <li className="flex items-center justify-between">
-                          <span className="font-bold">Dress Size</span>
-                          <span className="truncate max-w-[50%]">{user.profile.dress_size}</span>
-                        </li>
-                      )}
 
-                      {user.profile?.travel_available !== null && (
-                        <li className="flex items-center justify-between">
-                          <span className="font-bold">Available for travel</span>
-                          <span className="truncate max-w-[50%]">{user.profile.travel_available ? "Yes" : "No"}</span>
-                        </li>
-                      )}
+                    {user.role === ROLES.HOSTESS && (
+                      <>
+                        {user.profile?.shoe_size && (
+                          <li className="flex items-center justify-between">
+                            <span className="font-bold">Misura della scarpa</span>
+                            <span className="truncate max-w-[50%]">{user.profile.shoe_size}</span>
+                          </li>
+                        )}
+                        {user.profile?.eye_color && (
+                          <li className="flex items-center justify-between">
+                            <span className="font-bold">Colore degli occhi</span>
+                            <span className="truncate max-w-[50%]">{user.profile.eye_color}</span>
+                          </li>
+                        )}
+                        {user.profile?.height && (
+                          <li className="flex items-center justify-between">
+                            <span className="font-bold">Altezza</span>
+                            <span className="truncate max-w-[50%]">{user.profile.height}cm</span>
+                          </li>
+                        )}
+                        {user.profile?.weight && (
+                          <li className="flex items-center justify-between">
+                            <span className="font-bold">Peso</span>
+                            <span className="truncate max-w-[50%]">{user.profile.weight}kg</span>
+                          </li>
+                        )}
+                        {user.profile?.dress_size && (
+                          <li className="flex items-center justify-between">
+                            <span className="font-bold">Taglia dell'abbigliamento</span>
+                            <span className="truncate max-w-[50%]">{user.profile.dress_size}</span>
+                          </li>
+                        )}
 
-                      {/* {user.profile?.telegram && (
+                        {user.profile?.travel_available !== null && (
+                          <li className="flex items-center justify-between">
+                            <span className="font-bold">Disponibile a viaggiare</span>
+                            <span className="truncate max-w-[50%]">{user.profile.travel_available ? "Sì" : "No"}</span>
+                          </li>
+                        )}
+
+                        {/* {user.profile?.telegram && (
                         <li className="flex items-center justify-between">
                           <span className="font-bold">Telegram</span>
                           <span className="truncate max-w-[50%]">{user.profile.telegram}</span>
                         </li>
                       )} */}
-                      {SocialLinks.map((platform) => {
-                        const value = user.profile?.[platform.name];
+                        {SocialLinks.map((platform) => {
+                          const value = user.profile?.[platform.name];
 
-                        return value ? (
-                          <li key={platform.name} className="flex items-center justify-between">
-                            <span className="font-bold capitalize">{platform.label}</span>
-                            <span className="truncate max-w-[50%]">{value}</span>
-                          </li>
-                        ) : null;
-                      })}
-                    </>
-                  )}
-                </ul>
-              ) : (
-                <p className="text-sm font-normal text-[#090909]/40 tracking-[-0.02em] leading-[23px]">
-                  No Informations
-                </p>
-              )}
-              </div>
+                          return value ? (
+                            <li key={platform.name} className="flex items-center justify-between">
+                              <span className="font-bold capitalize">{platform.label}</span>
+                              <span className="truncate max-w-[50%]">{value}</span>
+                            </li>
+                          ) : null;
+                        })}
+                      </>
+                    )}
+                  </ul>
+
+                </div>
+                </>}
             </>
           )}
         </div>
@@ -319,7 +306,7 @@ export default function ProfileCard({
         }}
         className="mt-10 text-[16px] font-bold tracking-[-0.03em]  capitalize mb-5 text-[#090909] mx-auto w-[90%] hover:text-white hover:bg-black  lg:w-[301px] h-[60px] bg-[#090909]/4 rounded-xl flex items-center justify-center"
       >
-        add Informations
+        Aggiungi la tua descrizione
       </button>
 
       <CompleteProfileModal

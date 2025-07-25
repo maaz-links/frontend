@@ -99,18 +99,17 @@ const UnlockChatModal = ({
         {/* Content */}
         <div className="w-full md:w-[60%]  pb-16 pt-5 ">
           <h2 className="text-3xl font-bold text-black mb-6">
-            Unlock Chat with {userName}
+            Attiva la chat con {userName}
           </h2>
 
           <p className="text-black text-opacity-90 mb-3 text-lg">
-            To start a chat with {userName}, you need to debit{" "}
-            <span className="font-semibold">{coinCost} coins</span> from your
-            balance.
+            Per iniziare a parlare con {userName}, sono necessari{" "}
+            <span className="font-semibold">{coinCost} crediti</span>
           </p>
 
           <p className="text-black text-opacity-90 mb-8 text-lg">
-            Your balance:{" "}
-            <span className="font-semibold">{userBalance} coins</span>
+            Hai ancora{" "}
+            <span className="font-semibold">{userBalance} crediti</span>
           </p>
 
           {canAfford ? (
@@ -118,14 +117,14 @@ const UnlockChatModal = ({
               onClick={onConfirm}
               className={`w-fit py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
             >
-              Confirm
+              Conferma
             </button>
           ) : (
             <button
               onClick={() => navigate("/shop")}
               className={`w-fit py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
             >
-              Top Up my Balance
+              Acquista Crediti
             </button>
           )}
         </div>
@@ -164,34 +163,27 @@ const UnlockChatModal = ({
 
         {/* Content */}
         <div className="w-full md:w-[100%] text-center pt-5 ">
-          <h2 className="text-3xl font-bold text-black mb-6">
-            Send Free Message to {userName}
-          </h2>
+        <h2 className="text-3xl font-bold text-black mb-6">
+          Invia un messaggio gratuito a {userName}
+        </h2>
 
-          <p className="text-black text-opacity-90 mb-8 text-lg">
-            Are you sure you want to send free message to {userName}?
-          </p>
+        <p className="text-black text-opacity-90 mb-8 text-lg">
+          Sei sicuro di voler inviare un messaggio gratuito a {userName}?
+        </p>
 
           {/* <p className="text-black text-opacity-90 mb-8 text-lg">
             Your balance:{" "}
             <span className="font-semibold">{userBalance} coins</span>
           </p> */}
 
-          {true ? (
+          
             <button
               onClick={onConfirm}
               className={`w-fit py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
             >
-              Confirm
+              Conferma
             </button>
-          ) : (
-            <button
-              onClick={() => navigate("/shop")}
-              className={`w-fit py-4 px-8 rounded-2xl font-semibold text-lg transition-all hover:bg-[#8880FE] ${"bg-black text-white  active:scale-95"}`}
-            >
-              Top Up my Balance
-            </button>
-          )}
+          
         </div>
       </div>  
     }

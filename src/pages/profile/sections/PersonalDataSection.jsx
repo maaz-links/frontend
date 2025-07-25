@@ -21,7 +21,7 @@ export default function PersonalDataSection() {
     <div className="w-full bg-white rounded-[30px] shadow-[0px_28px_34.7px_rgba(0,0,0,0.05)]  p-3 py-10 md:p-10 space-y-6 relative">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-[#090909] tracking-[-0.04em]">
-          Personal Data
+          Dati Personali
         </h3>
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -32,8 +32,8 @@ export default function PersonalDataSection() {
               "border-0 rounded-2xl p-2  font-bold leading-[100%] "
             }
           >
-            <DropdownMenuItem onClick={() => setIsEditModalOpen(true)} className={" text-center"}>Edit Personal Info</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setChangePassModalOpen(true)} className={" text-center"}>Change Password</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setIsEditModalOpen(true)} className={" text-center"}>Modifica Informazioni Personali</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setChangePassModalOpen(true)} className={" text-center"}>Cambia Password</DropdownMenuItem>
           </DropdownMenuContent>
           
         </DropdownMenu>
@@ -43,7 +43,7 @@ export default function PersonalDataSection() {
         {/* Name */}
         <div className="space-y-3">
           <label className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-            Name (or Nickname)
+            Nome (o nickname)
           </label>
           <input
             type="text"
@@ -57,7 +57,7 @@ export default function PersonalDataSection() {
         {/* Date of Birth */}
         <div className="space-y-3   ">
           <label className="text-base  font-bold text-[#090909] tracking-[-0.03em]">
-            Date of birth
+          Data di nascita
           </label>
           {/* <div className="flex gap-3 md:gap-[18px] flex-wrap md:flex-nowrap">
             <input
@@ -88,7 +88,7 @@ export default function PersonalDataSection() {
         {/* Mobile Phone */}
         <div className="space-y-3">
           <label className="text-base font-bold text-[#090909] tracking-[-0.03em]">
-          Phone Number
+          Telefono cellulare
           </label>
           <input
             type="text"

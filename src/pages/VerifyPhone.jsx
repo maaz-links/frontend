@@ -95,7 +95,7 @@ function VerifyPhone() {
     try {
       const response = await axiosClient.post('/api/resend-otp', payload);
       // console.log(response.data.message);
-      toast.info(response.data.message, {
+      toast.info("Codice inviato nuovamente", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -103,7 +103,7 @@ function VerifyPhone() {
     }
     catch (err) {
       //const response = err.response;
-      toast.error("Error resending OTP", {
+      toast.error("Si è verificato un errore durante il reinvio del codice", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -129,7 +129,7 @@ function VerifyPhone() {
       <Header />
       <BackgroundGrad>
       <div className="max-w-[700px]  bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-        <h1 className="text-center text-[38px] my-7"><strong>Mobile Phone Verification</strong></h1>
+        <h1 className="text-center text-[38px] my-7"><strong>Verifica del numero di telefono</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 
@@ -148,10 +148,10 @@ function VerifyPhone() {
             <ErrorText field='otp' />
           </div> */}
             <div className="mb-4 max-w-[600px] mx-auto">
-              <label className="block text-center text-[20px] mb-[20px]">The OTP has been sent via to your mobile phone:<br /> <strong>{otpPhone}</strong></label>
+              <label className="block text-center text-[20px] mb-[20px]">Il codice di verifica è stato inviato al numero di telefono:<br /> <strong>{otpPhone}</strong></label>
 
               <div className="">
-              <div className="block text-[20px] mb-[20px]"><strong>Verification Code</strong></div>
+              <div className="block text-[16px] mb-[20px]"><strong>Inserisci il codice ricevuto via SMS</strong></div>
                 <div className="flex justify-center gap-2 mb-2">
                 
                   {[...Array(5)].map((_, index) => (
@@ -189,22 +189,21 @@ function VerifyPhone() {
 
               <div className="text-center mx-auto">
 
-                <div className="text-start">
+                <div className="text-start py-[5px] my-[20px] text-[16px] ">
+                Non hai ricevuto il codice? {''}
                   <button type="button"
                     onClick={handleResend}
                     disabled={disabledResend}
-                    className={`py-[5px] my-[20px] text-[16px] ${disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
+                    className={`${disabledResend ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
                       }`}
                   >
-                    <strong>{disabledResend ? `Resend OTP in ${timer}s` : 'Resend?'}</strong>
+                    <strong>{disabledResend ? `Invia nuovamente tra ${timer}s` : 'Invia nuovamente'}</strong>
                   </button>
                 </div>
                 <button type='submit'
-                  //onClick={sendOtp}
-                  // onClick={() => { verifyOtp() }}
                   className="cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]"
                 >
-                  <strong>Verify the Code</strong>
+                  <strong>Verifica il codice</strong>
                 </button> </div>
               <label className="block text-center text-[20px] mb-[20px]">{otpMessage}</label>
             </div>

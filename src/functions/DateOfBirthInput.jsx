@@ -95,7 +95,7 @@ const DateOfBirthInput = forwardRef(({
         className={`${fieldClass} appearance-none`}
         disabled={isReadOnly}
     >
-        <option value="">Day</option>
+        <option value="">Giorno</option>
         {days.map((d) => (
         <option key={d} value={d}>{d}</option>
         ))}
@@ -107,7 +107,7 @@ const DateOfBirthInput = forwardRef(({
         className={`${fieldClass} appearance-none`}
         disabled={isReadOnly}
     >
-        <option value="">Month</option>
+        <option value="">Mese</option>
         {months.map((m) => (
         <option key={m.value} value={m.value}>{m.name}</option>
         ))}
@@ -119,7 +119,7 @@ const DateOfBirthInput = forwardRef(({
         className={`${fieldClass} appearance-none`}
         disabled={isReadOnly}
     >
-        <option value="">Year</option>
+        <option value="">Anno</option>
         {years.map((y) => (
         <option key={y} value={y}>{y}</option>
         ))}

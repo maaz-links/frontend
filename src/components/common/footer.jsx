@@ -18,7 +18,7 @@ function Footer() {
           </div>
 
           {/* Footer Menu Section */}
-          <div className="footer-menu md:mt-[0px] flex justify-center gap-5 md:gap-10 md:h-[100px] items-center"
+          <div className="footer-menu md:mt-[0px] flex justify-center gap-4 md:gap-10 md:h-[100px] items-center"
           >
             <FooterLink link="/">Chi siamo</FooterLink>
             <FooterLink link="/search">Cerca</FooterLink>
@@ -48,7 +48,7 @@ function Footer() {
 
 function FooterLink({ link, children }) {
   return <>
-    <Link to={link} className="mb-[13px] text-center p-[6px] text-[15px] md:text-[20px]">
+    <Link to={link} className="mb-[13px] text-center p-[6px] text-nowrap text-[13px] sm:text-[15px] md:text-[20px]">
       {children}
     </Link>
   </>

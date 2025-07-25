@@ -50,7 +50,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
     try {
       const response = await axiosClient.post('/api/change-password', formData);
       if (response.data.success) {
-        toast.success("Password Changed Successfully", {
+        toast.success("Password cambiata con successo", {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
@@ -98,7 +98,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             {/* Title */}
             <div className="text-center">
               <h2 className="text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
-                Change Password
+                Cambia password
               </h2>
             </div>
 
@@ -112,7 +112,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                 {/* Current Password */}
                 <div className="flex flex-col gap-3 mb-4">
                   <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    Current Password
+                    Password attuale
                   </label>
                   <div className="relative">
                     <input
@@ -129,7 +129,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                 {/* New Password */}
                 <div className="flex flex-col gap-3 mb-4">
                   <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    New Password
+                    Nuova password
                   </label>
                   <div className="relative">
                     <input
@@ -146,7 +146,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                 {/* Confirm Password */}
                 <div className="flex flex-col gap-3">
                   <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    Confirm Password
+                    Conferma password
                   </label>
                   <div className="relative">
                     <input
@@ -165,7 +165,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                 type="submit"
                 className="w-full max-w-[426px] h-[60px] bg-[#090909] hover:bg-[#8880FE] rounded-xl flex items-center justify-center text-base font-bold tracking-[-0.03em] text-white transition-colors mt-6"
               >
-                Save Changes
+                Save
               </button>
             </form>
           </div>

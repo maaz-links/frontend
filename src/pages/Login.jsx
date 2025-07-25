@@ -60,12 +60,12 @@ function Login() {
               setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">Verify your email</h1>
+                <h1 className=" text-[45px] font-bold">Verifica email</h1>
                 <p className=" my-4 ">
-                  Check your mailbox, follow the instructions, and confirm account!
+                  Verifica la tua mailbox, segui le istruzioni. Benvenuto!
                 </p>
                 <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-                  Got It
+                  Prosegui
                 </button>
                 </>
               )
@@ -132,7 +132,7 @@ function Login() {
       <BackgroundGrad>
 
       <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px] ">
-        <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Log In</strong></h1>
+        <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Accesso</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 
@@ -140,7 +140,7 @@ function Login() {
             <div className="mb-4 max-w-[600px] mx-auto">
 
               <div className="mb-7">
-                <div className="block text-[20px] mb-[20px]"><strong>Email</strong></div>
+                <div className="block text-[20px] mb-[20px]"><strong>E-mail</strong></div>
                 {/* Email Field */}
                 <input
                   type="email"
@@ -148,7 +148,7 @@ function Login() {
                   required
 
                   className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                  placeholder="Enter Email"
+                  placeholder="Inserisci l'e-mail"
                 />
                 <ErrorText field='email' />
 
@@ -162,7 +162,7 @@ function Login() {
                   required
 
                   className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                  placeholder="Enter Password"
+                  placeholder="Inserisci la password"
                 />
                 <ErrorText field='password' />
 
@@ -176,19 +176,19 @@ function Login() {
                     className={`py-[5px] mb-[20px] text-[16px] ${false ? 'text-gray-400 cursor-not-allowed' : 'hover:underline'
                       }`}
                   >
-                    <strong>{'Forgot Password?'}</strong>
+                    <strong>{'Password dimenticata?'}</strong>
                   </button>
                 </div>
                 <button type='submit'
                   disabled={submitting}
                   className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
                 >
-                  <strong>{submitting ? 'Logging in...' : 'Log In'}</strong>
+                  <strong>{submitting ? 'Accesso in corso...' : 'Accedi'}</strong>
                 </button>
               </div>
 
               <div className="text-center my-9">
-                New User? <strong><Link to='/sign-up'>Sign up for Free</Link></strong>
+                Nuovo utente? <strong><Link to='/sign-up'>Iscriviti gratuitamente</Link></strong>
               </div>
             </div>
           </form>

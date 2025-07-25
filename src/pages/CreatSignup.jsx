@@ -27,27 +27,23 @@ const SignUp = () => {
   //constnavigate =
   const handleNext = () => {
     if (myRole) {
-      //alert(`You selected: ${myRole}`);
       setNext(1);
-      //window.location.href = '/create-signup'
     } else {
-      // toast.info('Please select an option before proceeding.',{
-      //   hideProgressBar: true,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      // })
       setGenericModalOpen(true);
-              setGenericModalContent(
-                <>
-                <h1 className=" text-[45px] font-bold">No Option Selected</h1>
-                <p className=" my-4 ">
-                Please select an option before proceeding.
-                </p>
-                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-                  OK
-                </button>
-                </>
-              )
+      setGenericModalContent(
+        <>
+          <h1 className="text-[45px] font-bold">Nessuna opzione selezionata</h1>
+          <p className="my-4">
+            Seleziona un'opzione prima di procedere.
+          </p>
+          <button
+            onClick={() => setGenericModalOpen(false)}
+            className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full"
+          >
+            OK
+          </button>
+        </>
+      )
       // alert("Please select an option before proceeding.");
     }
   };
@@ -62,8 +58,8 @@ const SignUp = () => {
       <BackgroundGrad>
       
       <div className="bg-white max-w-[700px] shadow-md mx-auto rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-      <h1 className="text-center text-[30px] md:text-[40px] font-[400] mt-[20px]"><strong>Create your Profile</strong></h1>
-      <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Choose a Profile</h2>
+      <h1 className="text-center text-[30px] md:text-[40px] font-[400] mt-[20px]"><strong>Crea il tuo account</strong></h1>
+      <h2 className="text-center text-[22px] mb-[50px] font-[400] mt-[20px]">Scegli il tuo profilo</h2>
       <div className="max-w-[971px] mx-auto px-[15px] mb-[50px]">
         {/* Selection Options */}
         <div className="flex flex-row gap-[30px] mb-6">
@@ -78,7 +74,7 @@ const SignUp = () => {
               src={myRole === ROLES.HOSTESS ? femaleIconWhite : femaleIcon}
               alt="Hostess Icon"
             />
-            <p className="text-center text-[3vw] sm:text-[22px]"><strong>I am an hostess or model</strong></p>
+            <p className="text-center text-[3vw] sm:text-[22px]"><strong>Sono una Hostess/Model</strong></p>
           </div>
 
           {/* Option 2 */}
@@ -92,7 +88,7 @@ const SignUp = () => {
               src={myRole === ROLES.KING ? maleIconWhite : maleIcon}
               alt="King Icon"
             />
-            <p className="text-center text-[3vw] sm:text-[22px]"><strong>I am looking for a Hostess/Model</strong></p>
+            <p className="text-center text-[3vw] sm:text-[22px]"><strong>Cerco una Hostess/Model</strong></p>
           </div>
         </div>
 
@@ -102,7 +98,7 @@ const SignUp = () => {
             className="cursor-pointer w-full bg-black text-[20px] text-white p-[12px] rounded-4xl"
             onClick={handleNext}
           >
-            <strong>NEXT</strong>
+            <strong>Continua</strong>
           </button>
         </div>
       </div>
@@ -197,12 +193,12 @@ const CreatSignup = ({myRole}) => {
       setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">Verify your email</h1>
+                <h1 className=" text-[45px] font-bold">Verifica email</h1>
                 <p className=" my-4 ">
-                  Check your mailbox, follow the instructions, and confirm account!
+                  Verifica la tua mailbox, segui le istruzioni. Benvenuto!
                 </p>
                 <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-                  Got It
+                  Prosegui
                 </button>
                 </>
               )
@@ -234,7 +230,7 @@ const CreatSignup = ({myRole}) => {
       <Header />
       <BackgroundGrad>
       <div className="bg-white max-w-[700px] mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px] ">
-        <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Free Registration</strong></h1>
+        <h1 className="text-center text-[28px] sm:text-[30px] md:text-[40px] my-7"><strong>Registrazione Gratuita</strong></h1>
         <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
 
 
@@ -242,7 +238,7 @@ const CreatSignup = ({myRole}) => {
             <div className="mb-4 max-w-[600px] mx-auto">
 
               <div className="mb-7">
-                  <div className="block text-[20px] mb-[20px]"><strong>Name (or Nickname)</strong></div>
+                  <div className="block text-[20px] mb-[20px]"><strong>Il tuo nome (o nickname)</strong></div>
                   {/* Name Field */}
                   <input
                     type="name"
@@ -250,18 +246,18 @@ const CreatSignup = ({myRole}) => {
                     required
 
                     className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                    placeholder="Enter Username"
+                    placeholder="Inserisci il testo"
                   />
                   <ErrorText field='name' />
            
               </div>
               <div className="mb-7">
-            <div className="block text-[20px] mb-[20px]"><strong>Date of Birth</strong></div>
+            <div className="block text-[20px] mb-[20px]"><strong>Data di nascita</strong></div>
               <DateOfBirthInput ref={dobRef} />
               <ErrorText field='dob' />
             </div>
               <div className="mb-7">
-                <div className="block text-[20px] mb-[20px]"><strong>Email</strong></div>
+                <div className="block text-[20px] mb-[20px]"><strong>E-mail</strong></div>
                 {/* Email Field */}
                 <input
                   type="email"
@@ -269,7 +265,7 @@ const CreatSignup = ({myRole}) => {
                   required
 
                   className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                  placeholder="Enter Email"
+                  placeholder="Inserisci l'e-mail"
                 />
                 <ErrorText field='email' />
               
@@ -290,7 +286,7 @@ const CreatSignup = ({myRole}) => {
               </div> */}
                <div className="mb-7">
                 <div className="block text-[20px] mb-[20px]">
-                  <strong>Mobile Phone</strong>
+                  <strong>Il tuo numero di telefono cellulare</strong>
                 </div>
                   <PhoneNumberInput
                     countryCode={countryCode}
@@ -309,27 +305,27 @@ const CreatSignup = ({myRole}) => {
                   required
 
                   className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                  placeholder="Enter Password"
+                  placeholder="Inserisci la password"
                 />
                 <ErrorText field='password' />
 
               </div>
               <div className="mb-7">
-                <div className="block text-[20px] mb-[20px]"><strong>Confirm Password</strong></div>
+                <div className="block text-[20px] mb-[20px]"><strong>Conferma Password</strong></div>
                 {/* Confirm Password Field */}
                 <input
                   type="password"
                   ref={confirmPasswordRef}
                   required
                   className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                  placeholder="Enter Password"
+                  placeholder="Inserisci la password"
                 />
                 <ErrorText field='password_confirmation' />
 
               </div>
               
               {myRole == ROLES.HOSTESS && <>
-                <div className="block text-[20px] mb-[20px]"><strong>I am a</strong></div>
+                <div className="block text-[20px] mb-[20px]"><strong>Sono un</strong></div>
                 <div className="flex flex-wrap">
                   {profileTypeList.map((type) => (
                     <div key={type.id} className="inline-flex items-center mr-5 mb-3">
@@ -351,12 +347,12 @@ const CreatSignup = ({myRole}) => {
               <div className="text-center mx-auto">
 
                 <div className="text-center my-8 text-sm sm:text-base">
-                Hostessforyou.com won't share your private information like phone number or email address with anyone
+                Hostessforyou non condividerà con nessuno le tue informazioni private come il numero di telefono e la tua email.
                 </div>
                 <div className="text-center my-8">
                   <div className="inline-flex items-center text-sm sm:text-base">
                     <input type="checkbox" name="termsAccepted" required className="mr-2 w-[25px] aspect-square appearance-none bg-gray-300 rounded focus:outline-none" />
-                    <span className="ml-2">I accept the <Link to="/terms"><strong>Terms & Conditions</strong></Link> and <Link to="/privacy"><strong>Privacy Policy</strong></Link></span>
+                    <span className="ml-2">Accetto <Link to="/terms"><strong>Termini e Condizioni del Servizio</strong></Link> e la <Link to="/privacy"><strong>Privacy Policy</strong></Link></span>
                   </div>
                 </div>
                 {/* <div className="text-start">
@@ -376,11 +372,11 @@ const CreatSignup = ({myRole}) => {
                   disabled={submitting}
                   className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
                 >
-                  <strong>{submitting ? 'Registering...' : 'Create Account'}</strong>
+                  <strong>{submitting ? 'Registrazione in corso...' : 'Crea il tuo account'}</strong>
                 </button>
               </div>
               <div className="text-center my-9">
-                              Have an account? <strong><Link to='/login'>Sign in</Link></strong>
+                Hai già un account? <strong><Link to='/login'>Entra ora</Link></strong>
                             </div>
 
                       <style jsx>{`

@@ -55,18 +55,17 @@ const WelcomeModal = ({ isOpen, onClose }) => {
         {/* Content */}
         <div className="w-full md:w-[65%]  pb-16 pt-5 md:px-7 flex flex-col items-start  ">
           <h2 className="text-3xl font-bold text-black mb-6">
-            Welcome to Hostess for You!
+            Il tuo account è pronto!
           </h2>
 
           <p className="text-black text-opacity-90 mb-3 text-lg">
-            Finish setting up your
-            profile and begin engaging with others.
+            Termina la configurazione del tuo profilo e buon divertimento.
           </p>
 
           <Link to="/profile" onClick={onClose}
             className={` py-4 px-8 rounded-2xl font-semibold text-md sm:text-lg transition-all ${"bg-black text-white hover:bg-[#8880FE] active:scale-95"}`}
           >
-            Fill out your profile
+            Completa il tuo profilo
           </Link>
         </div>
       </div>

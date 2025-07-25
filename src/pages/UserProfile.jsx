@@ -8,7 +8,6 @@ import { getAge, getAttachmentURL, getOnlineStatus } from "../functions/Common";
 import { ROLES } from "../../constants";
 import ReportUserButton from "../components/ReportUserButton";
 import { ClipLoader } from "react-spinners";
-import { createChat } from "../functions/UnlockChat";
 import UnlockChatModal from "../components/common/unlock-chat-modal";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
@@ -26,6 +25,7 @@ function UserProfile() {
     user,
     optionsInterest,
     optionsAvailableFor,
+    profileTypeList,
     languageOptions,
     getProvinceName,
     SocialLinks,
@@ -95,7 +95,7 @@ function UserProfile() {
       <>
         <Header />
         <div className=" pt-[50px] md:pt-[68px] pb-[95px] px-[30px] max-w-[1300px] m-auto mt-[28px] mb-[400px]">
-          This user either doesn't exist or has the profile set to pause.
+          Questo utente non esiste oppure ha il profilo nascosto.
         </div>
         <Footer />
       </>
@@ -152,7 +152,27 @@ function UserProfile() {
           <div className="flex flex-col md:flex-row gap-4 sm:gap-8">
             {/* Profile Image */}
             <div className="w-full md:w-[45%] xl:w-[672px] flex-shrink-0">
-              <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-sm">
+                {/* Profile Tags - Top */}
+                                      <div className="absolute top-3 left-3 flex flex-wrap gap-1 z-10">
+                                        {givenUser.role == ROLES.HOSTESS &&
+                                        profileTypeList
+                                          .filter((item) =>
+                                            givenUser.profile.my_profile_types.includes(
+                                              item.id
+                                            )
+                                          )
+                                          .map((item) => (
+                                            <span
+                                              key={item.id}
+                                              className="bg-black backdrop-blur-sm text-white text-[10px] sm:text-xs px-2 py-1 rounded-full font-medium"
+                                            >
+                                              {item.name}
+                                            </span>
+                                          ))  
+                                        
+                                        }
+                                      </div>
                 <img
                   src={
                     getAttachmentURL(givenUser.profile_picture_id) ||
@@ -242,8 +262,8 @@ function UserProfile() {
 
               {token && user?.role === ROLES.KING && (
                 <div className="absolute top-0 left-0 hidden md:block">
-                  <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-1 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
-                    <strong>{user.profile.credits} Credits</strong>
+                  <div className="bg-black text-white px-3 sm:px-2 py-1 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
+                    <strong>{user.profile.credits} Crediti</strong>
                   </div>
                 </div>
               )}
@@ -261,7 +281,7 @@ function UserProfile() {
                   </div>
                   <span className="text-black text-[20px]  font-medium md:mt-1 sm:mt-0">
                     ({getAge(givenUser.dob)}
-                    years)
+                    anni)
                   </span>
                 </h1>
 
@@ -270,8 +290,8 @@ function UserProfile() {
                 <div className="flex flex-row   gap-5">
                   {token && user?.role === ROLES.KING && (
                     <div className="w-fit  md:hidden">
-                      <div className="bg-black text-white px-3 hover:bg-[#8880FE] sm:px-2 py-2 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
-                        <strong>{user.profile.credits} Credits</strong>
+                      <div className="bg-black text-white px-3 sm:px-2 py-2 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
+                        <strong>{user.profile.credits} Crediti</strong>
                       </div>
                     </div>
                   )}
@@ -298,7 +318,7 @@ function UserProfile() {
               {givenUser.profile.description && (
                 <div className="mb-6 sm:mb-8">
                   <h2 className="text-[18px] sm:text-[20px] font-bold text-black mb-3">
-                    About Me
+                    Su di me
                   </h2>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     {givenUser.profile.description}
@@ -312,7 +332,7 @@ function UserProfile() {
                   {givenUser.profile.available_services?.length > 0 && (
                     <div className="mb-6 sm:mb-8">
                       <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3">
-                        Available for
+                        Disponibile per
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {optionsAvailableFor
@@ -337,7 +357,7 @@ function UserProfile() {
                   {givenUser.profile.personal_interests?.length > 0 && (
                     <div className="mb-6 sm:mb-8">
                       <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3">
-                        Personality and interests:
+                        Personalità e interessi:
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {optionsInterest
@@ -362,13 +382,13 @@ function UserProfile() {
               {/* Informations */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="text-[18px] sm:text-[20px] font-bold leading-[24px] text-gray-900 mb-4">
-                  Informations
+                  Informazioni
                 </h3>
                 <div className="space-y-3">
                   {givenUser.profile.nationality && (
                     <div className="flex justify-between text-sm">
                       <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                        Nationality
+                        Nazionalità
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                         {capitalizeFirstLetter(givenUser.profile.nationality)}
@@ -381,7 +401,7 @@ function UserProfile() {
                   {givenUser.profile.my_languages?.length > 0 && (
                     <div className="flex justify-between text-sm">
                       <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                        Languages
+                        Lingue
                       </span>
                       <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px] text-right">
                         {languageOptions
@@ -400,7 +420,7 @@ function UserProfile() {
                       {givenUser.profile.shoe_size && (
                         <div className="flex justify-between text-sm">
                           <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                            Shoe Size
+                          Misura della scarpa
                           </span>
                           <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                             {givenUser.profile.shoe_size}
@@ -411,7 +431,7 @@ function UserProfile() {
                       {givenUser.profile.eye_color && (
                         <div className="flex justify-between text-sm">
                           <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                            Eye Colour
+                          Colore degli occhi
                           </span>
                           <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                             {capitalizeFirstLetter(givenUser.profile.eye_color)}
@@ -422,7 +442,7 @@ function UserProfile() {
                       {givenUser.profile.height && (
                         <div className="flex justify-between text-sm">
                           <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                            Height
+                          Altezza
                           </span>
                           <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                             {givenUser.profile.height}cm
@@ -433,7 +453,7 @@ function UserProfile() {
                       {givenUser.profile.weight && (
                         <div className="flex justify-between text-sm">
                           <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                            Weight
+                            Peso
                           </span>
                           <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                             {givenUser.profile.weight}kg
@@ -444,7 +464,7 @@ function UserProfile() {
                       {givenUser.profile.dress_size && (
                         <div className="flex justify-between text-sm">
                           <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                            Dress size
+                            Taglia dell'abbigliamento
                           </span>
                           <span className="text-gray-900 truncate max-w-[50%]  text-[14px] sm:text-[16px]">
                             {givenUser.profile.dress_size}
@@ -455,10 +475,10 @@ function UserProfile() {
                       {givenUser.profile.travel_available !== null && (
                         <div className="flex justify-between text-sm">
                           <span className="text-black text-[14px] sm:text-[16px] font-bold">
-                            Available for Tours
+                            Disponibile a viaggiare
                           </span>
                           <span className="text-gray-900 truncate max-w-[50%] text-[14px] sm:text-[16px]">
-                            {givenUser.profile.travel_available ? "Yes" : "No"}
+                          {givenUser.profile.travel_available ? "Sì" : "No"}
                           </span>
                         </div>
                       )}
@@ -514,7 +534,7 @@ function UserProfile() {
               {/* Start chat section */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4">
-                  Start chat with {givenUser.name}
+                Invia un messaggio a {givenUser.name}
                 </h3>
                 {unlockChat ? (
                   <button
@@ -524,13 +544,13 @@ function UserProfile() {
                     {user?.role == ROLES.KING ? (
                       <div className="flex  items-center gap-2 cursor-pointer justify-center text-[16px] font-bold">
                         {" "}
-                        Unlock Chat for
+                        Sblocca la chat per
                         <div className="text-[#8880FE] ">
-                          {givenUser.profile.unlock_cost} credits
+                          {givenUser.profile.unlock_cost} crediti
                         </div>
                       </div>
                     ) : (
-                      "Send Free Message"
+                      "Invia un messaggio gratuito"
                     )}
                   </button>
                 ) : (
@@ -538,7 +558,7 @@ function UserProfile() {
                     to={`/chat?chat=${givenUser.name}`}
                     className="block w-full bg-black text-white py-4 px-4 sm:px-6 rounded-xl text-sm font-bold text-center hover:bg-[#8880FE] transition-colors"
                   >
-                    Go to the Chat
+                    Vai alla chat
                   </Link>
                 )}
               </div>

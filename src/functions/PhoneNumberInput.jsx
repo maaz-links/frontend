@@ -35,7 +35,7 @@ const PhoneNumberInput = ({
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
           className={`w-3/5 ${fieldClass}`}
-          placeholder="Enter Phone Number"
+          placeholder="Inserisci telefono"
         />
       </div>
       

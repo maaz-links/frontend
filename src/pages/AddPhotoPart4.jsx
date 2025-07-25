@@ -62,9 +62,9 @@ const handleIconClick = () => {
       <Header />
        <BackgroundGrad>
       <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-  <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Load Your Photo</strong></h1>
+  <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Carica le tue foto</strong></h1>
   <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
-    <label className="block text-center text-[20px] mb-[20px]">A good photo is essential, select and upload your best shot! It is mandatory to activate the Profile</label>
+    <label className="block text-center text-[20px] mb-[20px]">Scegli le foto migliori che ti rappresentano di più. E' obbligatorio l'inserimento di almeno una fotografia.</label>
     {/* <form> */}
     {
      isLoading ? <div className="flex justify-center items-center h-64">
@@ -82,7 +82,6 @@ const handleIconClick = () => {
           onChange={handleImageChange}
           accept="image/*"
           style={{ display: 'none' }}
-          multiple // remove this if you only want single file upload
         />
         
         <div className="mb-7 flex justify-center">
@@ -90,11 +89,12 @@ const handleIconClick = () => {
           <img 
             className="py-8 w-[50%] md:w-[40%] cursor-pointer" 
             src={AddImgIcon} 
-            alt="Upload image"
+            alt="Carica immagine"
             onClick={handleIconClick}
           />
         </div>
       </div>
+      // Non ora, grazie <-- If we want to make this optional
     }
     {/* </form> */}
   </div>

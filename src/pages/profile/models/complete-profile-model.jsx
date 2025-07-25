@@ -170,7 +170,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
     try {
       await axiosClient.post('/api/update-profile', payload);
-      toast.success("Profile Updated", {
+      toast.success("Profilo aggiornato", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -178,7 +178,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
       refreshUser();
       onClose();
     } catch (err) {
-      toast.error("Error Updating Profile: Make sure all entered data is valid", {
+      toast.error("Errore durante l'aggiornamento del profilo: assicurati che tutti i dati inseriti siano validi", {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -208,14 +208,14 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
           
             <div className="text-center">
               <h2 className="text-[32px] px-2 md:text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
-                Complete Your Profile
+              Completa il tuo profilo
               </h2>
             </div>
 
             <div className="w-full max-w-[420px] p-1 flex flex-col gap-[18px] overflow-y-auto">
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  About you
+                  A proposito di te
                 </label>
                 <textarea
                   value={formData.about}
@@ -228,7 +228,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Nationality
+                  Nazionalità
                 </label>
                 <select
                   value={formData.nationality}
@@ -236,7 +236,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   className="w-full h-[55px] px-[22px]  py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                 >
                   {!formData.nationality && <option value=''>
-                      Select Nationality
+                      Seleziona la nazionalità
                     </option>}
                   {nationalitiesList.map((nationality) => (
                     <option key={nationality} value={nationality}>
@@ -248,16 +248,14 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Country
+                  Paese
                 </label>
                 <select
                   value={selectedCountry}
                   onChange={(e) => handleCountryChange(e.target.value)}
                   className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                 >
-                  {!selectedCountry && <option value=''>
-                      Select Country
-                    </option>}
+                  {!selectedCountry && <option value=''>Seleziona il Paese</option>}
                   {countries.map(country => (
                     <option key={country.id} value={country.id}>
                       {country.name}
@@ -268,7 +266,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Province
+                Città
                 </label>
                 <select
                   value={selectedProvince}
@@ -276,9 +274,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   disabled={!selectedCountry}
                   className="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent"
                 >
-                  {!selectedCountry && <option value=''>
-                      Select Province
-                    </option>}
+                  {!selectedCountry && <option value=''>Seleziona la Città</option>}
                   {provinces.map(province => (
                     <option key={province.id} value={province.id}>
                       {province.name}
@@ -289,7 +285,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Spoken Languages
+                  Lingue
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {languageOptions.map(({ id, name }) => (
@@ -313,7 +309,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                 <>
                 <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      I am a
+                      Sono un
                     </label>
                     <div className="flex flex-wrap gap-2">
                       {profileTypeList.map(({ id, name }) => (
@@ -335,7 +331,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      Personality and interests
+                      Personalità e interessi:
                     </label>
                     <div className="flex flex-wrap gap-2">
                       {optionsInterest.map(({ id, name }) => (
@@ -381,7 +377,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
               <div className="flex justify-between gap-2">
                 <div className="flex w-full flex-col gap-3">
                   <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    Height (cm)
+                    Altezza (cm)
                   </label>
                   <select
                     value={formData.height}
@@ -402,7 +398,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
                 <div className="flex w-full flex-col gap-3">
                   <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                    Shoe size
+                  Misura della scarpa
                   </label>
                   <select
                     value={formData.shoeSize}
@@ -424,7 +420,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      Eye Color
+                    Colore degli occhi
                     </label>
                     <select
                       value={formData.eyeColor}
@@ -466,7 +462,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   </div> */}
                   <div className="flex w-full flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      Dress size
+                      Taglia dell'abbigliamento
                     </label>
                     <select
                       value={formData.dressSize}
@@ -491,7 +487,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
                   <div className="flex w-full flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      Weight (kg)
+                      Peso (kg)
                     </label>
                     {/* 40 to 130 */}
                     <select
@@ -543,7 +539,7 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
                   <div className="flex flex-col gap-3">
                     <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                      Available to travel or tours
+                      Disponibile per viaggi o tour
                     </label>
                     <div className="grid grid-cols-3 gap-4">
                       {[
@@ -566,13 +562,13 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Visibility of the profile
+                  Visibilità del profilo
                 </label>
                 <div className="flex flex-wrap gap-4">
                   {[
-                    { label: "Normal", value: 0 },
-                    { label: "Private", value: 1 },
-                    { label: "Pause / In Tour", value: 2 }
+                    { label: "Normale", value: 0 },
+                    { label: "Privato", value: 1 },
+                    { label: "Pausa / In Tour", value: 2 }
                   ].map((option) => (
                     <label key={option.value} className="flex items-center gap-2">
                       <input
@@ -585,19 +581,19 @@ const CompleteProfileModal = ({ isOpen, onClose }) => {
                   ))}
                 </div>
                 <p className="text-sm text-gray-600">
-                  <strong>Private:</strong> Profile is visible to logged-in users only.<br />
-                  <strong>Tour:</strong> Profile is hidden except for users you already talked to.
+                  <strong>Privato:</strong> Il profilo è visibile solo agli utenti connessi.<br />
+                  <strong>Tour:</strong> Il profilo è nascosto, tranne che agli utenti con cui hai già parlato.
                 </p>
               </div>
 
               <div className="flex flex-col gap-3">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Notification preferences
+                  Preferenze di notifica
                 </label>
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { label: "Email", value: 0, gridspan:"" },
-                    { label: "Email + SMS", value: 1, gridspan:"col-span-2" }
+                    { label: "Email", value: 0, gridspan: "" },
+                    { label: "Email + SMS", value: 1, gridspan: "col-span-2" }
                   ].map((option) => (
                     <label key={option.value} className={`flex items-center gap-2 ${option.gridspan}`}>
                       <input

@@ -5,7 +5,7 @@ export const RecaptchaVerify = (recaptchaToken) => {
 
     if(import.meta.env.VITE_NOBOTVERIFY_MODE){
         if(!recaptchaToken){
-            toast.error('Please verify you are not a robot with hCapctha',{
+            toast.error('Ti preghiamo di verificare che tu non sia un robot tramite hCaptcha',{
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,

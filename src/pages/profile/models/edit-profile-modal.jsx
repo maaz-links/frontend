@@ -71,7 +71,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
         
         refreshUser()
         
-        toast.success("Profile updated successfully", {
+        toast.success("Informazioni personali aggiornate con successo", {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
@@ -106,7 +106,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
             {/* Title */}
             <div className="text-center">
               <h2 className="text-[32px] leading-[128%] font-bold tracking-[-0.06em] text-[#090909]">
-                Edit Personal Info
+              Dati Personali
               </h2>
             </div>
 
@@ -115,7 +115,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
               {/* Name Field */}
               <div className="flex flex-col gap-3 mb-4">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                Name (or Nickname)
+                Nome (o nickname)
                 </label>
                 <div className="relative">
                   <input
@@ -164,7 +164,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-3 mb-4">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Date of Birth
+                  Data di nascita
                 </label>
                 <DateOfBirthInput ref={dobRef} initialValues={formData.dob} fieldClass="w-full h-[55px] px-[22px] py-[17px] border border-[rgba(12,16,56,0.22)] rounded-xl backdrop-blur-[12.5px] text-base font-medium tracking-[-0.03em] text-[#090909] focus:outline-none focus:ring focus:ring-black/60 focus:border-transparent" />
                   <ErrorText errors={errors} field="dob" />
@@ -174,7 +174,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
               {/* Phone Field */}
               <div className="flex flex-col gap-3 mb-4">
                 <label className="text-base font-bold tracking-[-0.03em] text-[#090909]">
-                  Phone Number
+                  Telefono cellulare
                 </label>
                 <div className="relative">
                   {/* <input
@@ -202,7 +202,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                 type="submit"
                 className="w-full max-w-[426px] h-[60px] bg-[#090909] hover:bg-[#8880FE] rounded-xl flex items-center justify-center text-base font-bold tracking-[-0.03em] text-white transition-colors mt-6"
               >
-                Save Changes
+                Save
               </button>
             </form>
           </div>

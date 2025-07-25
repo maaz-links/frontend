@@ -135,40 +135,6 @@ const Chat = () => {
     setReadStatus(2);
   }
 
-  // Start polling for new messages
-  const startPolling = (chatId) => {
-    // Clear any existing polling
-    if (pollingInterval) {
-      clearInterval(pollingInterval);
-    }
-    //console.log('pooler',chats);
-
-    // Start new polling
-    const interval = setInterval(async () => {
-      // console.log('ref',messagesRef.current.length);
-      // console.log(Math.max(...messagesRef.current.map(m => m.id)))
-      const lastMessageId =
-        messagesRef.current.length > 0
-          ? Math.max(...messagesRef.current.map((m) => m.id))
-          : 0;
-      //console.log(chatId,lastMessageId,messages);
-      try {
-        const response = await axiosClient.get(
-          `/api/chats/${chatId}/messages/poll?last_message_id=${lastMessageId}`
-        );
-        // console.log(response.data);
-        if (response.data.length > 0) {
-          setMessages((prev) => [...prev, ...response.data]);
-          scrollToBottom();
-        }
-      } catch (err) {
-        console.error("Error polling messages:", err);
-      }
-    }, 10000); // Poll every 8 seconds
-
-    setPollingInterval(interval);
-  };
-
   // Archive/unarchive chat
   const toggleArchive = async (chatId, archive) => {
     try {
@@ -224,7 +190,7 @@ const Chat = () => {
       scrollToBottom();
     } catch (err) {
       toast.error(
-        "Error sending message, Your message must not be greater than 1000 characters.",
+        "Errore durante l'invio del messaggio. Il messaggio non deve contenere più di 1000 caratteri.",
         {
           hideProgressBar: true,
           closeOnClick: true,
@@ -521,7 +487,7 @@ const Chat = () => {
             {true && (
               <div className="flex items-center justify-between mb-4 md:mb-0">
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 md:mb-6">
-                  Your Chat
+                La tua chat
                 </h1>
                 {/* {selectedChat && <button
                   className="md:hidden p-2 text-gray-500 hover:text-gray-700"
@@ -544,37 +510,37 @@ const Chat = () => {
             </div> */}
             {/* Tab Buttons */}
             <div className="flex gap-2">
-              <button
-                className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
-                  activeTab === "all"
-                    ? "bg-[#8880FE] text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-                onClick={() => setActiveTab("all")}
-              >
-                All
-              </button>
-              <button
-                className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
-                  activeTab === "archived"
-                    ? "bg-[#8880FE] text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-                onClick={() => setActiveTab("archived")}
-              >
-                Archived
-              </button>
+            <button
+              className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
+                activeTab === "all"
+                  ? "bg-[#8880FE] text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+              onClick={() => setActiveTab("all")}
+            >
+              Tutti
+            </button>
+            <button
+              className={`flex-1 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
+                activeTab === "archived"
+                  ? "bg-[#8880FE] text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+              onClick={() => setActiveTab("archived")}
+            >
+              Archiviati
+            </button>
             </div>
           </div>
           {/* Chat List */}
           <ScrollArea className="flex-1 overflow-y-auto">
             {loading ? (
               <div className="p-4 text-center text-gray-500">
-                Loading chats...
+                Caricamento delle chat...
               </div>
             ) : filteredChats.length === 0 ? (
               <div className="p-4 text-center text-gray-500 ">
-                No chats found
+                Nessuna chat trovata
               </div>
             ) : (
               <div className="space-y-1 px-3">
@@ -646,7 +612,7 @@ const Chat = () => {
                             )}
                           </>
                         ) : (
-                          "No messages yet"
+                          "Nessun messaggio ancora"
                         )}
                       </p>
                        {/* Unread indicator */}
@@ -710,14 +676,14 @@ const Chat = () => {
                         {selectedChatOnline ? (
                           <>
                             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                            <span>Online</span>
+                            <span>In linea</span>
                           </>
                         )
                         :
                         (
                           <>
                             <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                            <span>Offline</span>
+                            <span>Disconnesso</span>
                           </>
                         )
                       }
@@ -763,7 +729,7 @@ const Chat = () => {
                     >
                       <FaArchive className="inline sm:hidden text-xs md:text-sm" />
                       <span className="hidden sm:inline">
-                        {selectedChat.is_archived ? "Unarchive" : "Archive"}
+                        {selectedChat.is_archived ? "Ripristina" : "Archivia"}
                       </span>
                     </button>
                     {selectedChat.unlocked ? <ReportChatButton chatId={selectedChat.id} /> : <></>}
@@ -772,7 +738,7 @@ const Chat = () => {
                 {/* Unlock status */}
                 
                   <div className="mt-3 text-xs md:text-sm text-gray-600">
-                  <span>{selectedChat.unlocked ? `You unlocked the chat. Access is active.` : "This chat is locked"}</span>
+                  <span>{selectedChat.unlocked ? `Questa chat è sbloccata. L'accesso è attivo.` : "Questa chat è bloccata"}</span>
                   </div>
                 
               </div>
@@ -785,7 +751,7 @@ const Chat = () => {
                   <div className="text-center py-8 text-gray-500">
                     <FaComments className="mx-auto text-3xl md:text-4xl mb-4 text-gray-300" />
                     <p className="text-sm md:text-base">
-                      No messages yet. Start the conversation!
+                    Nessun messaggio ancora. Inizia la conversazione!
                     </p>
                   </div>
                 ) : (
@@ -866,7 +832,7 @@ const Chat = () => {
                         <div className="relative md:w-[80%] w-full">
                           <input
                             type="text"
-                            placeholder="Type a message"
+                            placeholder="Digita un messaggio"
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             className="w-full px-4 py-4 bg-white border  border-[#0C103838] rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
@@ -882,7 +848,7 @@ const Chat = () => {
                       </form>
                     ) : (
                       <div className="flex-1 p-3 md:p-4 bg-gray-100 rounded-xl text-gray-600 text-center text-sm md:text-base">
-                        Cannot send message for 60 seconds
+                        Non è possibile inviare il messaggio in questo momento. Per favore, attendi.
                       </div>
                     )}
                   </>
@@ -903,7 +869,7 @@ const Chat = () => {
                           }
                           className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 md:py-4 px-4 md:px-6 rounded-xl transition-colors uppercase text-sm md:text-lg"
                         >
-                          {`UNLOCK CHAT FOR ${selectedChat.other_user.unlock_cost} CREDITS`}
+                          {`Sblocca la chat per ${selectedChat.other_user.unlock_cost} crediti`}
                         </button>
                         <UnlockChatModal
                                 isOpen={isModalOpen}
@@ -917,7 +883,7 @@ const Chat = () => {
                       </div>
                     ) : (
                       <div className="flex-1 p-3 md:p-4 bg-gray-100 rounded-xl text-gray-600 text-center text-sm md:text-base">
-                        Cannot send message until other user unlocks the chat
+                        Impossibile inviare messaggi finché l'altro utente non sblocca la chat.
                       </div>
                     )}
                   </>
@@ -936,7 +902,7 @@ const Chat = () => {
                 </button>
                 <FaComments className="mx-auto text-4xl md:text-6xl text-gray-300 mb-4 " />
                 <p className="text-lg md:text-xl text-gray-500 ">
-                  Select a chat to start messaging
+                  Seleziona una chat per iniziare a inviare messaggi.
                 </p>
               </div>
             </div>

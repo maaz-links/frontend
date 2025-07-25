@@ -499,7 +499,7 @@ function Search() {
                           entity.profile.profile_types.map((type) => (
                             <span
                               key={type.id}
-                              className="bg-black hover:bg-[#8880FE] backdrop-blur-sm text-white text-[10px] sm:text-xs px-2 py-1 rounded-full font-medium"
+                              className="bg-black backdrop-blur-sm text-white text-[10px] sm:text-xs px-2 py-1 rounded-full font-medium"
                             >
                               {type.name}
                             </span>
