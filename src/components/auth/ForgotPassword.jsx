@@ -55,9 +55,9 @@ function ForgotPassword() {
       setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">Password Reset Link Sent</h1>
+                <h1 className=" text-[45px] font-bold">Link per il reset della password inviato</h1>
                 <p className=" my-4 ">
-                  {response.data.message}
+                  Ti abbiamo inviato il link per reimpostare la password via email.
                 </p>
                 <button onClick={() => {setGenericModalOpen(false);navigate('/')}} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
                   OK
@@ -78,13 +78,13 @@ function ForgotPassword() {
       setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">An Error occured</h1>
-                <p className=" my-4 ">
-                  Error sending Link. Please wait before try again.
-                </p>
-                <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
-                  OK
-                </button>
+                  <h1 className=" text-[45px] font-bold">Si è verificato un errore</h1>
+                  <p className=" my-4 ">
+                    Errore durante l'invio del link. Attendere prima di riprovare.
+                  </p>
+                  <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
+                    OK
+                  </button>
                 </>
               )
       const response = err.response;
@@ -103,7 +103,7 @@ function ForgotPassword() {
 <Header />
 <BackgroundGrad>
     <div className="max-w-[700px] bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-            <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Forgot Password</strong></h1>
+            <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Password dimenticata</strong></h1>
             <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
     
     
@@ -111,7 +111,7 @@ function ForgotPassword() {
                 <div className="mb-4 max-w-[600px] mx-auto">
     
                   <div className="mb-15">
-                    <div className="block text-[20px] mb-[20px]"><strong>Email</strong></div>
+                    <div className="block text-[20px] mb-[20px]"><strong>E-mail</strong></div>
                     {/* Email Field */}
                     <input
                       type="email"
@@ -119,7 +119,7 @@ function ForgotPassword() {
                       required
     
                       className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                      placeholder="Enter Email"
+                      placeholder="Inserisci l'e-mail"
                     />
                     <ErrorText field='email' />
     
@@ -133,12 +133,12 @@ function ForgotPassword() {
                       disabled={submitting}
                       className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
                     >
-                      <strong>{submitting ? 'Sending Link...' : 'Send Link'}</strong>
+                      <strong>{submitting ? 'Invio del link in corso...' : 'Invia link'}</strong>
                     </button>
                   </div>
     
                   <div className="text-center my-9">
-                    New User? <strong><Link to='/sign-up'>Sign up for Free</Link></strong>
+                  Nuovo utente? <strong><Link to='/sign-up'>Iscriviti gratuitamente</Link></strong>
                   </div>
                 </div>
               </form>

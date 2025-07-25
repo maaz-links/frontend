@@ -3,7 +3,6 @@ import Footer from "../components/common/footer";
 import Header from "../components/common/header";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
-import { useStateContext } from "../context/ContextProvider";
 
 function BannedNotice() {
   const {username} = useParams();

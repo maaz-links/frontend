@@ -67,9 +67,9 @@ function ResetPassword() {
       setGenericModalOpen(true);
               setGenericModalContent(
                 <>
-                <h1 className=" text-[45px] font-bold">Password Reset Successfully</h1>
+                <h1 className=" text-[45px] font-bold">Password reimpostata con successo</h1>
                 <p className=" my-4 ">
-                  {response.data.message}
+                  La tua password è stata reimpostata con successo.
                 </p>
                 <button onClick={() => setGenericModalOpen(false)} className="bg-black text-white max-w-[300px] rounded-xl px-6 py-3 hover:bg-gray-800 transition w-full">
                   OK
@@ -98,7 +98,7 @@ function ResetPassword() {
 <Header />
 <BackgroundGrad>
     <div className="max-w-[700px]  bg-white mx-auto shadow-md rounded-4xl px-[20px] md:px-[20px] py-[20px]">
-            <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Reset Password</strong></h1>
+            <h1 className="text-center text-[30px] md:text-[40px] my-7"><strong>Reimposta password</strong></h1>
             <div className="max-w-[970px] mx-auto mt-[10px] px-[15px]">
     
     
@@ -106,7 +106,7 @@ function ResetPassword() {
                 <div className="mb-4 max-w-[600px] mx-auto">
                   
                   <div className="mb-7">
-                    <div className="block text-[20px] mb-[20px]"><strong>New Password</strong></div>
+                    <div className="block text-[20px] mb-[20px]"><strong>Nuova password</strong></div>
                     {/* Password Field */}
                     <input
                       type="password"
@@ -114,13 +114,13 @@ function ResetPassword() {
                       required
     
                       className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                      placeholder="Enter New Password"
+                      placeholder="Inserisci la nuova password"
                     />
                     <ErrorText field='password' />
     
                   </div>
                   <div className="mb-15">
-                    <div className="block text-[20px] mb-[20px]"><strong>Confirm New Password</strong></div>
+                    <div className="block text-[20px] mb-[20px]"><strong>Conferma nuova password</strong></div>
                     {/* Password Field */}
                     <input
                       type="password"
@@ -128,7 +128,7 @@ function ResetPassword() {
                       required
     
                       className="w-full h-15 text-md px-5 sm:text-2xl border-2 border-gray-300 focus:outline-0 rounded-2xl"
-                      placeholder=""
+                      placeholder="Inserisci la nuova password"
                     />
                     <ErrorText field='password_confirmation' />
     
@@ -140,12 +140,12 @@ function ResetPassword() {
                       disabled={submitting}
                       className={`${submitting ? 'opacity-50' : ''} cursor-pointer w-full bg-black rounded-2xl text-[20px] text-white p-[22px]`}
                     >
-                      <strong>{submitting ? 'Submitting...' : 'Submit'}</strong>
+                      <strong>{submitting ? 'Invio in corso...' : 'Invia'}</strong>
                     </button>
                   </div>
     
                   <div className="text-center my-9">
-                    New User? <strong><Link to='/sign-up'>Sign up for Free</Link></strong>
+                        Nuovo utente? <strong><Link to='/sign-up'>Iscriviti gratuitamente</Link></strong>
                   </div>
                 </div>
               </form>

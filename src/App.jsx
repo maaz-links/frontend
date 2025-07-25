@@ -83,9 +83,9 @@ const router = createBrowserRouter([
           { path: "/sign-up", element: <SignUp /> },
           { path: "/verify-email", element: <VerifyEmail /> },
           { path: "/verify-phone", element: <VerifyPhone /> },
-          { path: "forgot-password", element: <ForgotPassword /> },
-          { path: "reset-password", element: <ResetPassword /> },
-          { path: "am-i-banned/:username", element: <BannedNotice /> },
+          { path: "/forgot-password", element: <ForgotPassword /> },
+          { path: "/reset-password", element: <ResetPassword /> },
+          { path: "/am-i-banned/:username", element: <BannedNotice /> },
         ],
       },
       {
@@ -105,7 +105,6 @@ const router = createBrowserRouter([
                   </TimeProvider>
                 ),
               },
-              { path: "/profile-old", element: <Profile /> },
               { path: "/profile", element: <ProfilePage /> },
               
               // { path: "/last-views", element: <LastViews /> },
@@ -124,7 +123,7 @@ const router = createBrowserRouter([
                     element: <PaypalSuccessPayment />,
                   },
                   { path: "/paypal/cancel", element: <PaypalCancelPayment /> },
-                  { path: "/purchase-history", element: <PurchaseHistory /> },
+                  //{ path: "/purchase-history", element: <PurchaseHistory /> },
                 ],
               },
             ],
